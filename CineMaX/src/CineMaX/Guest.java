@@ -6,7 +6,7 @@ package CineMaX;
 public class Guest implements GuestUser {
 
 	@Override
-	public Film CercaFilm() {
+	public Film CercaFilm() { 
 		// TODO Auto-generated method stub
 		return null;
 	}
