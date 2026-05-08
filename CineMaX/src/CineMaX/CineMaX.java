@@ -11,7 +11,7 @@ public class CineMaX {
 		System.out.println("CineMaX");
 		// bisogna fare una grafichina carina!!
 		
-		Utente User= new Utente(); // creo un utente guest per garantire l'utilizzo minimo dell'app
+		Guest User= new Guest(); // creo un utente guest per garantire l'utilizzo minimo dell'app
 
 	}
 

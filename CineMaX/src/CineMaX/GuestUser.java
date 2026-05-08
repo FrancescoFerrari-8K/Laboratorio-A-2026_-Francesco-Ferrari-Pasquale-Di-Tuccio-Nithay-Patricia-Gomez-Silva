@@ -8,9 +8,9 @@ public interface GuestUser {
 	
 	Film DettagliFilm(); // Questo metodo permette la visualizzazione dei dettagli di un film
 	
-	Utente Registrati();// Questo metodo permette di registrarsi come nuovo utente
+	Guest Registrati();// Questo metodo permette di registrarsi come nuovo utente
 	
-	Utente Login();// Questo metodo permette di accedere come utente registrato
+	Guest Login();// Questo metodo permette di accedere come utente registrato
 	
 	void Logout();// Questo metodo permette di effettuare il logout;
 
