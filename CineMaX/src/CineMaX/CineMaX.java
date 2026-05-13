@@ -8,7 +8,7 @@ public class CineMaX {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("CineMaX");
+		System.out.println("*****CineMaX*******");
 		// bisogna fare una grafichina carina!!
 		
 		Guest User= new Guest(); // creo un utente guest per garantire l'utilizzo minimo dell'app
