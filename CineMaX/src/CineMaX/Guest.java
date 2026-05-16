@@ -3,7 +3,7 @@ package CineMaX;
 // Questa classe implementa l'interfaccia GuestUser, dunque implementa i metodi che gestiscono le richieste
 // degli utenti non registrati
 
-public class Guest implements GuestUser {
+public class Guest {
 	
 	// Campi
 	
@@ -33,32 +33,31 @@ public class Guest implements GuestUser {
 			this.ID=id;
 		}
 
-	@Override
-	public Film CercaFilm() { 
+	public Film CercaFilm() {  // Questo metodo permette la ricerca di una proiezione
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public Film DettagliFilm() {
+	
+	public Film DettagliFilm() { // Questo metodo permette la visualizzazione dei dettagli di un film
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public Guest Registrati() {
+	
+	public Guest Registrati() { // Questo metodo permette di registrarsi come nuovo utente
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public Guest Login() {
+	
+	public Guest Login() { // Questo metodo permette di accedere come utente registrato
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public void Logout() {
+	
+	public void Logout() { // Questo metodo permette di effettuare il logout;
 		// TODO Auto-generated method stub
 		
 	}
