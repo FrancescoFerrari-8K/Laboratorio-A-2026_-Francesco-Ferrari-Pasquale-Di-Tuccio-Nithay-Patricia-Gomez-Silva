@@ -4,7 +4,6 @@ public class Cliente extends Guest {
 
     //parametri //
 
-    // private String IDCliente;
     //costruttore//
 
     public Cliente (String nome, String cognome, String password, int id ){
@@ -13,26 +12,51 @@ public class Cliente extends Guest {
 
 
       //metodi//
-    // public String getIDCliente(){
-    //     return this.IDCliente;
-    // }
-    //il set no si implementa perche non si deve mai modificare l'ID dalla creazione//
-    
-      //-inserire una prenotazione//
 
       //- cerca proiezione (implementato da guest)//
-      // CercaFilm()
-
       //- visulazza proiezione (implementato da guest)//
-      //DettagliFilm()
+
+
+
 
       //-visualizzare le propie prenotazioni//
+    public void visualizzarePrenotazione(){
+        //leggere file prenotazione 
+        //strarre le prenotazioni a nome di questo cliente
+        //mostrarle
+
+    }
+
       //crea prenotazione//
+      public Prenotazione creaPrenotazione(Proiezione proiezione, int fila, int posto){
+        //TODO: controllare il numero di posti disponibili della proiezione e creare la prenotazione solo si ci sono posti
+        
+        Prenotazione prenotazione = new Prenotazione("nithay", "gomez", proiezione, fila,posto);
+        // Prenotazione prenotazione = new Prenotazione(this.getNome(), this.getCognome(), film, fila,posto);
+        return prenotazione;
+
+      }
+
       //modifica prenotazione//
+      public void modificaPrenotazione(int idPrenotazioneDaModificare, Prenotazione nuovaPrenotazione){
+        //leggere file prenotazione 
+        //trovare prenotazione con idPrenotazioneDaModificare
+        //sostituirla con nuovaPrenotazione
+        //salvare file prenotazione
+      }
+
       //elimina prenotazione//
+      public void eliminaPrenotazione(int idPrenotazioneDaEliminare){
 
-      //-modificare e cancellare le proprie prenotazioni//
+         //leggere file prenotazione 
+          //trovare prenotazione con idPrenotazioneDaEliminare
+          //eliminarla
+          //salvare file prenotazione
+      }
+     
       //-logout//
-
+      public void logout(){
+        
+      }
 
 }
