@@ -1,5 +1,10 @@
 package CineMaX;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class CineMaX {
 	
 	// All'avvio l'app crea un oggetto UtenteGuest (non registrato) per permettere la ricerca di una proiezione
@@ -12,6 +17,18 @@ public class CineMaX {
 		// bisogna fare una grafichina carina!!
 		
 		Guest User= new Guest(); // creo un utente guest per garantire l'utilizzo minimo dell'app
+		
+		try {
+			 ArrayList<LinkedList<String>> a=Film.caricaFilm();
+			 System.out.println(a.size());
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

@@ -1,0 +1,108 @@
+package CineMaX;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
+
+
+
+public class Film { // Questa classe costruisce oggetti di tipo Film
+	
+	// Campi
+	
+    private String Titolo;
+	
+	private String Genere;
+	
+	private String Regista;
+	
+	private int Anno;
+	
+	private int Durata; // In minuti	
+
+	private int Età; // Età minima
+	
+	private double Prezzo; //Costo biglietto proiezione
+	
+	// Costruttori
+	
+	public Film(String titolo, String genere, String regista, int anno, int durata, int età) {
+		
+		this.Titolo=titolo;
+		this.Genere=genere;
+		this.Regista=regista;
+		this.Anno=anno;
+		this.Durata=durata;
+		this.Età=età;
+	}
+	
+	// Metodi
+	
+	// Getter
+	
+	public String getTitolo(){
+		return Titolo;
+	}
+	
+	public String getGenere(){
+		return Genere;
+	}
+	
+	public String getRegista(){
+		return Regista;
+	}
+	
+	public int getAnno(){
+		return Anno;
+	}
+	
+	public int getAnno(){
+		return Anno;
+	}
+	
+	public int getEtà(){
+		return Anno;
+	}
+	
+	public double getPrezzo(){
+		return Prezzo;
+	}
+	
+	//cercaFilm: questo metodo permette la ricerca di un film nel file proiezioni.csv
+	
+	
+	
+	public void cercaFilm(String film) throws FileNotFoundException, IOException{
+		//trova il percorso assoluto del file proiezioni.csv per rendere il metodo indipendente dalla macchina su cui è eseguito
+		String percorso= new File(".\\data\\proiezioni.csv").getAbsolutePath(); 
+		
+		//lettura del file
+		try (BufferedReader buffread= new BufferedReader(new FileReader(percorso))) {
+			String riga //legge la prima linea del file
+			while((riga=buffread.readLine())!=null) {//leggo le linee successive;
+			riga=buffread.readLine();	
+			System.out.print(riga);
+				
+			}
+			buffread.close();
+			
+			riga=buffread.readLine();
+			String[] colonne=riga.split(","); //divido le colonne col separatore decimale , essendo il file di tipo csv
+			String dataeora=colonne[0];
+			String titolo=colonne[1];
+			String genere=colonne[2];
+			String regista=colonne[3];
+			String anno=colonne[4];
+			String durata=colonne[5];
+			String età=colonne[6];
+			String prezzo=colonne[7];
+			
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+			
+		}
+	}
+
+}
