@@ -28,10 +28,10 @@ public class Cliente extends Guest {
     }
 
       //crea prenotazione//
-      public Prenotazione creaPrenotazione(Proiezione proiezione, int fila, int posto){
+      public Prenotazione creaPrenotazione( String prenotazione_Data, String prenotazione_Titolo, int fila, int posto){
         //TODO: controllare il numero di posti disponibili della proiezione e creare la prenotazione solo si ci sono posti
         
-        Prenotazione prenotazione = new Prenotazione("nithay", "gomez", proiezione, fila,posto);
+        Prenotazione prenotazione = new Prenotazione(this.getNome(), this.getCognome(), prenotazione_Data, prenotazione_Titolo, fila, posto);
         // Prenotazione prenotazione = new Prenotazione(this.getNome(), this.getCognome(), film, fila,posto);
         return prenotazione;
 

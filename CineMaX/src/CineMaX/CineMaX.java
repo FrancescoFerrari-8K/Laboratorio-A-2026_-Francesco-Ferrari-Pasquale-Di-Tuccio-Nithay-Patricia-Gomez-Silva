@@ -23,8 +23,14 @@ public class CineMaX {
 		try {
 			ArrayList<LinkedList<String>> a = Film.caricaFilm();
 			System.out.println(a.size());
-			
+
 			mostraMenuCliente(false);
+			// ArrayList<Prenotazione> arrayTest = Prenotazione.caricaPrenotazioni();
+
+			
+			// for(Prenotazione prenot : arrayTest){
+			// 	System.out.println(prenot.toString());
+			// }
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -34,20 +40,17 @@ public class CineMaX {
 			e.printStackTrace();
 		}
 
-	
 	}
-	//mettere test true mostra l'interfaccia del menu cliente//
-	public static void  mostraMenuCliente(boolean test){
 
-	
-		
+	// mettere test true mostra l'interfaccia del menu cliente//
+	public static void mostraMenuCliente(boolean test) {
+
 		if (test == true) {
 			int sceltaMenucliente = 0;
 			Scanner sc = new Scanner(System.in);
-			
 
 			do {
-				//interfaccia di menuCliente//
+				// interfaccia di menuCliente//
 				System.out.println("---MENU CLIENTE---");
 				System.out.println("");
 				System.out.println("-Scegli un numero (1,2,3) per continuare-");
@@ -64,7 +67,7 @@ public class CineMaX {
 						int sceltaProiezione;
 
 						do {
-							//interfaccia di cerca proiezione//
+							// interfaccia di cerca proiezione//
 							System.out.println("---CERCA PROIEZIONE---");
 							System.out.println("");
 							System.out.println("-Scegli un numero per continuare-");
@@ -73,7 +76,7 @@ public class CineMaX {
 							System.out.println("2- Titolo");
 							System.out.println("3- Data");
 							System.out.println("4- Costo");
-							//TODO: fare proiezioni disponibili//
+							// TODO: fare proiezioni disponibili//
 							System.out.println("5- Mostra proiezioni disponibili");
 							System.out.println("0- INDIETRO");
 							System.out.println("");
@@ -82,7 +85,7 @@ public class CineMaX {
 
 							switch (sceltaProiezione) {
 
-								//interfaccia di genere//
+								// interfaccia di genere//
 								case 1:
 									int sceltaGenere;
 
@@ -106,7 +109,7 @@ public class CineMaX {
 									break;
 
 								case 2:
-									//interfaccia di titolo//
+									// interfaccia di titolo//
 									String sceltaTitolo;
 									System.out.println("---TITOLO---");
 									System.out.println("");
@@ -117,19 +120,21 @@ public class CineMaX {
 									break;
 
 								case 3:
-									//interfaccia di data//
+									// interfaccia di data//
 									String sceltaData;
 									System.out.println("---DATA---");
 									System.out.println("");
-									//TODO: controllare se la data inserita e in un formatto corretto e se e una data futura//
-									System.out.println(	"Inserisce data (GG/MM/YYYY) della proiezione che vuoi vedere oppure 0 per tornare indietro: ");
+									// TODO: controllare se la data inserita e in un formatto corretto e se e una
+									// data futura//
+									System.out.println(
+											"Inserisce data (GG/MM/YYYY) della proiezione che vuoi vedere oppure 0 per tornare indietro: ");
 									sc.nextLine();
 									sceltaData = sc.nextLine();
 									System.out.println("");
 									break;
 
 								case 4:
-									//interfaccia di costo//
+									// interfaccia di costo//
 									int sceltaCosto;
 									System.out.println("---COSTO---");
 									System.out.println("");
@@ -143,9 +148,9 @@ public class CineMaX {
 									System.out.println("Scelta: ");
 									sceltaCosto = sc.nextInt();
 									break;
-										case 5:
-											System.out.println("---PROIEZIONI DISPONIBILI---");
-											System.out.println("");
+								case 5:
+									System.out.println("---PROIEZIONI DISPONIBILI---");
+									System.out.println("");
 
 							}
 
@@ -154,7 +159,7 @@ public class CineMaX {
 						break;
 
 					case 2:
-						//interfaccia di prenotazione//
+						// interfaccia di prenotazione//
 						int sceltaPrenotazioni;
 						System.out.println("---LE MIE PRENOTAZIONI---");
 						System.out.println("");
@@ -169,29 +174,28 @@ public class CineMaX {
 						System.out.println("Scelta");
 						sceltaPrenotazioni = sc.nextInt();
 
-						switch(sceltaPrenotazioni){
+						switch (sceltaPrenotazioni) {
 							case 1:
-								//interfaccia di prenotazione posto (manca finire)//
+								// interfaccia di prenotazione posto (manca finire)//
 								System.out.println("---PRENOTA POSTO---");
 								System.out.println("");
 								break;
 
-								case 2:
-									System.out.println("---VISUAIZZA PRENOTAZIONE---");
-									System.out.println("");
-									break;
+							case 2:
+								System.out.println("---VISUAIZZA PRENOTAZIONE---");
+								System.out.println("");
+								break;
 
-									case 3:
-										System.out.println("---MODIFICA PRENOTAZIONE---");
-										System.out.println("");
-										break;
+							case 3:
+								System.out.println("---MODIFICA PRENOTAZIONE---");
+								System.out.println("");
+								break;
 
-										case 4: 
-										System.out.println("---ELIMINA PRENOTAZIONE---");
-										System.out.println("");
-										break;
+							case 4:
+								System.out.println("---ELIMINA PRENOTAZIONE---");
+								System.out.println("");
+								break;
 
-									 
 						}
 
 						break;
@@ -205,12 +209,9 @@ public class CineMaX {
 				}
 
 			} while (sceltaMenucliente != 3);
-			
 
 		}
 
 	}
-
-	
 
 }

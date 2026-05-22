@@ -33,6 +33,23 @@ public class Guest {
 			this.ID=id;
 		}
 
+
+		public String getNome(){
+			return this.Nome;
+		}
+
+		public void setNome(String nome){
+			this.Nome = nome;
+		}
+
+		public String getCognome(){
+			return this.Cognome;
+		}
+
+		public void setCognome(String Cognome){
+			this.Cognome = Cognome;
+		
+		}
 	public Film CercaFilm() {  // Questo metodo permette la ricerca di una proiezione
 		// TODO Auto-generated method stub
 		return null;
