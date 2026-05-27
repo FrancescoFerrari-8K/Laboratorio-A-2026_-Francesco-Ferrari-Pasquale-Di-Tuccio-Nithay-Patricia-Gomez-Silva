@@ -1,61 +1,54 @@
-package CineMax;
-public class Proiezione {
-    // Qui elenchiamo le caratteristiche che deve avere ogni singola proiezione
-    private String titoloFilm;     
-    private String orario;       
-    private int numeroSala;         
+package CineMaX;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+// Classe che rappresenta una singola proiezione del cinema
+// Implementa Comparable per permettere l'ordinamento in base alla data
+public class Proiezione implements Comparable<Proiezione> {
+    // Colleghiamo la proiezione all'oggetto Film scritto nella classe film
+    private Film film;     
+    private LocalDateTime dataOra;            
     private double prezzoBiglietto; 
-    private int postiDisponibili;   
+    private static final int CAPIENZA_MASSIMA = 200; 
 
-    // Questo è il costruttore che ci serve per creare concretamente una proiezione inserendo i dati iniziali
-    public Proiezione(String titoloFilm, String orario, int numeroSala, double prezzoBiglietto, int postiDisponibili) {
-        this.titoloFilm = titoloFilm;
-        this.orario = orario;
-        this.numeroSala = numeroSala;
+    // Costruttore: riceve il film, la data e il prezzo (la sala non serve essendo monosala)
+    public Proiezione(Film film, LocalDateTime dataOra, double prezzoBiglietto) {
+        this.film = film;
+        this.dataOra = dataOra;
         this.prezzoBiglietto = prezzoBiglietto;
-        this.postiDisponibili = postiDisponibili;
     }
 
-    // Metodo per "ricalcolare" i posti quando qualcuno compra i biglietti
-    public boolean prenotaPosti(int numeroPosti) {
-        // Controllo di sicurezza: non puoi prenotare 0 o posti negativi
-        if (numeroPosti <= 0) {
-            System.out.println("Errore: Devi inserire un numero di posti maggiore di zero!");
-            return false; 
-        }
+    // Calcola i posti liberi sottraendo quelli prenotati ai 200 totali
+    public int calcolaPostiLiberi(int postiPrenotati) {
+        return Math.max(CAPIENZA_MASSIMA - postiPrenotati, 0);
+    }
+
+    // Confronta la data di questa proiezione con un'altra per l'ordinamento
+    public int compareTo(Proiezione altra) {
+        return this.dataOra.compareTo(altra.getDataOra());
+    }
+
+    // Stampa a schermo tutti i dettagli della proiezione
+    public void visualizzaProiezione(int postiPrenotati) {
+        // Formato italiano per la data e l'orario
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         
-        // Se i posti richiesti ci sono, li sottraggo da quelli totali disponibili
-        if (this.postiDisponibili >= numeroPosti) {
-            this.postiDisponibili = this.postiDisponibles - numeroPosti;
-            return true; // Ritorna true per dire che la prenotazione è andata a buon fine
-        } else {
-            // Se non ci sono abbastanza sedili liberi, blocco la prenotazione
-            System.out.println("Non ci sono abbastanza posti! Ne rimangono solo: " + this.postiDisponibili);
-            return false; // Ritorna false perché non è stato possibile fare la prenotazione
-        }
+        System.out.println("--- DETTAGLIO PROIEZIONE ---");
+        System.out.println("Film: " + film.getTitolo() + " (" + film.getGenere() + ", " + film.getDurata() + " min)");
+        System.out.println("Data e Ora: " + dataOra.format(formatter));
+        System.out.println("Costo Biglietto: €" + prezzoBiglietto);
+        System.out.println("Posti Liberi: " + calcolaPostiLiberi(postiPrenotati) + " / " + CAPIENZA_MASSIMA);
+        System.out.println("----------------------------");
     }
 
-    // Questo metodo serve solamente per stampare a schermo i dati del film
-    public void stampaDettagli() {
-        System.out.println("Film: " + titoloFilm + " | Ora: " + orario + 
-                           " | Sala: " + numeroSala + " | Prezzo: €" + prezzoBiglietto + 
-                           " | Posti Liberi: " + postiDisponibili);
-    }
+    // Metodi Getter e Setter
+    public Film getFilm() { return film; }
+    public void setFilm(Film film) { this.film = film; }
 
-    // Da qui in poi ci sono i classici metodi get standard per permettere alle altre classi di leggere o modificare le variabili
-    public String getTitleFilm() { return titoloFilm; }
-    public void setTitoloFilm(String titoloFilm) { this.titoloFilm = titoloFilm; }
-
-    public String getOrario() { return orario; }
-    public void setOrario(String orario) { this.orario = orario; }
-
-    public int getNumeroSala() { return numeroSala; }
-    public void setNumeroSala(int numeroSala) { this.numeroSala = numeroSala; }
+    public LocalDateTime getDataOra() { return dataOra; }
+    public void setDataOra(LocalDateTime dataOra) { this.dataOra = dataOra; }
 
     public double getPrezzoBiglietto() { return prezzoBiglietto; }
     public void setPrezzoBiglietto(double prezzoBiglietto) { this.prezzoBiglietto = prezzoBiglietto; }
-
-    public int getPostiDisponibili() { return postiDisponibili; }
-    public void setPostiDisponibili(int postiDisponibili) { this.postiDisponibili = postiDisponibili; }
 }
-
