@@ -1,59 +1,89 @@
 package CineMaX;
-import java.util.ArrayList; // Importiamo l'ArrayList che serve per fare la lista dinamica dei film
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+// Classe che rappresenta il Proiezionista e le sue azioni sul palinsesto
 public class Proiezionista {
-    // Caratteristiche del proiezionista
     private String nome;
     private String idProiezionista;
-    // Creiamo una lista dinamica (ArrayList) che conterrà tutte le proiezioni create
-    private ArrayList<Proiezione> listaProiezioni; 
 
-    // Costruttore per creare il proiezionista
+    // Costruttore del proiezionista
     public Proiezionista(String nome, String idProiezionista) {
         this.nome = nome;
         this.idProiezionista = idProiezionista;
-        this.listaProiezioni = new ArrayList<>(); 
     }
 
-    // Metodo per aggiungere un nuovo film/proiezione alla lista
-    public void aggiungiProiezione(Proiezione p) {
-        listaProiezioni.add(p); // Aggiunge l'oggetto proiezione dentro l'ArrayList
-        System.out.println("Proiezione di \"" + p.getTitoloFilm() + "\" inserita nel sistema.");
+    // Aggiunge un film, controlla che l'orario sia libero e ordina il palinsesto
+    public boolean aggiungiProiezioneAlPalinsesto(Proiezione nuovaProiezione, ArrayList<Proiezione> palinsesto) {
+        
+        // 1. CONTROLLO SOVRAPPOSIZIONI DI ORARIO
+        // Controlliamo ogni film già presente in palinsesto
+        for (Proiezione p : palinsesto) {
+            // Calcoliamo quando inizia e quando finisce il film già presente
+            LocalDateTime inizioEsistente = p.getDataOra();
+            LocalDateTime fineEsistente = inizioEsistente.plusMinutes(p.getFilm().getDurata());
+            
+            // Calcoliamo quando inizia e quando finisce il nuovo film
+            LocalDateTime inizioNuova = nuovaProiezione.getDataOra();
+            LocalDateTime fineNuova = inizioNuova.plusMinutes(nuovaProiezione.getFilm().getDurata());
+            
+            // Se gli orari si incrociano, blocchiamo l'inserimento
+            if (inizioNuova.isBefore(fineEsistente) && fineNuova.isAfter(inizioEsistente)) {
+                System.out.println("ERRORE: Il cinema è già occupato in quell'orario dal film: " + p.getFilm().getTitolo());
+                return false; 
+            }
+        }
+
+        // Se l'orario è libero, aggiungiamo il film alla lista
+        palinsesto.add(nuovaProiezione);
+        System.out.println("Proiezione di \"" + nuovaProiezione.getFilm().getTitolo() + "\" inserita con successo.");
+
+        // 2. ORDINAMENTO CRONOLOGICO AUTOMATICO (Bubble Sort)
+        // Mette in ordine i film dal più vicino al più lontano usando due cicli for
+        int n = palinsesto.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                // Se il film attuale viene dopo quello successivo, li scambia di posto
+                if (palinsesto.get(j).getDataOra().isAfter(palinsesto.get(j + 1).getDataOra())) {
+                    Proiezione temp = palinsesto.get(j);
+                    palinsesto.set(j, palinsesto.get(j + 1));
+                    palinsesto.set(j + 1, temp);
+                }
+            }
+        }
+        return true;
     }
 
-    // Metodo per cancellare un film cercando il suo titolo
-    public boolean rimuoviProiezione(String titoloFilm) 
-        for (int i = 0; i < listaProiezioni.size(); i++) {
-            if (listaProiezioni.get(i).getTitoloFilm().equalsIgnoreCase(titoloFilm)) {
-                listaProiezioni.remove(i); // Lo cancelliamo dalla lista tramite la sua posizione (i)
+    // Rimuove un film dal palinsesto cercando per titolo, ma solo se non ci sono prenotazioni
+    public boolean rimuoviProiezioneDalPalinsesto(String titoloFilm, ArrayList<Proiezione> palinsesto, ArrayList<Prenotazione> listaPrenotazioni) {
+
+        for (int i = 0; i < palinsesto.size(); i++) {
+            Proiezione p = palinsesto.get(i);
+            
+            // Se troviamo il titolo corrispondente (ignorando maiuscole/minuscole)
+            if (p.getFilm().getTitolo().equalsIgnoreCase(titoloFilm)) {
+                
+                // CONTROLLO DI SICUREZZA: Cerchiamo se ci sono già biglietti venduti
+                for (Prenotazione pr : listaPrenotazioni) {
+                    // Usiamo getProiezioni() per collegarci al codice dei compagni
+                    if (pr.getProiezioni().equals(p)) {
+                        System.out.println("ERRORE: Impossibile rimuovere \"" + titoloFilm + "\". Ci sono prenotazioni attive!");
+                        return false; 
+                    }
+                }
+                
+                // Se non ci sono prenotazioni, cancelliamo il film dal palinsesto
+                palinsesto.remove(i);
                 System.out.println("Il film \"" + titoloFilm + "\" è stato rimosso dal palinsesto.");
-                return true; 
+                return true;
             }
         }
-        // Se il ciclo finisce e non ha trovato nulla, avvisa l'utente
-        System.out.println("Nessun film trovato con il nome: " + titoloFilm);
-        return false; 
+        System.out.println("Nessun film trovato in palinsesto con il nome: " + titoloFilm);
+        return false;
     }
 
-    // Metodo che stampa l'elenco di tutti i film attualmente caricati
-    public void visualizzaPalinsesto() {
-        System.out.println("\n--- PROGRAMMAZIONE CINEMAX ---");
-        if (listaProiezioni.isEmpty()) {
-            System.out.println("Al momento non ci sono proiezioni programmate.");
-        } else {
-            for (Proiezione p : listaProiezioni) {
-                p.stampaDettagli(); // Sfrutta il metodo di stampa che abbiamo scritto nella classe Proiezione
-            }
-        }
-        System.out.println("----------------------------------");
-    }
-
-    // Questo serve a dare la lista dei film al Main (così anche i Clienti possono vederla per prenotare)
-    public ArrayList<Proiezione> getListaProiezioni() {
-        return listaProiezioni;
-    }
-
-    // Classici metodi get per il nome e l'ID del dipendente
+    // Metodi Getter e Setter 
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
 
