@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -26,16 +27,26 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 	// Costruttori
 
-	public Prenotazione(String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo, int fila,
+	public Prenotazione(String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
 			int NPosti) {
 
 		this.Nome = nome;
 		this.Cognome = cognome;
 		this.Proiezione_Data = Proiezione_Data;
 		this.Proiezione_Titolo = Proiezione_Titolo;
-		this.Fila = fila;
 		this.NPosti = NPosti;
 		this.ID = Prenotazione.generaNuovoID();
+	}
+
+	public Prenotazione(int ID, String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
+			int NPosti) {
+
+		this.Nome = nome;
+		this.Cognome = cognome;
+		this.Proiezione_Data = Proiezione_Data;
+		this.Proiezione_Titolo = Proiezione_Titolo;
+		this.NPosti = NPosti;
+		this.ID = ID;
 	}
 
 	// metodi//
@@ -158,16 +169,18 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 																// diventa null (dopo l'ultima riga!)
 					colonne = riga.split(",");// divido le colonne col separatore decimale , essendo il file di tipo csv
 												// aggiungo le stringhe nelle relative LinkedList
-					Prenotazione PrenotazioneTemp = new Prenotazione(colonne[0], colonne[1],
-							LocalDateTime.parse(colonne[2].replace("\"", "")), colonne[3],
-							Integer.parseInt(colonne[4]), Integer.parseInt(colonne[5]));
+
+					Prenotazione PrenotazioneTemp = new Prenotazione(Integer.parseInt(colonne[0]), colonne[1],
+							colonne[2],
+							LocalDateTime.parse(colonne[3].replace("\"", "")), colonne[4],
+							Integer.parseInt(colonne[5]));
 					listaPrenotazioni.add(PrenotazioneTemp);
 				}
 				// chiusura degli stream per evitare memory leaks
 				buffread.close();
 				frd.close();
 
-			}catch (IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 				return listaPrenotazioni;
 			}
@@ -181,18 +194,19 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	public static boolean aggiungiPrenotazioneAlCSV(Prenotazione prenotazione) {
 		try (FileWriter writer = new FileWriter(percorsoFile, true)) {
 
-			String nuovaRiga = prenotazione.getID() + "," +
-					prenotazione.getCognome() + ", " +
-					prenotazione.getProiezione_Titolo() + ", " +
-					"\"" + prenotazione.getProiezione_Data() + "\"" + ", " +
-					prenotazione.getFila() + ", " +
-					prenotazione.getNPosti() + "\n ";
+			String nuovaRiga = "\n" + prenotazione.getID() + "," +
+					prenotazione.getNome() + "," +
+					prenotazione.getCognome() + "," +
+					"\""
+					+ prenotazione.getProiezione_Data().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
+					+ "\"" + "," + "\"" + prenotazione.getProiezione_Titolo() + "\"" + "," +
+					prenotazione.getNPosti();
 
-					writer.write(nuovaRiga);
+			writer.write(nuovaRiga);
 
-					System.out.println("la prenotazione è stata inserita nel nostro sistema");
-					writer.close();
-					return true;
+			System.out.println("la prenotazione è stata inserita nel nostro sistema");
+			writer.close();
+			return true;
 		} catch (IOException e) {
 			System.out.println("la prenotazione non e  andata a buon fine: ");
 			e.printStackTrace();

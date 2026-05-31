@@ -64,7 +64,7 @@ public class Cliente extends Guest {
         // aggiungo le stringhe nelle relative LinkedList
         Prenotazione PrenotazioneTemp = new Prenotazione(colonne[0], colonne[1], LocalDateTime.parse(colonne[2]),
             colonne[3],
-            Integer.parseInt(colonne[4]), Integer.parseInt(colonne[5]));
+             Integer.parseInt(colonne[4]));
         listaPrenotazioni.add(PrenotazioneTemp);
       }
       // chiusura degli stream per evitare memory leaks
@@ -90,19 +90,19 @@ public class Cliente extends Guest {
   }
 
   // crea prenotazione//
-  public boolean creaPrenotazione(Proiezione proiezioneSelezionata, int fila, int posto) {
+  public boolean creaPrenotazione(Proiezione proiezioneSelezionata, int posti) {
     
-    int postiLiberiDopoLaPrenotazione = proiezioneSelezionata.calcolaPostiLiberi(posto);
+    int postiLiberiDopoLaPrenotazione = proiezioneSelezionata.calcolaPostiLiberi(posti);
 
     if (postiLiberiDopoLaPrenotazione >= 0) {
       // prenota
       Prenotazione prenotazione = new Prenotazione(this.getNome(), this.getCognome(),
           proiezioneSelezionata.getDataOra(),
-          proiezioneSelezionata.getFilm().getTitolo(), fila, posto);
+          proiezioneSelezionata.getFilm().getTitolo(), posti);
 
 
       return Prenotazione.aggiungiPrenotazioneAlCSV(prenotazione);
-      
+
     } else {
       System.out.println("non si puo efettuare la prenotazione perche non ci sono posti disponibili");
       return false;
@@ -239,8 +239,14 @@ public class Cliente extends Guest {
                   sceltaCosto = sc.nextInt();
                   break;
                 case 5:
-                  System.out.println("---PROIEZIONI DISPONIBILI---");
-                  System.out.println("");
+                    //chiamo il metodo che mi da tutte le proiezione filtrate 
+                    
+                    Proiezione proiezioneTest = new Proiezione(
+                      new Film("2027-12-28T15:30:00", "Blue Velvet", "Zombie","NitReg","2020","3","3","2"),
+                       LocalDateTime.now(),
+                        10);
+                      this.creaPrenotazione(proiezioneTest, 3);
+
 
               }
 
