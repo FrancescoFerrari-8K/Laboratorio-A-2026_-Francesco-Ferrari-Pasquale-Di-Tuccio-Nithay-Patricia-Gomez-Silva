@@ -24,56 +24,62 @@ public class Cliente extends Guest {
   // - cerca proiezione (implementato da guest)//
   // - visulazza proiezione (implementato da guest)//
 
-  //  metodo che messo in input l'ID del cliente posso restituire un objetto del tipo cliente
-  public static Cliente getClienteDaFile(int IdCliente){
+  // metodo che messo in input l'ID del cliente posso restituire un objetto del
+  // tipo cliente
+  public static Cliente getClienteDaFile(int IdCliente) {
 
     return null;
   }
 
-  ///questo metodo estrae dal file di prenotazione tutte le prenotazione e me li ristituisce///
-	public static ArrayList<Prenotazione> caricaPrenotazioni() throws FileNotFoundException, IOException {
-		// trova il percorso assoluto del file proiezioni.csv per rendere il metodo
-		// indipendente dalla macchina su cui è eseguito
-		String percorso = new File("..\\..\\data\\Prenotazioni.csv").getAbsolutePath(); // il doppio punto è per andare
-																						// nella directory padre
+  /// questo metodo estrae dal file di prenotazione tutte le prenotazione e me
+  /// li ristituisce
+  public static ArrayList<Prenotazione> caricaPrenotazioni()  {
+    // trova il percorso assoluto del file proiezioni.csv per rendere il metodo
+    // indipendente dalla macchina su cui è eseguito
+    String percorso = new File("..\\..\\data\\Prenotazioni.csv").getAbsolutePath(); // il doppio punto è per andare
+                                                                                    // nella directory padre
 
+    // inizializzo l'array di linkedlist datastruct
+    ArrayList<Prenotazione> listaPrenotazioni = new ArrayList<Prenotazione>();
 
-		// inizializzo l'array di linkedlist datastruct
-		ArrayList<Prenotazione> listaPrenotazioni = new ArrayList<Prenotazione>();
+    // lettura del file e scrittura delle colonne come linkedlists nell' array
+    // datastruct
+    FileReader frd;
+    try {
+      frd = new FileReader(percorso);
+    try (BufferedReader buffread = new BufferedReader(frd)) {
+      String riga; // Creo la variabile che contiene ad ogni iterazione la riga successiva del file
+      String[] colonne; // inizializzo la variabile che crea l'array di stringhe che contiene i valori
+                        // estratti dal file da inserire nelle LinkedList
 
-		// lettura del file e scrittura delle colonne come linkedlists nell' array
-		// datastruct
-		FileReader frd = new FileReader(percorso);
-		try (BufferedReader buffread = new BufferedReader(frd)) {
-			String riga; // Creo la variabile che contiene ad ogni iterazione la riga successiva del file
-			String[] colonne; // inizializzo la variabile che crea l'array di stringhe che contiene i valori
-								// estratti dal file da inserire nelle LinkedList
+      // Leggi la prima riga (l'intestazione) a vuoto per saltarla
+      if (buffread.readLine() != null) {
+        // Usiamo un 'if' per sicurezza, nel caso in cui il file fosse completamente
+        // vuoto
+      }
 
-			// Leggi la prima riga (l'intestazione) a vuoto per saltarla
-			if (buffread.readLine() != null) {
-				// Usiamo un 'if' per sicurezza, nel caso in cui il file fosse completamente
-				// vuoto
-			}
+      while ((riga = buffread.readLine()) != null) {// leggo il file riga per riga fino a quando la riga non
+                                                    // diventa null (dopo l'ultima riga!)
+        colonne = riga.split(",");// divido le colonne col separatore decimale , essendo il file di tipo csv
+        // aggiungo le stringhe nelle relative LinkedList
+        Prenotazione PrenotazioneTemp = new Prenotazione(colonne[0], colonne[1], LocalDateTime.parse(colonne[2]),
+            colonne[3],
+            Integer.parseInt(colonne[4]), Integer.parseInt(colonne[5]));
+        listaPrenotazioni.add(PrenotazioneTemp);
+      }
+      // chiusura degli stream per evitare memory leaks
+      buffread.close();
+      frd.close();
 
-			while ((riga = buffread.readLine()) != null) {// leggo il file riga per riga fino a quando la riga non
-															// diventa null (dopo l'ultima riga!)
-				colonne = riga.split(",");// divido le colonne col separatore decimale , essendo il file di tipo csv
-				// aggiungo le stringhe nelle relative LinkedList
-				Prenotazione PrenotazioneTemp = new Prenotazione(colonne[0], colonne[1],LocalDateTime.parse(colonne[2]), colonne[3],
-						Integer.parseInt(colonne[4]), Integer.parseInt(colonne[5]));
-				listaPrenotazioni.add(PrenotazioneTemp);
-			}
-			// chiusura degli stream per evitare memory leaks
-			buffread.close();
-			frd.close();
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return listaPrenotazioni;
-	}
-
-
+    } 
+    catch(IOException e){
+      e.printStackTrace();
+    }
+  }catch (FileNotFoundException e) {
+    e.printStackTrace();
+  }
+    return listaPrenotazioni;
+  }
 
   // -visualizzare le propie prenotazioni//
   public void visualizzarePrenotazione() {
@@ -84,16 +90,23 @@ public class Cliente extends Guest {
   }
 
   // crea prenotazione//
-  public Prenotazione creaPrenotazione(Proiezione proiezioneSelezionata, int fila, int posto) {
-    // TODO: controllare il numero di posti disponibili della proiezione e creare la
-    // prenotazione solo si ci sono posti
-    // ci serve un objetto di tipo proiezione: proiezione.prenotaPosti//
+  public boolean creaPrenotazione(Proiezione proiezioneSelezionata, int fila, int posto) {
+    
+    int postiLiberiDopoLaPrenotazione = proiezioneSelezionata.calcolaPostiLiberi(posto);
 
-    Prenotazione prenotazione = new Prenotazione(this.getNome(), this.getCognome(), proiezioneSelezionata.getDataOra(),
-        proiezioneSelezionata.getFilm().getTitolo(), fila, posto);
-    // Prenotazione prenotazione = new Prenotazione(this.getNome(),
-    // this.getCognome(), film, fila,posto);
-    return prenotazione;
+    if (postiLiberiDopoLaPrenotazione >= 0) {
+      // prenota
+      Prenotazione prenotazione = new Prenotazione(this.getNome(), this.getCognome(),
+          proiezioneSelezionata.getDataOra(),
+          proiezioneSelezionata.getFilm().getTitolo(), fila, posto);
+
+
+      return Prenotazione.aggiungiPrenotazioneAlCSV(prenotazione);
+      
+    } else {
+      System.out.println("non si puo efettuare la prenotazione perche non ci sono posti disponibili");
+      return false;
+    }
 
   }
 
@@ -261,12 +274,13 @@ public class Cliente extends Guest {
               case 2:
                 System.out.println("---VISUAIZZA PRENOTAZIONE---");
 
-                 ArrayList<Prenotazione> l = Prenotazione.caricaPrenotazioni();
+                ArrayList<Prenotazione> l = Prenotazione.caricaPrenotazioni();
                 ArrayList<Prenotazione> prenotazioniCliente = new ArrayList<Prenotazione>();
-                prenotazioniCliente = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(),l);
-              for(Prenotazione elemento : prenotazioniCliente){
-                System.out.println(elemento.toString());
-              }
+                prenotazioniCliente = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(),
+                    l);
+                for (Prenotazione elemento : prenotazioniCliente) {
+                  System.out.println(elemento.toString());
+                }
 
                 System.out.println("");
                 break;
