@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -16,7 +17,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	// private String idCliente;
 	private String Nome;
 	private String Cognome;
-	private String Proiezione_Data;
+	private LocalDateTime Proiezione_Data;
 	private String Proiezione_Titolo;
 	private int Fila;
 	private int NPosti;
@@ -24,7 +25,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 	// Costruttori
 
-	public Prenotazione(String nome, String cognome, String Proiezione_Data, String Proiezione_Titolo, int fila,
+	public Prenotazione(String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo, int fila,
 			int NPosti) {
 		this.Nome = nome;
 		this.Cognome = cognome;
@@ -52,11 +53,11 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.Cognome = Cognome;
 	}
 
-	public String getProiezione_Data(){
+	public LocalDateTime getProiezione_Data(){
 		return this.Proiezione_Data;
 	}
 
-	public void setProiezione_Data(String Proiezione_Data){
+	public void setProiezione_Data(LocalDateTime Proiezione_Data){
 		this.Proiezione_Data = Proiezione_Data;
 	}
 
@@ -132,7 +133,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 			while ((riga = buffread.readLine()) != null) {// leggo il file riga per riga fino a quando la riga non diventa null (dopo l'ultima riga!)
 				colonne = riga.split(",");// divido le colonne col separatore decimale , essendo il file di tipo csv aggiungo le stringhe nelle relative LinkedList
-				Prenotazione PrenotazioneTemp = new Prenotazione(colonne[0], colonne[1], colonne[2], colonne[3],
+				Prenotazione PrenotazioneTemp = new Prenotazione(colonne[0], colonne[1], LocalDateTime.parse(colonne[2]), colonne[3],
 						Integer.parseInt(colonne[4]), Integer.parseInt(colonne[5]));
 				listaPrenotazioni.add(PrenotazioneTemp);
 			}

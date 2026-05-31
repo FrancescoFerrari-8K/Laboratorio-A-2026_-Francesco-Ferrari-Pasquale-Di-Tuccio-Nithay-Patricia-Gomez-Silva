@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,7 +59,7 @@ public class Cliente extends Guest {
 															// diventa null (dopo l'ultima riga!)
 				colonne = riga.split(",");// divido le colonne col separatore decimale , essendo il file di tipo csv
 				// aggiungo le stringhe nelle relative LinkedList
-				Prenotazione PrenotazioneTemp = new Prenotazione(colonne[0], colonne[1], colonne[2], colonne[3],
+				Prenotazione PrenotazioneTemp = new Prenotazione(colonne[0], colonne[1],LocalDateTime.parse(colonne[2]), colonne[3],
 						Integer.parseInt(colonne[4]), Integer.parseInt(colonne[5]));
 				listaPrenotazioni.add(PrenotazioneTemp);
 			}
@@ -88,8 +89,8 @@ public class Cliente extends Guest {
     // prenotazione solo si ci sono posti
     // ci serve un objetto di tipo proiezione: proiezione.prenotaPosti//
 
-    Prenotazione prenotazione = new Prenotazione(this.getNome(), this.getCognome(), proiezioneSelezionata.getOrario(),
-        proiezioneSelezionata.getTitoloFilm(), fila, posto);
+    Prenotazione prenotazione = new Prenotazione(this.getNome(), this.getCognome(), proiezioneSelezionata.getDataOra(),
+        proiezioneSelezionata.getFilm().getTitolo(), fila, posto);
     // Prenotazione prenotazione = new Prenotazione(this.getNome(),
     // this.getCognome(), film, fila,posto);
     return prenotazione;
