@@ -51,7 +51,7 @@ public class Film { // Questa classe costruisce oggetti di tipo Film
 		return Regista;
 	}
 	
-	public int getAnno(){
+	public String getAnno(){
 		return Anno;
 	}
 	
