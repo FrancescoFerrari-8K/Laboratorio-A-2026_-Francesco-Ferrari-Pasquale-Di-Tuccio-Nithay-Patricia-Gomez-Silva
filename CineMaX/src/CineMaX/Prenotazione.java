@@ -1,6 +1,7 @@
 package CineMaX;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,18 +11,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 	// Campi
-	private static final String percorsoFile = "..\\..\\data\\Prenotazioni.csv";
+	public static final String percorsoFile = "..\\..\\data\\Prenotazioni.csv";
 
 	// private String idCliente;
 	private String Nome;
 	private String Cognome;
 	private LocalDateTime Proiezione_Data;
 	private String Proiezione_Titolo;
-	private int Fila;
 	private int NPosti;
 	private int ID;
 
@@ -82,14 +83,6 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.Proiezione_Titolo = Proiezione_Titolo;
 	}
 
-	public int getFila() {
-		return this.Fila;
-	}
-
-	public void setFila(int Fila) {
-		this.Fila = Fila;
-	}
-
 	public int getNPosti() {
 		return this.NPosti;
 	}
@@ -108,16 +101,25 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 	public String toString() {
 
-		return "Prenotazione: " + Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
-				+ Proiezione_Data.toString() + " - Fila: " + Fila + " - NPostiPrenotati: " + NPosti;
+		return this.toString(false);
 	}
 
-	// questo metodo serve per generare un nuovo ID:
+	public String toString(boolean mostraID) {
+		if(mostraID==true){
+			return "ID "+ID +" - "+ Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
+			+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti;
+		} else{
+			return "Prenotazione " + Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
+			+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti;
+		}
+		
+	}
 	// - carico tutte le prenotazione
 	// - controllo se la lista e vuota, se e vuota restituisco 1
 	// - se non e vuota, controllo l'ultimo elemento della lista, prendo il suo ID,
 	// aggiungo 1
 
+	// questo metodo serve per generare un nuovo ID:
 	public static int generaNuovoID() {
 		ArrayList<Prenotazione> listaPrenotazioni = caricaPrenotazioni();
 
@@ -197,7 +199,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 			String nuovaRiga = "\n" + prenotazione.getID() + "," +
 					prenotazione.getNome() + "," +
 					prenotazione.getCognome() + "," +
-					"\""
+					"\"<"
 					+ prenotazione.getProiezione_Data().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
 					+ "\"" + "," + "\"" + prenotazione.getProiezione_Titolo() + "\"" + "," +
 					prenotazione.getNPosti();
@@ -213,4 +215,65 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 			return false;
 		}
 	}
+
+
+	 // modifica prenotazione//
+
+	 public static boolean modificaPrenotazioneNelCSV(int idPrenotazione, Prenotazione nuovaPrenotazione) {
+		List<String> righe = new ArrayList<>();
+	
+		try (BufferedReader reader = new BufferedReader(new FileReader(percorsoFile))) {
+			String riga = reader.readLine(); // Leggi la prima riga (cabecera)
+			if (riga != null) {
+				righe.add(riga); // Aggiungi la cabecera alla lista
+			}
+	
+			// Leggi le altre righe
+			while ((riga = reader.readLine()) != null) {
+				if (riga.trim().isEmpty()) continue;
+				String[] colonne = riga.split(",");
+	
+				// Controlla se l'ID corrisponde
+				if (Integer.parseInt(colonne[0].trim()) == idPrenotazione) {
+					// Sostituisci la riga con la nuova prenotazione
+					String nuovaRiga = nuovaPrenotazione.getID() + "," +
+							nuovaPrenotazione.getNome() + "," +
+							nuovaPrenotazione.getCognome() + "," +
+							"\"" + nuovaPrenotazione.getProiezione_Data().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")) + "\"" + "," +
+							"\"" + nuovaPrenotazione.getProiezione_Titolo() + "\"" + "," +
+							nuovaPrenotazione.getNPosti();
+					righe.add(nuovaRiga);
+				} else {
+					// Mantieni la riga originale
+					righe.add(riga);
+				}
+			}
+		} catch (IOException e) {
+			System.out.println("Errore durante la lettura del file: " + e.getMessage());
+			return false;
+		}
+	
+		// Scrivi le righe aggiornate nel file
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(Prenotazione.percorsoFile))) {
+			for (String riga : righe) {
+				writer.write(riga);
+				writer.newLine();
+			}
+		} catch (IOException e) {
+			System.out.println("Errore durante la scrittura del file: " + e.getMessage());
+			return false;
+		}
+	
+		System.out.println("Prenotazione modificata con successo.");
+		return true;
+	}
+	
+	
+	
+		
+		// leggere file prenotazione
+		// trovare prenotazione con idPrenotazioneDaModificare
+		// sostituirla con nuovaPrenotazione
+		// salvare file prenotazione
+	
 }

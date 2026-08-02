@@ -1,5 +1,6 @@
-﻿ID,Nome,Cognome,Proiezione_Data,Proiezione_Titolo, Proiezione_NSala,Fila,NPosti
-1,Nithay,Gomez,"2027-12-26T19:30:00","Good Will Hunting",2,5,10
-2,Nithay,Gomez,"2026-12-26T19:30:00","the Batman",3,6,13
-3,Marco,Rossi,"2026-12-26T19:30:00","the Batman",3,7,3
-4,Pedro,Rodriguez,"2026-12-26T19:30:00","the Batman",5,6, 5
+﻿ID,Nome,Cognome,Proiezione_Data,Proiezione_Titolo,NPosti
+1,Nithay,Gomez,"2027-12-26T19:30:00","Good Will Hunting",10
+2,Nithay,Gomez,"2026-12-26T19:30:00","the Batman",13
+3,Marco,Rossi,"2026-12-26T19:30:00","the Batman",3
+4,Pedro,Rodriguez,"2026-12-26T19:30:00","the Batman",5
+5,Nithay,Gomez,"2026-08-02T11:46:13","Blue Velvet",3

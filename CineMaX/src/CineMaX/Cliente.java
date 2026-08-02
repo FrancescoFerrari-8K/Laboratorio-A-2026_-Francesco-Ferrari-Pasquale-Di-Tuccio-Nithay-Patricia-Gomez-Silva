@@ -1,12 +1,16 @@
 package CineMaX;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Cliente extends Guest {
@@ -31,55 +35,6 @@ public class Cliente extends Guest {
     return null;
   }
 
-  /// questo metodo estrae dal file di prenotazione tutte le prenotazione e me
-  /// li ristituisce
-  public static ArrayList<Prenotazione> caricaPrenotazioni()  {
-    // trova il percorso assoluto del file proiezioni.csv per rendere il metodo
-    // indipendente dalla macchina su cui è eseguito
-    String percorso = new File("..\\..\\data\\Prenotazioni.csv").getAbsolutePath(); // il doppio punto è per andare
-                                                                                    // nella directory padre
-
-    // inizializzo l'array di linkedlist datastruct
-    ArrayList<Prenotazione> listaPrenotazioni = new ArrayList<Prenotazione>();
-
-    // lettura del file e scrittura delle colonne come linkedlists nell' array
-    // datastruct
-    FileReader frd;
-    try {
-      frd = new FileReader(percorso);
-    try (BufferedReader buffread = new BufferedReader(frd)) {
-      String riga; // Creo la variabile che contiene ad ogni iterazione la riga successiva del file
-      String[] colonne; // inizializzo la variabile che crea l'array di stringhe che contiene i valori
-                        // estratti dal file da inserire nelle LinkedList
-
-      // Leggi la prima riga (l'intestazione) a vuoto per saltarla
-      if (buffread.readLine() != null) {
-        // Usiamo un 'if' per sicurezza, nel caso in cui il file fosse completamente
-        // vuoto
-      }
-
-      while ((riga = buffread.readLine()) != null) {// leggo il file riga per riga fino a quando la riga non
-                                                    // diventa null (dopo l'ultima riga!)
-        colonne = riga.split(",");// divido le colonne col separatore decimale , essendo il file di tipo csv
-        // aggiungo le stringhe nelle relative LinkedList
-        Prenotazione PrenotazioneTemp = new Prenotazione(colonne[0], colonne[1], LocalDateTime.parse(colonne[2]),
-            colonne[3],
-             Integer.parseInt(colonne[4]));
-        listaPrenotazioni.add(PrenotazioneTemp);
-      }
-      // chiusura degli stream per evitare memory leaks
-      buffread.close();
-      frd.close();
-
-    } 
-    catch(IOException e){
-      e.printStackTrace();
-    }
-  }catch (FileNotFoundException e) {
-    e.printStackTrace();
-  }
-    return listaPrenotazioni;
-  }
 
   // -visualizzare le propie prenotazioni//
   public void visualizzarePrenotazione() {
@@ -110,11 +65,14 @@ public class Cliente extends Guest {
 
   }
 
-  // modifica prenotazione//
-  public void modificaPrenotazione(int idPrenotazioneDaModificare, Prenotazione nuovaPrenotazione) {
+  public boolean modificaPrenotazione(int idPrenotazione, Prenotazione nuovaPrenotazione) {
+
+    return Prenotazione.modificaPrenotazioneNelCSV(idPrenotazione, nuovaPrenotazione);
+
+
     // leggere file prenotazione
-    // trovare prenotazione con idPrenotazioneDaModificare
-    // sostituirla con nuovaPrenotazione
+    // trovare prenotazione con idPrenotazioneDaEliminare
+    // eliminarla
     // salvare file prenotazione
   }
 
@@ -142,6 +100,8 @@ public class Cliente extends Guest {
       do {
         // interfaccia di menuCliente//
         System.out.println("---MENU CLIENTE---");
+        System.out.println("");
+        System.out.println("Benvenuto/a: "+ this.getNome() + " " + this.getCognome());
         System.out.println("");
         System.out.println("-Scegli un numero (1,2,3) per continuare-");
         System.out.println("");
@@ -239,14 +199,15 @@ public class Cliente extends Guest {
                   sceltaCosto = sc.nextInt();
                   break;
                 case 5:
-                    //chiamo il metodo che mi da tutte le proiezione filtrate 
+                    //BISOGNA INSERIRE IL MENU CON LE PROIEZIONI E L?UTENTE DEBE SELEZIONARE LA PROIEZIONE CHE VUOLE PRENOTARE!!
+                    //chiamare il creaPrenotazione per creare la prenotazione, il risultato di questo metodo è booleano
                     
                     Proiezione proiezioneTest = new Proiezione(
                       new Film("2027-12-28T15:30:00", "Blue Velvet", "Zombie","NitReg","2020","3","3","2"),
                        LocalDateTime.now(),
                         10);
                       this.creaPrenotazione(proiezioneTest, 3);
-
+                      break;
 
               }
 
@@ -278,14 +239,19 @@ public class Cliente extends Guest {
                 break;
 
               case 2:
-                System.out.println("---VISUAIZZA PRENOTAZIONE---");
+                System.out.println("---VISUALIZZA PRENOTAZIONI---");
 
                 ArrayList<Prenotazione> l = Prenotazione.caricaPrenotazioni();
                 ArrayList<Prenotazione> prenotazioniCliente = new ArrayList<Prenotazione>();
-                prenotazioniCliente = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(),
-                    l);
+
+                System.out.println("");
+                System.out.println("Ricerca per:" + this.getNome() + " " + this.getCognome());
+                prenotazioniCliente = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(), l);
+                System.out.println("");
+                System.out.println("PrenotazioniTrovate:" + prenotazioniCliente.size());
+                System.out.println("");
                 for (Prenotazione elemento : prenotazioniCliente) {
-                  System.out.println(elemento.toString());
+                  System.out.println(elemento.toString(false));
                 }
 
                 System.out.println("");
@@ -293,7 +259,23 @@ public class Cliente extends Guest {
 
               case 3:
                 System.out.println("---MODIFICA PRENOTAZIONE---");
+                ArrayList<Prenotazione> prenotazioneC = Prenotazione.caricaPrenotazioni();
+                ArrayList<Prenotazione> prenotazioneCliente = new ArrayList<Prenotazione>();
+                prenotazioneCliente = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(),prenotazioneC );
                 System.out.println("");
+                System.out.println("Que prenotazione vuoi modificare? "+ "inserisci ID: ");
+                System.out.println("");
+                for (Prenotazione elemento : prenotazioneCliente) {
+                  System.out.println(elemento.toString(true));
+                }
+                System.out.println("");
+                System.out.print("Inserisci: ");
+                sceltaPrenotazioni = sc.nextInt();
+                //TODO: 1) mostrare al utente la prenotazione scelta o l'errore in caso l'ID non esista. 2) mostrare al utente i dati da modificare 3)chiamare il modifica
+                //il modifica prenotazione, cosa deve modificare? (la proiezione scelta oppure solo il numero di posti prenotati?)
+                //se viene modifiacta la proiezione l'utente deve poter vedere la lista di proiezioni e orari. sulla base di quello io modifico il file di prenotazioni
+                //se invece l'utente puo modificare solo il numero di posti prenotati, ho bisogno di un metodo che mi modifichi il totale di posti per la proiezione (NUMPOSTIDISPONIBILI)
+
                 break;
 
               case 4:

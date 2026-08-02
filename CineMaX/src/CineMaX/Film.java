@@ -74,6 +74,7 @@ public class Film { // Questa classe costruisce oggetti di tipo Film
 	public static ArrayList<LinkedList<String>> caricaFilm() throws FileNotFoundException, IOException{
 		//trova il percorso assoluto del file proiezioni.csv per rendere il metodo indipendente dalla macchina su cui è eseguito
 		String percorso= new File("..\\data\\proiezioni.csv").getAbsolutePath(); // il doppio punto è per andare nella directory padre
+		//String percorso= new File("..\\..\\data\\proiezioni.csv").getAbsolutePath(); // il doppio punto è per andare nella directory padre
 		
 		//inizializzo linkedlist per salvataggio dati
 		LinkedList<String> dataeora= new LinkedList<String>();
