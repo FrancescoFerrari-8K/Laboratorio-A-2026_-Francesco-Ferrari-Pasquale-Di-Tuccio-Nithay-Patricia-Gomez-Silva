@@ -5,13 +5,10 @@ import java.util.ArrayList;
 
 // Classe che rappresenta il Proiezionista e le sue azioni sul palinsesto
 public class Proiezionista {
-    private String nome;
-    private String idProiezionista;
 
     // Costruttore del proiezionista
-    public Proiezionista(String nome, String idProiezionista) {
-        this.nome = nome;
-        this.idProiezionista = idProiezionista;
+    public Proiezionista() {
+      
     }
 
     // Aggiunge un film, controlla che l'orario sia libero e ordina il palinsesto

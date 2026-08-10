@@ -16,6 +16,11 @@ import java.util.Scanner;
 public class Cliente extends Guest {
 
   // parametri //
+	private String Nome;
+	
+	private String Cognome;
+	
+	private int IDutente;
 
   // costruttore//
 

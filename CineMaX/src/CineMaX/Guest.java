@@ -8,26 +8,16 @@ import java.time.*;
 
 public class Guest {
 	
-	// Campi
-	
-		private String Nome;
+		// Campi
 		
-		private String Cognome;
 		
-		private String Tipo; // G = guest ; P = proiezionista ; B = bigliettaio ; C = cliente
-		
-		private String Password;
-		
-		private int ID;
- 
-		// Costruttori (overloading!)
+		// Costruttori
 		
 		public Guest(){ // questo costruttore crea un'utente di tipo guest. Non servono informazioni!
-			this.Tipo="G";
 			
 		}
 		
-		public Guest(String nome, String cognome, String tipo, String password, int id ){ 
+		public Guest(String nome, String cognome, int IDutente){ 
 			// questo costruttore crea un'utente di tipo registrato.
 			this.Nome=nome;
 			this.Cognome=cognome;
