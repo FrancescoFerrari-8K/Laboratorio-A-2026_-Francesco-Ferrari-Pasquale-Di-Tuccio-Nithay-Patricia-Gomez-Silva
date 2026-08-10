@@ -8,8 +8,7 @@ import java.util.Scanner;
 
 public class CineMaX {
 
-	// All'avvio l'app crea un oggetto UtenteGuest (non registrato) per permettere
-	// la ricerca di una proiezione
+	// All'avvio l'app mostra menù iniziale in cui è possibile fare 3 cose: loggarsi, registrarsi o proseguire come utente non registrato (guest).
 	// ecc ecc
 
 	public static void main(String[] args) {
