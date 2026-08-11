@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,16 +25,16 @@ public class Film { // Questa classe costruisce oggetti di tipo Film
 	private double Prezzo; //Costo biglietto proiezione
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Costruttori
-	public Film(LocalDate Data,LocalTime ora,String titolo, String genere, String regista, int anno, int durata, int età, double prezzo) {
-		this.Data=Data;
-		this.Orario=ora;
-		this.Titolo=titolo;
-		this.Genere=genere;
-		this.Regista=regista;
-		this.Anno=anno;
-		this.Durata=durata;
-		this.Età=età;
-		this.Prezzo=prezzo;
+	public Film(LocalDate data,LocalTime ora,String titolo, String genere, String regista, int anno, int durata, int età, double prezzo) {
+		Data=data;
+		Orario=ora;
+		Titolo=titolo;
+		Genere=genere;
+		Regista=regista;
+		Anno=anno;
+		Durata=durata;
+		Età=età;
+		Prezzo=prezzo;
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Metodi
@@ -57,19 +59,57 @@ public class Film { // Questa classe costruisce oggetti di tipo Film
 		return Regista;
 	}
 	
-	public String getAnno(){
+	public int getAnno(){
 		return Anno;
 	}
 	
-	public String getDurata(){
+	public int getDurata(){
 		return Durata;
 	}
 	
-	public String getEtà(){
+	public int getEtà(){
 		return Età;
 	}
 	
-	public String getPrezzo(){
+	public double getPrezzo(){
 		return Prezzo;
 	}
+	
+	//Setter
+	public void setData(LocalDate data){
+		Data=data;
+	}
+	
+	public void setOra(LocalTime ora){
+		Orario=ora;
+	}
+	
+	public void setTitolo(String titolo){
+		Titolo=titolo;
+	}
+	
+	public void setGenere(String genere){
+		Genere=genere;
+	}
+	
+	public void setRegista(String regista){
+		Regista=regista;
+	}
+	
+	public void setAnno(int anno){
+		Anno=anno;
+	}
+	
+	public void setDurata(int durata){
+		Durata=durata;
+	}
+	
+	public void setEtà(int età){
+		Età=età;
+	}
+	
+	public void setPrezzo(double prezzo){
+		Prezzo=prezzo;
+	}
+}
 	

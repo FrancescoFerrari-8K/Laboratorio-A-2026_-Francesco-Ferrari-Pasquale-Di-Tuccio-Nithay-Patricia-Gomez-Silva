@@ -19,29 +19,12 @@ public class CineMaX {
 
 		Guest User = new Guest(); // creo un utente guest per garantire l'utilizzo minimo dell'app
 
-		try {
-			ArrayList<LinkedList<String>> a = Film.caricaFilm();
-			System.out.println(a.size());
 
-			Cliente c1 = new Cliente ("Nithay", "Gomez", "123", 000);
-			c1.mostraMenuCliente(false);
+			
 
-
-			// ArrayList<Prenotazione> arrayTest = Prenotazione.caricaPrenotazioni();
-			 //for(Prenotazione prenot : arrayTest){
-			 	//System.out.println(prenot.toString());
-			// }
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+			
 
 	
 
+ }
 }
