@@ -1,3 +1,9 @@
-﻿ID,Nome,Cognome,Usename Password,DataNascita LuogoDomicilio,Tipo
-1,Nithay    Gomez,NGUsername,pwdCifrata,"1998-11-15",Gallarate,C
-
+﻿ID,Nome,Cognome,Usename,Password,DataNascita,LuogoDomicilio,Tipo
+**PRO1,Mario,Bianchi,**PRO1,fbbdd9002f26833632e51d45d4f98070adcea3ca636155b79fc75754ce37c9f8,1992-01-15,Varano Borghi,P
+**PRO2,Cesare,Sforza,**PRO2,4afb9f20d6b1e827ba92c252ffa51e7d407d04d8c4e4566159e1e7997cd72b9d,1994-07-15,Milano,P
+$$BIG1,Carmen,DePaolis,$$BIG1,76c53aa923556e38d676edf24ed37393bdc9692e87f2e28dcb50626790a9d024,2000-01-01,Varese,B
+$$BIG2,Marco,Belometti,$$BIG2,03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4,2003-03-15,Gallarate,B
+$$BIG3,Eleonora,Bianchi,$$BIG3,8391f0685ebf6258fb13d2b3fa2be7dd16686e2bfa217b0abe9bf5818456e1c5,1999-12-31,Cassano Magnago,B
+$$BIG4,Alessandro,SantElia,$$BIG4,8391f0685ebf6258fb13d2b3fa2be7dd16686e2bfa217b0abe9bf5818456e1c5,2002-08-15,Tradate,B
+$$BIG5,Maria,Dell'Angelo,$$BIG5,5af8a407c940155e5a1defdbd9223e0650d3425fc896b230bb4af51223efb6fc,1997-05-10,Busto Arsizio,B
+FrFeFr1,Francesco,Ferrari,Fra8K,b1ee270834b71464926fb978ffc2561d28d7b0cecda325a30eda81978d2c4c39,1993-07-16,Saltrio,C

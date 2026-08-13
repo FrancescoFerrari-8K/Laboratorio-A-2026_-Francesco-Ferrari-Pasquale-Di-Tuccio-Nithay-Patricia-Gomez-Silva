@@ -1,0 +1,9 @@
+                username
+proiezionista1: **PRO1    cinepresa4!
+proiezionista2: **PRO2    motore4zione%
+
+bigliettaio1:   $$BIG1    cassa404/
+bigliettaio2:   $$BIG2    1234
+bigliettaio3:   $$BIG3    password
+bigliettaio4:   $$BIG4    ferie
+bigliettaio5:   $$BIG5    ciaomamma619
