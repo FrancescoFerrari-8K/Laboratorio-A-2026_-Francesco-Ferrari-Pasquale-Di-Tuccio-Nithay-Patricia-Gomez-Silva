@@ -7,8 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +28,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	private String Proiezione_Titolo;
 	private int NPosti;
 	private int ID;
+	
 
 	// Costruttori
 
@@ -37,6 +41,8 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.Proiezione_Titolo = Proiezione_Titolo;
 		this.NPosti = NPosti;
 		this.ID = Prenotazione.generaNuovoID();
+		
+		
 	}
 
 	public Prenotazione(int ID, String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
@@ -48,6 +54,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.Proiezione_Titolo = Proiezione_Titolo;
 		this.NPosti = NPosti;
 		this.ID = ID;
+	
 	}
 
 	// metodi//
@@ -217,7 +224,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	}
 
 
-	 // modifica prenotazione//
+	 // questo metodo modifica la prenotazione//
 
 	 public static boolean modificaPrenotazioneNelCSV(int idPrenotazione, Prenotazione nuovaPrenotazione) {
 		List<String> righe = new ArrayList<>();
@@ -267,13 +274,29 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		System.out.println("Prenotazione modificata con successo.");
 		return true;
 	}
-	
-	
-	
-		
 		// leggere file prenotazione
 		// trovare prenotazione con idPrenotazioneDaModificare
 		// sostituirla con nuovaPrenotazione
 		// salvare file prenotazione
+
+
+
+		//questo metodo serve per sapere se il formato della data e valido oppure no//
+
+		public static boolean FormatoDiDataCorretto(String sceltaData){
+
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+        .withResolverStyle(ResolverStyle.STRICT);
+
+		try {
+        LocalDate dataInserita = LocalDate.parse(sceltaData, formato);
+        LocalDate hoy = LocalDate.now();
+        return dataInserita.isAfter(hoy);
+    } catch (DateTimeParseException e) {
+        return false; // se il formato non e valido oppure se la data non esiste
+    }
+
+		}
+
 	
 }

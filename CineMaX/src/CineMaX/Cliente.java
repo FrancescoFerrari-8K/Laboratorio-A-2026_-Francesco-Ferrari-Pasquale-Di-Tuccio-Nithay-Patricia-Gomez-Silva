@@ -7,8 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,8 +28,8 @@ public class Cliente extends Guest {
 
   // costruttore//
 
-  public Cliente(String nome, String cognome, String password, int id) {
-    super(nome, cognome, "C", password, id);
+  public Cliente(String nome, String cognome, int id) {
+    super(nome, cognome,  id);
   }
 
   // metodi//
@@ -40,15 +44,9 @@ public class Cliente extends Guest {
     return null;
   }
 
-
   // -visualizzare le propie prenotazioni//
   public void visualizzarePrenotazione() {
-    // leggere file prenotazione
-    // strarre le prenotazioni a nome di questo cliente
-    // mostrarle
-
   }
-
   // crea prenotazione//
   public boolean creaPrenotazione(Proiezione proiezioneSelezionata, int posti) {
     
@@ -88,6 +86,12 @@ public class Cliente extends Guest {
     // trovare prenotazione con idPrenotazioneDaEliminare
     // eliminarla
     // salvare file prenotazione
+  }
+
+  //verificazione del formato della data//
+  public static boolean FormatoDiDataCorretto(String sceltaData){
+
+  return Prenotazione.FormatoDiDataCorretto(sceltaData);
   }
 
   // -logout//
@@ -179,13 +183,19 @@ public class Cliente extends Guest {
                   String sceltaData;
                   System.out.println("---DATA---");
                   System.out.println("");
-                  // TODO: controllare se la data inserita e in un formatto corretto e se e una
-                  // data futura//
                   System.out.println(
                       "Inserisce data (GG/MM/YYYY) della proiezione che vuoi vedere oppure 0 per tornare indietro: ");
                   sc.nextLine();
                   sceltaData = sc.nextLine();
                   System.out.println("");
+                  // TODO: controllare se la data inserita e in un formatto corretto e se e una
+                  // data futura//
+                  if (FormatoDiDataCorretto(sceltaData)) {
+                    System.out.println("La data è corretta");
+                    // ////
+                } else {
+                    System.out.println("Errore: La data non è valida");
+                }
                   break;
 
                 case 4:
@@ -206,14 +216,16 @@ public class Cliente extends Guest {
                 case 5:
                     //BISOGNA INSERIRE IL MENU CON LE PROIEZIONI E L?UTENTE DEBE SELEZIONARE LA PROIEZIONE CHE VUOLE PRENOTARE!!
                     //chiamare il creaPrenotazione per creare la prenotazione, il risultato di questo metodo è booleano
-                    
+                    LocalDate data = LocalDate.parse("2027-12-28");
+                    LocalTime orario = LocalTime.parse("15:30");
+                    LocalDateTime dataOra = data.atTime(orario); // Combina data e ora
                     Proiezione proiezioneTest = new Proiezione(
-                      new Film("2027-12-28T15:30:00", "Blue Velvet", "Zombie","NitReg","2020","3","3","2"),
+                      new Film(data, orario, "Blue Velvet" ,
+                       "Zombie","NitReg",2020,3,3,2),
                        LocalDateTime.now(),
                         10);
                       this.creaPrenotazione(proiezioneTest, 3);
                       break;
-
               }
 
             } while (sceltaProiezione != 0);
