@@ -34,8 +34,8 @@ public class Cliente extends Guest {
 
   // metodi//
 
-  // - cerca proiezione (implementato da guest)//
-  // - visulazza proiezione (implementato da guest)//
+  // cerca proiezione (implementato da guest)//
+  // visulazza proiezione (implementato da guest)//
 
   // metodo che messo in input l'ID del cliente posso restituire un objetto del
   // tipo cliente
@@ -46,6 +46,10 @@ public class Cliente extends Guest {
 
   // -visualizzare le propie prenotazioni//
   public void visualizzarePrenotazione() {
+    // legge il file prenotazione
+    // strae le prenotazioni a nome di questo cliente
+    // mostrarle
+
   }
   // crea prenotazione//
   public boolean creaPrenotazione(Proiezione proiezioneSelezionata, int posti) {
@@ -68,24 +72,26 @@ public class Cliente extends Guest {
 
   }
 
+    //questo metodo serve per modificare le prenotazioni del CSV//
   public boolean modificaPrenotazione(int idPrenotazione, Prenotazione nuovaPrenotazione) {
 
     return Prenotazione.modificaPrenotazioneNelCSV(idPrenotazione, nuovaPrenotazione);
-
-
-    // leggere file prenotazione
-    // trovare prenotazione con idPrenotazioneDaEliminare
-    // eliminarla
-    // salvare file prenotazione
+    
+    // legge il file prenotazione
+    // trova la prenotazione con idPrenotazioneDaEliminare
+    // elimina
+    // salva file prenotazione
   }
 
-  // elimina prenotazione//
-  public void eliminaPrenotazione(int idPrenotazioneDaEliminare) {
+  // questo metodo serve per modificare le prenotazioni del CSV//
+  public boolean eliminaPrenotazione(int idPrenotazioneDaEliminare) {
 
-    // leggere file prenotazione
-    // trovare prenotazione con idPrenotazioneDaEliminare
-    // eliminarla
-    // salvare file prenotazione
+         return Prenotazione.eliminaPrenotazioneDalCSV(idPrenotazioneDaEliminare);
+
+    // legge il file prenotazione
+    // trova le prenotazione con idPrenotazioneDaEliminare
+    // elimina la prenotazione
+    // salva il file prenotazione
   }
 
   //verificazione del formato della data//
@@ -214,7 +220,7 @@ public class Cliente extends Guest {
                   sceltaCosto = sc.nextInt();
                   break;
                 case 5:
-                    //BISOGNA INSERIRE IL MENU CON LE PROIEZIONI E L?UTENTE DEBE SELEZIONARE LA PROIEZIONE CHE VUOLE PRENOTARE!!
+                    //BISOGNA INSERIRE IL MENU CON LE PROIEZIONI E LUTENTE DEBE SELEZIONARE LA PROIEZIONE CHE VUOLE PRENOTARE!!
                     //chiamare il creaPrenotazione per creare la prenotazione, il risultato di questo metodo è booleano
                     LocalDate data = LocalDate.parse("2027-12-28");
                     LocalTime orario = LocalTime.parse("15:30");
@@ -298,8 +304,20 @@ public class Cliente extends Guest {
               case 4:
                 System.out.println("---ELIMINA PRENOTAZIONE---");
                 System.out.println("");
+                ArrayList<Prenotazione> prenotazioniC = Prenotazione.caricaPrenotazioni();
+                ArrayList<Prenotazione> prenotazioniClienti = new ArrayList<Prenotazione>();
+                prenotazioniClienti = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(),prenotazioniC );
+                System.out.println("");
+                System.out.println("Que prenotazione vuoi eliminare? "+ "inserisci ID: ");
+                System.out.println("");
+                for (Prenotazione elemento : prenotazioniClienti) {
+                  System.out.println(elemento.toString(true));
+                }
+                System.out.println("");
+                System.out.print("Inserisci: ");
+                sceltaPrenotazioni = sc.nextInt();
                 break;
-
+             //TODO: cuando el cliente escoja un id se tiene que preguntar si esta seguro, en caso de si eliminar, en caso de no, volver a atras
             }
 
             break;

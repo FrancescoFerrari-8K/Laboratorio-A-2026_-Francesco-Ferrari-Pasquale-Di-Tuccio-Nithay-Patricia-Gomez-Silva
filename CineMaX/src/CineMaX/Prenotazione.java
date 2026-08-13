@@ -229,6 +229,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	 public static boolean modificaPrenotazioneNelCSV(int idPrenotazione, Prenotazione nuovaPrenotazione) {
 		List<String> righe = new ArrayList<>();
 	
+		 // leggere file prenotazione
 		try (BufferedReader reader = new BufferedReader(new FileReader(percorsoFile))) {
 			String riga = reader.readLine(); // Leggi la prima riga (cabecera)
 			if (riga != null) {
@@ -274,6 +275,56 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		System.out.println("Prenotazione modificata con successo.");
 		return true;
 	}
+		
+		 // elimina prenotazione//
+		 public static boolean eliminaPrenotazioneDalCSV(int idPrenotazione) {
+			List<String> righe = new ArrayList<>();
+		
+			try (BufferedReader reader = new BufferedReader(new FileReader(percorsoFile))) {
+				String riga = reader.readLine(); // Leggo la prima riga (cabecera)
+				if (riga != null) {
+					righe.add(riga); // Aggiungo la cabecera alla lista
+				}
+		
+				// Leggo le altre righe
+				while ((riga = reader.readLine()) != null) {
+					// Previene errori in presenza di righe vuote
+					if (riga.trim().isEmpty()) continue;
+		
+					String[] colonne = riga.split(",");
+		
+					// Rimuovo gli spazi prima di convertire in numero (.trim())
+					if (Integer.parseInt(colonne[0].trim()) == idPrenotazione) {
+						System.out.println("Prenotazione con ID " + idPrenotazione + " eliminata.");
+						continue; // Salto questa riga (non verrà salvata)
+					}
+		
+					// Mantengo le altre righe
+					righe.add(riga);
+				}
+			} catch (IOException e) {
+				System.out.println("Errore durante la lettura del file: " + e.getMessage());
+				return false;
+			} catch (NumberFormatException e) {
+				System.out.println("Errore: ID non valido nel file CSV.");
+				return false;
+			}
+		
+			// Scrivo le righe aggiornate nel file
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(percorsoFile))) {
+				for (String riga : righe) {
+					writer.write(riga);
+					writer.newLine();
+				}
+			} catch (IOException e) {
+				System.out.println("Errore durante la scrittura del file: " + e.getMessage());
+				return false;
+			}
+		
+			System.out.println("Prenotazione eliminata con successo.");
+			return true;
+		}
+
 		// leggere file prenotazione
 		// trovare prenotazione con idPrenotazioneDaModificare
 		// sostituirla con nuovaPrenotazione
