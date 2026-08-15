@@ -24,14 +24,37 @@ public class Cliente extends Guest {
 	
 	private String Cognome;
 	
-	private int IDutente;
+	private String IDutente;
 
   // costruttore//
 
-  public Cliente(String nome, String cognome, int id) {
-    super(nome, cognome,  id);
+  public Cliente(String nome, String cognome, String idutente) {
+    super(nome, cognome,  idutente);
   }
 
+  public String getNome(){
+    return this.Nome;
+  }
+
+  public void setNome(String nome){
+    this.Nome = nome;
+  }
+
+  public String getCognome(){
+    return this.Cognome;
+  }
+
+  public void setCognome(String cognome){
+    this.Cognome = cognome;
+  }
+
+  public String getIDUtente(){
+    return this.IDutente;
+  }
+
+  public void setIDUtente(String IDutente){
+    this.IDutente = IDutente;
+  }
   // metodi//
 
   // cerca proiezione (implementato da guest)//
@@ -58,7 +81,7 @@ public class Cliente extends Guest {
 
     if (postiLiberiDopoLaPrenotazione >= 0) {
       // prenota
-      Prenotazione prenotazione = new Prenotazione(this.getNome(), this.getCognome(),
+      Prenotazione prenotazione = new Prenotazione(this.getIDUtente(),this.getNome(), this.getCognome(),
           proiezioneSelezionata.getDataOra(),
           proiezioneSelezionata.getFilm().getTitolo(), posti);
 

@@ -22,17 +22,18 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	public static final String percorsoFile = "..\\..\\data\\Prenotazioni.csv";
 
 	// private String idCliente;
+	private String IDUtente;
 	private String Nome;
 	private String Cognome;
 	private LocalDateTime Proiezione_Data;
 	private String Proiezione_Titolo;
 	private int NPosti;
-	private int ID;
+	private int IDPrenotazione;
 	
 
 	// Costruttori
 
-	public Prenotazione(String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
+	public Prenotazione(String IDUtente, String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
 			int NPosti) {
 
 		this.Nome = nome;
@@ -40,12 +41,12 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.Proiezione_Data = Proiezione_Data;
 		this.Proiezione_Titolo = Proiezione_Titolo;
 		this.NPosti = NPosti;
-		this.ID = Prenotazione.generaNuovoID();
-		
+		this.IDPrenotazione = Prenotazione.generaNuovoID();
+		this.IDUtente = IDUtente;
 		
 	}
 
-	public Prenotazione(int ID, String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
+	public Prenotazione(int IDPrenotazione, String IDUtente, String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
 			int NPosti) {
 
 		this.Nome = nome;
@@ -53,7 +54,8 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.Proiezione_Data = Proiezione_Data;
 		this.Proiezione_Titolo = Proiezione_Titolo;
 		this.NPosti = NPosti;
-		this.ID = ID;
+		this.IDPrenotazione = IDPrenotazione;
+        this.IDUtente = IDUtente;
 	
 	}
 
@@ -98,12 +100,20 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.NPosti = NPosti;
 	}
 
-	public int getID() {
-		return this.ID;
+	public int getIDPrenotazione() {
+		return this.IDPrenotazione;
 	}
 
-	public void setID(int ID) {
-		this.ID = ID;
+	public void setIDPrenotazione(int ID) {
+		this.IDPrenotazione = IDPrenotazione;
+	}
+
+	public String getIDUtente(){
+		return this.IDUtente;
+	}
+
+	public void setIDUtente(){
+		this.IDUtente =IDUtente;
 	}
 
 	public String toString() {
@@ -113,7 +123,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 	public String toString(boolean mostraID) {
 		if(mostraID==true){
-			return "ID "+ID +" - "+ Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
+			return "ID "+IDPrenotazione +" - "+ Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
 			+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti;
 		} else{
 			return "Prenotazione " + Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
@@ -133,7 +143,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		if (listaPrenotazioni.isEmpty()) {
 			return 1;
 		}
-		return listaPrenotazioni.get(listaPrenotazioni.size() - 1).getID() + 1;
+		return listaPrenotazioni.get(listaPrenotazioni.size() - 1).getIDPrenotazione() + 1;
 	}
 
 	public static ArrayList<Prenotazione> TrovaPrenotazioniConNomeECognome(String nome, String cognome,
@@ -180,9 +190,9 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 												// aggiungo le stringhe nelle relative LinkedList
 
 					Prenotazione PrenotazioneTemp = new Prenotazione(Integer.parseInt(colonne[0]), colonne[1],
-							colonne[2],
-							LocalDateTime.parse(colonne[3].replace("\"", "")), colonne[4],
-							Integer.parseInt(colonne[5]));
+							colonne[2], colonne [3],
+							LocalDateTime.parse(colonne[4].replace("\"", "")), colonne[5],
+							Integer.parseInt(colonne[6]));
 					listaPrenotazioni.add(PrenotazioneTemp);
 				}
 				// chiusura degli stream per evitare memory leaks
@@ -203,7 +213,8 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	public static boolean aggiungiPrenotazioneAlCSV(Prenotazione prenotazione) {
 		try (FileWriter writer = new FileWriter(percorsoFile, true)) {
 
-			String nuovaRiga = "\n" + prenotazione.getID() + "," +
+			String nuovaRiga = "\n" + prenotazione.getIDPrenotazione() + "," +
+		        	prenotazione.getIDUtente()+","+
 					prenotazione.getNome() + "," +
 					prenotazione.getCognome() + "," +
 					"\"<"
@@ -244,7 +255,8 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 				// Controlla se l'ID corrisponde
 				if (Integer.parseInt(colonne[0].trim()) == idPrenotazione) {
 					// Sostituisci la riga con la nuova prenotazione
-					String nuovaRiga = nuovaPrenotazione.getID() + "," +
+					String nuovaRiga = nuovaPrenotazione.getIDPrenotazione() + "," +
+					     	nuovaPrenotazione.getIDUtente()+","+
 							nuovaPrenotazione.getNome() + "," +
 							nuovaPrenotazione.getCognome() + "," +
 							"\"" + nuovaPrenotazione.getProiezione_Data().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")) + "\"" + "," +

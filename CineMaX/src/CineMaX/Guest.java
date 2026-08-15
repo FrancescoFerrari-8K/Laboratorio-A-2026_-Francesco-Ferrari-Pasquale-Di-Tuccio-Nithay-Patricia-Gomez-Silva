@@ -17,7 +17,7 @@ public class Guest {
 			
 		}
 		
-		public Guest(String nome, String cognome, int IDutente){ 
+		public Guest(String nome, String cognome, String IDutente){ 
 			// questo costruttore crea un'utente di tipo registrato.
 			this.Nome=nome;
 			this.Cognome=cognome;
