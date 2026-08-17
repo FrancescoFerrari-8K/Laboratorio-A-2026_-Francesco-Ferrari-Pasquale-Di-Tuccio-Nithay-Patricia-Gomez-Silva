@@ -77,9 +77,9 @@ public class Cliente extends Guest {
   // crea prenotazione//
   public boolean creaPrenotazione(Proiezione proiezioneSelezionata, int posti) {
     
-    int postiLiberiDopoLaPrenotazione = proiezioneSelezionata.calcolaPostiLiberi(posti);
+    boolean haPostiDisponibili = proiezioneSelezionata.haPostiDisponibili(posti);
 
-    if (postiLiberiDopoLaPrenotazione >= 0) {
+    if (haPostiDisponibili == true) {
       // prenota
       Prenotazione prenotazione = new Prenotazione(this.getIDUtente(),this.getNome(), this.getCognome(),
           proiezioneSelezionata.getDataOra(),
