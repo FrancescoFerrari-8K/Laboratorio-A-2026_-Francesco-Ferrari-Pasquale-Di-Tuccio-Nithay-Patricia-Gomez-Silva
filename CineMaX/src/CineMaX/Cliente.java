@@ -117,11 +117,6 @@ public class Cliente extends Guest {
     // salva il file prenotazione
   }
 
-  //verificazione del formato della data//
-  public static boolean FormatoDiDataCorretto(String sceltaData){
-
-  return Prenotazione.FormatoDiDataCorretto(sceltaData);
-  }
 
   // -logout//
   public void logout() {
@@ -195,7 +190,7 @@ public class Cliente extends Guest {
                   System.out.print("Scelta: ");
                   sceltaGenere = sc.nextInt();
                   break;
-
+                //cercaProiezione(sceltaGenere)e restituscimi la proiezione scelta dal utente
                 case 2:
                   // interfaccia di titolo//
                   String sceltaTitolo;
@@ -206,6 +201,7 @@ public class Cliente extends Guest {
                   sc.nextLine();
                   sceltaTitolo = sc.nextLine();
                   break;
+                                    //cercaProiezione(sceltaTitolo)e restituscimi la proiezione scelta dal utente
 
                 case 3:
                   // interfaccia di data//
@@ -219,8 +215,12 @@ public class Cliente extends Guest {
                   System.out.println("");
                   // TODO: controllare se la data inserita e in un formatto corretto e se e una
                   // data futura//
-                  if (FormatoDiDataCorretto(sceltaData)) {
-                    System.out.println("La data è corretta");
+                  if (Prenotazione.FormatoDiDataCorretto(sceltaData)) {
+
+                    LocalDate data = LocalDate.parse(sceltaData);
+                    LocalTime orario = LocalTime.now(); // se usa para saber el orario del di, asi el utente no puede escoger un film que ya paso 
+                    //cercaProiezione(data,orario); e restituscimi la proiezione scelta dal utente
+
                     // ////
                 } else {
                     System.out.println("Errore: La data non è valida");
@@ -241,6 +241,7 @@ public class Cliente extends Guest {
                   System.out.println("");
                   System.out.println("Scelta: ");
                   sceltaCosto = sc.nextInt();
+                  //cercaProiezione(sceltaCosto)e restituscimi la proiezione scelta dal utente
                   break;
                 case 5:
                     //BISOGNA INSERIRE IL MENU CON LE PROIEZIONI E LUTENTE DEBE SELEZIONARE LA PROIEZIONE CHE VUOLE PRENOTARE!!
@@ -262,16 +263,16 @@ public class Cliente extends Guest {
             break;
 
           case 2:
-            // interfaccia di prenotazione//
             int sceltaPrenotazioni;
+            do{
+            // interfaccia di prenotazione//
             System.out.println("---LE MIE PRENOTAZIONI---");
             System.out.println("");
             System.out.println("-Scegli un numero per continuare-");
             System.out.println("");
-            System.out.println("1- Prenota posto");
-            System.out.println("2- Visualizzare prenotazioni");
-            System.out.println("3- Modificare prenotazione");
-            System.out.println("4- Eliminare prenotazione");
+            System.out.println("1- Visualizzare prenotazioni");
+            System.out.println("2- Modificare prenotazione");
+            System.out.println("3- Eliminare prenotazione");
             System.out.println("0- INDIETRO");
             System.out.println("");
             System.out.println("Scelta");
@@ -279,12 +280,6 @@ public class Cliente extends Guest {
 
             switch (sceltaPrenotazioni) {
               case 1:
-                // interfaccia di prenotazione posto (manca finire)//
-                System.out.println("---PRENOTA POSTO---");
-                System.out.println("");
-                break;
-
-              case 2:
                 System.out.println("---VISUALIZZA PRENOTAZIONI---");
 
                 ArrayList<Prenotazione> l = Prenotazione.caricaPrenotazioni();
@@ -303,28 +298,41 @@ public class Cliente extends Guest {
                 System.out.println("");
                 break;
 
-              case 3:
+              case 2:
+                 int scletaModificaPrenotazione;
                 System.out.println("---MODIFICA PRENOTAZIONE---");
                 ArrayList<Prenotazione> prenotazioneC = Prenotazione.caricaPrenotazioni();
                 ArrayList<Prenotazione> prenotazioneCliente = new ArrayList<Prenotazione>();
                 prenotazioneCliente = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(),prenotazioneC );
                 System.out.println("");
-                System.out.println("Que prenotazione vuoi modificare? "+ "inserisci ID: ");
+                System.out.println("Que prenotazione vuoi modificare? ");
                 System.out.println("");
                 for (Prenotazione elemento : prenotazioneCliente) {
                   System.out.println(elemento.toString(true));
                 }
                 System.out.println("");
-                System.out.print("Inserisci: ");
-                sceltaPrenotazioni = sc.nextInt();
-                //TODO: 1) mostrare al utente la prenotazione scelta o l'errore in caso l'ID non esista. 2) mostrare al utente i dati da modificare 3)chiamare il modifica
+                System.out.print("Inserisci ID: ");
+                scletaModificaPrenotazione = sc.nextInt();
+
+                //TODO: 
+                // 1) mostrare al utente la prenotazione scelta o l'errore in caso l'ID non esista.
+                for(Prenotazione elemento : prenotazioneCliente){
+                  if (scletaModificaPrenotazione ==elemento.getIDPrenotazione()){
+                    System.out.println("la prenotazione che vuoi modificare è: "+ elemento.toString());
+                  }else{
+                    System.out.println("l'ID inserito non e valido");
+                  }
+                  
+                } 
+                // 2) mostrare al utente un menu in cui l'utente puo scegliere se modificare solo i numero posti o l'intera proiezione 
+                // 3)chiamare il modifica
                 //il modifica prenotazione, cosa deve modificare? (la proiezione scelta oppure solo il numero di posti prenotati?)
                 //se viene modifiacta la proiezione l'utente deve poter vedere la lista di proiezioni e orari. sulla base di quello io modifico il file di prenotazioni
                 //se invece l'utente puo modificare solo il numero di posti prenotati, ho bisogno di un metodo che mi modifichi il totale di posti per la proiezione (NUMPOSTIDISPONIBILI)
 
                 break;
 
-              case 4:
+              case 3:
                 System.out.println("---ELIMINA PRENOTAZIONE---");
                 System.out.println("");
                 ArrayList<Prenotazione> prenotazioniC = Prenotazione.caricaPrenotazioni();
@@ -341,9 +349,11 @@ public class Cliente extends Guest {
                 sceltaPrenotazioni = sc.nextInt();
                 break;
              //TODO: cuando el cliente escoja un id se tiene que preguntar si esta seguro, en caso de si eliminar, en caso de no, volver a atras
+            
             }
 
             break;
+          }while(sceltaPrenotazioni!=0);
           case 3:
             System.out.println("stai per efettuare il logout...");
             break;

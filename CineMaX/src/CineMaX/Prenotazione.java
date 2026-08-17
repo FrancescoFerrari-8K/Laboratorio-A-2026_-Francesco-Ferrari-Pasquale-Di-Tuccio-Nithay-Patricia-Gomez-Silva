@@ -145,12 +145,12 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		}
 		return listaPrenotazioni.get(listaPrenotazioni.size() - 1).getIDPrenotazione() + 1;
 	}
-
+	// mostriamo le prenotazione future perche quelle sono le uniche modificabili
 	public static ArrayList<Prenotazione> TrovaPrenotazioniConNomeECognome(String nome, String cognome,
 			ArrayList<Prenotazione> listaPrenotazione) {
 		ArrayList<Prenotazione> risultato = new ArrayList<Prenotazione>();
 		for (Prenotazione p : listaPrenotazione) {
-			if (nome.equals(p.getNome()) && cognome.equals(p.getCognome())) {
+			if (nome.equals(p.getNome()) && cognome.equals(p.getCognome()) && p.Proiezione_Data.isAfter(LocalDateTime.now())) {
 				risultato.add(p);
 			}
 		}
