@@ -29,7 +29,10 @@ public class Cliente extends Guest {
   // costruttore//
 
   public Cliente(String nome, String cognome, String idutente) {
-    super(nome, cognome,  idutente);
+
+    this.Nome = nome;
+    this.Cognome = cognome;
+    this.IDutente = idutente;
   }
 
   public String getNome(){
@@ -250,8 +253,8 @@ public class Cliente extends Guest {
                     LocalTime orario = LocalTime.parse("15:30");
                     LocalDateTime dataOra = data.atTime(orario); // Combina data e ora
                     Proiezione proiezioneTest = new Proiezione(
-                      new Film(data, orario, "Blue Velvet" ,
-                       "Zombie","NitReg",2020,3,3,2),
+                      new Film("Blue Velvet" ,
+                       "Zombie","NitReg",2020,3,2),
                        LocalDateTime.now(),
                         10);
                       this.creaPrenotazione(proiezioneTest, 3);
