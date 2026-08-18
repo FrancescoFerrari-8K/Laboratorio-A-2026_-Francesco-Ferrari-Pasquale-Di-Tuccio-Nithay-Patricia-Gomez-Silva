@@ -61,6 +61,17 @@ public class Proiezione implements Comparable<Proiezione> {
         System.out.println("Posti Liberi: " + calcolaPostiLiberi() + " / " + CAPIENZA_MASSIMA);
         System.out.println("----------------------------");
     }
+    
+    public void visualizzaProiezioneDettagliata() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        
+        System.out.println("--- DETTAGLIO PROIEZIONE ---");
+        film.visualizzaFilm();
+        System.out.println("Data e Ora: " + dataOra.format(formatter));
+        System.out.println("Costo Biglietto: €" + String.format("%.2f", prezzoBiglietto));
+        System.out.println("Posti Liberi: " + calcolaPostiLiberi() + " / " + CAPIENZA_MASSIMA);
+        System.out.println("----------------------------");
+    }
 
     // Permette di ordinare le proiezioni cronologicamente
     @Override

@@ -1168,6 +1168,7 @@ public class Guest {
 			System.out.println("La ricerca non ha risultati quindi non è possibile visualizzare i dettagli di una delle proiezioni cercate");
 			return null;
 		} //Fine blocco che svolge funzionalità visualizzare in dettaglio una delle proiezioni cercate.
+		return risRicerca; //return superflua ma sennò codice da errore
 		
 	}
 //Fine metodo cercaProiezione().

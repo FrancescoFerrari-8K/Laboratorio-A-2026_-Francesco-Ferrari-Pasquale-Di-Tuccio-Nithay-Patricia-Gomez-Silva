@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 // Classe che rappresenta il Proiezionista e le sue azioni sul palinsesto
-public class Proiezionista {
+public class Proiezionista extends Guest{
 
     private String nome;
     private String idProiezionista;
