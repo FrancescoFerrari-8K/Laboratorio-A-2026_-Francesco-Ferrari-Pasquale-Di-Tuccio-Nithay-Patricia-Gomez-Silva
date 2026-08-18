@@ -14,38 +14,29 @@ import java.io.BufferedReader;
 public class Film { // Questa classe costruisce oggetti di tipo Film
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Campi
-	private LocalDate Data;
-	private LocalTime Orario;
     private String Titolo;
 	private String Genere;
 	private String Regista;
 	private int Anno;
 	private int Durata; // In minuti	
 	private int Età; // Età minima
-	private double Prezzo; //Costo biglietto proiezione
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Costruttori
-	public Film(LocalDate data,LocalTime ora,String titolo, String genere, String regista, int anno, int durata, int età, double prezzo) {
-		Data=data;
-		Orario=ora;
+
+	public Film(String titolo, String genere, String regista, int anno, int durata, int età) {
 		Titolo=titolo;
 		Genere=genere;
 		Regista=regista;
 		Anno=anno;
 		Durata=durata;
 		Età=età;
-		Prezzo=prezzo;
-	}
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// Metodi
-	// Getter
-	public LocalDate getData(){
-		return Data;
 	}
 	
-	public LocalTime getOra(){
-		return Orario;
-	}
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Metodi
+	
+	// Getter
+	
 	
 	public String getTitolo(){
 		return Titolo;
@@ -71,18 +62,7 @@ public class Film { // Questa classe costruisce oggetti di tipo Film
 		return Età;
 	}
 	
-	public double getPrezzo(){
-		return Prezzo;
-	}
-	
 	//Setter
-	public void setData(LocalDate data){
-		Data=data;
-	}
-	
-	public void setOra(LocalTime ora){
-		Orario=ora;
-	}
 	
 	public void setTitolo(String titolo){
 		Titolo=titolo;
@@ -108,8 +88,16 @@ public class Film { // Questa classe costruisce oggetti di tipo Film
 		Età=età;
 	}
 	
-	public void setPrezzo(double prezzo){
-		Prezzo=prezzo;
+	public void visualizzaFilm() {
+		System.out.println("Film: " + Titolo);
+		System.out.println("Genere: " + Genere);
+		System.out.println("Regista: " + Regista);
+		System.out.println("Anno: " + Anno);
+		System.out.println("Durata (min): " + Durata);
+		System.out.println("Età minima: " + Età);
+
 	}
+	
+	
 }
 	
