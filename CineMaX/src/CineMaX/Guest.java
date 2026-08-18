@@ -16,8 +16,10 @@ public class Guest {
 		//Metodi
 	
 //Inizio metodo cercaProiezione().
-	public void cercaProiezione() throws FileNotFoundException {  //Questo metodo permette la ricerca e visualizzazione di proiezioni.
-		// Questo metodo permette la ricerca e visualizzazione di proiezione.
+	public Proiezione[] cercaProiezione() throws FileNotFoundException {
+//Questo metodo permette la ricerca di proiezioni (e visualizzazione dettagliata di una di quelle trovate). Il metodo stampa a video tutto quanto ma se serve...
+//...restituisce il vettore contenente le proiezioni trovate con la ricerca, null nel caso in cui la ricerca avesse 0 risultati.
+		
 		int limiteRic = 5000; //Limite numero risultati della ricerca.
 		int numRisRicerca = 0; //Contatore numero risultati.
 		String scelta = "1"; //Variabile per opzioni scelta, impostata default a "1" cioè ricerca per titolo.
@@ -29,7 +31,7 @@ public class Guest {
 		
 		DateTimeFormatter formatterDataITA = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Variabile per formato data italiano.
 		
-		int numvirgoleintestaz = 7; //DA SISTEMARE IN MODO CHE SIA ADATTIVO O PERLOMENO SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
+		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA ADATTIVO O PERLOMENO SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
 		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
 		
 		Proiezione[] risRicerca = new Proiezione[limiteRic]; //Vettore che rappresenta il risultato della ricerca cioè contiene le proiezioni che rispettano il...
@@ -63,7 +65,7 @@ public class Guest {
 			
 				case "1": //Caso ricerca per titolo.
 					
-					String titoloRic = ""; //Variabile che conterrà il titolo inserito in input dall'utente.
+					String titoloRic = ""; //Variabile che conterrà il titolo inserito in input dall'utente, impostato default a stringa vuota come ha senso che sia.
 					String titoloTempLowercase, titoloRicLowercase; //Variabili che conterranno i titoli cercato e estratto dalla proiez corrente messi a minuscolo.
 					String titoloParz; //Uso spiegato in confronto titoli.
 					
@@ -126,7 +128,7 @@ public class Guest {
 					
 				case "2": //Caso ricerca per genere.
 					
-					String genereRic = ""; //Variabile che conterrà il genere inserito in input dall'utente.
+					String genereRic = ""; //Variabile che conterrà il genere inserito in input dall'utente, impostata default a stringa vuota come ha senso che sia.
 					String genereTempLowercase, genereRicLowercase; //Variabili che conterranno i generi cercato e estratto dalla proiez corrente messi a minuscolo.
 					String genereParz; //Uso spiegato in confronto generi.
 					
@@ -249,7 +251,7 @@ public class Guest {
 								//Inizio blocco per confronto tra criterio inserito e stesso criterio nella riga/proiez letta da file.
 								
 								//Confronto date.
-								if (proiez.getDataProiezione().compareTo(dataMaxRic) < 0)
+								if (proiez.getDataOra().toLocalDate().compareTo(dataMaxRic) < 0)
 									proiezOk = true;
 								//Fine blocco confronto date.
 								
@@ -313,7 +315,7 @@ public class Guest {
 								//Inizio blocco per confronto tra criterio inserito e stesso criterio nella riga/proiez letta da file.
 								
 								//Confronto date.
-								if (proiez.getDataProiezione().compareTo(dataMinRic) > 0)
+								if (proiez.getDataOra().toLocalDate().compareTo(dataMinRic) > 0)
 									proiezOk = true;
 								//Fine blocco confronto date.
 								
@@ -408,7 +410,7 @@ public class Guest {
 								//Inizio blocco per confronto tra criterio inserito e stesso criterio nella riga/proiez letta da file.
 								
 								//Confronto date.
-								if (proiez.getDataProiezione().compareTo(dataMinRic) > 0 && proiez.getDataProiezione().compareTo(dataMaxRic) < 0)
+								if (proiez.getDataOra().toLocalDate().compareTo(dataMinRic) > 0 && proiez.getDataOra().toLocalDate().compareTo(dataMaxRic) < 0)
 									proiezOk = true;
 								//Fine blocco confronto date.
 								
@@ -1025,7 +1027,7 @@ public class Guest {
 							case "1": //Caso ricerca prima di una certa data.
 								
 								//Confronto date.
-								if (proiez.getDataProiezione().compareTo(dataMaxRicerca) >= 0)
+								if (proiez.getDataOra().toLocalDate().compareTo(dataMaxRicerca) >= 0)
 									proiezOk = false;
 								//Fine blocco confronto date.
 								
@@ -1034,7 +1036,7 @@ public class Guest {
 							case "2": //Caso ricerca dopo una certa data.
 								
 								//Confronto date.
-								if (proiez.getDataProiezione().compareTo(dataMinRicerca) <= 0)
+								if (proiez.getDataOra().toLocalDate().compareTo(dataMinRicerca) <= 0)
 									proiezOk = false;
 								//Fine blocco confronto date.
 								
@@ -1043,7 +1045,7 @@ public class Guest {
 							case "3": //Caso ricerca tra due date.
 								
 								//Confronto date.
-								if (proiez.getDataProiezione().compareTo(dataMinRicerca) <= 0 || proiez.getDataProiezione().compareTo(dataMaxRicerca) >= 0)
+								if (proiez.getDataOra().toLocalDate().compareTo(dataMinRicerca) <= 0 || proiez.getDataOra().toLocalDate().compareTo(dataMaxRicerca) >= 0)
 									proiezOk = false;
 								//Fine blocco confronto date.
 									
@@ -1113,7 +1115,7 @@ public class Guest {
 					break;
 				
 				case "0": //Caso ricerca annullata.
-					return;
+					return null;
 					
 				default:
 					sceltaOk = false;
@@ -1123,25 +1125,25 @@ public class Guest {
 		
 		
 		
-		if (numRisRicerca > 0) { //Inizio blocco che svolge funzionalità visualizzare una delle proiezioni cercate in dettaglio.
+		if (numRisRicerca > 0) { //Inizio blocco che svolge funzionalità visualizzare in dettaglio una delle proiezioni cercate.
 			
-			String sceltaVisualizDettagl = "0"; //Variabile per scelta se visualizzare una delle proiez cercate in dettaglio, inizializ default a "0" cioè no.
+			String sceltaVisualizDettagl = "0"; //Variabile per scelta se visualizzare in dettaglio una delle proiez cercate, inizializ default a "0" cioè no.
 			int sceltaNumProiezVisualiz = 1; //Variabile che conterrà il numero della proiez scelta da visualizzare in dettaglio, inizializ default a 1 cioè...
 											//...la prima, che sicuramente c'è xk se siamo entrati nel blocco if in cui qsto codice si trova allora c'è almeno 1 ris.
 			boolean sceltaVisualizDettaglOk; //Variabile che indica se scelta inserita è valida o no.
 			
 			System.out.println("Si desidera visualizzare i dettagli di una delle proiezioni cercate?");
 			System.out.println("Inserire 1 se sì, 0 altrimenti:");
-			do { //Inizio ciclo per chiedere il numero della proiezione da visualizzare nel dettaglio.
+			do { //Inizio ciclo per chiedere il numero della proiezione da visualizzare in dettaglio.
 				sceltaVisualizDettaglOk = true;
 				sceltaVisualizDettagl = sc.nextLine();
 				
 				switch(sceltaVisualizDettagl) {
 				
-				case "0":
-					return;
+				case "0": //Caso visualiz dettagliata di una delle proiez cercate rifiutata.
+					return risRicerca;
 					
-				case "1":
+				case "1": //Caso visualiz dettagliata di una delle proiez cercate richiesta.
 					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli:");
 					do {
 						sceltaNumProiezVisualiz = sc.nextInt();
@@ -1152,7 +1154,7 @@ public class Guest {
 						else {
 							risRicerca[sceltaNumProiezVisualiz-1].visualizzaProiezioneDettagliata(); //C'è il -1 perchè all'utente le proiez sono visualiz...
 							//...numerate da 1 (e quindi anche la sua scelta), mentre nel vettore sono numerate da 0.
-							return;
+							return risRicerca;
 						}
 					} while (sceltaNumProiezVisualiz > numRisRicerca || sceltaNumProiezVisualiz <= 0);
 					break;
@@ -1161,8 +1163,11 @@ public class Guest {
 					sceltaVisualizDettaglOk = false;
 					System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
 				}
-			} while (sceltaVisualizDettaglOk == false); //Fine ciclo per chiedere il numero della proiezione da visualizzare nel dettaglio.
-		} //Fine blocco che svolge funzionalità visualizzare una delle proiezioni cercate in dettaglio.
+			} while (sceltaVisualizDettaglOk == false); //Fine ciclo per chiedere il numero della proiezione da visualizzare in dettaglio.
+		}  else {
+			System.out.println("La ricerca non ha risultati quindi non è possibile visualizzare i dettagli di una delle proiezioni cercate");
+			return null;
+		} //Fine blocco che svolge funzionalità visualizzare in dettaglio una delle proiezioni cercate.
 		
 	}
 //Fine metodo cercaProiezione().
@@ -1170,67 +1175,73 @@ public class Guest {
 		
 //Inizio metodo estraiProiezione().
 	private Proiezione estraiProiezione(Scanner scanner, int numvirgoleintestaz) {
-//Metodo che estrae e restituisce una proiezione dal file delle proiezioni letto con scanner fornito in input. Il secondo parametro è il numero di virgole...
-//...più, xk nell'intestazione del file e quindi il numero "standard" di virgole che ha una riga/proiezione nel file (nel senso che se la riga/proiezione ne ha di...
-//non può averne di meno, allora il titolo contiene delle virgole e quindi il codice agisce di conseguenza).
+//Metodo che estrae e restituisce una proiezione dal file delle proiezioni, file letto con scanner fornito in input.
 //Il metodo assume che lo scanner dato in input è già predisposto per leggere una riga del file valida (e quindi se si è all'inizio si è già saltata la riga...
 //...dell'intestazione, se si è alla fine del file non si chiama qsto metodo, etc...).
+//Il secondo parametro è il numero di virgole dell'intestazione che serve perchè se la riga letta dal file ha più virgole di quel numero (non può averne di meno...
+//...xk almeno tante virgole quante ce ne sono nell'intestazione le deve avere) allora il titolo contiene delle virgole e quindi il codice agisce di conseguenza).
+
 		
-		int contavirgole = 0; //Contatore delle virgole della riga che sto leggendo in questo momento, utile per capire se ci sono virgole in più xk il titolo ne...
-		//...ha all'interno.
-		int differenzavirgole = 0; //Contatore della differenza delle virgole tra numero di virgole della riga/proiezione che sto leggendo e numero standard di virgole.
-		boolean virgoladxtrovata = false; //True quando trovo la virgola che delimita a destra il titolo della riga/proiezione che sto leggendo.
-		int indicevirgoladxtitolo = 0; //Indice della posizione della virgola che delimita a destra il tiolo della riga/proiezione che sto leggendo.
+		int contaVirgole = 0; //Contatore delle virgole della riga che sto leggendo in questo momento, utile per capire se ci sono virgole in più rispetto...
+		//...all'intestazione xk anche il titolo ha delle virgole al suo interno.
+		int differenzaVirgole = 0; //Contatore della differenza delle virgole tra numero di virgole della riga/proiezione che sto leggendo e numero standard di virgole.
+		boolean virgolaDxTrovata = false; //True quando trovo la virgola che delimita a destra il titolo della riga/proiezione che sto leggendo.
+		int indiceVirgolaDxTitolo = 0; //Indice della posizione della virgola che delimita a destra il tiolo della riga/proiezione che sto leggendo.
 		
 		String riga; //Variabile per contenere una riga/proiezione estratta dal file delle proiezioni.
 		
 		//Variabili Temp per contenere i dati estratti da una riga/proiezione del file delle proiezioni.
-		String annoTemp, meseTemp, giornoTemp, oraTemp, minutoTemp, titoloTemp, genereTemp, registaTemp;
+		String annoTemp, meseTemp, giornoTemp, oraTemp, minutoTemp, secondoTemp, titoloTemp, genereTemp, registaTemp;
 		int etàminTemp, durataTemp, annofilmTemp;
 		Film filmTemp;
 		double prezzoTemp;
 		LocalDate dataTemp;
 		LocalTime orarioTemp;
-		Proiezione proiezTemp = new Proiezione();
+		LocalDateTime dataOrarioTemp;
+		Proiezione proiezTemp;
 		
 		riga = scanner.next();
 		
-		//Questo blocco estrae la data dalla riga/proiezione letta dal file e la mette in dataTemp, dataTemp impostata come data di proiezTemp.
+		//Questo blocco estrae la data dalla riga/proiezione letta dal file e la mette in dataTemp.
 		annoTemp = riga.substring(1, 5);
 		meseTemp = riga.substring(6, 8);
 		giornoTemp = riga.substring(9, 11);
 		dataTemp = LocalDate.of(Integer.parseInt(annoTemp), Integer.parseInt(meseTemp), Integer.parseInt(giornoTemp));
-		proiezTemp.setDataProiezione(dataTemp);
 		
-		//Questo blocco estrae l'orario dalla riga/proiezione letta dal file e lo mette in orarioTemp, orarioTemp impostato come orario di proiezTemp.
+		//Questo blocco estrae l'orario dalla riga/proiezione letta dal file e lo mette in orarioTemp.
 		oraTemp = riga.substring(12, 14);
 		minutoTemp = riga.substring(15, 17);
-		orarioTemp = LocalTime.of(Integer.parseInt(oraTemp), Integer.parseInt(minutoTemp));
-		proiezTemp.setOrarioProiezione(orarioTemp);
+		secondoTemp = riga.substring(18, 20);
+		orarioTemp = LocalTime.of(Integer.parseInt(oraTemp), Integer.parseInt(minutoTemp), Integer.parseInt(secondoTemp));
+		
+		//Creazione data+orario della riga/proiezione e messo in dataOrarioTemp.
+		dataOrarioTemp = dataTemp.atTime(orarioTemp);
+		
+		//Inizio blocco che lavora con virgole e gli altri campi.
 		
 		for(int i=0; i<riga.length(); i++) { //Conto le virgole nella riga/proiezione letta dal file.
 			if (riga.charAt(i)==',')
-					contavirgole++;
+					contaVirgole++;
 		}
 		
-		differenzavirgole = contavirgole-numvirgoleintestaz; //Se vale 0 non ci sono virgole nel titolo, altrimenti sì.
-		int virgoledapassare = differenzavirgole; //Le virgole da incontrare nel titolo partono da differenzavirgole (serve seconda var xk virgoledapassare...
+		differenzaVirgole = contaVirgole-numvirgoleintestaz; //Se vale 0 non ci sono virgole nel titolo, altrimenti sì.
+		int virgoleDaPassare = differenzaVirgole; //Le virgole da incontrare nel titolo partono da differenzaVirgole (serve seconda var xk virgoleDPpassare...
 												 //...viene modificata)
 		
-		for(int i=22; i<riga.length() && virgoladxtrovata==false; i++) { //i è l'indice di dove guardo nella riga/proiezione, parte dal 1o carattere del titolo...
-																		//...quindi salta la prima virgola, quella tra dataorario e titolo.
-			if(riga.charAt(i)==',' && virgoledapassare==0) { //Se ho trovato una virgola e ho già incontrato virgole pari a quante ce ne sono nel titolo...
-				indicevirgoladxtitolo=i; //...vuol dire che ho trovato la virgola a dx del titolo, quindi ne salvo l'indice...
-				virgoladxtrovata = true;  //...e imposto per uscire dal ciclo
+		for(int i=22; i<riga.length() && virgolaDxTrovata==false; i++) { //i è l'indice di dove guardo nella riga/proiezione, parte dal 1o carattere del titolo...
+																		//...quindi salta la prima virgola, quella tra data+orario e titolo.
+			if(riga.charAt(i)==',' && virgoleDaPassare==0) { //Se ho trovato una virgola e ho già incontrato virgole pari a quante ce ne sono nel titolo...
+				indiceVirgolaDxTitolo=i; //...vuol dire che ho trovato la virgola a dx del titolo, quindi ne salvo l'indice...
+				virgolaDxTrovata = true;  //...e imposto per uscire dal ciclo.
 			}
-			else if (riga.charAt(i)==',' && virgoledapassare!=0) //Se ho trovato una virgola e non ho incontrato virgole pari a quante ce ne sono nel titolo...
-				virgoledapassare--;//...allora quella che ho trovato è una virgola nel titolo, quindi diminuisco le virgole da trovare.
+			else if (riga.charAt(i)==',' && virgoleDaPassare!=0) //Se ho trovato una virgola e non ho incontrato virgole pari a quante ce ne sono nel titolo...
+				virgoleDaPassare--;//...allora quella che ho trovato è una virgola nel titolo, quindi diminuisco le virgole da trovare.
 		}
 		
 		//Estraggo il titolo dalla riga/proiezione letta dal file e lo metto in titoloTemp.
-		titoloTemp = riga.substring(22, indicevirgoladxtitolo); //NB la substring prende come indice dx il 2o parametro-1 quindi è giusto mettere indicevirgoladx
+		titoloTemp = riga.substring(22, indiceVirgolaDxTitolo); //NB la substring prende come indice dx il 2o parametro-1 quindi è giusto mettere indiceVirgolaDxTitolo
 		
-		int virgolasx=indicevirgoladxtitolo, virgoladx=indicevirgoladxtitolo+1;
+		int virgolasx=indiceVirgolaDxTitolo, virgoladx=indiceVirgolaDxTitolo+1;
 		//Questi due saranno due indici (che traslano con il while che si vedrà usato + volte) per delimitare la virgola sx e dx dei campi dopo il titolo.
 		//Siccome adesso il campo successivo è genere che è quello subito dopo il titolo l'indice sx parte sulla virgoladx del titolo e quello dx sul carattere...
 		//...immediatamente dopo, cioè il 1o carattere del genere.
@@ -1266,23 +1277,24 @@ public class Guest {
 		virgolasx = virgoladx;
 		virgoladx++;
 		
-		//Creazione film filmTemp con i vari campi presenti nelle variabili "Temp"...
+		//Creazione film filmTemp con i vari campi presenti nelle variabili "Temp".
 		filmTemp = new Film(titoloTemp, genereTemp, registaTemp, annofilmTemp, durataTemp, etàminTemp);
-		proiezTemp.setFilm(filmTemp); //...e inserimento filmTemp in proiezTemp.
 		
-		while(virgoladx < riga.length() && riga.charAt(virgoladx) != ',') //Estrazione prezzo proiezione messo in prezzoTemp, prezzoTemp messo in proiezTemp.
-			virgoladx++;
-		prezzoTemp = Double.parseDouble(riga.substring(virgolasx+1, virgoladx));
-		proiezTemp.setPrezzoBiglietto(prezzoTemp);
+		
+		//Estrazione prezzo proiezione messo in prezzoTemp.
+		prezzoTemp = Double.parseDouble(riga.substring(virgolasx+1, riga.length() ) );
+		
+		proiezTemp = new Proiezione(filmTemp, dataOrarioTemp, prezzoTemp);
+
 		
 		return proiezTemp;
 	}
 //Fine metodo estraiProiezione().
 	
-//Inizio metodo dettagliProiezione(). (da decidere se effettivamente metodo a sè o se solo parte del codice di estraiProiezione() come è per ora)
+//Inizio metodo dettagliProiezione().
 	/* 
-	public Film dettagliProiezione() { // Questo metodo permette la visualizzazione dei dettagli di un film
-		// TODO Auto-generated method stub
+	public void dettagliProiezione() { // Questo metodo permette la visualizzazione dei dettagli di una delle proiezioni cercate.
+		// TODO Da decidere se effettivamente metodo a sè o se solo parte del codice di cercaProiezione() come è per ora
 		return null;
 	}
 	*/
