@@ -362,7 +362,7 @@ public class Cliente extends Guest {
 
                                 Prenotazione nuovaPrenotazione = new Prenotazione(elemento.getIDPrenotazione(),
                                     elemento.getIDUtente(), elemento.getNome(), elemento.getCognome(),
-                                    elemento.getProiezione_Data(), elemento.getProiezione_Titolo(), numeroDiPosti, elemento.getPrezzo_Biglietto());
+                                    elemento.getProiezione_Data(), elemento.getProiezione_Titolo(), numeroDiPosti, elemento.getPrezzoBiglietto());
                                 this.modificaPrenotazione(scletaModificaPrenotazione, nuovaPrenotazione);
 
                               } else {
@@ -383,7 +383,7 @@ public class Cliente extends Guest {
 
                                 Prenotazione nuovaPrenotazione = new Prenotazione(elemento.getIDPrenotazione(),
                                     elemento.getIDUtente(), elemento.getNome(), elemento.getCognome(),
-                                    elemento.getProiezione_Data(), elemento.getProiezione_Titolo(), numeroDiPosti, elemento.getPrezzo_Biglietto());
+                                    elemento.getProiezione_Data(), elemento.getProiezione_Titolo(), numeroDiPosti, elemento.getPrezzoBiglietto());
                                 this.modificaPrenotazione(scletaModificaPrenotazione, nuovaPrenotazione);
 
                               } else {

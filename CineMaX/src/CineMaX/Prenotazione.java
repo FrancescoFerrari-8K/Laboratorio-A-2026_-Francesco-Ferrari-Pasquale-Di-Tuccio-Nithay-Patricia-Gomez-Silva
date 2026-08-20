@@ -119,7 +119,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.IDUtente =IDUtente;
 	}
 
-	public double getPrezzo_Biglietto(){
+	public double getPrezzoBiglietto(){
 		return this.Prezzo_Biglietto;
 	}
 
@@ -231,7 +231,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 					"\"<"
 					+ prenotazione.getProiezione_Data().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
 					+ "\"" + "," + "\"" + prenotazione.getProiezione_Titolo() + "\"" + "," +
-					prenotazione.getNPosti() + "\""+ ","+ prenotazione.getPrezzo_Biglietto();
+					prenotazione.getNPosti() + "\""+ ","+ prenotazione.getPrezzoBiglietto();
 
 			writer.write(nuovaRiga);
 
@@ -271,7 +271,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 							nuovaPrenotazione.getCognome() + "," +
 							"\"" + nuovaPrenotazione.getProiezione_Data().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")) + "\"" + "," +
 							"\"" + nuovaPrenotazione.getProiezione_Titolo() + "\"" + "," +
-							nuovaPrenotazione.getNPosti() + "\"" + "," +  nuovaPrenotazione.getPrezzo_Biglietto();
+							nuovaPrenotazione.getNPosti() + "\"" + "," +  nuovaPrenotazione.getPrezzoBiglietto();
 					righe.add(nuovaRiga);
 				} else {
 					// Mantieni la riga originale
