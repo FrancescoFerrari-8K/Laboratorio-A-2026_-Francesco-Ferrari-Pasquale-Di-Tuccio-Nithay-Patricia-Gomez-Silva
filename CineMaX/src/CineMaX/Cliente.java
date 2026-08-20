@@ -425,9 +425,33 @@ public class Cliente extends Guest {
                   System.out.println("");
                   System.out.print("Inserisci: ");
                   sceltaPrenotazioni = sc.nextInt();
+
+                  boolean esiste = false;
+                  String sceltaEliminaPrenotazione;
+                  
+                  for(Prenotazione elemento : prenotazioniClienti){
+                    
+                    if(sceltaPrenotazioni==elemento.getIDPrenotazione()){
+                      //ho incontrato l'id, quindi esco e mi ricordo che l'id esiste   
+                      esiste = true;
+                    }
+                    
+                  }
+                  
+                  if(esiste==true){
+                    System.out.println("sei sicuro/a che vuoi eliminare questa prenotazione? (S/N): ");
+                    sceltaEliminaPrenotazione = sc.nextLine();
+
+                    if(sceltaEliminaPrenotazione.toUpperCase().charAt(0) =='S'){
+                      this.eliminaPrenotazione(sceltaPrenotazioni);
+                    }
+                  }else{
+                    System.out.println("eliminazione annulata");
+                  }
+                  
+                  // en caso de si eliminar, en caso de no, volver a atras
                   break;
-                // TODO: cuando el cliente escoja un id se tiene que preguntar si esta seguro,
-                // en caso de si eliminar, en caso de no, volver a atras
+                
 
                 default:
                   System.out.println("opzione non valida");
