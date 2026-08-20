@@ -8,12 +8,12 @@ import java.time.format.DateTimeFormatter;
 //Questa classe implementa i metodi che gestiscono le richieste degli utenti non registrati.
 
 public class Guest {
-	
-		//Campi (non presenti xk non necessari).
-		
-		//Costruttori (non presenti xk non necessari).
-		
-		//Metodi
+	//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Campi (non presenti xk non necessari).
+	//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Costruttori (non presenti xk non necessari).
+	//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Metodi
 	
 //Inizio metodo cercaProiezione().
 	public Proiezione[] cercaProiezione() throws FileNotFoundException {
@@ -26,8 +26,37 @@ public class Guest {
 		boolean sceltaOk; //Variabile che indica se scelta inserita è valida o no (serve per ciclo do while in cui è contenuta tutta la ricerca, inizializ nel ciclo).
 		boolean proiezOk; //Variabile boolean per dire se la proiezione che si sta considerando attualmente rispetta criterio ricerca; dichiarata qui perchè...
 		//...serve in qualsiasi ricerca si scelga.
+		
+		
+		String inputStringint; //Variabile di appoggio che serve per prendere in input un int. Si prende l'input con la .nextLine() mettendolo in inputString e poi...
+		//...si fa Integer.parseInt(inputString). Bisogna gestire il fatto che l'input potrebbe non essere stato un intero, e in quel caso la .parseInt() lancia...
+		//...NumberFormatException, e quindi serve blocco try-catch(NumberFormatException e) con try che include la .parseInt().
+		//L'alternativa è prendere direttamente l'input con .nextInt() che però è più complicato.
+		//Prima cosa la .nextInt() è rognosa perchè, ammettendo che l'utente mette effettivamente un intero, l'utente scrive l'intero e poi schiaccia invio e allora...
+		//...l'input è intero+\n e la .nextInt() "mangia" solo l'intero lasciando il \n "in sospeso" come input inserito e per questo dopo ogni .nextInt() serve...
+		//...praticamente sempre una .nextLine() per "mangiare" quel \n (che altrimenti rimane "in sospeso" come input inserito e rischia di sballare tutti gli...
+		//inserimenti successivi).
+		//Seconda cosa l'input potrebbe non essere un intero, e in quel caso la .nextInt() lancia InputMismatchException che va gestita con blocco try-catch ma...
+		//...soprattutto come per ogni .next*() fallita non viene "mangiato" l'input sbagliato e quindi rimane "in sospeso" come input inserito e rischia di...
+		//...sballare tutti gli inserimenti successivi, perciò nel blocco catch bisogna fare .nextLine() per "mangiare" l'input sbagliato.
+		boolean inputStringintOk; //Leggere prima il senso di inputStringint. inputStringintOk serve per dire se l'input inserito è effettivamente un int o no.
+		/*In sostanza la struttura dell'inserimento di un int che deve andare in una variabile int variabileint è
+		do {
+			inputStringintOk=true;
+			try {
+				inputStringint = .nextLine();
+				variabileint = Integer.parseInt(inputStringint);
+			
+			} catch (NumberFormatException e) {
+				inputStringintOk = false;
+				System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+			}
+		} while (inputStringintOk == false);
+		//codice che riguarda variabileint
+		*/
+		
 		Scanner scFile = new Scanner(new File("../data/proiezioni.csv")); //scFile è lettore file proiezioni.
-		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next legge una riga del file.
+		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga del file.
 		
 		DateTimeFormatter formatterDataITA = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Variabile per formato data italiano.
 		
@@ -41,7 +70,7 @@ public class Guest {
 		System.out.println("Ricerca di una proiezione");
 		
 		Scanner sc = new Scanner(System.in);
-		
+
 		do { //Inizio ciclo do while in cui è contenuto lo switch che effettua tutta la ricerca. Il while è while(sceltaOk == true). 
 			
 			System.out.println("Selezionare un criterio per la ricerca:");
@@ -194,8 +223,8 @@ public class Guest {
 				case "3": //Caso ricerca per data.
 					
 					LocalDate dataMinRic=LocalDate.MIN, dataMaxRic=LocalDate.MAX; //Variabili che conterranno le date inserite in input dall'utente.
-					//Variabili di appoggio per le date (NB il formatter per formato data italiano è a inizio metodo cercaProiezione() ).
-					int giornoMinRic, giornoMaxRic, meseMinRic, meseMaxRic, annoMinRic, annoMaxRic;
+					//Variabili di appoggio per le date (NB Il formatter per formato data italiano è a inizio metodo cercaProiezione() ).
+					int giornoMinRic=0, giornoMaxRic=0, meseMinRic=0, meseMaxRic=0, annoMinRic=0, annoMaxRic=0;
 					boolean dataRicOk = false; //Variabile per controllo validità date. Impostata default a false per case "3".
 					boolean dataRic2Ok = false; //Variabile per controllo validità seconda data quando sono richieste 2 date. Impostata default a false per case "3".
 					String sceltaRicData = "3"; //Variabile per opzioni ricerca per data. Impostata default a opzione ricerca proiezioni comprese tra due date.
@@ -218,18 +247,51 @@ public class Guest {
 							System.out.println("Ricerca proiezioni prima di una certa data");
 							do {
 								try {
+									
 									System.out.println("Inserire il giorno:");
-									giornoMaxRic = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-									//...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											giornoMaxRic = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
+									
 									System.out.println("Inserire il mese:");
-									meseMaxRic = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-									//...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											meseMaxRic = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
+									
 									System.out.println("Inserire l'anno:");
-									annoMaxRic = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-									//...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											annoMaxRic = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
 									dataMaxRic = LocalDate.of(annoMaxRic, meseMaxRic, giornoMaxRic);
 									dataRicOk = true; //Se si arriva a questa riga vuol dire che non è stata sollevata eccezione con la .of e quindi la data inserita...
 									//...è valida.
@@ -282,18 +344,51 @@ public class Guest {
 							System.out.println("Ricerca proiezioni dopo una certa data");
 							do {
 								try {
+									
 									System.out.println("Inserire il giorno:");
-									giornoMinRic = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-									//...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											giornoMinRic = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
+									
 									System.out.println("Inserire il mese:");
-									meseMinRic = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-									//...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											meseMinRic = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
+									
 									System.out.println("Inserire l'anno:");
-									annoMinRic = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-									//...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											annoMinRic = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
 									dataMinRic = LocalDate.of(annoMinRic, meseMinRic, giornoMinRic);
 									dataRicOk = true; //Se si arriva a questa riga vuol dire che non è stata sollevata eccezione con la .of e quindi la data inserita...
 									//...è valida.
@@ -321,7 +416,7 @@ public class Guest {
 								
 								if(proiezOk == true) { //Se la proiezione è corretta...
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
-										//...risultati della ricerca...
+									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
 												+ "ricerca\n");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
@@ -348,17 +443,50 @@ public class Guest {
 									if (dataRicOk == false) { //Questo if serve a non far reinserire la 1a data se si è sbagliata solo la 2a. dataOk di default...
 										//parte false quindi la prima volta si entra di sicuro nell'if (come giusto che sia).
 										System.out.println("Inserire il giorno della data minore (quella più indietro, nel passato):");
-										giornoMinRic = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-										  //...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												giornoMinRic = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										System.out.println("Inserire il mese della data minore (quella più indietro, nel passato):");
-										meseMinRic = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-										  //...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												meseMinRic = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										System.out.println("Inserire l'anno della data minore (quella più indietro, nel passato):");
-										annoMinRic = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-										  //...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												annoMinRic = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										dataMinRic = LocalDate.of(annoMinRic, meseMinRic, giornoMinRic);
 										dataRicOk = true; //Se si arriva a questa riga vuol dire che non è stata sollevata eccezione con la .of e quindi la 1a data...
 										//...inserita è valida.
@@ -366,17 +494,50 @@ public class Guest {
 									}
 									
 									System.out.println("Inserire il giorno della data maggiore (quella più avanti, nel futuro):");
-									giornoMaxRic = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-						  			  			  //...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											giornoMaxRic = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
+									
 									System.out.println("Inserire il mese della data maggiore (quella più avanti, nel futuro):");
-									meseMaxRic = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-			  			  			  			  //...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											meseMaxRic = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
+									
 									System.out.println("Inserire l'anno della data maggiore (quella più avanti, nel futuro):");
-									annoMaxRic = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-												  //...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											annoMaxRic = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
+									
 									dataMaxRic = LocalDate.of(annoMaxRic, meseMaxRic, giornoMaxRic);
 									
 									if (dataMaxRic.compareTo(dataMinRic) < 0) { //Se la 2a data inserita è minore/più indietro della 1a, la 2a data non va bene.
@@ -416,7 +577,7 @@ public class Guest {
 								
 								if(proiezOk == true) { //Se la proiezione è corretta...
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
-										//...risultati della ricerca...
+									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
 												+ "ricerca\n");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
@@ -467,9 +628,19 @@ public class Guest {
 							System.out.println("Ricerca proiezioni con prezzo minore di un certo valore");
 							do {
 								System.out.println("Inserire il prezzo massimo:");
-								prezzoMaxRic = sc.nextInt();
-								sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-								//...Questa istruz "mangia" il \n.
+								
+								do {
+									inputStringintOk=true;
+									try {
+										inputStringint = sc.nextLine();
+										prezzoMaxRic = Integer.parseInt(inputStringint);
+									
+									} catch (NumberFormatException e) {
+										inputStringintOk = false;
+										System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+									}
+								} while (inputStringintOk == false);
+								
 								if (prezzoMaxRic < 0)
 									System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
 							} while (prezzoMaxRic < 0);
@@ -491,7 +662,7 @@ public class Guest {
 								
 								if(proiezOk == true) { //Se la proiezione è corretta...
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
-										//...risultati della ricerca...
+									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
 												+ "ricerca\n");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
@@ -516,9 +687,19 @@ public class Guest {
 							System.out.println("Ricerca proiezioni con prezzo maggiore di un certo valore");
 							do {
 								System.out.println("Inserire il prezzo minimo:");
-								prezzoMinRic = sc.nextInt();
-								sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-								//...Questa istruz "mangia" il \n.
+								
+								do {
+									inputStringintOk=true;
+									try {
+										inputStringint = sc.nextLine();
+										prezzoMinRic = Integer.parseInt(inputStringint);
+									
+									} catch (NumberFormatException e) {
+										inputStringintOk = false;
+										System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+									}
+								} while (inputStringintOk == false);
+								
 								if (prezzoMinRic < 0)
 									System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
 							} while (prezzoMinRic < 0);
@@ -540,7 +721,7 @@ public class Guest {
 								
 								if(proiezOk == true) { //Se la proiezione è corretta...
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
-										//...risultati della ricerca...
+									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
 												+ "ricerca\n");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
@@ -563,21 +744,44 @@ public class Guest {
 						case "3": //Caso ricerca prezzo compreso tra due valori.
 							
 							System.out.println("Ricerca proiezioni con prezzo compreso tra due valori");
+							
+							//Inserimento prezzo minimo.
 							do {
 								System.out.println("Inserire il prezzo minimo:");
-								prezzoMinRic = sc.nextInt();
-								sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-								//...Questa istruz "mangia" il \n.
+								
+								do {
+									inputStringintOk=true;
+									try {
+										inputStringint = sc.nextLine();
+										prezzoMinRic = Integer.parseInt(inputStringint);
+									
+									} catch (NumberFormatException e) {
+										inputStringintOk = false;
+										System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+									}
+								} while (inputStringintOk == false);
+								
 								if (prezzoMinRic < 0)
 									System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
 							} while (prezzoMinRic < 0);
 							System.out.println("Il prezzo minimo inserito è " + prezzoMinRic);
 							
+							//Inserimento prezzo massimo.
 							do {
 								System.out.println("Inserire il prezzo massimo:");
-								prezzoMaxRic = sc.nextInt();
-								sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n....
-								//...Questa istruz "mangia" il \n.
+								
+								do {
+									inputStringintOk=true;
+									try {
+										inputStringint = sc.nextLine();
+										prezzoMaxRic = Integer.parseInt(inputStringint);
+									
+									} catch (NumberFormatException e) {
+										inputStringintOk = false;
+										System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+									}
+								} while (inputStringintOk == false);
+								
 								if (prezzoMaxRic < 0)
 									System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
 								if (prezzoMaxRic < prezzoMinRic)
@@ -603,7 +807,7 @@ public class Guest {
 								
 								if(proiezOk == true) { //Se la proiezione è corretta...
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
-										//...risultati della ricerca...
+									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
 												+ "ricerca\n");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
@@ -648,7 +852,7 @@ public class Guest {
 					
 					LocalDate dataMinRicerca=LocalDate.MIN, dataMaxRicerca=LocalDate.MAX; //Variabili che conterranno le date inserite in input dall'utente.
 					//Variabili di appoggio per le date (NB il formatter per formato data italiano è a inizio metodo cercaProiezione() ).
-					int giornoMinRicerca, giornoMaxRicerca, meseMinRicerca, meseMaxRicerca, annoMinRicerca, annoMaxRicerca;
+					int giornoMinRicerca=0, giornoMaxRicerca=0, meseMinRicerca=0, meseMaxRicerca=0, annoMinRicerca=0, annoMaxRicerca=0;
 					boolean dataRicercaOk = false; //Variabile per controllo validità date. Impostata default a false perchè serve così al case "3".
 					boolean dataRicerca2Ok = false; //Variabile per controllo validità seconda data quando sono richieste 2 date. Impostata default a false...
 					//...perchè serve così case "3".
@@ -737,17 +941,50 @@ public class Guest {
 								do {
 									try {
 										System.out.println("Inserire il giorno:");
-										giornoMaxRicerca = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-										//...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												giornoMaxRicerca = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										System.out.println("Inserire il mese:");
-										meseMaxRicerca = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-										//...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												meseMaxRicerca = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										System.out.println("Inserire l'anno:");
-										annoMaxRicerca = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-										//...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												annoMaxRicerca = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										dataMaxRicerca = LocalDate.of(annoMaxRicerca, meseMaxRicerca, giornoMaxRicerca);
 										dataRicercaOk = true; //Se si arriva a questa riga vuol dire che non è stata sollevata eccezione con la .of e quindi la data...
 										//...inserita è valida.
@@ -767,17 +1004,50 @@ public class Guest {
 								do {
 									try {
 										System.out.println("Inserire il giorno:");
-										giornoMinRicerca = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-										//...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												giornoMinRicerca = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										System.out.println("Inserire il mese:");
-										meseMinRicerca = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-										//...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												meseMinRicerca = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										System.out.println("Inserire l'anno:");
-										annoMinRicerca = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-										//...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												annoMinRicerca = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										dataMinRicerca = LocalDate.of(annoMinRicerca, meseMinRicerca, giornoMinRicerca);
 										dataRicercaOk = true; //Se si arriva a questa riga vuol dire che non è stata sollevata eccezione con la .of e quindi la data...
 										//...inserita è valida.
@@ -798,17 +1068,50 @@ public class Guest {
 										if (dataRicercaOk == false) { //Questo if serve a non far reinserire la 1a data se si è sbagliata solo la 2a. dataOk di...
 											//default parte false quindi la prima volta si entra di sicuro nell'if (come giusto che sia).
 											System.out.println("Inserire il giorno della data minore (quella più indietro, nel passato):");
-											giornoMinRicerca = sc.nextInt();
-											sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-											  //...Questa istruz "mangia" il \n.
+											
+											do {
+												inputStringintOk=true;
+												try {
+													inputStringint = sc.nextLine();
+													giornoMinRicerca = Integer.parseInt(inputStringint);
+												
+												} catch (NumberFormatException e) {
+													inputStringintOk = false;
+													System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+												}
+											} while (inputStringintOk == false);
+											
+											
 											System.out.println("Inserire il mese della data minore (quella più indietro, nel passato):");
-											meseMinRicerca = sc.nextInt();
-											sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-											  //...Questa istruz "mangia" il \n.
+											
+											do {
+												inputStringintOk=true;
+												try {
+													inputStringint = sc.nextLine();
+													meseMinRicerca = Integer.parseInt(inputStringint);
+												
+												} catch (NumberFormatException e) {
+													inputStringintOk = false;
+													System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+												}
+											} while (inputStringintOk == false);
+											
+											
 											System.out.println("Inserire l'anno della data minore (quella più indietro, nel passato):");
-											annoMinRicerca = sc.nextInt();
-											sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-											  //...Questa istruz "mangia" il \n.
+											
+											do {
+												inputStringintOk=true;
+												try {
+													inputStringint = sc.nextLine();
+													annoMinRicerca = Integer.parseInt(inputStringint);
+												
+												} catch (NumberFormatException e) {
+													inputStringintOk = false;
+													System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+												}
+											} while (inputStringintOk == false);
+											
+											
 											dataMinRicerca = LocalDate.of(annoMinRicerca, meseMinRicerca, giornoMinRicerca);
 											dataRicercaOk = true; //Se si arriva a questa riga vuol dire che non è stata sollevata eccezione con la .of e quindi la...
 											//...1a data inserita è valida.
@@ -816,17 +1119,50 @@ public class Guest {
 										}
 										
 										System.out.println("Inserire il giorno della data maggiore (quella più avanti, nel futuro):");
-										giornoMaxRicerca = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-							  			  			  //...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												giornoMaxRicerca = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										System.out.println("Inserire il mese della data maggiore (quella più avanti, nel futuro):");
-										meseMaxRicerca = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-				  			  			  			  //...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												meseMaxRicerca = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										System.out.println("Inserire l'anno della data maggiore (quella più avanti, nel futuro):");
-										annoMaxRicerca = sc.nextInt();
-										sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-													  //...Questa istruz "mangia" il \n.
+										
+										do {
+											inputStringintOk=true;
+											try {
+												inputStringint = sc.nextLine();
+												annoMaxRicerca = Integer.parseInt(inputStringint);
+											
+											} catch (NumberFormatException e) {
+												inputStringintOk = false;
+												System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											}
+										} while (inputStringintOk == false);
+										
+										
 										dataMaxRicerca = LocalDate.of(annoMaxRicerca, meseMaxRicerca, giornoMaxRicerca);
 										
 										if (dataMaxRicerca.compareTo(dataMinRicerca) < 0) { //Se la 2a data inserita è minore/più indietro della 1a, la 2a data...
@@ -880,9 +1216,20 @@ public class Guest {
 								System.out.println("Ricerca proiezioni con prezzo minore di un certo valore");
 								do {
 									System.out.println("Inserire il prezzo massimo:");
-									prezzoMaxRicerca = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-									//...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											prezzoMaxRicerca = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
+									
 									if (prezzoMaxRicerca < 0)
 										System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
 								} while (prezzoMaxRicerca < 0);
@@ -895,9 +1242,20 @@ public class Guest {
 								System.out.println("Ricerca proiezioni con prezzo maggiore di un certo valore");
 								do {
 									System.out.println("Inserire il prezzo minimo:");
-									prezzoMinRicerca = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-									//...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											prezzoMinRicerca = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
+									
 									if (prezzoMinRicerca < 0)
 										System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
 								} while (prezzoMinRicerca < 0);
@@ -910,9 +1268,20 @@ public class Guest {
 								System.out.println("Ricerca proiezioni con prezzo compreso tra due valori");
 								do {
 									System.out.println("Inserire il prezzo minimo:");
-									prezzoMinRicerca = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-									//...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											prezzoMinRicerca = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
+									
 									if (prezzoMinRicerca < 0)
 										System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
 								} while (prezzoMinRicerca < 0);
@@ -920,9 +1289,20 @@ public class Guest {
 								
 								do {
 									System.out.println("Inserire il prezzo massimo:");
-									prezzoMaxRicerca = sc.nextInt();
-									sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n....
-									//...Questa istruz "mangia" il \n.
+									
+									do {
+										inputStringintOk=true;
+										try {
+											inputStringint = sc.nextLine();
+											prezzoMaxRicerca = Integer.parseInt(inputStringint);
+										
+										} catch (NumberFormatException e) {
+											inputStringintOk = false;
+											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										}
+									} while (inputStringintOk == false);
+									
+									
 									if (prezzoMaxRicerca < 0)
 										System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
 									if (prezzoMaxRicerca < prezzoMinRicerca)
@@ -1008,8 +1388,8 @@ public class Guest {
 								boolean trovato = false;
 								for (int i=0; i+genereRicLowercaseRicerca.length() <= genereTempLowercaseRicerca.length(); i++) { //For per vedere se il genere...
 									//...della proiez corrente contiene il genere cercato.
-									genereParz = genereTempLowercaseRicerca.substring(i, i+genereRicLowercaseRicerca.length());
-									if (genereParz.compareTo(genereRicLowercaseRicerca) == 0) //Se trovo un pezzo del genere della proiez corrente che...
+									genereParzRicerca = genereTempLowercaseRicerca.substring(i, i+genereRicLowercaseRicerca.length());
+									if (genereParzRicerca.compareTo(genereRicLowercaseRicerca) == 0) //Se trovo un pezzo del genere della proiez corrente che...
 									//...è uguale al genere cercato...
 										trovato = true; //...trovato diventa true.
 								}
@@ -1094,7 +1474,7 @@ public class Guest {
 						
 						if(proiezOk == true) { //Se la proiezione è corretta...
 							if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
-								//...risultati della ricerca...
+							//...risultati della ricerca...
 								System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
 										+ "ricerca\n");
 								System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
@@ -1115,6 +1495,7 @@ public class Guest {
 					break;
 				
 				case "0": //Caso ricerca annullata.
+					sc.close();
 					return null;
 					
 				default:
@@ -1130,49 +1511,118 @@ public class Guest {
 			String sceltaVisualizDettagl = "0"; //Variabile per scelta se visualizzare in dettaglio una delle proiez cercate, inizializ default a "0" cioè no.
 			int sceltaNumProiezVisualiz = 1; //Variabile che conterrà il numero della proiez scelta da visualizzare in dettaglio, inizializ default a 1 cioè...
 											//...la prima, che sicuramente c'è xk se siamo entrati nel blocco if in cui qsto codice si trova allora c'è almeno 1 ris.
-			boolean sceltaVisualizDettaglOk; //Variabile che indica se scelta inserita è valida o no.
 			
 			System.out.println("Si desidera visualizzare i dettagli di una delle proiezioni cercate?");
 			System.out.println("Inserire 1 se sì, 0 altrimenti:");
-			do { //Inizio ciclo per chiedere il numero della proiezione da visualizzare in dettaglio.
-				sceltaVisualizDettaglOk = true;
+			do { //Inizio ciclo do while per chiedere il numero della proiezione da visualizzare in dettaglio. Il while è while(true) (xk deve andare avanti finchè...
+			//...l'utente inserisce una scelta valida).
 				sceltaVisualizDettagl = sc.nextLine();
 				
 				switch(sceltaVisualizDettagl) {
 				
 				case "0": //Caso visualiz dettagliata di una delle proiez cercate rifiutata.
+					sc.close();
 					return risRicerca;
 					
 				case "1": //Caso visualiz dettagliata di una delle proiez cercate richiesta.
-					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli:");
+					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli (1 - " + numRisRicerca + "):");
 					do {
-						sceltaNumProiezVisualiz = sc.nextInt();
-						sc.nextLine(); //Quando utente fa input inserisce un numero e poi fa invio quindi l'input è numero+carattere "a capo" \n...
-						//...Questa istruz "mangia" il \n.
-						if (sceltaNumProiezVisualiz > numRisRicerca || sceltaNumProiezVisualiz <= 0)
-							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate:");
+						
+						do {
+							inputStringintOk=true;
+							try {
+								inputStringint = sc.nextLine();
+								sceltaNumProiezVisualiz = Integer.parseInt(inputStringint);
+							
+							} catch (NumberFormatException e) {
+								inputStringintOk = false;
+								System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+							}
+						} while (inputStringintOk == false);
+						
+						if (sceltaNumProiezVisualiz <= 0 || sceltaNumProiezVisualiz > numRisRicerca)
+							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate (1 - " + numRisRicerca + "):");
 						else {
 							risRicerca[sceltaNumProiezVisualiz-1].visualizzaProiezioneDettagliata(); //C'è il -1 perchè all'utente le proiez sono visualiz...
 							//...numerate da 1 (e quindi anche la sua scelta), mentre nel vettore sono numerate da 0.
+							sc.close();
 							return risRicerca;
 						}
-					} while (sceltaNumProiezVisualiz > numRisRicerca || sceltaNumProiezVisualiz <= 0);
-					break;
+					} while (true);
 					
 				default:
-					sceltaVisualizDettaglOk = false;
 					System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
+					
 				}
-			} while (sceltaVisualizDettaglOk == false); //Fine ciclo per chiedere il numero della proiezione da visualizzare in dettaglio.
+			} while (true); //Fine ciclo per chiedere il numero della proiezione da visualizzare in dettaglio. Il while è while(true) xk deve andare avanti finchè...
+			//...l'utente inserisce una scelta valida.
 		}  else {
 			System.out.println("La ricerca non ha risultati quindi non è possibile visualizzare i dettagli di una delle proiezioni cercate");
+			sc.close();
 			return null;
 		} //Fine blocco che svolge funzionalità visualizzare in dettaglio una delle proiezioni cercate.
-		return risRicerca; //return superflua ma sennò codice da errore
 		
 	}
 //Fine metodo cercaProiezione().
 
+	public static Proiezione selezionaProiezDaRicerca(Proiezione[] risRicerca) {
+		
+		Scanner sc = new Scanner(System.in);
+		String sceltaSelezione;
+		int sceltaProiezione=1;
+		
+		//Variabili di appoggio per prendere in input un int. Si veda inizio classe il senso di utilizzo.
+		String inputStringint;
+		boolean inputStringintOk;
+		
+		if(risRicerca == null) {
+			System.out.println("Non è possibile selezionare una proiezione");
+			sc.close();
+			return null;
+		}
+		
+		System.out.println("Si desidera selezionare una delle proiezioni trovate?");
+		System.out.println("Inserire 1 se sì, 0 altrimenti:");
+		sceltaSelezione = sc.nextLine();
+		
+		do {
+			sceltaSelezione = sc.nextLine();
+			
+			switch(sceltaSelezione) {
+			
+			case "0":
+				sc.close();
+				return null;
+				
+			case "1":
+				System.out.println("Inserire il numero della proiezione che si desidera selezionare (1 - " + risRicerca.length + "):");
+				do {
+					do {
+						inputStringintOk=true;
+						try {
+							inputStringint = sc.nextLine();
+							sceltaProiezione = Integer.parseInt(inputStringint);
+						
+						} catch (NumberFormatException e) {
+							inputStringintOk = false;
+							System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+						}
+					} while (inputStringintOk == false);
+					
+					if (sceltaProiezione <= 0 || sceltaProiezione > risRicerca.length) {
+						System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate (1 - "
+							+ risRicerca.length + "):");
+					} else {
+							sc.close();
+							return risRicerca[sceltaProiezione-1];
+					}
+				} while (true);
+			default:
+				System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
+			}
+		} while (true);
+		
+	}
 		
 //Inizio metodo estraiProiezione().
 	private Proiezione estraiProiezione(Scanner scanner, int numvirgoleintestaz) {
@@ -1301,4 +1751,5 @@ public class Guest {
 	*/
 //Fine metodo dettagliProiezione().
 	
-}
+} // Fine classe Guest.
+
