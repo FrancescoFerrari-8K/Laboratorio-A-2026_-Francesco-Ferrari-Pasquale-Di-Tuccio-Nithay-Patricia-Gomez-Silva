@@ -29,12 +29,13 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	private String Proiezione_Titolo;
 	private int NPosti;
 	private int IDPrenotazione;
+	private double Prezzo_Biglietto;
 	
 
 	// Costruttori
 
 	public Prenotazione(String IDUtente, String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
-			int NPosti) {
+			int NPosti, double Prezzo_Biglietto) {
 
 		this.Nome = nome;
 		this.Cognome = cognome;
@@ -43,11 +44,12 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.NPosti = NPosti;
 		this.IDPrenotazione = Prenotazione.generaNuovoID();
 		this.IDUtente = IDUtente;
+		this.Prezzo_Biglietto = Prezzo_Biglietto;
 		
 	}
 
 	public Prenotazione(int IDPrenotazione, String IDUtente, String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
-			int NPosti) {
+			int NPosti, double Prezzo_Biglietto) {
 
 		this.Nome = nome;
 		this.Cognome = cognome;
@@ -56,6 +58,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.NPosti = NPosti;
 		this.IDPrenotazione = IDPrenotazione;
         this.IDUtente = IDUtente;
+		this.Prezzo_Biglietto = Prezzo_Biglietto;
 	
 	}
 
@@ -116,6 +119,14 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.IDUtente =IDUtente;
 	}
 
+	public double getPrezzo_Biglietto(){
+		return this.Prezzo_Biglietto;
+	}
+
+	public void setPrezzo_Biglietto(){
+		this.Prezzo_Biglietto = Prezzo_Biglietto;
+	}
+
 	public String toString() {
 
 		return this.toString(false);
@@ -124,10 +135,10 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	public String toString(boolean mostraID) {
 		if(mostraID==true){
 			return "ID "+IDPrenotazione +" - "+ Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
-			+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti;
+			+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti + "- Prezzo del Biglietto: " +Prezzo_Biglietto;
 		} else{
 			return "Prenotazione " + Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
-			+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti;
+			+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti+ "- Prezzo del Biglietto: "+Prezzo_Biglietto;
 		}
 		
 	}
@@ -157,9 +168,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		return risultato;
 	}
 
-	/// questo metodo estrae dal file di prenotazione tutte le prenotazione e me
-	/// li ristituisce
-
+	// questo metodo estrae dal file di prenotazione tutte le prenotazione e me li ristituisce//
 	public static ArrayList<Prenotazione> caricaPrenotazioni() {
 
 		// trova il percorso assoluto del file proiezioni.csv per rendere il metodo
@@ -192,7 +201,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 					Prenotazione PrenotazioneTemp = new Prenotazione(Integer.parseInt(colonne[0]), colonne[1],
 							colonne[2], colonne [3],
 							LocalDateTime.parse(colonne[4].replace("\"", "")), colonne[5],
-							Integer.parseInt(colonne[6]));
+							Integer.parseInt(colonne[6]),Double.parseDouble(colonne[7]) );
 					listaPrenotazioni.add(PrenotazioneTemp);
 				}
 				// chiusura degli stream per evitare memory leaks
@@ -209,7 +218,8 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		}
 		return listaPrenotazioni;
 	}
-
+    
+	//questo metodo serve per aggiungere le prenotazioni al CSV//
 	public static boolean aggiungiPrenotazioneAlCSV(Prenotazione prenotazione) {
 		try (FileWriter writer = new FileWriter(percorsoFile, true)) {
 
@@ -220,7 +230,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 					"\"<"
 					+ prenotazione.getProiezione_Data().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
 					+ "\"" + "," + "\"" + prenotazione.getProiezione_Titolo() + "\"" + "," +
-					prenotazione.getNPosti();
+					prenotazione.getNPosti() + "\""+ ","+ prenotazione.getPrezzo_Biglietto();
 
 			writer.write(nuovaRiga);
 
@@ -236,7 +246,6 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 
 	 // questo metodo modifica la prenotazione//
-
 	 public static boolean modificaPrenotazioneNelCSV(int idPrenotazione, Prenotazione nuovaPrenotazione) {
 		List<String> righe = new ArrayList<>();
 	
@@ -261,7 +270,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 							nuovaPrenotazione.getCognome() + "," +
 							"\"" + nuovaPrenotazione.getProiezione_Data().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")) + "\"" + "," +
 							"\"" + nuovaPrenotazione.getProiezione_Titolo() + "\"" + "," +
-							nuovaPrenotazione.getNPosti();
+							nuovaPrenotazione.getNPosti() + "\"" + "," +  nuovaPrenotazione.getPrezzo_Biglietto();
 					righe.add(nuovaRiga);
 				} else {
 					// Mantieni la riga originale
@@ -342,10 +351,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		// sostituirla con nuovaPrenotazione
 		// salvare file prenotazione
 
-
-
 		//questo metodo serve per sapere se il formato della data e valido oppure no//
-
 		public static boolean FormatoDiDataCorretto(String sceltaData){
 
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/uuuu")
