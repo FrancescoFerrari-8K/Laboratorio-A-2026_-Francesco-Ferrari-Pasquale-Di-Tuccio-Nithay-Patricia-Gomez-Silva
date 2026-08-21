@@ -15,12 +15,149 @@ public class Guest {
 	//--------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Metodi
 	
+//Inizio metodo cercaProiezionePerTitolo().
+	public Proiezione[] cercaProiezionePerTitolo(String titoloCercato) throws FileNotFoundException {
+//Questo metodo permette la ricerca di proiezioni per titolo (e visualizzazione dettagliata di una di quelle trovate). Il metodo stampa a video tutto quanto ma...
+//se serve restituisce il vettore contenente le proiezioni trovate con la ricerca, null nel caso in cui la ricerca avesse 0 risultati.
+			
+		int limiteRic = 10000; //Limite numero risultati della ricerca.
+		int numRisRicerca = 0; //Contatore numero risultati.
+		boolean proiezOk; //Variabile boolean per dire se la proiezione che si sta considerando attualmente rispetta criterio ricerca.
+		
+		Scanner sc = new Scanner(System.in);
+		String inputStringint;
+		boolean inputStringintOk;
+		
+		Scanner scFile = new Scanner(new File("../data/proiezioni.csv")); //scFile è lettore file proiezioni.
+		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga del file.
+		
+		
+		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA ADATTIVO O PERLOMENO SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
+		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
+		
+		Proiezione[] risRicerca = new Proiezione[limiteRic]; //Vettore che rappresenta il risultato della ricerca cioè contiene le proiezioni che rispettano il...
+		//...criterio scelto.
+		
+		
+		System.out.println("Ricerca proiezione con titolo film :" + titoloCercato);
+		
+		String titoloTempLowercase, titoloRicLowercase; //Variabili che conterranno i titoli cercato e estratto dalla proiez corrente messi a minuscolo.
+		String titoloParz; //Uso spiegato in confronto titoli.
+		
+		while(scFile.hasNext()) { //Ciclo per leggere una proiezione dal file delle proiezioni e verificare se rispetta requisiti.
+			
+			proiezOk = false;
+			
+			Proiezione proiez = estraiProiezione(scFile,numvirgoleintestaz); //Estraggo una proiezione dal file delle proiezioni e la metto in proiez.
+			
+			//Inizio blocco per confronto tra criterio inserito e stesso criterio nella riga/proiez letta da file.
+			
+			//Metto entrambi i titoli (quello ricercato e quello della proiezione considerata attualmente) a minuscolo per non far contare le maiuscole.
+			titoloTempLowercase = proiez.getFilm().getTitolo().toLowerCase(); 
+			titoloRicLowercase = titoloCercato.toLowerCase(); 
+			
+			//Confronto titoli.
+			if(titoloRicLowercase.length() == titoloTempLowercase.length()) //Caso titolo cercato ha lungh uguale al titolo proiezione corrente.
+				if(titoloTempLowercase.compareTo(titoloRicLowercase) == 0)
+					proiezOk = true;
+			if(titoloRicLowercase.length() < titoloTempLowercase.length()) { //Caso titolo cercato ha lungh minore del titolo proiezione corrente...
+				//...quindi devo vedere se il titolo della proiez corrente contiene il titolo cercato; per farlo uso titoloParz che...
+				//...contiene man mano pezzi del titolo della proiez corrente lunghi quanto il titolo cercato.
+				//Es se cerco "evo", che è lungo 3, titoloParz conterrà man mano tutti i pezzi di lungh 3 del titolo della proiez corrente per vedere se...
+				//...uno di questi pezzi è "evo".
+				for(int i=0; i+titoloRicLowercase.length() <= titoloTempLowercase.length(); i++) { //For per vedere se il titolo della proiez corrente...
+				//contiene il titolo cercato.
+					titoloParz = titoloTempLowercase.substring(i, i+titoloRicLowercase.length());
+					if( titoloParz.compareTo(titoloRicLowercase) == 0)
+						proiezOk = true;
+				}
+			}
+			//Fine blocco confronto titoli.
+			
+			if(proiezOk == true) { //Se la proiezione è corretta...
+				if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
+				//...risultati della ricerca...
+					System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
+							+ "ricerca\n");
+					System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
+				} 
+				else { //Altrimenti se la proiezione è corretta e non ho raggiunto numero massimo di risultati...
+					risRicerca[numRisRicerca] = proiez; //...salvo proiezione correntemente letta da file in vettore dei risultati della ricerca,...
+					System.out.println();
+					System.out.println(numRisRicerca+1); //...stampo numero del risultato perchè servirà per eventuale visualizzaProiezione...
+					//...(stampa dettagli di 1 proiez),...
+					proiez.visualizzaProiezione(); //...e stampo la proiez.
+					numRisRicerca++;
+				}
+			} //Fine blocco if fatto se la proiezione è corretta.
+			
+		} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
+		System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+					
+		
+		if (numRisRicerca > 0) { //Inizio blocco che svolge funzionalità visualizzare in dettaglio una delle proiezioni cercate.
+			
+			String sceltaVisualizDettagl = "0"; //Variabile per scelta se visualizzare in dettaglio una delle proiez cercate, inizializ default a "0" cioè no.
+			int sceltaNumProiezVisualiz = 1; //Variabile che conterrà il numero della proiez scelta da visualizzare in dettaglio, inizializ default a 1 cioè...
+											//...la prima, che sicuramente c'è xk se siamo entrati nel blocco if in cui qsto codice si trova allora c'è almeno 1 ris.
+			
+			System.out.println("Si desidera visualizzare i dettagli di una delle proiezioni cercate?");
+			System.out.println("Inserire 1 se sì, 0 altrimenti:");
+			do { //Inizio ciclo do while per chiedere il numero della proiezione da visualizzare in dettaglio. Il while è while(true) (xk deve andare avanti finchè...
+			//...l'utente inserisce una scelta valida).
+				sceltaVisualizDettagl = sc.nextLine();
+				
+				switch(sceltaVisualizDettagl) {
+				
+				case "0": //Caso visualiz dettagliata di una delle proiez cercate rifiutata.
+					return risRicerca;
+					
+				case "1": //Caso visualiz dettagliata di una delle proiez cercate richiesta.
+					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli (1 - " + numRisRicerca + "):");
+					do {
+						
+						do {
+							inputStringintOk=true;
+							try {
+								inputStringint = sc.nextLine();
+								sceltaNumProiezVisualiz = Integer.parseInt(inputStringint);
+							
+							} catch (NumberFormatException e) {
+								inputStringintOk = false;
+								System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+							}
+						} while (inputStringintOk == false);
+						
+						if (sceltaNumProiezVisualiz <= 0 || sceltaNumProiezVisualiz > numRisRicerca)
+							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni "
+									+ "cercate (1 - " + numRisRicerca + "):");
+						else {
+							risRicerca[sceltaNumProiezVisualiz-1].visualizzaProiezioneDettagliata(); //C'è il -1 perchè all'utente le proiez sono visualiz...
+							//...numerate da 1 (e quindi anche la sua scelta), mentre nel vettore sono numerate da 0.
+							return risRicerca;
+						}
+					} while (true);
+					
+				default:
+					System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
+					
+				}
+			} while (true); //Fine ciclo per chiedere il numero della proiezione da visualizzare in dettaglio. Il while è while(true) xk deve andare avanti finchè...
+			//...l'utente inserisce una scelta valida.
+		}  else {
+			System.out.println("La ricerca non ha risultati quindi non è possibile visualizzare i dettagli di una delle proiezioni cercate");
+			return null;
+		} //Fine blocco che svolge funzionalità visualizzare in dettaglio una delle proiezioni cercate.
+		
+	}
+//Fine metodo cercaProiezionePerTitolo().
+	
 //Inizio metodo cercaProiezione().
 	public Proiezione[] cercaProiezione() throws FileNotFoundException {
 //Questo metodo permette la ricerca di proiezioni (e visualizzazione dettagliata di una di quelle trovate). Il metodo stampa a video tutto quanto ma se serve...
 //...restituisce il vettore contenente le proiezioni trovate con la ricerca, null nel caso in cui la ricerca avesse 0 risultati.
 		
-		int limiteRic = 5000; //Limite numero risultati della ricerca.
+		int limiteRic = 10000; //Limite numero risultati della ricerca.
 		int numRisRicerca = 0; //Contatore numero risultati.
 		String scelta = "1"; //Variabile per opzioni scelta, impostata default a "1" cioè ricerca per titolo.
 		boolean sceltaOk; //Variabile che indica se scelta inserita è valida o no (serve per ciclo do while in cui è contenuta tutta la ricerca, inizializ nel ciclo).
@@ -83,9 +220,10 @@ public class Guest {
 			System.out.println("Inserire criterio scelto:");
 			
 			sceltaOk = true; //All'inizio, e ogni volta che si ripete il do while in cui è contenuta tutta la ricerca (e questo ripetere succede quando l'utente...
-//...inserisce in input un'opzione non valida) è settata a true. Se l'utente inserisce un'opzione valida allora entra nei vari case delle possibili opzioni di ricerca...
-//...e in quei case sceltaOk non viene modificata, quindi rimane true, e quindi quando si esce dai case e si va al while si esce dal do while in cui è contenuta la...
-//...ricerca. Viene modificata a false solo se viene inserita in input dall'utente un'opzione non valida in modo che arrivando al while si torni all'inizio del ciclo.
+//...inserisce in input un'opzione non valida) è settata a true. Se l'utente inserisce un'opzione valida allora entra nei vari case delle possibili opzioni di...
+//...ricerca e in quei case sceltaOk non viene modificata, quindi rimane true, e quindi quando si esce dai case e si va al while si esce dal do while in cui è...
+//...contenuta la ricerca. Viene modificata a false solo se viene inserita in input dall'utente un'opzione non valida in modo che arrivando al while si torni...
+//...all'inizio del ciclo.
 			
 			scelta = sc.nextLine(); //Inserimento scelta utente del tipo di ricerca da effettuare.
 			System.out.println("Scelta inserita: " + scelta);
@@ -860,7 +998,8 @@ public class Guest {
 					boolean sceltaRicercaDataOk; //Variabile che indica se scelta inserita è valida o no.
 					
 					double prezzoMinRicerca = 0, prezzoMaxRicerca = 0; //Variabili che conterranno i prezzi inseriti in input dall'utente, inizializ default a 0.
-					String sceltaRicercaPrezzo = "3"; //Variabile per opzioni ricerca per prezzo. Impostata default a opzione ricerca proiezioni comprese tra due prezzi.
+					String sceltaRicercaPrezzo = "3"; //Variabile per opzioni ricerca per prezzo. Impostata default a opzione ricerca proiezioni comprese tra due...
+					//...prezzi.
 					boolean sceltaRicercaPrezzoOk; //Variabile che indica se scelta inserita è valida o no.
 					
 					//Fine blocco dichiarazioni variabili necessarie per contenere i criteri inseriti in input dall'utente.
@@ -1425,7 +1564,8 @@ public class Guest {
 							case "3": //Caso ricerca tra due date.
 								
 								//Confronto date.
-								if (proiez.getDataOra().toLocalDate().compareTo(dataMinRicerca) <= 0 || proiez.getDataOra().toLocalDate().compareTo(dataMaxRicerca) >= 0)
+								if (proiez.getDataOra().toLocalDate().compareTo(dataMinRicerca) <= 0 
+										|| proiez.getDataOra().toLocalDate().compareTo(dataMaxRicerca) >= 0)
 									proiezOk = false;
 								//Fine blocco confronto date.
 									
@@ -1539,7 +1679,8 @@ public class Guest {
 						} while (inputStringintOk == false);
 						
 						if (sceltaNumProiezVisualiz <= 0 || sceltaNumProiezVisualiz > numRisRicerca)
-							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate (1 - " + numRisRicerca + "):");
+							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni"
+									+ " cercate (1 - " + numRisRicerca + "):");
 						else {
 							risRicerca[sceltaNumProiezVisualiz-1].visualizzaProiezioneDettagliata(); //C'è il -1 perchè all'utente le proiez sono visualiz...
 							//...numerate da 1 (e quindi anche la sua scelta), mentre nel vettore sono numerate da 0.
@@ -1742,6 +1883,34 @@ public class Guest {
 	}
 	*/
 //Fine metodo dettagliProiezione().
-	
-} // Fine classe Guest.
 
+//Inizio metodo cercaProiezPerCambioPrenotaz().
+	public LinkedList<Proiezione> cercaProiezPerCambioPrenotaz(String titoloPrenotaz, LocalDateTime dataOdierna) throws FileNotFoundException {
+//Metodo che permette la ricerca di proiezioni per effettuare cambio data prenotazione. Il metodo restituisce la linkedlist contenente le proiezioni trovate...
+//che hanno stesso titolo film della prenotazione da modificare e data successiva alla data odierna.
+			
+		Scanner scFile = new Scanner(new File("../data/proiezioni.csv")); //scFile è lettore file proiezioni.
+		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga...
+		//...del file.
+		
+		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA ADATTIVO O PERLOMENO SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
+		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
+		
+		LinkedList<Proiezione> risRicerca = new LinkedList<Proiezione>(); //Linkedlist che rappresenta il risultato della ricerca cioè contiene le proiezioni...
+		//...che rispettano il criterio scelto.
+		
+		
+		while(scFile.hasNext()) { //Ciclo per leggere una proiezione dal file delle proiezioni e verificare se rispetta requisiti.
+			
+			Proiezione proiez = estraiProiezione(scFile,numvirgoleintestaz); //Estraggo una proiezione dal file delle proiezioni e la metto in proiez.
+			
+			if (titoloPrenotaz.compareTo(proiez.getFilm().getTitolo()) == 0 && proiez.getDataOra().toLocalDate().isAfter(dataOdierna.toLocalDate()) )
+				risRicerca.add(proiez);
+			
+		} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
+					
+		return risRicerca;
+	}
+//Fine metodo cercaProiezionePerTitolo().
+		
+} // Fine classe Guest.

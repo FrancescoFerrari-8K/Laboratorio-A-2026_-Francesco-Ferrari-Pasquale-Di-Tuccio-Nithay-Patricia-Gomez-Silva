@@ -20,7 +20,7 @@ public class Bigliettaio extends Guest {
 //Questo metodo permette la ricerca di prenotazioni (e visualizzazione dettagliata di una di quelle trovate). Il metodo stampa a video tutto quanto ma se serve...
 //...restituisce il vettore contenente le prenotazioni trovate con la ricerca, null nel caso in cui la ricerca avesse 0 risultati.
 		
-		int limiteRic = 5000; //Limite numero risultati della ricerca.
+		int limiteRic = 10000; //Limite numero risultati della ricerca.
 		int numRisRicerca = 0; //Contatore numero risultati.
 		String scelta = "2"; //Variabile per opzioni scelta, impostata default a "2" cioè ricerca per nome e cognome del cliente.
 		boolean sceltaOk; //Variabile che indica se scelta inserita è valida o no (serve per ciclo do while in cui è contenuta tutta la ricerca, inizializ nel ciclo).
@@ -805,8 +805,7 @@ public class Bigliettaio extends Guest {
 	orarioTemp = LocalTime.of(Integer.parseInt(oraTemp), Integer.parseInt(minutoTemp), Integer.parseInt(secondoTemp));
 	
 	//Crezione data+orario in dataOrario
-	dataOrarioTemp = dataTemp.atTime(orarioTemp);
-	
+	dataOrarioTemp = dataTemp.atTime(orarioTemp);	
 	
 	
 	//Inizio blocco che lavora con virgole e gli altri campi.
