@@ -228,14 +228,15 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		        	prenotazione.getIDUtente()+","+
 					prenotazione.getNome() + "," +
 					prenotazione.getCognome() + "," +
-					"\"<"
+					"\""
 					+ prenotazione.getProiezione_Data().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
-					+ "\"" + "," + "\"" + prenotazione.getProiezione_Titolo() + "\"" + "," +
-					prenotazione.getNPosti() + "\""+ ","+ prenotazione.getPrezzoBiglietto();
+					+ "\"" + "," + prenotazione.getProiezione_Titolo() + "," +
+					prenotazione.getNPosti() + ","+ prenotazione.getPrezzoBiglietto();
 
 			writer.write(nuovaRiga);
 
 			System.out.println("la prenotazione è stata inserita nel nostro sistema");
+			System.out.println("");
 			writer.close();
 			return true;
 		} catch (IOException e) {
