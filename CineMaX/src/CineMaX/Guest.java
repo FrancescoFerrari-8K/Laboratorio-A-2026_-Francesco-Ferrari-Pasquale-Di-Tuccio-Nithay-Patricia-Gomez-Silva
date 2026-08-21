@@ -1583,7 +1583,6 @@ public class Guest {
 		
 		System.out.println("Si desidera selezionare una delle proiezioni trovate?");
 		System.out.println("Inserire 1 se sì, 0 altrimenti:");
-		sceltaSelezione = sc.nextLine();
 		
 		do {
 			sceltaSelezione = sc.nextLine();
