@@ -358,6 +358,7 @@ public class Cliente extends Guest {
         }
 
       } while (sceltaMenucliente != 3);
+      sc.close();
 
     }
 
@@ -391,6 +392,7 @@ public class Cliente extends Guest {
     if(hapostidisponibili == false){
       numeroDiPosti = -1;
     }
+    sc.close();
 
     return numeroDiPosti;
   }
@@ -412,7 +414,7 @@ public class Cliente extends Guest {
 				System.out.println(errorMessage);
 			}
 		} while (inputStringintOk == false);
-
+    sc.close();
     return variabileint;
   }
 }
