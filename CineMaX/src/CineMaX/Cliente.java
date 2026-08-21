@@ -181,7 +181,7 @@ public class Cliente extends Guest {
         System.out.println("3- Logout");
         System.out.println("");
         System.out.print("Scelta: ");
-        sceltaMenucliente = sc.nextInt();
+        sceltaMenucliente = this.leggiInt("numero non valido");
 
         switch (sceltaMenucliente) {
           case 1:
@@ -202,7 +202,9 @@ public class Cliente extends Guest {
               System.out.println("0- INDIETRO");
               System.out.println("");
               System.out.print("Scelta: ");
-              sceltaProiezione = sc.nextInt();
+              sceltaProiezione = this.leggiInt("numero non valido");
+
+
 
               switch (sceltaProiezione) {
 
@@ -226,7 +228,7 @@ public class Cliente extends Guest {
                   System.out.println("0- INDIETRO");
                   System.out.println("");
                   System.out.print("Scelta: ");
-                  sceltaGenere = sc.nextInt();
+                  sceltaGenere = this.leggiInt("numero non valido");
                   break;
                 // cercaProiezione(sceltaGenere)e restituscimi la proiezione scelta dal utente
                 case 2:
@@ -279,7 +281,7 @@ public class Cliente extends Guest {
                   System.out.println("0-INDIETRO");
                   System.out.println("");
                   System.out.println("Scelta: ");
-                  sceltaCosto = sc.nextInt();
+                  sceltaCosto = this.leggiInt("numero non valido");
                   // cercaProiezione(sceltaCosto)e restituscimi la proiezione scelta dal utente
                   break;
                 case 5:
@@ -287,15 +289,27 @@ public class Cliente extends Guest {
                   // PROIEZIONE CHE VUOLE PRENOTARE!!
                   // chiamare il creaPrenotazione per creare la prenotazione, il risultato di
                   // questo metodo è booleano
-                  LocalDate data = LocalDate.parse("2027-12-28");
-                  LocalTime orario = LocalTime.parse("15:30");
-                  LocalDateTime dataOra = data.atTime(orario); // Combina data e ora
-                  Proiezione proiezioneTest = new Proiezione(
-                      new Film("Blue Velvet",
-                          "Zombie", "NitReg", 2020, 3, 2),
-                      LocalDateTime.now(),
-                      10);
-                  this.creaPrenotazione(proiezioneTest, 3);
+                  Proiezione[] risultatoRicerca = this.cercaProiezione();
+                  Proiezione proiezioneSelezionata = Guest.selezionaProiezDaRicerca(risultatoRicerca);
+
+                  int numeroPostiRichiesti = this.chiediNumeroDiPosti(proiezioneSelezionata);
+
+                  if(numeroPostiRichiesti< 0){
+                    System.out.println("posti non disponibili");
+
+                  } else {
+
+                    this.creaPrenotazione(proiezioneSelezionata, numeroPostiRichiesti);
+                  }
+                  // LocalDate data = LocalDate.parse("2027-12-28");
+                  // LocalTime orario = LocalTime.parse("15:30");
+                  // LocalDateTime dataOra = data.atTime(orario); // Combina data e ora
+                  // Proiezione proiezioneTest = new Proiezione(
+                  // new Film("Blue Velvet",
+                  // "Zombie", "NitReg", 2020, 3, 2),
+                  // LocalDateTime.now(),
+                  // 10);
+
                   break;
               }
 
@@ -317,7 +331,7 @@ public class Cliente extends Guest {
               System.out.println("0- INDIETRO");
               System.out.println("");
               System.out.println("Scelta");
-              sceltaPrenotazioni = sc.nextInt();
+              sceltaPrenotazioni = this.leggiInt("numero non valido");
 
               switch (sceltaPrenotazioni) {
                 case 1:
@@ -343,7 +357,7 @@ public class Cliente extends Guest {
                     }
                     System.out.println("");
                     System.out.print("Inserisci il numero di l'ID oppure scrivi 0 per torare indietro: ");
-                    scletaModificaPrenotazione = sc.nextInt();
+                    scletaModificaPrenotazione = this.leggiInt("ID non valido");
                     if (scletaModificaPrenotazione == 0) {
                       break;
                     }
@@ -363,49 +377,26 @@ public class Cliente extends Guest {
                         System.out.println("2- La proiezione che vuoi vedere");
                         System.out.println("");
                         System.out.println("Scrive 1 oppure 2 per scegliere: ");
-                        sceltaDiModifica = sc.nextInt();
+                        sceltaDiModifica = this.leggiInt("numero non valido");
 
                         switch (sceltaDiModifica) {
                           case 1:
+                            //ho bisogno di estrarre la proiezione inserendo solo la data e il titolo della proiezione (elemento)
+                            
 
-                            System.out.println("scrivi quanti posti vuoi");
-                            numeroDiPosti = sc.nextInt();
-                            // TODO: chiamo un metodo che mi ristituisce la proiezione corrente
-                            Proiezione temp = null;
-                            boolean hapostidisponibili = temp.haPostiDisponibili(numeroDiPosti);
-                            if (hapostidisponibili == true) {
-
-                              Prenotazione nuovaPrenotazione = new Prenotazione(elemento.getIDPrenotazione(),
-                                  elemento.getIDUtente(), elemento.getNome(), elemento.getCognome(),
-                                  elemento.getProiezione_Data(), elemento.getProiezione_Titolo(), numeroDiPosti,
-                                  elemento.getPrezzoBiglietto());
-                              this.modificaPrenotazione(scletaModificaPrenotazione, nuovaPrenotazione);
-
-                            } else {
-                              System.out.println("non ci sono posti disponibili");
-                            }
+                            Proiezione proiezioneAttuale = null;
+                            this.chiediQuantiPostiPrenotareEmodifica(proiezioneAttuale, elemento);
                             break;
 
                           case 2:
                             // ricerca proiezione quella che ci deve restituire la proiezione
                             // l'utente sceglie la proiezione
                             Proiezione proiezioneSelezionata = null;
-                            System.out.println("scrivi quanti posti vuoi");
-                            numeroDiPosti = sc.nextInt();
-                            Proiezione proiezionetemp = null;
-                            boolean haposti = proiezionetemp.haPostiDisponibili(numeroDiPosti);
-                            if (haposti == true) {
 
-                              Prenotazione nuovaPrenotazione = new Prenotazione(elemento.getIDPrenotazione(),
-                                  elemento.getIDUtente(), elemento.getNome(), elemento.getCognome(),
-                                  elemento.getProiezione_Data(), elemento.getProiezione_Titolo(), numeroDiPosti,
-                                  elemento.getPrezzoBiglietto());
-                              this.modificaPrenotazione(scletaModificaPrenotazione, nuovaPrenotazione);
 
-                            } else {
-                              System.out.println("non ci sono posti disponibili");
-                            }
 
+
+                            this.chiediQuantiPostiPrenotareEmodifica(proiezioneSelezionata, elemento);
                             break;
                           default:
                             System.out.println("opzione non riconosciuta, riprova");
@@ -440,7 +431,7 @@ public class Cliente extends Guest {
                   }
                   System.out.println("");
                   System.out.print("Inserisci: ");
-                  sceltaPrenotazioni = sc.nextInt();
+                  sceltaPrenotazioni = this.leggiInt("ID non valido");
 
                   boolean esiste = false;
                   String sceltaEliminaPrenotazione;
@@ -489,4 +480,61 @@ public class Cliente extends Guest {
 
   }
 
+  private void chiediQuantiPostiPrenotareEmodifica(Proiezione proiezioneSelezionata, Prenotazione prenotazioneSelezionata) {
+    int numeroDiPosti = this.chiediNumeroDiPosti(proiezioneSelezionata);
+    if (numeroDiPosti != -1) {
+
+      Prenotazione nuovaPrenotazione = new Prenotazione(prenotazioneSelezionata.getIDPrenotazione(),
+      prenotazioneSelezionata.getIDUtente(), prenotazioneSelezionata.getNome(), prenotazioneSelezionata.getCognome(),
+      prenotazioneSelezionata.getProiezione_Data(), prenotazioneSelezionata.getProiezione_Titolo(), numeroDiPosti,
+      prenotazioneSelezionata.getPrezzoBiglietto());
+      this.modificaPrenotazione(prenotazioneSelezionata.getIDPrenotazione(), nuovaPrenotazione);
+
+    } else {
+      System.out.println("non ci sono posti disponibili");
+    }
+
+  }
+
+
+  private int chiediNumeroDiPosti(Proiezione proiezioneSelezionata){
+  
+    Scanner sc = new Scanner(System.in);
+    System.out.println("scrivi quanti posti vuoi");
+    int numeroDiPosti = this.leggiInt("numero di posti non valido");
+    System.out.println("posti scritti:" + numeroDiPosti);
+
+    boolean hapostidisponibili = proiezioneSelezionata.haPostiDisponibili(numeroDiPosti);
+    if(hapostidisponibili == false){
+      numeroDiPosti = -1;
+    }
+
+    return numeroDiPosti;
+  }
+
+  private int leggiInt (String errorMessage){
+    Scanner sc = new Scanner(System.in);
+    boolean inputStringintOk;
+    String inputStringint;
+    int variabileint = 0;
+
+    do {
+			inputStringintOk=true;
+			try {
+				inputStringint = sc.nextLine();
+				variabileint = Integer.parseInt(inputStringint);
+			
+			} catch (NumberFormatException e) {
+				inputStringintOk = false;
+				System.out.println(errorMessage);
+			}
+		} while (inputStringintOk == false);
+
+    return variabileint;
+  }
 }
+
+
+  
+
+

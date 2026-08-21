@@ -13,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
@@ -108,14 +107,15 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	}
 
 	public void setIDPrenotazione(int ID) {
-		this.IDPrenotazione = IDPrenotazione;
+		this.IDPrenotazione = ID;
+
 	}
 
 	public String getIDUtente(){
 		return this.IDUtente;
 	}
 
-	public void setIDUtente(){
+	public void setIDUtente(String IDUtente){
 		this.IDUtente =IDUtente;
 	}
 
@@ -123,7 +123,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		return this.Prezzo_Biglietto;
 	}
 
-	public void setPrezzo_Biglietto(){
+	public void setPrezzo_Biglietto(double Prezzo_Biglietto ){
 		this.Prezzo_Biglietto = Prezzo_Biglietto;
 	}
 
