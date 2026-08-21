@@ -1,6 +1,6 @@
-﻿IDPrenotazione, IDUtente, Nome,Cognome,Proiezione_Data,Proiezione_Titolo,NPosti
-1,**PRO1,Mario,Bianchi,"2027-12-26T19:30:00","Good Will Hunting",10
-2,**PRO2,Cesare,Sforza,"2026-12-26T19:30:00","the Batman",13
-3,$$BIG1,Carmen,DePaolis,"2026-12-26T19:30:00","the Batman",3
-4,$$BIG2,Marco,Belometti,"2026-12-26T19:30:00","the Batman",5
-5,**PRO2,Cesare,Sforza,"2026-08-02T11:46:13","Blue Velvet",3
+﻿IDPrenotazione, IDUtente, Nome,Cognome,Proiezione_Data,Proiezione_Titolo,NPosti,prezzo_biglietto
+1,**PRO1,Mario,Bianchi,"2027-12-26T19:30:00","Good Will Hunting",10,8.50
+2,**PRO2,Cesare,Sforza,"2026-12-26T19:30:00","the Batman",13,8.50
+3,$$BIG1,Carmen,DePaolis,"2026-12-26T19:30:00","the Batman",3,8.50
+4,$$BIG2,Marco,Belometti,"2026-12-26T19:30:00","the Batman",5,8.50
+5,**PRO2,Cesare,Sforza,"2026-08-02T11:46:13","Blue Velvet",3,7.50

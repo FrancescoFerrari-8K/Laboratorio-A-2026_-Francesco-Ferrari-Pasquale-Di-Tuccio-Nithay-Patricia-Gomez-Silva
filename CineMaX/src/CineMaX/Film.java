@@ -1,18 +1,7 @@
 package CineMaX;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.io.BufferedReader;
-
 public class Film { // Questa classe costruisce oggetti di tipo Film
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	// Campi
     private String Titolo;
 	private String Genere;
@@ -20,7 +9,7 @@ public class Film { // Questa classe costruisce oggetti di tipo Film
 	private int Anno;
 	private int Durata; // In minuti	
 	private int Età; // Età minima
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	// Costruttori
 
 	public Film(String titolo, String genere, String regista, int anno, int durata, int età) {
@@ -32,7 +21,7 @@ public class Film { // Questa classe costruisce oggetti di tipo Film
 		Età=età;
 	}
 	
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	// Metodi
 	
 	// Getter
@@ -98,6 +87,4 @@ public class Film { // Questa classe costruisce oggetti di tipo Film
 
 	}
 	
-	
-}
-	
+} //Fine classe Film.
