@@ -1885,10 +1885,10 @@ public class Guest {
 //Fine metodo dettagliProiezione().
 
 //Inizio metodo cercaProiezPerCambioPrenotaz().
-	public LinkedList<Proiezione> cercaProiezPerCambioPrenotaz(String titoloPrenotaz, LocalDateTime dataOdierna) throws FileNotFoundException {
+	public LinkedList<Proiezione> cercaProiezPerCambioPrenotaz(String titoloPrenotaz) throws FileNotFoundException {
 //Metodo che permette la ricerca di proiezioni per effettuare cambio data prenotazione. Il metodo restituisce la linkedlist contenente le proiezioni trovate...
 //che hanno stesso titolo film della prenotazione da modificare e data successiva alla data odierna.
-			
+		
 		Scanner scFile = new Scanner(new File("../data/proiezioni.csv")); //scFile è lettore file proiezioni.
 		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga...
 		//...del file.
@@ -1904,7 +1904,7 @@ public class Guest {
 			
 			Proiezione proiez = estraiProiezione(scFile,numvirgoleintestaz); //Estraggo una proiezione dal file delle proiezioni e la metto in proiez.
 			
-			if (titoloPrenotaz.compareTo(proiez.getFilm().getTitolo()) == 0 && proiez.getDataOra().toLocalDate().isAfter(dataOdierna.toLocalDate()) )
+			if (titoloPrenotaz.compareTo(proiez.getFilm().getTitolo()) == 0 && proiez.getDataOra().toLocalDate().isAfter(LocalDate.now()) )
 				risRicerca.add(proiez);
 			
 		} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
