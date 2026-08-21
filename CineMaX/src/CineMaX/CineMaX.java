@@ -54,15 +54,13 @@ public class CineMaX {
 				}
 			}
 			buff.close();
-			filerd.close();
-			return false;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}	
 		return false;
 	}
 	//Hash con sha256 per le pword
@@ -147,7 +145,6 @@ public class CineMaX {
 		System.out.println("Password: ");
 		String pword=obj.nextLine();
 		pword=CineMaX.sha256Hash(pword); //cripto la password
-		obj.close();//chiudo lo stream da tastiera per evitare memory leaks
 		String ID=CineMaX.assegnaIDstr(nome,cognome,username);//calcolo l'ID utente
 		CineMaX.aggiungiUtente(ID,nome,cognome,username,pword,data,ind,"C");//scrivo il nuovo utente nel file utenti.csv
 		System.out.println("Registrazione completata! Il tuo ID utente è: "+ID+"\n");
@@ -156,7 +153,9 @@ public class CineMaX {
 	//login
 	//se nome utente e password sono presenti nel file utenti restituisce true, altrimenti false
 	private static Guest login() {
-		Guest Utente;
+		Cliente client;
+		Proiezionista pro;
+		Bigliettaio big;
 		Scanner input=new Scanner(System.in);
 		System.out.println("Username: ");
 		String username=input.nextLine();
@@ -173,49 +172,152 @@ public class CineMaX {
 				if((username.trim()).equals(campiriga[3].trim())&&(pword.trim()).equals(campiriga[4].trim())) {
 					switch(campiriga[7]) {
 					case "P": 
-						Utente=new Proiezionista();
-						return Utente;
+						pro=new Proiezionista();
+						return pro;
 					case "B":
-						 Utente=new Bigliettaio();
-						return Utente;
+						 big=new Bigliettaio();
+						return big;
 					case "C":
-						Utente= new Cliente(campiriga[1], campiriga[2], campiriga[0]);	
+						client= new Cliente(campiriga[1], campiriga[2], campiriga[0]);	
+						System.out.println("Benvenuto"+campiriga[3]);
+						return client;
 					}
 					}
 				}
 			buff.close();
 			filerd.close();
-			System.out.println("Username o password non valido");
-			return Utente;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("Username o password non valido");
+		return null;
 		
-		return Utente;
 	}
 
 	public static void main(String[] args) {
 		// All'avvio l'app mostra menù iniziale in cui è possibile fare 3 cose: loggarsi, registrarsi o proseguire come utente non registrato (guest).
 		// ecc ecc
+		boolean On=true; //questa variabile serve per effettuare l'interruzione dell'esecuzione dell'applicazione
+		Guest loggeduser;//questa variabile salva l'utente correntemente loggato
+		while(On==true) {
+			System.out.println("*****CineMaX*******");
+			// bisogna fare una grafichina carina!!
+			//cosa vuoi fare? loggarti, registrarti o proseguire come guest?
+			//rimango nel ciclo grande fino a quando non chiudo l'app
+			Scanner Kinput=new Scanner(System.in);//refresh dello scanner ad ogni iterazione per pulire la storia delle operazioni
+			System.out.println("Cosa vuoi fare oggi?\n ");
+			System.out.println("Digita 1 per effettuare il login\n ");
+			System.out.println("Digita 2 per registrarti\n");
+			System.out.println("Digita 3 per proseguire come guest\n ");
+			System.out.println("Digita 0 per uscire dall'applicazione\n ");
+			String swtch=Kinput.nextLine();//Questa variabile serve come selettore per la modalità in cui si intende usare l'app, è di tipo string perchè l'input da tastiera è acquisit come stringa
+			switch(swtch) {
+			case "1":
+				loggeduser=CineMaX.login();
+				if (loggeduser instanceof Cliente) {
+					try {
+						((Cliente)loggeduser).mostraMenuCliente(true);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					if (loggeduser instanceof Bigliettaio) {
+						while(true) {
+							System.out.println("Cosa vuoi fare oggi?\n ");
+							System.out.println("Digita 1 per visualizzare le prenotazioni nella data odierna \n ");
+							System.out.println("Digita 2 per cercare una prenotazione \n");
+							System.out.println("Digita 0 per effettuare il logout\n ");
+							String toDo=Kinput.nextLine();
+							switch(toDo){
+							case "1":
+								break;
+							case"2":
+								try {
+									((Bigliettaio)loggeduser).cercaPrenotazione();
+								} catch (FileNotFoundException e) {
+									e.printStackTrace();
+								}
+								break;
+							case"0":
+								System.out.println("Grazie per aver usato la nostra app, a presto e buon lavoro!");
+								break;
+							}	
+							break;
+						}
+					}
+					if (loggeduser instanceof Proiezionista) {
+						while(true) {
+							System.out.println("Cosa vuoi fare oggi?\n ");
+							System.out.println("Digita 1 per aggiungere una proiezione al palinsesto \n ");
+							System.out.println("Digita 2 per rimuovere una proiezione dal palinsesto \n");
+							System.out.println("Digita 3 per modificare la data di una proiezione dal palinsesto \n");
+							System.out.println("Digita 0 per effettuare il logout\n ");
+							String toDo=Kinput.nextLine();
+							switch(toDo){
+							case "1":
+								//String titolo=Kinput.nextLine();
+								((Proiezionista)loggeduser).aggiungiProiezioneAlPalinsesto(null, null); 
+								break;
+							case"2":
+								((Proiezionista)loggeduser).rimuoviProiezioneDalPalinsesto(null,null, null);
+								break;	
+							case"0":
+								System.out.println("Grazie per aver usato la nostra app, a presto e buon lavoro!");
+								break;
+								
+							}
+								
+							break;
+						}
+					}
+					continue;
 
-		System.out.println("*****CineMaX*******");
-		// bisogna fare una grafichina carina!!
+					}
+			case "2":
+				CineMaX.Registrati();
+				continue;// se mi registro devo comunque effettuare il login dopo se voglio usare l'app
+			case "3":
+				loggeduser=new Guest();
+				System.out.println("Benvenuto! stai procedendo come Guest\n");
+				while(true) {
+					System.out.println("Cosa vuoi fare oggi?\n ");
+					System.out.println("Digita 1 per cercare una proiezione \n ");
+					System.out.println("Digita 2 per registrarti\n");
+					System.out.println("Digita 0 per effettuare il logout\n ");//puoi uscire senza registrarti, metti che vuoi loggarti col profilo di un amico
+					String toDo=Kinput.nextLine();
+					switch(toDo){
+					case "1":
+						try {
+							loggeduser.cercaProiezione();
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}
+						break;
+					case"2":
+						CineMaX.Registrati();
+						break; //se ti registri esci dalla modalità guest
+					case"0":
+						System.out.println("Grazie per aver usato la nostra app, a presto!");
+						break;
+					default:
+						System.out.println("hai digitato un carattere non valido, riprova!\n");
+						continue;
+					}
+					break;//esci dalla modalità guest
+				}
+				break;
+			case"0":
+				On=false;
+				continue;
+			default:
+				System.out.println("hai digitato un carattere non valido, riprova!\n");
+				continue;
+			}//fine switch principale
+		}//fine ciclo esecuzione
+	System.out.println("Arrivederci! Grazie per aver usato la nostra app, a presto!");	
+   }//fine main
 		
-		//cosa vuoi fare? loggarti, registrarti o proseguire come guest?
+		
+ }//fine classe
 
-		Guest User = new Guest(); // creo un utente guest per garantire l'utilizzo minimo dell'app
-		CineMaX.Registrati();
-
-
-			
-
-			
-
-	
-
- }
-}
