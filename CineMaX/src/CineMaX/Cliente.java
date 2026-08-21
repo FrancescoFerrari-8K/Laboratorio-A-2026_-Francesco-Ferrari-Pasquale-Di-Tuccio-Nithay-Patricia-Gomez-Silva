@@ -185,137 +185,20 @@ public class Cliente extends Guest {
 
         switch (sceltaMenucliente) {
           case 1:
-            int sceltaProiezione;
+            Proiezione[] risultatoRicerca = this.cercaProiezione();
+            Proiezione proiezioneSelezionata = Guest.selezionaProiezDaRicerca(risultatoRicerca);
 
-            do {
-              // interfaccia di cerca proiezione//
-              System.out.println("---CERCA PROIEZIONE---");
-              System.out.println("");
-              System.out.println("-Scegli un numero per continuare-");
-              System.out.println("");
-              System.out.println("1- Genere");
-              System.out.println("2- Titolo");
-              System.out.println("3- Data");
-              System.out.println("4- Costo");
-              // TODO: fare proiezioni disponibili//
-              System.out.println("5- Mostra proiezioni disponibili");
-              System.out.println("0- INDIETRO");
-              System.out.println("");
-              System.out.print("Scelta: ");
-              sceltaProiezione = this.leggiInt("numero non valido");
+            int numeroPostiRichiesti = this.chiediNumeroDiPosti(proiezioneSelezionata);
 
+            if(numeroPostiRichiesti< 0){
+              System.out.println("posti non disponibili");
 
+            } else {
 
-              switch (sceltaProiezione) {
+              this.creaPrenotazione(proiezioneSelezionata, numeroPostiRichiesti);
+            }
 
-                // interfaccia di genere//
-                case 1:
-                  int sceltaGenere;
-
-                  System.out.println("---GENERE---");
-                  System.out.println("");
-                  System.out.println("-Scegli un numero per continuare-");
-                  System.out.println("");
-                  System.out.println("1- Adventure");
-                  System.out.println("2- Action");
-                  System.out.println("3- Animation");
-                  System.out.println("4- Biography");
-                  System.out.println("5- Comedy");
-                  System.out.println("6- Crime");
-                  System.out.println("7- Drama");
-                  System.out.println("8- Film-Noir");
-                  System.out.println("9- Horror");
-                  System.out.println("0- INDIETRO");
-                  System.out.println("");
-                  System.out.print("Scelta: ");
-                  sceltaGenere = this.leggiInt("numero non valido");
-                  break;
-                // cercaProiezione(sceltaGenere)e restituscimi la proiezione scelta dal utente
-                case 2:
-                  // interfaccia di titolo//
-                  String sceltaTitolo;
-                  System.out.println("---TITOLO---");
-                  System.out.println("");
-                  System.out.println(
-                      "Inserisce il titolo del film che vuoi vedere oppure 0 per tornare indieto: ");
-                  sc.nextLine();
-                  sceltaTitolo = sc.nextLine();
-                  break;
-                // cercaProiezione(sceltaTitolo)e restituscimi la proiezione scelta dal utente
-
-                case 3:
-                  // interfaccia di data//
-                  String sceltaData;
-                  System.out.println("---DATA---");
-                  System.out.println("");
-                  System.out.println(
-                      "Inserisce data (GG/MM/YYYY) della proiezione che vuoi vedere oppure 0 per tornare indietro: ");
-                  sc.nextLine();
-                  sceltaData = sc.nextLine();
-                  System.out.println("");
-                  // TODO: controllare se la data inserita e in un formatto corretto e se e una
-                  // data futura//
-                  if (Prenotazione.FormatoDiDataCorretto(sceltaData)) {
-
-                    LocalDate data = LocalDate.parse(sceltaData);
-                    LocalTime orario = LocalTime.now(); // se usa para saber el orario del di, asi el utente no puede
-                                                        // escoger un film que ya paso
-                    // cercaProiezione(data,orario); e restituscimi la proiezione scelta dal utente
-
-                    // ////
-                  } else {
-                    System.out.println("Errore: La data non è valida");
-                  }
-                  break;
-
-                case 4:
-                  // interfaccia di costo//
-                  int sceltaCosto;
-                  System.out.println("---COSTO---");
-                  System.out.println("");
-                  System.out.println("-Scegli un numero per continuare-");
-                  System.out.println("");
-                  System.out.println("1- Minore di 5 Euro");
-                  System.out.println("2- Maggiore di 5 Euro");
-                  System.out.println("3- Tra 5£ e 15 Euro");
-                  System.out.println("0-INDIETRO");
-                  System.out.println("");
-                  System.out.println("Scelta: ");
-                  sceltaCosto = this.leggiInt("numero non valido");
-                  // cercaProiezione(sceltaCosto)e restituscimi la proiezione scelta dal utente
-                  break;
-                case 5:
-                  // BISOGNA INSERIRE IL MENU CON LE PROIEZIONI E LUTENTE DEBE SELEZIONARE LA
-                  // PROIEZIONE CHE VUOLE PRENOTARE!!
-                  // chiamare il creaPrenotazione per creare la prenotazione, il risultato di
-                  // questo metodo è booleano
-                  Proiezione[] risultatoRicerca = this.cercaProiezione();
-                  Proiezione proiezioneSelezionata = Guest.selezionaProiezDaRicerca(risultatoRicerca);
-
-                  int numeroPostiRichiesti = this.chiediNumeroDiPosti(proiezioneSelezionata);
-
-                  if(numeroPostiRichiesti< 0){
-                    System.out.println("posti non disponibili");
-
-                  } else {
-
-                    this.creaPrenotazione(proiezioneSelezionata, numeroPostiRichiesti);
-                  }
-                  // LocalDate data = LocalDate.parse("2027-12-28");
-                  // LocalTime orario = LocalTime.parse("15:30");
-                  // LocalDateTime dataOra = data.atTime(orario); // Combina data e ora
-                  // Proiezione proiezioneTest = new Proiezione(
-                  // new Film("Blue Velvet",
-                  // "Zombie", "NitReg", 2020, 3, 2),
-                  // LocalDateTime.now(),
-                  // 10);
-
-                  break;
-              }
-
-            } while (sceltaProiezione != 0);
-
-            break;
+              break;
 
           case 2:
             int sceltaPrenotazioni;
@@ -391,7 +274,7 @@ public class Cliente extends Guest {
                           case 2:
                             // ricerca proiezione quella che ci deve restituire la proiezione
                             // l'utente sceglie la proiezione
-                            Proiezione proiezioneSelezionata = null;
+                             proiezioneSelezionata = null;
 
 
 
