@@ -644,7 +644,6 @@ public class Bigliettaio extends Guest {
 					break;
 				
 				case "0": //Caso ricerca annullata.
-					sc.close();
 					return null;
 					
 				default:
@@ -670,7 +669,6 @@ public class Bigliettaio extends Guest {
 				switch(sceltaVisualizDettagl) {
 				
 				case "0": //Caso visualiz dettagliata di una delle prenotazioni cercate rifiutata.
-					sc.close();
 					return risRicerca;
 					
 				case "1": //Caso visualiz dettagliata di una delle prenotazioni cercate richiesta.
@@ -696,7 +694,6 @@ public class Bigliettaio extends Guest {
 							System.out.println("Prezzo biglietto:" + risRicerca[sceltaNumPrenotazVisualiz-1].getPrezzoBiglietto() );
 							costoTot = risRicerca[sceltaNumPrenotazVisualiz-1].getPrezzoBiglietto() * risRicerca[sceltaNumPrenotazVisualiz-1].getNPosti(); 
 							System.out.println("Costo totale:" + costoTot);
-							sc.close();
 							return risRicerca;
 						}
 					} while (true);
@@ -708,7 +705,6 @@ public class Bigliettaio extends Guest {
 			//...l'utente inserisce una scelta valida.
 		}  else {
 			System.out.println("La ricerca non ha risultati quindi non è possibile visualizzare i dettagli di una delle prenotazioni cercate");
-			sc.close();
 			return null;
 		} //Fine blocco che svolge funzionalità visualizzare in dettaglio una delle prenotazioni cercate.
 		

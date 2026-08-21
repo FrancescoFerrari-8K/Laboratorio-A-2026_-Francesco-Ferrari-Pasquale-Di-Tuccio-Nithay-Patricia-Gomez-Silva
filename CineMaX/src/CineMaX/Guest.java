@@ -1495,7 +1495,6 @@ public class Guest {
 					break;
 				
 				case "0": //Caso ricerca annullata.
-					sc.close();
 					return null;
 					
 				default:
@@ -1521,7 +1520,6 @@ public class Guest {
 				switch(sceltaVisualizDettagl) {
 				
 				case "0": //Caso visualiz dettagliata di una delle proiez cercate rifiutata.
-					sc.close();
 					return risRicerca;
 					
 				case "1": //Caso visualiz dettagliata di una delle proiez cercate richiesta.
@@ -1545,7 +1543,6 @@ public class Guest {
 						else {
 							risRicerca[sceltaNumProiezVisualiz-1].visualizzaProiezioneDettagliata(); //C'è il -1 perchè all'utente le proiez sono visualiz...
 							//...numerate da 1 (e quindi anche la sua scelta), mentre nel vettore sono numerate da 0.
-							sc.close();
 							return risRicerca;
 						}
 					} while (true);
@@ -1558,7 +1555,6 @@ public class Guest {
 			//...l'utente inserisce una scelta valida.
 		}  else {
 			System.out.println("La ricerca non ha risultati quindi non è possibile visualizzare i dettagli di una delle proiezioni cercate");
-			sc.close();
 			return null;
 		} //Fine blocco che svolge funzionalità visualizzare in dettaglio una delle proiezioni cercate.
 		
@@ -1577,7 +1573,6 @@ public class Guest {
 		
 		if(risRicerca == null) {
 			System.out.println("Non è possibile selezionare una proiezione");
-			sc.close();
 			return null;
 		}
 		
@@ -1590,7 +1585,6 @@ public class Guest {
 			switch(sceltaSelezione) {
 			
 			case "0":
-				sc.close();
 				return null;
 				
 			case "1":
@@ -1612,7 +1606,6 @@ public class Guest {
 						System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate (1 - "
 							+ risRicerca.length + "):");
 					} else {
-							sc.close();
 							return risRicerca[sceltaProiezione-1];
 					}
 				} while (true);
