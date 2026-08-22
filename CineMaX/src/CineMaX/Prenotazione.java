@@ -32,7 +32,6 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	
 
 	// Costruttori
-
 	public Prenotazione(String IDUtente, String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
 			int NPosti, double Prezzo_Biglietto) {
 
@@ -202,7 +201,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 					Prenotazione PrenotazioneTemp = new Prenotazione(Integer.parseInt(colonne[0]), colonne[1],
 							colonne[2], colonne [3],
 							LocalDateTime.parse(colonne[4].replace("\"", "")), colonne[5],
-							Integer.parseInt(colonne[6]),Double.parseDouble(colonne[7]) );
+							Integer.parseInt(colonne[6].replace("\"", "")),Double.parseDouble(colonne[7]) );
 					listaPrenotazioni.add(PrenotazioneTemp);
 				}
 				// chiusura degli stream per evitare memory leaks
