@@ -208,6 +208,7 @@ public class CineMaX {
 			//rimango nel ciclo grande fino a quando non chiudo l'app
 			Scanner Kinput=new Scanner(System.in);//refresh dello scanner ad ogni iterazione per pulire la storia delle operazioni
 			System.out.println("Cosa vuoi fare oggi?\n ");
+			System.out.println("Digita il titolo anche parziale di un film per proseguire come guest ed effettuare la ricerca\n");
 			System.out.println("Digita 1 per effettuare il login\n ");
 			System.out.println("Digita 2 per registrarti\n");
 			System.out.println("Digita 3 per proseguire come guest\n ");
@@ -284,6 +285,7 @@ public class CineMaX {
 					System.out.println("Cosa vuoi fare oggi?\n ");
 					System.out.println("Digita 1 per cercare una proiezione \n ");
 					System.out.println("Digita 2 per registrarti\n");
+					System.out.println("Digita il titolo anche parziale di un film per proseguire come guest ed effettuare la ricerca\n");
 					System.out.println("Digita 0 per effettuare il logout\n ");//puoi uscire senza registrarti, metti che vuoi loggarti col profilo di un amico
 					String toDo=Kinput.nextLine();
 					switch(toDo){
@@ -311,13 +313,42 @@ public class CineMaX {
 				On=false;
 				continue;
 			default:
-				System.out.println("hai digitato un carattere non valido, riprova!\n");
-				continue;
+				loggeduser=new Guest();
+				try {
+					loggeduser.cercaProiezionePerTitolo(swtch);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+				System.out.println("Benvenuto! stai procedendo come Guest\n");
+				while(true) {
+					System.out.println("Cosa vuoi fare oggi?\n ");
+					System.out.println("Digita 1 per cercare una proiezione \n ");
+					System.out.println("Digita 2 per registrarti\n");
+					System.out.println("Digita 0 per effettuare il logout\n ");//puoi uscire senza registrarti, metti che vuoi loggarti col profilo di un amico
+					String toDo=Kinput.nextLine();
+					switch(toDo){
+					case "1":
+						try {
+							loggeduser.cercaProiezione();
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}
+						break;
+					case "2":
+						CineMaX.Registrati();
+						break;
+					case "0":
+						System.out.println("Grazie per aver usato la nostra app, a presto!");
+						break;
+						
+					}
+					break;
+				}
 			}//fine switch principale
 		}//fine ciclo esecuzione
 	System.out.println("Arrivederci! Grazie per aver usato la nostra app, a presto!");	
    }//fine main
-		
+	
 		
  }//fine classe
 
