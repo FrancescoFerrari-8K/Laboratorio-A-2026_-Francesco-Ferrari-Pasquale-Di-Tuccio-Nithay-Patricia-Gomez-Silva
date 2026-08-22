@@ -59,7 +59,7 @@ public class Bigliettaio extends Guest {
 		
 		DateTimeFormatter formatterDataITA = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Variabile per formato data italiano.
 		
-		int numvirgoleintestaz = 6; // TODO DA SISTEMARE IN MODO CHE SIA ADATTIVO AL FILE PRENOTAZIONI
+		int numvirgoleintestaz = 7;
 		scFile.next(); //Salto la prima riga del file prenotazioni che è l'intestazione.
 		
 		Prenotazione[] risRicerca = new Prenotazione[limiteRic]; //Vettore che rappresenta il risultato della ricerca cioè contiene le prenotazioni che rispettano il...

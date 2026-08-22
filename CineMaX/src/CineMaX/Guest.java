@@ -32,7 +32,7 @@ public class Guest {
 		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga del file.
 		
 		
-		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA ADATTIVO O PERLOMENO SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
+		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
 		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
 		
 		Proiezione[] risRicerca = new Proiezione[limiteRic]; //Vettore che rappresenta il risultato della ricerca cioè contiene le proiezioni che rispettano il...
@@ -191,13 +191,15 @@ public class Guest {
 		} while (inputStringintOk == false);
 		//codice che riguarda variabileint
 		*/
+		String inputStringdouble;
+		boolean inputStringdoubleOk;
 		
 		Scanner scFile = new Scanner(new File("../data/proiezioni.csv")); //scFile è lettore file proiezioni.
 		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga del file.
 		
 		DateTimeFormatter formatterDataITA = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Variabile per formato data italiano.
 		
-		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA ADATTIVO O PERLOMENO SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
+		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
 		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
 		
 		Proiezione[] risRicerca = new Proiezione[limiteRic]; //Vettore che rappresenta il risultato della ricerca cioè contiene le proiezioni che rispettano il...
@@ -737,7 +739,7 @@ public class Guest {
 							
 						default:
 							sceltaRicDataOk = false;
-							System.out.println("L'opzione scelta non è valida. Inserire un'altra opzione:");
+							System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
 						} //Fine switch in cui è contenuta la ricerca per data.
 					} while (sceltaRicDataOk == false); //Fine ciclo do while in cui è contenuto lo switch che effettua la ricerca per data.
 					
@@ -768,16 +770,16 @@ public class Guest {
 								System.out.println("Inserire il prezzo massimo:");
 								
 								do {
-									inputStringintOk=true;
+									inputStringdoubleOk=true;
 									try {
-										inputStringint = sc.nextLine();
-										prezzoMaxRic = Integer.parseInt(inputStringint);
+										inputStringdouble = sc.nextLine();
+										prezzoMaxRic = Double.parseDouble(inputStringdouble);
 									
 									} catch (NumberFormatException e) {
-										inputStringintOk = false;
-										System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										inputStringdoubleOk = false;
+										System.out.println("Non è stato inserito un numero valido. Inserire un numero valido: ");
 									}
-								} while (inputStringintOk == false);
+								} while (inputStringdoubleOk == false);
 								
 								if (prezzoMaxRic < 0)
 									System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
@@ -827,16 +829,16 @@ public class Guest {
 								System.out.println("Inserire il prezzo minimo:");
 								
 								do {
-									inputStringintOk=true;
+									inputStringdoubleOk=true;
 									try {
-										inputStringint = sc.nextLine();
-										prezzoMinRic = Integer.parseInt(inputStringint);
+										inputStringdouble = sc.nextLine();
+										prezzoMinRic = Double.parseDouble(inputStringdouble);
 									
 									} catch (NumberFormatException e) {
-										inputStringintOk = false;
-										System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										inputStringdoubleOk = false;
+										System.out.println("Non è stato inserito un numero valido. Inserire un numero valido: ");
 									}
-								} while (inputStringintOk == false);
+								} while (inputStringdoubleOk == false);
 								
 								if (prezzoMinRic < 0)
 									System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
@@ -888,16 +890,16 @@ public class Guest {
 								System.out.println("Inserire il prezzo minimo:");
 								
 								do {
-									inputStringintOk=true;
+									inputStringdoubleOk=true;
 									try {
-										inputStringint = sc.nextLine();
-										prezzoMinRic = Integer.parseInt(inputStringint);
+										inputStringdouble = sc.nextLine();
+										prezzoMinRic = Double.parseDouble(inputStringdouble);
 									
 									} catch (NumberFormatException e) {
-										inputStringintOk = false;
-										System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										inputStringdoubleOk = false;
+										System.out.println("Non è stato inserito un numero valido. Inserire un numero valido: ");
 									}
-								} while (inputStringintOk == false);
+								} while (inputStringdoubleOk == false);
 								
 								if (prezzoMinRic < 0)
 									System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
@@ -909,16 +911,16 @@ public class Guest {
 								System.out.println("Inserire il prezzo massimo:");
 								
 								do {
-									inputStringintOk=true;
+									inputStringdoubleOk=true;
 									try {
-										inputStringint = sc.nextLine();
-										prezzoMaxRic = Integer.parseInt(inputStringint);
+										inputStringdouble = sc.nextLine();
+										prezzoMaxRic = Double.parseDouble(inputStringdouble);
 									
 									} catch (NumberFormatException e) {
-										inputStringintOk = false;
-										System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+										inputStringdoubleOk = false;
+										System.out.println("Non è stato inserito un numero valido. Inserire un numero valido: ");
 									}
-								} while (inputStringintOk == false);
+								} while (inputStringdoubleOk == false);
 								
 								if (prezzoMaxRic < 0)
 									System.out.println("Prezzo non valido (prezzo negativo). Inserire un'altro prezzo");
@@ -967,7 +969,7 @@ public class Guest {
 							
 						default:
 							sceltaRicPrezzoOk = false;
-							System.out.println("L'opzione scelta non è valida");
+							System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
 						} //Fine switch in cui è contenuta la ricerca per prezzo.
 					} while (sceltaRicPrezzoOk == false); //Fine ciclo do while in cui è contenuto lo switch che effettua la ricerca per prezzo.
 					
@@ -1013,37 +1015,37 @@ public class Guest {
 					
 					do { //Inizio ciclo per scelta criteri.
 						
+						System.out.println("Ricercare per titolo? Inserire 1 se sì, 0 altrimenti:");
 						do {
-							System.out.println("Ricercare per titolo? Inserire 1 se sì, 0 altrimenti:");
 							scelteCriteri[0] = sc.nextLine();
-							if (scelteCriteri[0] != "0" || scelteCriteri[0] != "1")
-								System.out.println("L'opzione scelta non è valida");
-						} while (scelteCriteri[0] != "0" || scelteCriteri[0] != "1" );
+							if (scelteCriteri[0].compareTo("0") != 0 && scelteCriteri[0].compareTo("1") != 0)
+								System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
+						} while (scelteCriteri[0].compareTo("0") != 0 && scelteCriteri[0].compareTo("1") != 0);
 						
+						System.out.println("Ricercare per genere? Inserire 1 se sì, 0 altrimenti:");
 						do {
-							System.out.println("Ricercare per genere? Inserire 1 se sì, 0 altrimenti:");
 							scelteCriteri[1] = sc.nextLine();
-							if (scelteCriteri[1] != "0" || scelteCriteri[1] != "1")
-								System.out.println("L'opzione scelta non è valida");
-						} while (scelteCriteri[1] != "0" || scelteCriteri[1] != "1" );
+							if (scelteCriteri[1].compareTo("0") != 0 && scelteCriteri[1].compareTo("1") != 0)
+								System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
+						} while (scelteCriteri[1].compareTo("0") != 0 && scelteCriteri[1].compareTo("1") != 0);
 						
+						System.out.println("Ricercare per data? Inserire 1 se sì, 0 altrimenti:");
 						do {
-							System.out.println("Ricercare per data? Inserire 1 se sì, 0 altrimenti:");
 							scelteCriteri[2] = sc.nextLine();
-							if (scelteCriteri[2] != "0" || scelteCriteri[2] != "1")
-								System.out.println("L'opzione scelta non è valida");
-						} while (scelteCriteri[2] != "0" || scelteCriteri[2] != "1" );
+							if (scelteCriteri[2].compareTo("0") != 0 && scelteCriteri[2].compareTo("1") != 0)
+								System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
+						} while (scelteCriteri[2].compareTo("0") != 0 && scelteCriteri[2].compareTo("1") != 0);
 						
+						System.out.println("Ricercare per prezzo del biglietto? Inserire 1 se sì, 0 altrimenti:");
 						do {
-							System.out.println("Ricercare per prezzo del biglietto? Inserire 1 se sì, 0 altrimenti:");
 							scelteCriteri[3] = sc.nextLine();
-							if (scelteCriteri[3] != "0" || scelteCriteri[3] != "1")
-								System.out.println("L'opzione scelta non è valida");
-						} while (scelteCriteri[3] != "0" || scelteCriteri[3] != "1" );
+							if (scelteCriteri[3].compareTo("0") != 0 && scelteCriteri[3].compareTo("1") != 0)
+								System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
+						} while (scelteCriteri[3].compareTo("0") != 0 && scelteCriteri[3].compareTo("1") != 0);
 						
 						for (String s : scelteCriteri) //Ciclo per controllare se si è scelto almeno un criterio.
 						{
-							if (s == "1")
+							if (s.compareTo("1") == 0)
 								noCriteriInseriti = false;
 						}
 						if (noCriteriInseriti == true)
@@ -1051,17 +1053,48 @@ public class Guest {
 						
 					} while (noCriteriInseriti == true); //Fine ciclo per scelta criteri.
 					
-					if(scelteCriteri[0] == "1") { //Inserimento titolo.
+					System.out.print("Richiesta ricerca per:");
+					boolean virgolaNecessaria=false;
+					
+					if(scelteCriteri[0].compareTo("1") == 0) { //titolo.
+						System.out.print("titolo");
+						virgolaNecessaria = true;
+					} //titolo.
+					
+					
+					if(scelteCriteri[1].compareTo("1") == 0) { //genere.
+						if (virgolaNecessaria == true)
+							System.out.print(",");
+						System.out.print("genere");
+						virgolaNecessaria = true;
+					} //genere.
+					
+					if(scelteCriteri[2].compareTo("1") == 0) { //data.
+						if (virgolaNecessaria == true)
+							System.out.print(",");
+						System.out.print("data");
+						virgolaNecessaria = true;
+					} //data.
+					
+					if(scelteCriteri[3].compareTo("1") == 0) { //prezzo.
+						if (virgolaNecessaria == true)
+							System.out.print(",");
+						System.out.print("prezzo");
+						virgolaNecessaria = true;
+					} //prezzo.
+					System.out.println();
+					
+					if(scelteCriteri[0].compareTo("1") == 0) { //Inserimento titolo.
 						System.out.println("Inserire il titolo (anche parziale):");
 						titoloRicerca = sc.nextLine(); //Leggo titolo da ricercare e lo metto in titoloRicerca.
 					} //Fine inserimento titolo.
 					
-					if(scelteCriteri[1] == "1") { //Inserimento genere.
+					if(scelteCriteri[1].compareTo("1") == 0) { //Inserimento genere.
 						System.out.println("Inserire il genere (anche parziale):");
 						genereRicerca = sc.nextLine(); //Leggo genere da ricercare e lo metto in genereRicerca.
 					} //Fine inserimento genere.
 					
-					if(scelteCriteri[2] == "1") { //Inserimento data.
+					if(scelteCriteri[2].compareTo("1") == 0) { //Inserimento data.
 						
 						System.out.println("Selezionare una delle seguenti opzioni per la data:");
 						System.out.println("1=proiezioni prima di una certa data");
@@ -1330,14 +1363,14 @@ public class Guest {
 								
 							default:
 								sceltaRicercaDataOk = false;
-								System.out.println("L'opzione scelta non è valida. Inserire un'altra opzione:");
+								System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
 							} //Fine switch in cui è contenuta la ricerca per data.
 							
 						} while (sceltaRicercaDataOk == false); //Fine ciclo do while che effettua l'inserimento della data.
 						
 					} //Fine inserimento data.
 					
-					if(scelteCriteri[3] == "1") { //Inserimento prezzo.
+					if(scelteCriteri[3].compareTo("1") == 0) { //Inserimento prezzo.
 						
 						System.out.println("Selezionare una delle seguenti opzioni per il prezzo:");
 						System.out.println("1=proiezioni con prezzo minore di un certo valore");
@@ -1357,16 +1390,16 @@ public class Guest {
 									System.out.println("Inserire il prezzo massimo:");
 									
 									do {
-										inputStringintOk=true;
+										inputStringdoubleOk=true;
 										try {
-											inputStringint = sc.nextLine();
-											prezzoMaxRicerca = Integer.parseInt(inputStringint);
+											inputStringdouble = sc.nextLine();
+											prezzoMaxRicerca = Double.parseDouble(inputStringdouble);
 										
 										} catch (NumberFormatException e) {
-											inputStringintOk = false;
-											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											inputStringdoubleOk = false;
+											System.out.println("Non è stato inserito un numero valido. Inserire un numero valido: ");
 										}
-									} while (inputStringintOk == false);
+									} while (inputStringdoubleOk == false);
 									
 									
 									if (prezzoMaxRicerca < 0)
@@ -1383,16 +1416,16 @@ public class Guest {
 									System.out.println("Inserire il prezzo minimo:");
 									
 									do {
-										inputStringintOk=true;
+										inputStringdoubleOk=true;
 										try {
-											inputStringint = sc.nextLine();
-											prezzoMinRicerca = Integer.parseInt(inputStringint);
+											inputStringdouble = sc.nextLine();
+											prezzoMinRicerca = Double.parseDouble(inputStringdouble);
 										
 										} catch (NumberFormatException e) {
-											inputStringintOk = false;
-											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											inputStringdoubleOk = false;
+											System.out.println("Non è stato inserito un numero valido. Inserire un numero valido: ");
 										}
-									} while (inputStringintOk == false);
+									} while (inputStringdoubleOk == false);
 									
 									
 									if (prezzoMinRicerca < 0)
@@ -1409,16 +1442,16 @@ public class Guest {
 									System.out.println("Inserire il prezzo minimo:");
 									
 									do {
-										inputStringintOk=true;
+										inputStringdoubleOk=true;
 										try {
-											inputStringint = sc.nextLine();
-											prezzoMinRicerca = Integer.parseInt(inputStringint);
+											inputStringdouble = sc.nextLine();
+											prezzoMinRicerca = Double.parseDouble(inputStringdouble);
 										
 										} catch (NumberFormatException e) {
-											inputStringintOk = false;
-											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											inputStringdoubleOk = false;
+											System.out.println("Non è stato inserito un numero valido. Inserire un numero valido: ");
 										}
-									} while (inputStringintOk == false);
+									} while (inputStringdoubleOk == false);
 									
 									
 									if (prezzoMinRicerca < 0)
@@ -1430,16 +1463,16 @@ public class Guest {
 									System.out.println("Inserire il prezzo massimo:");
 									
 									do {
-										inputStringintOk=true;
+										inputStringdoubleOk=true;
 										try {
-											inputStringint = sc.nextLine();
-											prezzoMaxRicerca = Integer.parseInt(inputStringint);
+											inputStringdouble = sc.nextLine();
+											prezzoMaxRicerca = Double.parseDouble(inputStringdouble);
 										
 										} catch (NumberFormatException e) {
-											inputStringintOk = false;
-											System.out.println("Non è stato inserito un numero intero. Inserire un numero intero: ");
+											inputStringdoubleOk = false;
+											System.out.println("Non è stato inserito un numero valido. Inserire un numero valido: ");
 										}
-									} while (inputStringintOk == false);
+									} while (inputStringdoubleOk == false);
 									
 									
 									if (prezzoMaxRicerca < 0)
@@ -1454,7 +1487,7 @@ public class Guest {
 								
 							default:
 								sceltaRicercaPrezzoOk = false;
-								System.out.println("L'opzione scelta non è valida");
+								System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
 							} //Fine switch in cui è contenuta la ricerca per prezzo.
 						} while (sceltaRicercaPrezzoOk == false); //Fine ciclo do while che effettua l'inserimento del prezzo.
 						
@@ -1472,7 +1505,7 @@ public class Guest {
 						
 						//Inizio blocco per confronto tra criteri scelti e stessi criterii nella riga/proiez letta da file.
 						
-						if (scelteCriteri[0] == "1") { //Verifica titolo.
+						if(scelteCriteri[0].compareTo("1") == 0) { //Verifica titolo.
 							
 							//Metto entrambi i titoli (quello ricercato e quello della proiezione considerata attualmente) a minuscolo per non far contare le maiuscole.
 							titoloTempLowercaseRicerca = proiez.getFilm().getTitolo().toLowerCase(); 
@@ -1506,7 +1539,7 @@ public class Guest {
 							
 						} //Fine verifica titolo.
 						
-						if (scelteCriteri[1] == "1" && proiezOk == true) { //Verifica genere.
+						if (scelteCriteri[1].compareTo("1") == 0 && proiezOk == true) { //Verifica genere.
 							//Metto entrambi i generi (quello ricercato e quello della proiezione considerata attualmente) a minuscolo per non far contare le maiuscole.
 							genereTempLowercaseRicerca = proiez.getFilm().getGenere().toLowerCase(); 
 							genereRicLowercaseRicerca = genereRicerca.toLowerCase(); 
@@ -1539,7 +1572,7 @@ public class Guest {
 							//Fine blocco confronto generi.
 						} //Fine verifica genere.
 						
-						if (scelteCriteri[2] == "1" && proiezOk == true) { //Verifica data.
+						if (scelteCriteri[2].compareTo("1") == 0 && proiezOk == true) { //Verifica data.
 							
 						switch (sceltaRicercaData){ //Inizio switch in cui è effettuata la verifica data.
 							
@@ -1574,7 +1607,7 @@ public class Guest {
 							} //Fine switch in cui è effettuata la verifica data.
 						} //Fine verifica data.
 						
-						if(scelteCriteri[3] == "1") { //Verifica prezzo.
+						if(scelteCriteri[3].compareTo("1") == 0 && proiezOk == true) { //Verifica prezzo.
 							
 							switch (sceltaRicercaPrezzo){ //Inizio switch in cui è effettuata la verifica prezzo.
 								
@@ -1639,7 +1672,7 @@ public class Guest {
 					
 				default:
 					sceltaOk = false;
-					System.out.println("L'opzione scelta non è valida");
+					System.out.println("L'opzione scelta non è valida. Inserire un'opzione valida:");
 			}
 		} while (sceltaOk == false); //Fine ciclo do while in cui è contenuto lo switch che effettua tutta la ricerca.
 		
@@ -1893,7 +1926,7 @@ public class Guest {
 		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga...
 		//...del file.
 		
-		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA ADATTIVO O PERLOMENO SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
+		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
 		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
 		
 		LinkedList<Proiezione> risRicerca = new LinkedList<Proiezione>(); //Linkedlist che rappresenta il risultato della ricerca cioè contiene le proiezioni...
