@@ -285,7 +285,7 @@ public class CineMaX {
 					System.out.println("Cosa vuoi fare oggi?\n ");
 					System.out.println("Digita 1 per cercare una proiezione \n ");
 					System.out.println("Digita 2 per registrarti\n");
-					System.out.println("Digita il titolo anche parziale di un film per proseguire come guest ed effettuare la ricerca\n");
+					System.out.println("Digita il titolo anche parziale di un film per effettuare una ricerca rapida\n");
 					System.out.println("Digita 0 per effettuare il logout\n ");//puoi uscire senza registrarti, metti che vuoi loggarti col profilo di un amico
 					String toDo=Kinput.nextLine();
 					switch(toDo){
@@ -303,7 +303,11 @@ public class CineMaX {
 						System.out.println("Grazie per aver usato la nostra app, a presto!");
 						break;
 					default:
-						System.out.println("hai digitato un carattere non valido, riprova!\n");
+						try {
+							loggeduser.cercaProiezionePerTitolo(toDo);
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}
 						continue;
 					}
 					break;//esci dalla modalità guest

@@ -307,14 +307,13 @@
               </children>
             </children>
             <children xsi:type="basic:PartSashContainer" xmi:id="_XXRuUlh3EfGzsNQ_McQJrw" containerData="8776" selectedElement="_XXRuU1h3EfGzsNQ_McQJrw">
-              <children xsi:type="basic:PartSashContainer" xmi:id="_XXRuU1h3EfGzsNQ_McQJrw" containerData="7500" selectedElement="_L7dOcJWpEfGvm5x1QZh5Lg" horizontal="true">
+              <children xsi:type="basic:PartSashContainer" xmi:id="_XXRuU1h3EfGzsNQ_McQJrw" containerData="7500" selectedElement="_XXRuVFh3EfGzsNQ_McQJrw" horizontal="true">
                 <children xsi:type="advanced:Placeholder" xmi:id="_XXRuVFh3EfGzsNQ_McQJrw" elementId="org.eclipse.ui.editorss" containerData="5967" ref="_XXRwqlh3EfGzsNQ_McQJrw">
                   <tags>Maximized</tags>
                 </children>
                 <children xsi:type="basic:PartSashContainer" xmi:id="_L7dOcJWpEfGvm5x1QZh5Lg" containerData="4033" selectedElement="_L7dOcZWpEfGvm5x1QZh5Lg">
                   <children xsi:type="basic:PartStack" xmi:id="_L7dOcZWpEfGvm5x1QZh5Lg" elementId="PartStack@415e15a1" containerData="5000" selectedElement="_XXRuYVh3EfGzsNQ_McQJrw">
                     <tags>MinimizedByZoom</tags>
-                    <tags>active</tags>
                     <children xsi:type="advanced:Placeholder" xmi:id="_XXRuYVh3EfGzsNQ_McQJrw" elementId="org.eclipse.ui.console.ConsoleView" ref="_XXRw2lh3EfGzsNQ_McQJrw" closeable="true">
                       <tags>View</tags>
                       <tags>categoryTag:General</tags>
@@ -445,6 +444,7 @@
       <children xsi:type="basic:PartStack" xmi:id="_XXRwq1h3EfGzsNQ_McQJrw" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_XXRwsFh3EfGzsNQ_McQJrw">
         <tags>EditorStack</tags>
         <tags>org.eclipse.e4.primaryDataStack</tags>
+        <tags>active</tags>
         <children xsi:type="basic:Part" xmi:id="_XXRwrFh3EfGzsNQ_McQJrw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="Guest.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.svg" closeable="true">
           <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Guest.java&quot; partName=&quot;Guest.java&quot; title=&quot;Guest.java&quot; tooltip=&quot;CineMaX/src/CineMaX/Guest.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/CineMaX/src/CineMaX/Guest.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;2&quot; selectionOffset=&quot;2240&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
@@ -452,10 +452,12 @@
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_XXRwsFh3EfGzsNQ_McQJrw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="CineMaX.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.svg" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;CineMaX.java&quot; partName=&quot;CineMaX.java&quot; title=&quot;CineMaX.java&quot; tooltip=&quot;CineMaX/src/CineMaX/CineMaX.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/CineMaX/src/CineMaX/CineMaX.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;13818&quot; selectionTopPixel=&quot;4748&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;CineMaX.java&quot; partName=&quot;CineMaX.java&quot; title=&quot;CineMaX.java&quot; tooltip=&quot;CineMaX/src/CineMaX/CineMaX.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/CineMaX/src/CineMaX/CineMaX.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;11993&quot; selectionTopPixel=&quot;4106&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>removeOnHide</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
+          <tags>active</tags>
+          <tags>activeOnClose</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_XXRwtFh3EfGzsNQ_McQJrw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="Film.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.svg" closeable="true">
           <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Film.java&quot; partName=&quot;Film.java&quot; title=&quot;Film.java&quot; tooltip=&quot;CineMaX/src/CineMaX/Film.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/CineMaX/src/CineMaX/Film.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;2283&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
@@ -596,8 +598,6 @@
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:General</tags>
-      <tags>active</tags>
-      <tags>activeOnClose</tags>
       <menus xmi:id="_XXRw21h3EfGzsNQ_McQJrw" elementId="org.eclipse.ui.console.ConsoleView">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -755,7 +755,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_XXRxWlh3EfGzsNQ_McQJrw" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_vDZYUJ5LEfGV1J5Kw_LNtg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.svg" tooltip="Print" command="_XXU2kFh3EfGzsNQ_McQJrw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_3Wmgd55SEfG0xuLldjmIJw" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.svg" tooltip="Print" command="_XXU2kFh3EfGzsNQ_McQJrw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_XXRxZ1h3EfGzsNQ_McQJrw" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -763,8 +763,8 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_XXRxaVh3EfGzsNQ_McQJrw" elementId="org.eclipse.ui.workbench.edit">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_vDZ_ZZ5LEfGV1J5Kw_LNtg" elementId="undo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/undo_edit.svg" tooltip="Undo" enabled="false" command="_XXU0clh3EfGzsNQ_McQJrw"/>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_vDbNgJ5LEfGV1J5Kw_LNtg" elementId="redo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/redo_edit.svg" tooltip="Redo" enabled="false" command="_XXU1HVh3EfGzsNQ_McQJrw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_3WwRdZ5SEfG0xuLldjmIJw" elementId="undo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/undo_edit.svg" tooltip="Undo" enabled="false" command="_XXU0clh3EfGzsNQ_McQJrw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_3WwRdp5SEfG0xuLldjmIJw" elementId="redo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/redo_edit.svg" tooltip="Redo" enabled="false" command="_XXU1HVh3EfGzsNQ_McQJrw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_XXRxbVh3EfGzsNQ_McQJrw" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -797,7 +797,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_XXRxv1h3EfGzsNQ_McQJrw" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_vDbNhp5LEfGV1J5Kw_LNtg" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.svg" tooltip="Pin Editor" type="Check" command="_XXU2Mlh3EfGzsNQ_McQJrw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_3WwRfJ5SEfG0xuLldjmIJw" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.svg" tooltip="Pin Editor" type="Check" command="_XXU2Mlh3EfGzsNQ_McQJrw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_XXRxy1h3EfGzsNQ_McQJrw" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
