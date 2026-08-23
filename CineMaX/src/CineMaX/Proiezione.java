@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -46,12 +47,12 @@ public class Proiezione implements Comparable<Proiezione> {
         return Math.max(CAPIENZA_MASSIMA - calcolaPostiOccupati(), 0);
     }
 
-    // Getter compatibile se altri metodi richiedono getPostiPrenotati()
+    // Getter compatibile per la ricerca prenotazioni
     public int getPostiPrenotati() {
         return calcolaPostiOccupati();
     }
 
-    // Controlla se ci sono abbastanza posti disponibili per accogliere la richiesta
+    // Controlla se ci sono abbastanza posti disponibili
     public boolean haPostiDisponibili(int postiRichiesti) {
         return calcolaPostiLiberi() >= postiRichiesti;
     }
@@ -73,8 +74,27 @@ public class Proiezione implements Comparable<Proiezione> {
         System.out.println("----------------------------");
     }
 
-    // 1. SALVA IL PALINSESTO SU FILE CSV
-    // Il try-with-resources chiude automaticamente il BufferedWriter SENZA toccare System.in
+    // METODO PER CERCARE I POSTI LIBERI TRAMITE TITOLO DEL FILM E DATA (LocalDate)
+    // Restituisce i posti liberi della proiezione trovata, oppure -1 se non esiste alcuna proiezione per quel giorno/film
+    public static int getPostiLiberiPerFilmEData(String titoloFilm, LocalDate dataCercata, ArrayList<Proiezione> palinsesto) {
+        if (titoloFilm == null || dataCercata == null || palinsesto == null) {
+            return -1;
+        }
+
+        for (Proiezione p : palinsesto) {
+            // Confronta il titolo (ignorando maiuscole/minuscole) e controlla se il giorno coincide (.toLocalDate())
+            if (p.getFilm().getTitolo().equalsIgnoreCase(titoloFilm) && 
+                p.getDataOra().toLocalDate().equals(dataCercata)) {
+                
+                return p.calcolaPostiLiberi();
+            }
+        }
+
+        System.out.println("Nessuna proiezione trovata per il film \"" + titoloFilm + "\" in data: " + dataCercata);
+        return -1; // Proiezione non trovata
+    }
+
+    // SALVA IL PALINSESTO SU FILE CSV
     public static void salvaProiezioni(ArrayList<Proiezione> palinsesto) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PROIEZIONI))) {
             bw.write("Titolo;Genere;Durata;DataOra;Prezzo");
@@ -94,14 +114,13 @@ public class Proiezione implements Comparable<Proiezione> {
         }
     }
 
-    // 2. CARICA IL PALINSESTO DA FILE CSV ALL'AVVIO
-    // Il try-with-resources chiude automaticamente il BufferedReader SENZA toccare System.in
+    // CARICA IL PALINSESTO DA FILE CSV ALL'AVVIO
     public static ArrayList<Proiezione> caricaProiezioni() {
         ArrayList<Proiezione> palinsesto = new ArrayList<>();
         
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PROIEZIONI))) {
             String riga;
-            boolean primaRiga = true; // Salta l'intestazione
+            boolean primaRiga = true;
 
             while ((riga = br.readLine()) != null) {
                 if (primaRiga) {
@@ -132,7 +151,7 @@ public class Proiezione implements Comparable<Proiezione> {
         return palinsesto;
     }
 
-    // Permette di ordinare le proiezioni cronologicamente
+    // Ordina le proiezioni cronologicamente
     @Override
     public int compareTo(Proiezione altra) {
         return this.dataOra.compareTo(altra.getDataOra());
@@ -148,3 +167,4 @@ public class Proiezione implements Comparable<Proiezione> {
     public double getPrezzoBiglietto() { return prezzoBiglietto; }
     public void setPrezzoBiglietto(double prezzoBiglietto) { this.prezzoBiglietto = prezzoBiglietto; }
 }
+
