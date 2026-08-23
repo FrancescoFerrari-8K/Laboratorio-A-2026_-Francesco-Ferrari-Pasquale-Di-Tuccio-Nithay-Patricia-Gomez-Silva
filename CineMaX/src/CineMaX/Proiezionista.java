@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 // Classe che rappresenta il Proiezionista e le sue azioni sul palinsesto
-public class Proiezionista extends Guest{
+public class Proiezionista {
 
     private String nome;
     private String idProiezionista;
@@ -21,6 +21,11 @@ public class Proiezionista extends Guest{
     // Aggiunge un film, controlla sovrapposizioni orarie e ordina il palinsesto
     public boolean aggiungiProiezioneAlPalinsesto(Proiezione nuovaProiezione, ArrayList<Proiezione> palinsesto) {
         
+        if (nuovaProiezione == null || palinsesto == null) {
+            System.out.println("ERRORE: Proiezione o palinsesto non validi.");
+            return false;
+        }
+
         // 1. CONTROLLO SOVRAPPOSIZIONI DI ORARIO
         for (Proiezione p : palinsesto) {
             LocalDateTime inizioEsistente = p.getDataOra();
@@ -46,6 +51,11 @@ public class Proiezionista extends Guest{
 
     // Rimuove una proiezione dal palinsesto cercando per titolo (solo se priva di prenotazioni)
     public boolean rimuoviProiezioneDalPalinsesto(String titoloFilm, ArrayList<Proiezione> palinsesto, ArrayList<Prenotazione> listaPrenotazioni) {
+
+        if (titoloFilm == null || palinsesto == null || listaPrenotazioni == null) {
+            System.out.println("ERRORE: Parametri non validi per la rimozione.");
+            return false;
+        }
 
         for (int i = 0; i < palinsesto.size(); i++) {
             Proiezione p = palinsesto.get(i);
