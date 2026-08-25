@@ -74,6 +74,18 @@ public class Proiezione implements Comparable<Proiezione> {
         System.out.println("----------------------------");
     }
 
+    // Stampa a schermo i dettagli completi della proiezione
+    public void visualizzaProiezioneDettagliata() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        
+        System.out.println("--- DETTAGLIO PROIEZIONE ---");
+        film.visualizzaFilm(); // Stampa completa del film
+        System.out.println("Data e Ora: " + dataOra.format(formatter));
+        System.out.println("Costo Biglietto: €" + String.format("%.2f", prezzoBiglietto));
+        System.out.println("Posti Liberi: " + calcolaPostiLiberi() + " / " + CAPIENZA_MASSIMA);
+        System.out.println("----------------------------");
+    }
+    
     // METODO PER CERCARE I POSTI LIBERI TRAMITE TITOLO DEL FILM E DATA (LocalDate)
     // Restituisce i posti liberi della proiezione trovata, oppure -1 se non esiste alcuna proiezione per quel giorno/film
     public static int getPostiLiberiPerFilmEData(String titoloFilm, LocalDateTime dataCercata, ArrayList<Proiezione> palinsesto) {
