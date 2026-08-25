@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -173,9 +174,11 @@ public class CineMaX {
 					switch(campiriga[7]) {
 					case "P": 
 						pro=new Proiezionista();
+						System.out.println("Benvenuto"+campiriga[3]);
 						return pro;
 					case "B":
 						 big=new Bigliettaio();
+						 System.out.println("Benvenuto"+campiriga[3]);
 						return big;
 					case "C":
 						client= new Cliente(campiriga[1], campiriga[2], campiriga[0]);	
@@ -223,6 +226,7 @@ public class CineMaX {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+				}
 					if (loggeduser instanceof Bigliettaio) {
 						while(true) {
 							System.out.println("Cosa vuoi fare oggi?\n ");
@@ -249,6 +253,8 @@ public class CineMaX {
 					}
 					if (loggeduser instanceof Proiezionista) {
 						while(true) {
+							ArrayList<Proiezione>proiezioni=Proiezione.caricaProiezioni();// se loggo come proiezionista prima di tutto carico il file proiezioni altrimenti i metodi del proiezionista non funzionano
+							ArrayList<Prenotazione> prenotazioni=Prenotazione.caricaPrenotazioni();//carico la lista di tutte le prenotazioni come richiesto dal metodo per eliminare una proiezione
 							System.out.println("Cosa vuoi fare oggi?\n ");
 							System.out.println("Digita 1 per aggiungere una proiezione al palinsesto \n ");
 							System.out.println("Digita 2 per rimuovere una proiezione dal palinsesto \n");
@@ -257,11 +263,53 @@ public class CineMaX {
 							String toDo=Kinput.nextLine();
 							switch(toDo){
 							case "1":
-								//String titolo=Kinput.nextLine();
-								((Proiezionista)loggeduser).aggiungiProiezioneAlPalinsesto(null, null); 
+								int anno=0;
+								int durata=0;
+								int età=0;
+								double prezzo=0.0;
+								System.out.println("Digitare il titolo della proiezione\n ");
+								String titolo=Kinput.nextLine();
+								System.out.println("Digitare il genere della proiezione\n ");
+								String genere=Kinput.nextLine();
+								System.out.println("Digitare il regista della proiezione\n ");
+								String regista=Kinput.nextLine();
+								System.out.println("Digitare l'anno di pubblicazione della proiezione\n ");
+								String annotmp=Kinput.nextLine();
+								try{anno=Integer.parseInt(annotmp);}//trasformo la stringa in int come richiesto da un oggetto di tipo film, usato per generare una proiezione
+								catch(NumberFormatException e){//Integer.parseInt() genera una number format exception se la stringa è in formato numerico non valido!
+								System.out.println("Formato non valido, il valore inserito non rappresenta un numero intero!");	
+								}
+								System.out.println("Digitare la durata della proiezione espressa in minuti\n ");
+								String duratatmp=Kinput.nextLine();
+								try{durata=Integer.parseInt(duratatmp);}//trasformo la stringa in int come richiesto da un oggetto di tipo film, usato per generare una proiezione
+								catch(NumberFormatException e){//Integer.parseInt() genera una number format exception se la stringa è in formato numerico non valido!
+								System.out.println("Formato non valido, il valore inserito non rappresenta un numero intero!");	
+								}
+								System.out.println("Digitare l'età minima per assistere alla proiezione\n ");
+								String etàtmp=Kinput.nextLine();
+								try{età=Integer.parseInt(etàtmp);}//trasformo la stringa in int come richiesto da un oggetto di tipo film, usato per generare una proiezione
+								catch(NumberFormatException e){//Integer.parseInt() genera una number format exception se la stringa è in formato numerico non valido!
+								System.out.println("Formato non valido, il valore inserito non rappresenta un numero intero!");	
+								}
+								System.out.println("Digitare la data della proiezione (AAAA-MM-GG)\n");
+								String data=Kinput.nextLine();
+								System.out.println("Digitare l'ora della proiezione (HH:MM)\n");
+								String ora=Kinput.nextLine();
+								LocalDateTime parsedfromstring=LocalDateTime.parse(data+"T"+ora+":00");//creo l'oggetto dalla stringa, la formattazione dev'essere(AAAA-MM-GGTHH:MM:SS), i secondi sono sempre 00
+								System.out.println("Digitare il prezzo del biglietto (euro.centesimi)\n");
+								String prezzotmp=Kinput.nextLine();
+								try{prezzo=Double.parseDouble(prezzotmp);}//trasformo la stringa in double come richiesto dal costruttore Proiezione
+								catch(NumberFormatException e) {
+									System.out.println("Formato non valido, il valore inserito non rappresenta un numero decimale!");
+								}
+								Film f=new Film(titolo,genere,regista,anno,durata,età);//creo l'oggetto film per la proiezione
+								Proiezione pro=new Proiezione(f,parsedfromstring,prezzo);//creo la proiezione da aggiungere
+								((Proiezionista)loggeduser).aggiungiProiezioneAlPalinsesto(pro, proiezioni);//aggiungo la proiezione al palinsesto
 								break;
 							case"2":
-								((Proiezionista)loggeduser).rimuoviProiezioneDalPalinsesto(null,null, null);
+								System.out.println("Digitare il titolo della proiezione da eliminare");
+								String titolo1=Kinput.nextLine();
+								((Proiezionista)loggeduser).rimuoviProiezioneDalPalinsesto(titolo1,proiezioni, prenotazioni);// rimuove la prenotazione per titolo
 								break;	
 							case"0":
 								System.out.println("Grazie per aver usato la nostra app, a presto e buon lavoro!");
@@ -274,7 +322,7 @@ public class CineMaX {
 					}
 					continue;
 
-					}
+
 			case "2":
 				CineMaX.Registrati();
 				continue;// se mi registro devo comunque effettuare il login dopo se voglio usare l'app

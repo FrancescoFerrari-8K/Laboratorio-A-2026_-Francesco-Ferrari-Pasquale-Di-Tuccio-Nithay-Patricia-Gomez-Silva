@@ -1098,3 +1098,103 @@
 2026-08-22 18:00:01.928: [INFO] BookmarksLoadDropped droppedNodes=0
 2026-08-22 18:00:01.928: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
 2026-08-22 18:00:02.017: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:38:10.898: [INFO] CurrentProfilePath: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:38:10.898: [INFO] Profiles total count: 1
+2026-08-25 10:38:10.898: [INFO] Profile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:38:10.898: [INFO] LastUsedProfileDir: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:38:10.898: [INFO] MostRecentlyActiveProfile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:38:10.898: [INFO] OnDoneLoading sync enabled: 0
+2026-08-25 10:38:10.898: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-25 10:38:10.898: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-25 10:38:10.898: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:38:10.987: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:38:22.064: [INFO] CurrentProfilePath: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:38:22.064: [INFO] Profiles total count: 1
+2026-08-25 10:38:22.064: [INFO] Profile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:38:22.064: [INFO] LastUsedProfileDir: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:38:22.064: [INFO] MostRecentlyActiveProfile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:38:22.064: [INFO] OnDoneLoading sync enabled: 0
+2026-08-25 10:38:22.064: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-25 10:38:22.064: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-25 10:38:22.064: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:38:25.449: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:39:12.725: [INFO] CurrentProfilePath: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:39:12.725: [INFO] Profiles total count: 1
+2026-08-25 10:39:12.725: [INFO] Profile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:39:12.725: [INFO] LastUsedProfileDir: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:39:12.725: [INFO] MostRecentlyActiveProfile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:39:12.725: [INFO] OnDoneLoading sync enabled: 0
+2026-08-25 10:39:12.725: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-25 10:39:12.725: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-25 10:39:12.725: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:40:36.347: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:42:38.018: [INFO] CurrentProfilePath: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:42:38.018: [INFO] Profiles total count: 1
+2026-08-25 10:42:38.018: [INFO] Profile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:42:38.018: [INFO] LastUsedProfileDir: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:42:38.018: [INFO] MostRecentlyActiveProfile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:42:38.018: [INFO] OnDoneLoading sync enabled: 0
+2026-08-25 10:42:38.018: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-25 10:42:38.018: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-25 10:42:38.018: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:47:56.616: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:49:03.472: [INFO] CurrentProfilePath: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:49:03.472: [INFO] Profiles total count: 1
+2026-08-25 10:49:03.473: [INFO] Profile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:49:03.473: [INFO] LastUsedProfileDir: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:49:03.473: [INFO] MostRecentlyActiveProfile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:49:03.473: [INFO] OnDoneLoading sync enabled: 0
+2026-08-25 10:49:03.473: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-25 10:49:03.473: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-25 10:49:03.473: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:49:06.047: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:49:48.496: [INFO] CurrentProfilePath: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:49:48.496: [INFO] Profiles total count: 1
+2026-08-25 10:49:48.496: [INFO] Profile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:49:48.496: [INFO] LastUsedProfileDir: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 10:49:48.496: [INFO] MostRecentlyActiveProfile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 10:49:48.496: [INFO] OnDoneLoading sync enabled: 0
+2026-08-25 10:49:48.496: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-25 10:49:48.496: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-25 10:49:48.496: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 10:49:52.529: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 16:35:54.740: [INFO] CurrentProfilePath: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 16:35:54.740: [INFO] Profiles total count: 1
+2026-08-25 16:35:54.740: [INFO] Profile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 16:35:54.740: [INFO] LastUsedProfileDir: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 16:35:54.740: [INFO] MostRecentlyActiveProfile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 16:35:54.741: [INFO] OnDoneLoading sync enabled: 0
+2026-08-25 16:35:54.741: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-25 16:35:54.741: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-25 16:35:54.741: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 16:37:11.988: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 16:37:55.658: [INFO] CurrentProfilePath: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 16:37:55.658: [INFO] Profiles total count: 1
+2026-08-25 16:37:55.659: [INFO] Profile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 16:37:55.659: [INFO] LastUsedProfileDir: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 16:37:55.659: [INFO] MostRecentlyActiveProfile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 16:37:55.659: [INFO] OnDoneLoading sync enabled: 0
+2026-08-25 16:37:55.659: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-25 16:37:55.659: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-25 16:37:55.659: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 16:37:59.170: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 16:38:03.082: [INFO] CurrentProfilePath: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 16:38:03.082: [INFO] Profiles total count: 1
+2026-08-25 16:38:03.082: [INFO] Profile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 16:38:03.082: [INFO] LastUsedProfileDir: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 16:38:03.082: [INFO] MostRecentlyActiveProfile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-21T11:21:10.347Z
+2026-08-25 16:38:03.082: [INFO] OnDoneLoading sync enabled: 0
+2026-08-25 16:38:03.082: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-25 16:38:03.082: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-25 16:38:03.082: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 18:19:11.221: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 18:21:19.717: [INFO] CurrentProfilePath: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 18:21:19.717: [INFO] Profiles total count: 1
+2026-08-25 18:21:19.717: [INFO] Profile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-25T16:38:46.745Z
+2026-08-25 18:21:19.717: [INFO] LastUsedProfileDir: C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default
+2026-08-25 18:21:19.717: [INFO] MostRecentlyActiveProfile: name=Profilo 1 path=C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.swt\EBWebView\Default lastActive=2026-08-25T16:38:46.745Z
+2026-08-25 18:21:19.717: [INFO] OnDoneLoading sync enabled: 0
+2026-08-25 18:21:19.717: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-25 18:21:19.717: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-25 18:21:19.717: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-25 18:23:02.375: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
