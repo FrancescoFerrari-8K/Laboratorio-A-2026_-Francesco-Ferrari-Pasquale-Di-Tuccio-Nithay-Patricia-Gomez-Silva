@@ -63,45 +63,47 @@ public class Cliente extends Guest {
 
   // cerca proiezione (implementato da guest)//
   // visulazza proiezione (implementato da guest)//
-
-  // metodo che messo in input l'ID del cliente posso restituire un objetto del
-  // tipo cliente
   public static Cliente getClienteDaFile(int IdCliente) {
-
+    // metodo che messo in input l'ID del cliente posso restituire un objetto del
+    // tipo cliente
     return null;
   }
 
-  // -visualizzare le propie prenotazioni//
+  // questo metodo serve per visualizzare le propie prenotazioni//
   public void visualizzaLeMiePrenotazioni() {
     // legge il file prenotazione
     // strae le prenotazioni a nome di questo cliente
     // mostrarle
-    ArrayList<Prenotazione> l = Prenotazione.caricaPrenotazioni();
-    ArrayList<Prenotazione> prenotazioniCliente = new ArrayList<Prenotazione>();
+    ArrayList<Prenotazione> l = Prenotazione.caricaPrenotazioni(); // carica la lista delle prenotazione presente nel
+                                                                   // sistema
+    ArrayList<Prenotazione> prenotazioniCliente = new ArrayList<Prenotazione>(); // se crea una lista vuota che servirà
+                                                                                 // da contenitore per salvare solo le
+                                                                                 // prenotazioni trovate per quel
+                                                                                 // determinato cliente
     System.out.println("");
     System.out.println("Ricerca per:" + this.getNome() + " " + this.getCognome());
     prenotazioniCliente = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(),
-        l);
+        l); // se salva la prenotazione trovata con nome e cognome da quel cliente
     System.out.println("");
     System.out.println("PrenotazioniTrovate:" + prenotazioniCliente.size());
     System.out.println("");
     for (Prenotazione elemento : prenotazioniCliente) {
-      System.out.println(elemento.toString(false));
+      System.out.println(elemento.toString(false));// Scorre la lista delle prenotazioni trovate e stampa i
+      // dettagli di ciascuna
     }
 
     System.out.println("");
 
   }
 
-  // crea prenotazione//
+  // questo metodo serve per creare le prenotazione//
   public boolean creaPrenotazione(Proiezione proiezioneSelezionata, int posti) {
-
     Scanner sc = new Scanner(System.in);
 
-    boolean haPostiDisponibili = proiezioneSelezionata.haPostiDisponibili(posti);
+    boolean haPostiDisponibili = proiezioneSelezionata.haPostiDisponibili(posti); // se crea un boolean per sapere se ci
+                                                                                  // sono posti disponibili
 
-    if (haPostiDisponibili == true) {
-      // prenota
+    if (haPostiDisponibili == true) { // se la variabile e true se procede a fare la prenotazione
       String sceltaPrenota;
       System.out
           .println("il prezzo totale delle tue prenotazione è: " + proiezioneSelezionata.getPrezzoBiglietto() * posti);
@@ -109,7 +111,8 @@ public class Cliente extends Guest {
       System.out.println("sei sicuro/a che vuoi prenotare? (S/N): ");
       sceltaPrenota = sc.nextLine();
 
-      if (sceltaPrenota.toUpperCase().charAt(0) == 'S') {
+      if (sceltaPrenota.toUpperCase().charAt(0) == 'S') { // se verifica che il carattere sia S, in caso in cui siano
+                                                          // uguale se procede a fare la nuova prenotazione
 
         Prenotazione prenotazione = new Prenotazione(this.getIDUtente(), this.getNome(), this.getCognome(),
             proiezioneSelezionata.getDataOra(),
@@ -131,7 +134,8 @@ public class Cliente extends Guest {
   // questo metodo serve per modificare le prenotazioni del CSV//
   public boolean modificaPrenotazione(int idPrenotazione, Prenotazione nuovaPrenotazione) {
     boolean prenotazioneModificata = Prenotazione.modificaPrenotazioneNelCSV(idPrenotazione, nuovaPrenotazione);
-
+    // se verifica se la prenotazione e quella che se vuo modificare con il boolean
+    // di prenotazioneModificata
     if (prenotazioneModificata == true) {
       System.out.println("tua prenotazione è stata modificata con successo");
     } else {
@@ -140,10 +144,6 @@ public class Cliente extends Guest {
     }
 
     return prenotazioneModificata;
-    // legge il file prenotazione
-    // trova la prenotazione con idPrenotazioneDaEliminare
-    // elimina
-    // salva file prenotazione
   }
 
   // questo metodo serve per modificare le prenotazioni del CSV//
@@ -151,10 +151,9 @@ public class Cliente extends Guest {
 
     return Prenotazione.eliminaPrenotazioneDalCSV(idPrenotazioneDaEliminare);
 
-    // legge il file prenotazione
-    // trova le prenotazione con idPrenotazioneDaEliminare
-    // elimina la prenotazione
-    // salva il file prenotazione
+    // se legge il file prenotazione, trova le prenotazione con
+    // idPrenotazioneDaEliminare, elimina la prenotazione e salva il file
+    // prenotazione
   }
 
   // -logout//
@@ -187,24 +186,31 @@ public class Cliente extends Guest {
         switch (sceltaMenucliente) {
           case 1:
 
-            Proiezione[] risultatoRicerca = this.cercaProiezione();
-            Proiezione proiezioneSelezionata = Guest.selezionaProiezDaRicerca(risultatoRicerca);
-            if(proiezioneSelezionata== null){
+            Proiezione[] risultatoRicerca = this.cercaProiezione(); // cerca le proiezioni disponibi e salva il
+                                                                    // risultato in un array
+            Proiezione proiezioneSelezionata = Guest.selezionaProiezDaRicerca(risultatoRicerca); // Prende l'elenco
+                                                                                                 // appena trovato, lo
+                                                                                                 // mostra all'utente e
+                                                                                                 // gli fa scegliere una
+                                                                                                 // specifica proiezione
+            if (proiezioneSelezionata == null) { // in caso in cui la proiezione sia null, esce
               System.out.println("");
               break;
             }
-            
+
             int numeroPostiRichiesti = this.chiediNumeroDiPosti(proiezioneSelezionata);
-            if(numeroPostiRichiesti< 0){
+            if (numeroPostiRichiesti < 0) {
               System.out.println("posti non disponibili, tornando al menu iniziale");
               System.out.println("");
 
             } else {
 
-              this.creaPrenotazione(proiezioneSelezionata, numeroPostiRichiesti);
+              this.creaPrenotazione(proiezioneSelezionata, numeroPostiRichiesti); // in caso in cui si ci siano posti
+                                                                                  // disponibili se procede afare la
+                                                                                  // prenotazione
             }
 
-              break;
+            break;
 
           case 2:
             int sceltaPrenotazioni;
@@ -224,35 +230,38 @@ public class Cliente extends Guest {
 
               switch (sceltaPrenotazioni) {
                 case 1:
-                 //ogni volta che l'utente scrive un umero diverso da 0 va direttamente a modifica
-                int tornareIndietro;
-                System.out.println("---VISUALIZZA PRENOTAZIONI---");
+                  int tornareIndietro;
+                  System.out.println("---VISUALIZZA PRENOTAZIONI---");
                   this.visualizzaLeMiePrenotazioni();
 
-                  do{
-                  System.out.println("inserisci 0 per tornare indietro");
-                  System.out.println("");
-                  
-                  tornareIndietro = this.leggiInt("scelta non valida, \ninserisci 0 per tornare indietro");
+                  do {
+                    System.out.println("inserisci 0 per tornare indietro");
+                    System.out.println("");
 
+                    tornareIndietro = this.leggiInt("scelta non valida, \ninserisci 0 per tornare indietro");
 
-
-                }while(tornareIndietro!=0);
+                  } while (tornareIndietro != 0); // ogni volta che l'utente scrive un numero diverso da 0 torna
+                                                  // indietro
                   break;
                 case 2:
                   int scletaModificaPrenotazione;
                   do {
                     System.out.println("---MODIFICA PRENOTAZIONE---");
-                    ArrayList<Prenotazione> prenotazioneC = Prenotazione.caricaPrenotazioni();
+                    ArrayList<Prenotazione> prenotazioneC = Prenotazione.caricaPrenotazioni(); // Legge il file CSV e
+                                                                                               // carica la lista
+                                                                                               // completa di tutte le
+                                                                                               // prenotazioni di tutti
+                                                                                               // gli utenti
                     ArrayList<Prenotazione> prenotazioneCliente = new ArrayList<Prenotazione>();
                     prenotazioneCliente = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(),
-                        this.getCognome(), prenotazioneC);
+                        this.getCognome(), prenotazioneC); // Filtra la lista generale cercando soltanto le prenotazioni
+                                                           // che corrispondono al nome e cognome
                     System.out.println("");
                     System.out.println(
                         "inserisci l'ID della prenotazione che vuoi modificare oppure scrivi 0 per tornare indietro ");
                     System.out.println("");
                     for (Prenotazione elemento : prenotazioneCliente) {
-                      System.out.println(elemento.toString(true));
+                      System.out.println(elemento.toString(true)); // mostra i detagli di ogni prenotazione del cliente
                     }
                     System.out.println("");
                     System.out.print("Inserisci il numero di l'ID oppure scrivi 0 per torare indietro: ");
@@ -262,7 +271,9 @@ public class Cliente extends Guest {
                     }
 
                     for (Prenotazione elemento : prenotazioneCliente) {
-                      if (scletaModificaPrenotazione == elemento.getIDPrenotazione()) {
+                      if (scletaModificaPrenotazione == elemento.getIDPrenotazione()) { // se verifica se l'ID del
+                                                                                        // utente corrisponde a quello
+                                                                                        // della prenotazione corrente
                         int sceltaDiModifica;
 
                         System.out.println("la prenotazione che vuoi modificare è: " + elemento.toString());
@@ -277,33 +288,27 @@ public class Cliente extends Guest {
 
                         switch (sceltaDiModifica) {
                           case 1:
-                            //ho bisogno di estrarre la proiezione inserendo solo la data e il titolo della proiezione (elemento)
-                            
 
-                            Proiezione proiezioneAttuale = null;
-                            this.chiediQuantiPostiPrenotareEmodifica(proiezioneAttuale, elemento);
+                            this.chiediQuantiPostiPrenotareEmodifica(null, elemento);
                             break;
 
                           case 2:
                             System.out.println("input" + elemento.getProiezione_Titolo());
-                            LinkedList<Proiezione>  llProiezioni =   this.cercaProiezPerCambioPrenotaz(elemento.getProiezione_Titolo());
+                            LinkedList<Proiezione> llProiezioni = this
+                                .cercaProiezPerCambioPrenotaz(elemento.getProiezione_Titolo());
 
                             System.out.println("llProiezioni" + llProiezioni.size());
-                             Proiezione[] listaProiezioni = new Proiezione[llProiezioni.size()];
+                            Proiezione[] listaProiezioni = new Proiezione[llProiezioni.size()];
 
-                             int i = 0;
-                             for(Proiezione el:  llProiezioni){
-                              listaProiezioni[i]=el;
+                            int i = 0;
+                            for (Proiezione el : llProiezioni) {
+                              listaProiezioni[i] = el;
                               i++;
-                             }
+                            }
 
-
-                             System.out.println("listaProiezioni" + listaProiezioni.length);
-                             proiezioneSelezionata = Guest.selezionaProiezDaRicerca(listaProiezioni);
-                                            // l'utente sceglie la proiezione
-
-
-
+                            System.out.println("listaProiezioni" + listaProiezioni.length);
+                            proiezioneSelezionata = Guest.selezionaProiezDaRicerca(listaProiezioni);
+                            // l'utente sceglie la proiezione
 
                             this.chiediQuantiPostiPrenotareEmodifica(proiezioneSelezionata, elemento);
                             break;
@@ -335,7 +340,7 @@ public class Cliente extends Guest {
                   System.out.println("");
                   System.out.println("Que prenotazione vuoi eliminare? " + "inserisci ID: ");
                   System.out.println("");
-                  //TODO: in caso in cui non ci siano prenotazioni, lasciare un messagio
+                  // TODO: in caso in cui non ci siano prenotazioni, lasciare un messagio
                   for (Prenotazione elemento : prenotazioniClienti) {
                     System.out.println(elemento.toString(true));
                   }
@@ -390,16 +395,39 @@ public class Cliente extends Guest {
 
   }
 
-  private void chiediQuantiPostiPrenotareEmodifica(Proiezione proiezioneSelezionata, Prenotazione prenotazioneSelezionata) {
-    int numeroDiPosti = this.chiediNumeroDiPosti(proiezioneSelezionata);
 
-    //dammi il numero di posti disponibili se ti do questi dati:data, titolo della proiezione
+
+      
+      // dammi il numero di posti disponibili se ti do questi dati:data, titolo della
+      // proiezione
+    
+  
+
+  private void chiediQuantiPostiPrenotareEmodifica(Proiezione proiezioneSelezionata,
+      Prenotazione prenotazioneSelezionata) {
+        int numeroDiPosti = 0;
+        if(proiezioneSelezionata == null){
+          System.err.println("inizio carica Proiezioni:"+ LocalDateTime.now());
+          ArrayList<Proiezione> palinsesto = Proiezione.caricaProiezioni();
+          System.err.println("fine carica Proiezioni:"+ LocalDateTime.now());
+     
+          System.err.println("trova numero numeroDiPosti:"+ LocalDateTime.now());
+     
+          numeroDiPosti  = Proiezione.getPostiLiberiPerFilmEData(prenotazioneSelezionata.getProiezione_Titolo(), prenotazioneSelezionata.getProiezione_Data(),palinsesto);
+           System.err.println("trova numero numeroDiPosti:"+ LocalDateTime.now());
+        }else{
+          numeroDiPosti = this.chiediNumeroDiPosti(proiezioneSelezionata);
+        }
+
+    // dammi il numero di posti disponibili se ti do questi dati:data, titolo della
+    // proiezione
     if (numeroDiPosti != -1) {
 
       Prenotazione nuovaPrenotazione = new Prenotazione(prenotazioneSelezionata.getIDPrenotazione(),
-      prenotazioneSelezionata.getIDUtente(), prenotazioneSelezionata.getNome(), prenotazioneSelezionata.getCognome(),
-      prenotazioneSelezionata.getProiezione_Data(), prenotazioneSelezionata.getProiezione_Titolo(), numeroDiPosti,
-      prenotazioneSelezionata.getPrezzoBiglietto());
+          prenotazioneSelezionata.getIDUtente(), prenotazioneSelezionata.getNome(),
+          prenotazioneSelezionata.getCognome(),
+          prenotazioneSelezionata.getProiezione_Data(), prenotazioneSelezionata.getProiezione_Titolo(), numeroDiPosti,
+          prenotazioneSelezionata.getPrezzoBiglietto());
       this.modificaPrenotazione(prenotazioneSelezionata.getIDPrenotazione(), nuovaPrenotazione);
 
     } else {
@@ -408,44 +436,38 @@ public class Cliente extends Guest {
 
   }
 
+  private int chiediNumeroDiPosti(Proiezione proiezioneSelezionata) {
 
-  private int chiediNumeroDiPosti(Proiezione proiezioneSelezionata){
-  
     Scanner sc = new Scanner(System.in);
     System.out.println("scrivi quanti posti vuoi");
     int numeroDiPosti = this.leggiInt("numero di posti non valido");
     System.out.println("posti scritti:" + numeroDiPosti);
 
     boolean hapostidisponibili = proiezioneSelezionata.haPostiDisponibili(numeroDiPosti);
-    if(hapostidisponibili == false){
+    if (hapostidisponibili == false) {
       numeroDiPosti = -1;
     }
 
     return numeroDiPosti;
   }
 
-  private int leggiInt (String errorMessage){
+  private int leggiInt(String errorMessage) {
     Scanner sc = new Scanner(System.in);
     boolean inputStringintOk;
     String inputStringint;
     int variabileint = 0;
 
     do {
-			inputStringintOk=true;
-			try {
-				inputStringint = sc.nextLine();
-				variabileint = Integer.parseInt(inputStringint);
-			
-			} catch (NumberFormatException e) {
-				inputStringintOk = false;
-				System.out.println(errorMessage);
-			}
-		} while (inputStringintOk == false);
+      inputStringintOk = true;
+      try {
+        inputStringint = sc.nextLine();
+        variabileint = Integer.parseInt(inputStringint);
+
+      } catch (NumberFormatException e) {
+        inputStringintOk = false;
+        System.out.println(errorMessage);
+      }
+    } while (inputStringintOk == false);
     return variabileint;
   }
 }
-
-
-  
-
-

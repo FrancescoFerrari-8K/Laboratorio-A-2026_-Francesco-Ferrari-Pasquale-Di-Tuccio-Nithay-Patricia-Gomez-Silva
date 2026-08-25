@@ -76,7 +76,7 @@ public class Proiezione implements Comparable<Proiezione> {
 
     // METODO PER CERCARE I POSTI LIBERI TRAMITE TITOLO DEL FILM E DATA (LocalDate)
     // Restituisce i posti liberi della proiezione trovata, oppure -1 se non esiste alcuna proiezione per quel giorno/film
-    public static int getPostiLiberiPerFilmEData(String titoloFilm, LocalDate dataCercata, ArrayList<Proiezione> palinsesto) {
+    public static int getPostiLiberiPerFilmEData(String titoloFilm, LocalDateTime dataCercata, ArrayList<Proiezione> palinsesto) {
         if (titoloFilm == null || dataCercata == null || palinsesto == null) {
             return -1;
         }
@@ -84,7 +84,7 @@ public class Proiezione implements Comparable<Proiezione> {
         for (Proiezione p : palinsesto) {
             // Confronta il titolo (ignorando maiuscole/minuscole) e controlla se il giorno coincide (.toLocalDate())
             if (p.getFilm().getTitolo().equalsIgnoreCase(titoloFilm) && 
-                p.getDataOra().toLocalDate().equals(dataCercata)) {
+                p.getDataOra().equals(dataCercata)) {
                 
                 return p.calcolaPostiLiberi();
             }
