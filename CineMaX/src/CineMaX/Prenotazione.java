@@ -29,10 +29,10 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	private int NPosti;
 	private int IDPrenotazione;
 	private double Prezzo_Biglietto;
-	
 
 	// Costruttori
-	public Prenotazione(String IDUtente, String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
+	public Prenotazione(String IDUtente, String nome, String cognome, LocalDateTime Proiezione_Data,
+			String Proiezione_Titolo,
 			int NPosti, double Prezzo_Biglietto) {
 
 		this.Nome = nome;
@@ -43,10 +43,11 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.IDPrenotazione = Prenotazione.generaNuovoID();
 		this.IDUtente = IDUtente;
 		this.Prezzo_Biglietto = Prezzo_Biglietto;
-		
+
 	}
 
-	public Prenotazione(int IDPrenotazione, String IDUtente, String nome, String cognome, LocalDateTime Proiezione_Data, String Proiezione_Titolo,
+	public Prenotazione(int IDPrenotazione, String IDUtente, String nome, String cognome, LocalDateTime Proiezione_Data,
+			String Proiezione_Titolo,
 			int NPosti, double Prezzo_Biglietto) {
 
 		this.Nome = nome;
@@ -55,9 +56,9 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		this.Proiezione_Titolo = Proiezione_Titolo;
 		this.NPosti = NPosti;
 		this.IDPrenotazione = IDPrenotazione;
-        this.IDUtente = IDUtente;
+		this.IDUtente = IDUtente;
 		this.Prezzo_Biglietto = Prezzo_Biglietto;
-	
+
 	}
 
 	// metodi//
@@ -110,19 +111,19 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 	}
 
-	public String getIDUtente(){
+	public String getIDUtente() {
 		return this.IDUtente;
 	}
 
-	public void setIDUtente(String IDUtente){
-		this.IDUtente =IDUtente;
+	public void setIDUtente(String IDUtente) {
+		this.IDUtente = IDUtente;
 	}
 
-	public double getPrezzoBiglietto(){
+	public double getPrezzoBiglietto() {
 		return this.Prezzo_Biglietto;
 	}
 
-	public void setPrezzo_Biglietto(double Prezzo_Biglietto ){
+	public void setPrezzo_Biglietto(double Prezzo_Biglietto) {
 		this.Prezzo_Biglietto = Prezzo_Biglietto;
 	}
 
@@ -132,43 +133,53 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	}
 
 	public String toString(boolean mostraID) {
-		if(mostraID==true){
-			return "ID "+IDPrenotazione +" - "+ Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
-			+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti + "- Prezzo del Biglietto: " +Prezzo_Biglietto;
-		} else{
+		if (mostraID == true) {
+			return "ID " + IDPrenotazione + " - " + Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo
+					+ " - Data: "
+					+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti + "- Prezzo del Biglietto: "
+					+ Prezzo_Biglietto;
+		} else {
 			return "Prenotazione " + Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
-			+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti+ "- Prezzo del Biglietto: "+Prezzo_Biglietto;
+					+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti + "- Prezzo del Biglietto: "
+					+ Prezzo_Biglietto;
 		}
-		
+
 	}
-	// - carico tutte le prenotazione
-	// - controllo se la lista e vuota, se e vuota restituisco 1
-	// - se non e vuota, controllo l'ultimo elemento della lista, prendo il suo ID,
-	// aggiungo 1
 
 	// questo metodo serve per generare un nuovo ID:
 	public static int generaNuovoID() {
+		// - carico tutte le prenotazione
 		ArrayList<Prenotazione> listaPrenotazioni = caricaPrenotazioni();
 
 		if (listaPrenotazioni.isEmpty()) {
+			// - controllo se la lista e vuota, se e vuota restituisco 1
 			return 1;
 		}
 		return listaPrenotazioni.get(listaPrenotazioni.size() - 1).getIDPrenotazione() + 1;
+		// - se non e vuota, controllo l'ultimo elemento della lista, prendo il suo ID,
+		// aggiungo 1
 	}
 
 	// mostriamo le prenotazione future perche quelle sono le uniche modificabili
+	// questo metodo serve per trovare una prenotazione con nome e cognome
 	public static ArrayList<Prenotazione> TrovaPrenotazioniConNomeECognome(String nome, String cognome,
 			ArrayList<Prenotazione> listaPrenotazione) {
-		ArrayList<Prenotazione> risultato = new ArrayList<Prenotazione>();
-		for (Prenotazione p : listaPrenotazione) {
-			if (nome.equals(p.getNome()) && cognome.equals(p.getCognome()) && p.Proiezione_Data.isAfter(LocalDateTime.now())) {
-				risultato.add(p);
+		ArrayList<Prenotazione> risultato = new ArrayList<Prenotazione>(); // creo un nuovo arrayList di tipo
+																			// prenotazione per aggiunguere la
+																			// prenotazione trovata
+		for (Prenotazione p : listaPrenotazione) { // uso un for each per creare un ciclo
+			if (nome.equals(p.getNome()) && cognome.equals(p.getCognome()) // utilizo il if per torvare la prenotazione
+																			// in base ai dati che mi arrivano e quelli
+																			// che gia ho
+					&& p.Proiezione_Data.isAfter(LocalDateTime.now())) {
+				risultato.add(p); // una volta trovati i dati aggiungo quelli ai risultati
 			}
 		}
 		return risultato;
 	}
 
-	// questo metodo estrae dal file di prenotazione tutte le prenotazione e me li ristituisce//
+	// questo metodo estrae dal file di prenotazione tutte le prenotazione e me li
+	// ristituisce//
 	public static ArrayList<Prenotazione> caricaPrenotazioni() {
 
 		// trova il percorso assoluto del file proiezioni.csv per rendere il metodo
@@ -199,9 +210,9 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 												// aggiungo le stringhe nelle relative LinkedList
 
 					Prenotazione PrenotazioneTemp = new Prenotazione(Integer.parseInt(colonne[0]), colonne[1],
-							colonne[2], colonne [3],
+							colonne[2], colonne[3],
 							LocalDateTime.parse(colonne[4].replace("\"", "")), colonne[5],
-							Integer.parseInt(colonne[6].replace("\"", "")),Double.parseDouble(colonne[7]) );
+							Integer.parseInt(colonne[6].replace("\"", "")), Double.parseDouble(colonne[7]));
 					listaPrenotazioni.add(PrenotazioneTemp);
 				}
 				// chiusura degli stream per evitare memory leaks
@@ -218,60 +229,85 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		}
 		return listaPrenotazioni;
 	}
-    
-	//questo metodo serve per aggiungere le prenotazioni al CSV//
-	public static boolean aggiungiPrenotazioneAlCSV(Prenotazione prenotazione) {
-		try (FileWriter writer = new FileWriter(percorsoFile, true)) {
 
-			String nuovaRiga = "\n" + prenotazione.getIDPrenotazione() + "," +
-		        	prenotazione.getIDUtente()+","+
+	// questo metodo serve per aggiungere le prenotazioni al CSV//
+	public static boolean aggiungiPrenotazioneAlCSV(Prenotazione prenotazione) {
+		try (FileWriter writer = new FileWriter(percorsoFile, true)) { // Apre il file indicato in percorsoFile. Il
+																		// parametro true attiva la modalità append, che
+																		// permette di aggiungere testo alla fine del
+																		// file senza cancellare quello che già esiste
+
+			String nuovaRiga = "\n" + prenotazione.getIDPrenotazione() + "," + // Creo la stringa con i dati della
+																				// prenotazione separati da virgole
+																				// (formato CSV)
+					prenotazione.getIDUtente() + "," +
 					prenotazione.getNome() + "," +
 					prenotazione.getCognome() + "," +
 					"\""
 					+ prenotazione.getProiezione_Data().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
 					+ "\"" + "," + prenotazione.getProiezione_Titolo() + "," +
-					prenotazione.getNPosti() + ","+ prenotazione.getPrezzoBiglietto();
+					prenotazione.getNPosti() + "," + prenotazione.getPrezzoBiglietto();
 
-			writer.write(nuovaRiga);
+			writer.write(nuovaRiga); // Scrive la stringa appena creata all'interno del file CSV
+			//
 
 			System.out.println("la prenotazione è stata inserita nel nostro sistema");
 			System.out.println("");
-			writer.close();
+			writer.close(); // Stampa i messaggi di conferma in console, esegue writer.close() per salvare
+							// le modifiche sul disco e restituisce true
 			return true;
-		} catch (IOException e) {
+		} catch (IOException e) { // Se si verifica un errore di lettura o scrittura sul file, cattura
+									// l'eccezione, stampa i dettagli dell'errore e restituisce false
 			System.out.println("la prenotazione non e  andata a buon fine: ");
 			e.printStackTrace();
 			return false;
 		}
 	}
 
+	// questo metodo modifica la prenotazione//
+	public static boolean modificaPrenotazioneNelCSV(int idPrenotazione, Prenotazione nuovaPrenotazione) {
+		List<String> righe = new ArrayList<>(); // se Crea una lista vuota che conterrà tutte le righe del file (sia
+												// l'intestazione che i dati)
 
-	 // questo metodo modifica la prenotazione//
-	 public static boolean modificaPrenotazioneNelCSV(int idPrenotazione, Prenotazione nuovaPrenotazione) {
-		List<String> righe = new ArrayList<>();
-	
-		 // leggere file prenotazione
-		try (BufferedReader reader = new BufferedReader(new FileReader(percorsoFile))) {
-			String riga = reader.readLine(); // Leggi la prima riga (cabecera)
+		// legge il file prenotazione
+		try (BufferedReader reader = new BufferedReader(new FileReader(percorsoFile))) { // Apre il file CSV in modalità
+																							// lettura usando il
+																							// try-with-resources,
+																							// garantendo che il file
+																							// venga chiuso
+																							// automaticamente alla fine
+			String riga = reader.readLine(); // Legge la prima riga del file, cioè l'intestazione (i nomi delle colonne
+												// come IDPrenotazione, IDUtente...)
 			if (riga != null) {
-				righe.add(riga); // Aggiungi la cabecera alla lista
+				righe.add(riga); // Se la riga esiste (riga != null), la aggiunge alla lista
 			}
-	
-			// Leggi le altre righe
-			while ((riga = reader.readLine()) != null) {
-				if (riga.trim().isEmpty()) continue;
-				String[] colonne = riga.split(",");
-	
+			while ((riga = reader.readLine()) != null) { // Avvia un ciclo per leggere tutte le righe successive, una ad
+															// una, fino ad arrivare alla fine del file
+				if (riga.trim().isEmpty()) // Controlla se la riga letta è vuota. Se lo è, il comando continue la salta
+											// senza aggiungerla, evitando problemi di elaborazione
+					continue;
+				String[] colonne = riga.split(","); // Divide la riga letta in un array di stringhe usando la virgola
+													// (,) come separatore. In questo modo se puo accedere ai singoli
+													// campi (ID, nome, data, ecc.) tramite il loro indice (es.
+													// colonne[0] per l'ID)
+
 				// Controlla se l'ID corrisponde
-				if (Integer.parseInt(colonne[0].trim()) == idPrenotazione) {
+				if (Integer.parseInt(colonne[0].trim()) == idPrenotazione) { // Prende il valore della prima colonna
+																				// (colonne[0]), lo trasforma in numero
+																				// intero e controlla se equivale all'ID
+																				// della prenotazione che vuoi
+																				// modificare
 					// Sostituisci la riga con la nuova prenotazione
 					String nuovaRiga = nuovaPrenotazione.getIDPrenotazione() + "," +
-					     	nuovaPrenotazione.getIDUtente()+","+
+							nuovaPrenotazione.getIDUtente() + "," +
 							nuovaPrenotazione.getNome() + "," +
 							nuovaPrenotazione.getCognome() + "," +
-							"\"" + nuovaPrenotazione.getProiezione_Data().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")) + "\"" + "," +
+							"\""
+							+ nuovaPrenotazione.getProiezione_Data()
+									.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
+							+ "\"" + "," +
 							"\"" + nuovaPrenotazione.getProiezione_Titolo() + "\"" + "," +
-							nuovaPrenotazione.getNPosti() + "\"" + "," +  nuovaPrenotazione.getPrezzoBiglietto();
+							nuovaPrenotazione.getNPosti() + "\"" + "," + nuovaPrenotazione.getPrezzoBiglietto();
 					righe.add(nuovaRiga);
 				} else {
 					// Mantieni la riga originale
@@ -282,9 +318,69 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 			System.out.println("Errore durante la lettura del file: " + e.getMessage());
 			return false;
 		}
-	
+
 		// Scrivi le righe aggiornate nel file
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(Prenotazione.percorsoFile))) {
+			// Apre il file CSV in modalità scrittura sovrascrittiva (senza il parametro
+			// true). Questo significa che svuota completamente il file esistente per
+			// poterci riscrivere da capo tutti i dati aggiornati. BufferedWriter rende
+			// l'operazione di scrittura più efficiente
+			for (String riga : righe) { // scorre una ad una tutte le stringhe contenute nella lista righe (che
+										// include l'intestazione, le prenotazioni non modificate e quella appena
+										// aggiornata)
+				writer.write(riga); // Scrive il testo della riga corrente all'interno del file CSV
+				writer.newLine(); // Aggiunge un salto di linea subito dopo la riga appena scritta, garantendo che
+									// la successiva vada al rigo sotto
+			}
+		} catch (IOException e) {
+			System.out.println("Errore durante la scrittura del file: " + e.getMessage());
+			return false;
+		}
+
+		System.out.println("Prenotazione modificata con successo.");
+		return true;
+	}
+
+	// questo metodo serve per eliminare una prenotazione dal csv//
+	public static boolean eliminaPrenotazioneDalCSV(int idPrenotazione) {
+		List<String> righe = new ArrayList<>();
+
+		try (BufferedReader reader = new BufferedReader(new FileReader(percorsoFile))) {
+			String riga = reader.readLine(); // Leggo la prima riga
+			if (riga != null) { // se verifica che il file non sia vuoto
+				righe.add(riga); // inserisce la riga letta nella lista righe, assicurando che la struttura delle
+									// colonne venga conservata nel file finale
+			}
+
+			// Leggo le altre righe
+			while ((riga = reader.readLine()) != null) { // Previene errori in presenza di righe vuote
+
+				if (riga.trim().isEmpty()) // elimina gli spazi vuoti, se la riga e vuota il continue la salta e passa
+											// subito alla riga successiva del file
+					continue;
+
+				String[] colonne = riga.split(",");
+
+				// Rimuovo gli spazi prima di convertire in numero (.trim())
+				if (Integer.parseInt(colonne[0].trim()) == idPrenotazione) {
+					System.out.println("Prenotazione con ID " + idPrenotazione + " eliminata.");
+					continue; // Se l'ID corrisponde, mostra un messaggio ed evita di aggiungere la riga alla
+								// lista, ignorandola
+				}
+
+				// Mantengo le altre righe
+				righe.add(riga); //Se l'ID non corrisponde, salva la riga nella lista per conservarla nel file
+			}
+		} catch (IOException e) {
+			System.out.println("Errore durante la lettura del file: " + e.getMessage());
+			return false;
+		} catch (NumberFormatException e) {
+			System.out.println("Errore: ID non valido nel file CSV.");
+			return false;
+		}
+
+		// Scrivo le righe aggiornate nel file
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(percorsoFile))) {
 			for (String riga : righe) {
 				writer.write(riga);
 				writer.newLine();
@@ -293,80 +389,25 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 			System.out.println("Errore durante la scrittura del file: " + e.getMessage());
 			return false;
 		}
-	
-		System.out.println("Prenotazione modificata con successo.");
+
+		System.out.println("Prenotazione eliminata con successo.");
 		return true;
 	}
-		
-		 // elimina prenotazione//
-		 public static boolean eliminaPrenotazioneDalCSV(int idPrenotazione) {
-			List<String> righe = new ArrayList<>();
-		
-			try (BufferedReader reader = new BufferedReader(new FileReader(percorsoFile))) {
-				String riga = reader.readLine(); // Leggo la prima riga (cabecera)
-				if (riga != null) {
-					righe.add(riga); // Aggiungo la cabecera alla lista
-				}
-		
-				// Leggo le altre righe
-				while ((riga = reader.readLine()) != null) {
-					// Previene errori in presenza di righe vuote
-					if (riga.trim().isEmpty()) continue;
-		
-					String[] colonne = riga.split(",");
-		
-					// Rimuovo gli spazi prima di convertire in numero (.trim())
-					if (Integer.parseInt(colonne[0].trim()) == idPrenotazione) {
-						System.out.println("Prenotazione con ID " + idPrenotazione + " eliminata.");
-						continue; // Salto questa riga (non verrà salvata)
-					}
-		
-					// Mantengo le altre righe
-					righe.add(riga);
-				}
-			} catch (IOException e) {
-				System.out.println("Errore durante la lettura del file: " + e.getMessage());
-				return false;
-			} catch (NumberFormatException e) {
-				System.out.println("Errore: ID non valido nel file CSV.");
-				return false;
-			}
-		
-			// Scrivo le righe aggiornate nel file
-			try (BufferedWriter writer = new BufferedWriter(new FileWriter(percorsoFile))) {
-				for (String riga : righe) {
-					writer.write(riga);
-					writer.newLine();
-				}
-			} catch (IOException e) {
-				System.out.println("Errore durante la scrittura del file: " + e.getMessage());
-				return false;
-			}
-		
-			System.out.println("Prenotazione eliminata con successo.");
-			return true;
-		}
 
-		// leggere file prenotazione
-		// trovare prenotazione con idPrenotazioneDaModificare
-		// sostituirla con nuovaPrenotazione
-		// salvare file prenotazione
-
-		//questo metodo serve per sapere se il formato della data e valido oppure no//
-		public static boolean FormatoDiDataCorretto(String sceltaData){
+	// questo metodo serve per sapere se il formato della data e valido oppure no//
+	public static boolean FormatoDiDataCorretto(String sceltaData) {
 
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/uuuu")
-        .withResolverStyle(ResolverStyle.STRICT);
+				.withResolverStyle(ResolverStyle.STRICT);  //Assicura che la data esista davvero nel calendario
 
 		try {
-        LocalDate dataInserita = LocalDate.parse(sceltaData, formato);
-        LocalDate hoy = LocalDate.now();
-        return dataInserita.isAfter(hoy);
-    } catch (DateTimeParseException e) {
-        return false; // se il formato non e valido oppure se la data non esiste
-    }
-
+			LocalDate dataInserita = LocalDate.parse(sceltaData, formato);
+			LocalDate hoy = LocalDate.now();
+			return dataInserita.isAfter(hoy);  //Restituisce true solo se la data inserita è nel futuro rispetto a oggi
+		} catch (DateTimeParseException e) {
+			return false; // se il formato non e valido oppure se la data non esiste
 		}
 
-	
+	}
+
 }
