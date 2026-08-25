@@ -302,13 +302,20 @@ public class Cliente extends Guest {
 
                             int i = 0;
                             for (Proiezione el : llProiezioni) {
+                              System.out.println();
+                              System.out.println(i+1);
+                              el.visualizzaProiezione();
+
                               listaProiezioni[i] = el;
                               i++;
                             }
 
-                            System.out.println("listaProiezioni" + listaProiezioni.length);
+
                             proiezioneSelezionata = Guest.selezionaProiezDaRicerca(listaProiezioni);
                             // l'utente sceglie la proiezione
+                            
+
+
 
                             this.chiediQuantiPostiPrenotareEmodifica(proiezioneSelezionata, elemento);
                             break;
