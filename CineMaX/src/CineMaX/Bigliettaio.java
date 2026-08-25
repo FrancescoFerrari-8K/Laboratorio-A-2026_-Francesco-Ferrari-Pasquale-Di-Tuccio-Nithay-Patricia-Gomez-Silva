@@ -14,7 +14,7 @@ public class Bigliettaio extends Guest {
 		// Costruttori (non presenti xk non necessari).
 		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
 		// Metodi
-		
+	
 //Inizio metodo cercaPrenotazione().
 	public Prenotazione[] cercaPrenotazione() throws FileNotFoundException {
 //Questo metodo permette la ricerca di prenotazioni (e visualizzazione dettagliata di una di quelle trovate). Il metodo stampa a video tutto quanto ma se serve...
@@ -603,7 +603,7 @@ public class Bigliettaio extends Guest {
 								
 								prenotazOk = false;
 								
-								Prenotazione prenotaz = estraiPrenotazione(scFile,numvirgoleintestaz); //Estraggo una prenotazione dal file delle proiezioni e la...
+								Prenotazione prenotaz = estraiPrenotazione(scFile,numvirgoleintestaz); //Estraggo una prenotazione dal file delle prenotazioni e la...
 								//metto in prenotaz.
 								
 								//Inizio blocco per confronto tra criterio inserito e stesso criterio nella riga/prenotazione letta da file.
@@ -689,7 +689,7 @@ public class Bigliettaio extends Guest {
 						if (sceltaNumPrenotazVisualiz <= 0 || sceltaNumPrenotazVisualiz > numRisRicerca) {
 							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle prenotazioni cercate:");
 						} else {
-							System.out.println(risRicerca[sceltaNumPrenotazVisualiz-1].toString(true)); //C'è il -1 perchè all'utente le proiez sono visualiz...
+							System.out.println(risRicerca[sceltaNumPrenotazVisualiz-1].toString(true)); //C'è il -1 perchè all'utente le prenotaz sono visualiz...
 							//...numerate da 1 (e quindi anche la sua scelta), mentre nel vettore sono numerate da 0.
 							System.out.println("Prezzo biglietto:" + risRicerca[sceltaNumPrenotazVisualiz-1].getPrezzoBiglietto() );
 							costoTot = risRicerca[sceltaNumPrenotazVisualiz-1].getPrezzoBiglietto() * risRicerca[sceltaNumPrenotazVisualiz-1].getNPosti(); 
@@ -710,6 +710,61 @@ public class Bigliettaio extends Guest {
 		
 	}
 //Fine metodo cercaPrenotazione().
+	
+
+//Inizio metodo visualizzaPrenotazioniOdierne().
+	public void visualizzaPrenotazioniOdierne() throws FileNotFoundException {
+//Questo metodo permette la visualizzazione delle prenotazioni odierne.
+		
+		int numRisRicerca = 0; //Contatore numero risultati.
+		
+		double costoTot=0;
+		
+		Scanner scFile = new Scanner(new File("../data/prenotazioni.csv")); //scFile è lettore file prenotazioni.
+		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next legge una riga del file.
+		
+		int numvirgoleintestaz = 7;
+		scFile.next(); //Salto la prima riga del file prenotazioni che è l'intestazione.
+		
+		LocalDate dataOdierna = LocalDateTime.now().toLocalDate();
+		
+		System.out.println("Visualizzazione prenotazioni odierne");
+		
+		while(scFile.hasNext()) { //Ciclo per leggere una prenotazione dal file delle prenotazioni, verificare se rispetta requisiti ed eventuale stampa.
+			
+			Prenotazione prenotaz = estraiPrenotazione(scFile,numvirgoleintestaz); //Estraggo una prenotazione dal file delle prenotazioni e la metto in prenotaz.
+			
+			//Confronto date e stampa.
+			if (prenotaz.getProiezione_Data().toLocalDate().isEqual(dataOdierna) == true) {
+				numRisRicerca++;
+				System.out.println(numRisRicerca);
+				System.out.println(prenotaz.toString(true));
+				System.out.println("Prezzo biglietto:" + prenotaz.getPrezzoBiglietto() );
+				costoTot = prenotaz.getPrezzoBiglietto() * prenotaz.getNPosti(); 
+				System.out.println("Costo totale:" + costoTot);
+			}
+			//Fine blocco confronto date e stampa.
+			
+		} //Fine while che legge il file delle prenotazioni, controlla le prenotazioni ed eventualmente stampa.
+		System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+		
+	}
+//Fine metodo visualizzaPrenotazioniOdierne().
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 //Inizio metodo estraiPrenotazione().
 	private Prenotazione estraiPrenotazione(Scanner scanner, int numvirgoleintestaz) {
