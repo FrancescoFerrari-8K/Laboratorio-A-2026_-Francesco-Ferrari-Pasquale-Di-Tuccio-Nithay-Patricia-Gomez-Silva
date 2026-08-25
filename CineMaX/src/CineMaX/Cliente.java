@@ -289,6 +289,7 @@ public class Cliente extends Guest {
                         switch (sceltaDiModifica) {
                           case 1:
 
+                            // ATENZIONE: per ora la proiezioneSelezionata e null (se deve testare)
                             this.chiediQuantiPostiPrenotareEmodifica(null, elemento);
                             break;
 
@@ -303,19 +304,18 @@ public class Cliente extends Guest {
                             int i = 0;
                             for (Proiezione el : llProiezioni) {
                               System.out.println();
-                              System.out.println(i+1);
+                              System.out.println(i + 1);
                               el.visualizzaProiezione();
 
                               listaProiezioni[i] = el;
                               i++;
                             }
 
+                            // TODO: fare i casi in cui le proiezioni che cerca l'utente non ci siano
+                            // disponibilie
 
                             proiezioneSelezionata = Guest.selezionaProiezDaRicerca(listaProiezioni);
                             // l'utente sceglie la proiezione
-                            
-
-
 
                             this.chiediQuantiPostiPrenotareEmodifica(proiezioneSelezionata, elemento);
                             break;
@@ -340,16 +340,21 @@ public class Cliente extends Guest {
                 case 3:
                   System.out.println("---ELIMINA PRENOTAZIONE---");
                   System.out.println("");
-                  ArrayList<Prenotazione> prenotazioniC = Prenotazione.caricaPrenotazioni();
+                  ArrayList<Prenotazione> prenotazioniC = Prenotazione.caricaPrenotazioni(); // Legge il file CSV e
+                  // carica la lista
+                  // completa di tutte le
+                  // prenotazioni di tutti
+                  // gli utenti
                   ArrayList<Prenotazione> prenotazioniClienti = new ArrayList<Prenotazione>();
                   prenotazioniClienti = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(),
-                      prenotazioniC);
+                      prenotazioniC); // Filtra la lista generale cercando soltanto le prenotazioni
+                  // che corrispondono al nome e cognome
                   System.out.println("");
                   System.out.println("Que prenotazione vuoi eliminare? " + "inserisci ID: ");
                   System.out.println("");
                   // TODO: in caso in cui non ci siano prenotazioni, lasciare un messagio
                   for (Prenotazione elemento : prenotazioniClienti) {
-                    System.out.println(elemento.toString(true));
+                    System.out.println(elemento.toString(true)); //// mostra i detagli di ogni prenotazione del cliente
                   }
                   System.out.println("");
                   System.out.print("Inserisci: ");
@@ -360,7 +365,10 @@ public class Cliente extends Guest {
 
                   for (Prenotazione elemento : prenotazioniClienti) {
 
-                    if (sceltaPrenotazioni == elemento.getIDPrenotazione()) {
+                    if (sceltaPrenotazioni == elemento.getIDPrenotazione()) { // se la scelta dell l'ID digitato
+                                                                              // dall'utente con l'ID della prenotazione
+                                                                              // sono uguale allora il booleano diventa
+                                                                              // true
                       // ho incontrato l'id, quindi esco e mi ricordo che l'id esiste
                       esiste = true;
                     }
@@ -371,14 +379,15 @@ public class Cliente extends Guest {
                     System.out.println("sei sicuro/a che vuoi eliminare questa prenotazione? (S/N): ");
                     sceltaEliminaPrenotazione = sc.nextLine();
 
-                    if (sceltaEliminaPrenotazione.toUpperCase().charAt(0) == 'S') {
+                    if (sceltaEliminaPrenotazione.toUpperCase().charAt(0) == 'S') { // se verifica che il carattere
+                                                                                    // scritto dal utente sia quello
+                                                                                    // giusto
                       this.eliminaPrenotazione(sceltaPrenotazioni);
                     }
                   } else {
                     System.out.println("eliminazione annulata");
                   }
-
-                  // en caso de si eliminar, en caso de no, volver a atras
+                  // in caso in cui sia 'S' la prenotazione se elimina, in caso in cui sia 'N', torna indietro
                   break;
 
                 default:
@@ -401,33 +410,24 @@ public class Cliente extends Guest {
     }
 
   }
-
-
-
-      
-      // dammi il numero di posti disponibili se ti do questi dati:data, titolo della
-      // proiezione
-    
-  
-
+//metodo privato che serve a chiedere quanti posti prenotare per modificare
   private void chiediQuantiPostiPrenotareEmodifica(Proiezione proiezioneSelezionata,
       Prenotazione prenotazioneSelezionata) {
-        int numeroDiPosti = 0;
-        if(proiezioneSelezionata == null){
-          System.err.println("inizio carica Proiezioni:"+ LocalDateTime.now());
-          ArrayList<Proiezione> palinsesto = Proiezione.caricaProiezioni();
-          System.err.println("fine carica Proiezioni:"+ LocalDateTime.now());
-     
-          System.err.println("trova numero numeroDiPosti:"+ LocalDateTime.now());
-     
-          numeroDiPosti  = Proiezione.getPostiLiberiPerFilmEData(prenotazioneSelezionata.getProiezione_Titolo(), prenotazioneSelezionata.getProiezione_Data(),palinsesto);
-           System.err.println("trova numero numeroDiPosti:"+ LocalDateTime.now());
-        }else{
-          numeroDiPosti = this.chiediNumeroDiPosti(proiezioneSelezionata);
-        }
+    int numeroDiPosti = 0;
+    if (proiezioneSelezionata == null) {
+      System.err.println("inizio carica Proiezioni:" + LocalDateTime.now());
+      ArrayList<Proiezione> palinsesto = Proiezione.caricaProiezioni();
+      System.err.println("fine carica Proiezioni:" + LocalDateTime.now());
 
-    // dammi il numero di posti disponibili se ti do questi dati:data, titolo della
-    // proiezione
+      System.err.println("trova numero numeroDiPosti:" + LocalDateTime.now());
+
+      numeroDiPosti = Proiezione.getPostiLiberiPerFilmEData(prenotazioneSelezionata.getProiezione_Titolo(),
+          prenotazioneSelezionata.getProiezione_Data(), palinsesto);
+      System.err.println("trova numero numeroDiPosti:" + LocalDateTime.now());
+    } else {
+      numeroDiPosti = this.chiediNumeroDiPosti(proiezioneSelezionata);
+    }
+
     if (numeroDiPosti != -1) {
 
       Prenotazione nuovaPrenotazione = new Prenotazione(prenotazioneSelezionata.getIDPrenotazione(),
