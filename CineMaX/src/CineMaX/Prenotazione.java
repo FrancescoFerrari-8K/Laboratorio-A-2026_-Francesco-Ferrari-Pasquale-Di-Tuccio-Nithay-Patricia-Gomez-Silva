@@ -18,7 +18,7 @@ import java.util.List;
 public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 	// Campi
-	public static final String percorsoFile = "..\\..\\data\\Prenotazioni.csv";
+	public static final String percorsoFile = "..\\data\\Prenotazioni.csv";
 
 	// private String idCliente;
 	private String IDUtente;
@@ -199,12 +199,10 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 									// estratti dal file da inserire nelle LinkedList
 
 				// Leggi la prima riga (l'intestazione) a vuoto per saltarla
-				if (buffread.readLine() != null) {
-					// Usiamo un 'if' per sicurezza, nel caso in cui il file fosse completamente
-					// vuoto
-				}
+				buffread.readLine();
+				riga = buffread.readLine();//leggo la prima riga utile
 
-				while ((riga = buffread.readLine()) != null) {// leggo il file riga per riga fino a quando la riga non
+				while (riga != null) {// leggo il file riga per riga fino a quando la riga non
 																// diventa null (dopo l'ultima riga!)
 					colonne = riga.split(",");// divido le colonne col separatore decimale , essendo il file di tipo csv
 												// aggiungo le stringhe nelle relative LinkedList
@@ -214,6 +212,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 							LocalDateTime.parse(colonne[4].replace("\"", "")), colonne[5],
 							Integer.parseInt(colonne[6].replace("\"", "")), Double.parseDouble(colonne[7]));
 					listaPrenotazioni.add(PrenotazioneTemp);
+					riga = buffread.readLine();//leggo la prossima riga utile
 				}
 				// chiusura degli stream per evitare memory leaks
 				buffread.close();
@@ -237,7 +236,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 																		// permette di aggiungere testo alla fine del
 																		// file senza cancellare quello che già esiste
 
-			String nuovaRiga = "\n" + prenotazione.getIDPrenotazione() + "," + // Creo la stringa con i dati della
+			String nuovaRiga = prenotazione.getIDPrenotazione() + "," + // Creo la stringa con i dati della
 																				// prenotazione separati da virgole
 																				// (formato CSV)
 					prenotazione.getIDUtente() + "," +

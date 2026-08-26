@@ -144,14 +144,17 @@ public class Proiezione implements Comparable<Proiezione> {
 
                 String[] dati = riga.split(";");
                 if (dati.length == 5) {
-                    String titolo = dati[0];
-                    String genere = dati[1];
-                    int durata = Integer.parseInt(dati[2]);
-                    LocalDateTime dataOra = LocalDateTime.parse(dati[3]);
-                    double prezzo = Double.parseDouble(dati[4]);
+                	LocalDateTime dataeora=LocalDateTime.parse(dati[0]);
+                    String titolo = dati[2];
+                    String genere = dati[3];
+                    String regista=dati[4];
+                    int anno=Integer.parseInt(dati[5]);
+                    int durata = Integer.parseInt(dati[6]);
+                    int età=Integer.parseInt(dati[7]);
+                    int prezzo=Integer.parseInt(dati[8]);
 
-                    Film film = new Film(titolo, genere, durata);
-                    Proiezione p = new Proiezione(film, dataOra, prezzo);
+                    Film film = new Film(titolo, genere, regista,anno, durata,età);
+                    Proiezione p = new Proiezione(film, dataeora, prezzo);
                     
                     palinsesto.add(p);
                 }
