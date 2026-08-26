@@ -18,7 +18,7 @@ import java.util.List;
 public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 	// Campi
-	public static final String percorsoFile = "..\\..\\data\\Prenotazioni.csv";
+	public static final String percorsoFile = "..\\data\\Prenotazioni.csv";
 
 	// private String idCliente;
 	private String IDUtente;

@@ -117,7 +117,7 @@ public class Cliente extends Guest {
         Prenotazione prenotazione = new Prenotazione(this.getIDUtente(), this.getNome(), this.getCognome(),
             proiezioneSelezionata.getDataOra(),
             proiezioneSelezionata.getFilm().getTitolo(), posti, proiezioneSelezionata.getPrezzoBiglietto());
-
+        
         return Prenotazione.aggiungiPrenotazioneAlCSV(prenotazione);
       } else {
         System.out.println("prenotazione annulata");
@@ -199,7 +199,7 @@ public class Cliente extends Guest {
             }
 
             int numeroPostiRichiesti = this.chiediNumeroDiPosti(proiezioneSelezionata);
-            if (numeroPostiRichiesti < 0) {
+            if (numeroPostiRichiesti <= 0) {
               System.out.println("posti non disponibili, tornando al menu iniziale");
               System.out.println("");
 
