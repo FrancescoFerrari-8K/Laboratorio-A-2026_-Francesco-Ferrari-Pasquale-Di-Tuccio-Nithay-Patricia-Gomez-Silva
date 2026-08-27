@@ -83,7 +83,7 @@ public class Cliente extends Guest {
     System.out.println("");
     System.out.println("Ricerca per:" + this.getNome() + " " + this.getCognome());
     prenotazioniCliente = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(),
-        l); // se salva la prenotazione trovata con nome e cognome da quel cliente
+        l, true); // se salva la prenotazione trovata con nome e cognome da quel cliente
     System.out.println("");
     System.out.println("PrenotazioniTrovate:" + prenotazioniCliente.size());
     System.out.println("");
@@ -254,7 +254,7 @@ public class Cliente extends Guest {
                                                                                                // gli utenti
                     ArrayList<Prenotazione> prenotazioneCliente = new ArrayList<Prenotazione>();
                     prenotazioneCliente = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(),
-                        this.getCognome(), prenotazioneC); // Filtra la lista generale cercando soltanto le prenotazioni
+                        this.getCognome(), prenotazioneC, false); // Filtra la lista generale cercando soltanto le prenotazioni
                                                            // che corrispondono al nome e cognome
                     System.out.println("");
                     System.out.println(
@@ -347,7 +347,7 @@ public class Cliente extends Guest {
                   // gli utenti
                   ArrayList<Prenotazione> prenotazioniClienti = new ArrayList<Prenotazione>();
                   prenotazioniClienti = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(),
-                      prenotazioniC); // Filtra la lista generale cercando soltanto le prenotazioni
+                      prenotazioniC, false); // Filtra la lista generale cercando soltanto le prenotazioni
                   // che corrispondono al nome e cognome
                   System.out.println("");
                   System.out.println("Que prenotazione vuoi eliminare? " + "inserisci ID: ");
@@ -415,15 +415,10 @@ public class Cliente extends Guest {
       Prenotazione prenotazioneSelezionata) {
     int numeroDiPosti = 0;
     if (proiezioneSelezionata == null) {
-      System.err.println("inizio carica Proiezioni:" + LocalDateTime.now());
       ArrayList<Proiezione> palinsesto = Proiezione.caricaProiezioni();
-      System.err.println("fine carica Proiezioni:" + LocalDateTime.now());
-
-      System.err.println("trova numero numeroDiPosti:" + LocalDateTime.now());
 
       numeroDiPosti = Proiezione.getPostiLiberiPerFilmEData(prenotazioneSelezionata.getProiezione_Titolo(),
           prenotazioneSelezionata.getProiezione_Data(), palinsesto);
-      System.err.println("trova numero numeroDiPosti:" + LocalDateTime.now());
     } else {
       numeroDiPosti = this.chiediNumeroDiPosti(proiezioneSelezionata);
     }
