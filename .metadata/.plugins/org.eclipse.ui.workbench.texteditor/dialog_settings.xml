@@ -9,6 +9,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="main"/>
 			<item value="&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;&#x09;proiez.visualizzaProiezione(); //...e stampo la proiez."/>
 			<item value="Si desidera"/>
 			<item value="si desidera"/>
