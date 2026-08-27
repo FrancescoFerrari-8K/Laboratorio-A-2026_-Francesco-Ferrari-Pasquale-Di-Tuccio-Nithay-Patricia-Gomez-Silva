@@ -235,8 +235,8 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 																		// parametro true attiva la modalità append, che
 																		// permette di aggiungere testo alla fine del
 																		// file senza cancellare quello che già esiste
-
-			String nuovaRiga = prenotazione.getIDPrenotazione() + "," + // Creo la stringa con i dati della
+			
+					String nuovaRiga = "\n" +  prenotazione.getIDPrenotazione() + "," + // Creo la stringa con i dati della
 																				// prenotazione separati da virgole
 																				// (formato CSV)
 					prenotazione.getIDUtente() + "," +
