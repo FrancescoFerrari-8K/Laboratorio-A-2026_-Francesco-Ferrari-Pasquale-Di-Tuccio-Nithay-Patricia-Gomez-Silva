@@ -87,36 +87,38 @@ public class Proiezione implements Comparable<Proiezione> {
     }
     
     // METODO PER CERCARE I POSTI LIBERI TRAMITE TITOLO DEL FILM E DATA (LocalDate)
-    // Restituisce i posti liberi della proiezione trovata, oppure -1 se non esiste alcuna proiezione per quel giorno/film
-    public static int getPostiLiberiPerFilmEData(String titoloFilm, LocalDateTime dataCercata, ArrayList<Proiezione> palinsesto) {
+    public static int getPostiLiberiPerFilmEData(String titoloFilm, LocalDate dataCercata, ArrayList<Proiezione> palinsesto) {
         if (titoloFilm == null || dataCercata == null || palinsesto == null) {
             return -1;
         }
 
         for (Proiezione p : palinsesto) {
-            // Confronta il titolo (ignorando maiuscole/minuscole) e controlla se il giorno coincide (.toLocalDate())
+            // Confronta il titolo e controlla se il giorno coincide (.toLocalDate())
             if (p.getFilm().getTitolo().equalsIgnoreCase(titoloFilm) && 
-                p.getDataOra().equals(dataCercata)) {
+                p.getDataOra().toLocalDate().equals(dataCercata)) {
                 
                 return p.calcolaPostiLiberi();
             }
         }
 
         System.out.println("Nessuna proiezione trovata per il film \"" + titoloFilm + "\" in data: " + dataCercata);
-        return -1; // Proiezione non trovata
+        return -1; 
     }
 
-    // SALVA IL PALINSESTO SU FILE CSV
+    // SALVA IL PALINSESTO SU FILE CSV (Sincronizzato a 8 colonne per rispecchiare i dettagli del Film)
     public static void salvaProiezioni(ArrayList<Proiezione> palinsesto) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PROIEZIONI))) {
-            bw.write("Titolo;Genere;Durata;DataOra;Prezzo");
+            bw.write("DataOra;Titolo;Genere;Regista;Anno;Durata;Eta;Prezzo");
             bw.newLine();
 
             for (Proiezione p : palinsesto) {
-                String riga = p.getFilm().getTitolo() + ";" +
+                String riga = p.getDataOra().toString() + ";" +
+                             p.getFilm().getTitolo() + ";" +
                              p.getFilm().getGenere() + ";" +
+                             p.getFilm().getRegista() + ";" +
+                             p.getFilm().getAnno() + ";" +
                              p.getFilm().getDurata() + ";" +
-                             p.getDataOra().toString() + ";" +
+                             p.getFilm().getEtaMinima() + ";" +
                              p.getPrezzoBiglietto();
                 bw.write(riga);
                 bw.newLine();
@@ -143,17 +145,18 @@ public class Proiezione implements Comparable<Proiezione> {
                 if (riga.trim().isEmpty()) continue;
 
                 String[] dati = riga.split(";");
-                if (dati.length == 5) {
-                	LocalDateTime dataeora=LocalDateTime.parse(dati[0]);
-                    String titolo = dati[2];
-                    String genere = dati[3];
-                    String regista=dati[4];
-                    int anno=Integer.parseInt(dati[5]);
-                    int durata = Integer.parseInt(dati[6]);
-                    int età=Integer.parseInt(dati[7]);
-                    int prezzo=Integer.parseInt(dati[8]);
+                // Verifica che ci siano esattamente le 8 colonne salvate
+                if (dati.length == 8) {
+                    LocalDateTime dataeora = LocalDateTime.parse(dati[0]);
+                    String titolo = dati[1];
+                    String genere = dati[2];
+                    String regista = dati[3];
+                    int anno = Integer.parseInt(dati[4]);
+                    int durata = Integer.parseInt(dati[5]);
+                    int eta = Integer.parseInt(dati[6]);
+                    double prezzo = Double.parseDouble(dati[7]);
 
-                    Film film = new Film(titolo, genere, regista,anno, durata,età);
+                    Film film = new Film(titolo, genere, regista, anno, durata, eta);
                     Proiezione p = new Proiezione(film, dataeora, prezzo);
                     
                     palinsesto.add(p);
@@ -182,4 +185,3 @@ public class Proiezione implements Comparable<Proiezione> {
     public double getPrezzoBiglietto() { return prezzoBiglietto; }
     public void setPrezzoBiglietto(double prezzoBiglietto) { this.prezzoBiglietto = prezzoBiglietto; }
 }
-
