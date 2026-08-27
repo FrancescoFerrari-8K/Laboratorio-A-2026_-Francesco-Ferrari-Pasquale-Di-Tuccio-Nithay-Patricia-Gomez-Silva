@@ -118,7 +118,7 @@ public class Proiezione implements Comparable<Proiezione> {
                              p.getFilm().getRegista() + ";" +
                              p.getFilm().getAnno() + ";" +
                              p.getFilm().getDurata() + ";" +
-                             p.getFilm().getEtaMinima() + ";" +
+                             p.getFilm().getEtà() + ";" +
                              p.getPrezzoBiglietto();
                 bw.write(riga);
                 bw.newLine();
