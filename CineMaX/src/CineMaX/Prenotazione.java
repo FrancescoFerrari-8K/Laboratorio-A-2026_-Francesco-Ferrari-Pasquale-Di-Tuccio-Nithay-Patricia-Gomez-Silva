@@ -364,7 +364,6 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 				// Rimuovo gli spazi prima di convertire in numero (.trim())
 				if (Integer.parseInt(colonne[0].trim()) == idPrenotazione) {
-					System.out.println("Prenotazione con ID " + idPrenotazione + " eliminata.");
 					continue; // Se l'ID corrisponde, mostra un messaggio ed evita di aggiungere la riga alla
 								// lista, ignorandola
 				}
@@ -382,9 +381,11 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 		// Scrivo le righe aggiornate nel file
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(percorsoFile))) {
-			for (String riga : righe) {
-				writer.write(riga);
-				writer.newLine();
+			for (int i = 0; i < righe.size(); i++) {
+				writer.write(righe.get(i));
+				if (i < righe.size() - 1) { // vado a capo solo se NON è l'ultima riga
+					writer.newLine();
+				}
 			}
 		} catch (IOException e) {
 			System.out.println("Errore durante la scrittura del file: " + e.getMessage());
@@ -394,7 +395,6 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		System.out.println("Prenotazione eliminata con successo.");
 		return true;
 	}
-
 	// questo metodo serve per sapere se il formato della data e valido oppure no//
 	public static boolean FormatoDiDataCorretto(String sceltaData) {
 
