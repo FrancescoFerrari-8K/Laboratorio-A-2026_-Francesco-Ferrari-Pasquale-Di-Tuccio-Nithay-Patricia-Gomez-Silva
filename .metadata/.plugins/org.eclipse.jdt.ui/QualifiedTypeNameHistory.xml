@@ -5,5 +5,7 @@
     <fullyQualifiedTypeName name="java.nio.charset.StandardCharsets"/>
     <fullyQualifiedTypeName name="java.nio.file.Files"/>
     <fullyQualifiedTypeName name="CineMaX.Proiezione"/>
+    <fullyQualifiedTypeName name="CineMaX.CineMaX"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="java.time.Period"/>
 </qualifiedTypeNameHistroy>

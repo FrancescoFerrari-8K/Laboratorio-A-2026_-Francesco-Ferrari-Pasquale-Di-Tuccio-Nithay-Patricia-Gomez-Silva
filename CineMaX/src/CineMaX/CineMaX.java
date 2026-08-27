@@ -15,6 +15,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -61,6 +62,30 @@ public class CineMaX {
 		}	
 		return false;
 	}
+	//trova la data di nascita di un utente per la registrazione di un minorenne
+	private static String dataDinascita(String ID) {
+		try {
+	FileReader filerd = new FileReader(percorsofile);
+	BufferedReader buff= new BufferedReader(filerd);
+	String riga;
+	String[] campiriga=new String[8];
+	buff.readLine();//salto la prima riga del testo
+	while ((riga=buff.readLine())!=null) {
+		campiriga=riga.split(",");
+		if((ID.trim()).equals(campiriga[0].trim())) {
+			buff.close();
+			filerd.close();
+			return campiriga[5];
+		}
+	}
+	buff.close();
+} catch (FileNotFoundException e) {
+	System.out.println("Errore critico, file utenti.csv non trovato!");
+} catch (IOException e) {
+	System.out.println("Errore critico, file utenti.csv non valido!");
+}	
+return null;
+}
 	//Hash con sha256 per le pword
 	private static String sha256Hash(String testo) {
 		try {
@@ -83,24 +108,7 @@ public class CineMaX {
 		return "";
 	}
 	//assegnare un ID a un utente
-	//nella versione più semplice è il numero di registrazione, cioè il numero della riga in cui 
-	//è salvato l'utente TENERE O BUTTARE?
-	private static int assegnaID() {
-		Path percorso=Paths.get(percorsofile);// il conteggio delle righe ha bisogno di un oggeto della classe paths come percorso file
-		int ID=0;
-		try {
-			
-			long numerorighe=Files.lines(percorso).count()-7;//conta le righe del file
-			  ID=(int) numerorighe;
-			  return ID;
-		} catch (IOException e) {
-			System.out.println("Errore critico, file utenti.csv non valido!");
-		}
-		
-		return ID;
-	}
-	//mia idea: prime 2 lettere nome,ultime2 cognome,prime 2 nome utente e numero di riga.
-	//adesso il programma usa questo metodo
+	//l'ID è assegnato utilizzando le prime 2 lettere nome,ultime2 cognome,prime 2 nome utente e numero di riga.
 	private static String assegnaIDstr(String nome, String cognome, String username) {
 		Path percorso=Paths.get(percorsofile);
 		String ID="";
@@ -116,6 +124,245 @@ public class CineMaX {
 		return ID;
 		
 	}
+	//controllare la sintassi della data di nascita inserita in fase di registrazione
+	//e la sistema per salvarla nel file utenti sempre nello stesso formato indipendentemente
+	//dai separatori inseriti dall'utente, dall'aver scambiato il mese con il giorno o dall'aver scritto 1
+	//al posto di 01 per gennaio o il primo giorno del mese.
+	
+	private static String controlloData(String data) {//inizio controllo correttezza data inserita
+        //il formato della data è definito dalla posizione dei separatori 
+		LinkedList<Integer> indicisep=new LinkedList<>(); //inizializzo una LinkedList di interi in cui salvare gli indici dei separatori
+		int lunghezzadata=data.length();
+		if(lunghezzadata>=8 && lunghezzadata<=10) { //inizio controllo per date comprese tra 8 e 10 caratteri
+			//i formati di data corretti hanno 
+		   //8 caratteri (4 per l'anno, 1 per il mese (o il giorno) e 1 per il giorno (o il mese), 2 separatori)
+			//9 caratteri (4 per l'anno, 2 per il mese (o il giorno) e 1 per il giorno (o il mese), 2 separatori)
+			//10 caratteri (4 per l'anno, 2 per il mese (o il giorno) e 2 per il giorno (o il mese), 2 separatori)
+			if(lunghezzadata==10) {//inizio controllo date di lunghezza 10 caratteri
+				//trovo le posizioni dei separatori
+				for(int i=0; i<data.length();i++) {//inizio ricerca separatori 
+					if(!(Character.isDigit(data.charAt(i)))) {
+						indicisep.add(i);
+					}	
+				}//fine ricerca posizioni separatori 
+				//controllo caratteri
+				if(indicisep.size()==0 || indicisep.size()>2) {//se la data contiene solo numeri o più di due caratteri non numerici (i separatori) ritorna errore 
+					System.out.println("La data inserita contiene caratteri non validi, riprova!");
+					return null;
+					
+				}//fine controllo caratteri 
+				//salvo gli indici dei separatori in una variabile
+				int indice1=indicisep.get(0);
+				int indice2=indicisep.get(1);
+				//se il formato è GG-MM-AAAA (MM-GG-AAAA) i separatori sono in indice 2 e 5
+				//nel formato di data corretto il carattere usato come separatore dev'essere lo stesso
+				//controllo che i caratteri in posizioni 2 e 5 siano uguali
+				if(indicisep.get(0)==2 && indicisep.get(1)==5) {
+					if((data.substring(2,3)).equals(data.substring(5,6))) {
+						//formato GG-MM-AAAA
+						//faccio il parsing della data in formato local date dopo aver controllato la coerenza di giorni e mesi
+						//data.substring(0,2) è il giorno data.substring(3,5) è il mese data.substring(6,10) l'anno
+						if(Integer.parseInt(data.substring(0,2))>=12 && Integer.parseInt(data.substring(3,5))<=12) {
+						if(Integer.parseInt(data.substring(0,2))>28 && Integer.parseInt(data.substring(3,5))==2){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, febbraio ha 28 giorni!\n");
+							return null;
+						}
+						//se l'anno di nascita è bisestile febbraio ha 29 giorni
+						//controllo se l'anno è bisestile con il metolo isLeap(Long anno) di java.time, che restituisce un booleano
+						if(Year.isLeap(Long.parseLong(data.substring(6,10)))&& Integer.parseInt(data.substring(0,2))>29 && Integer.parseInt(data.substring(3,5))==2){
+							System.out.println("La data inserita non è corretta, febbraio ha 29 giorni in un anno bisestile!\n");
+							return null;
+						}
+						//settembre,novembre,aprile e giugno hanno 30 giorni
+						if(Integer.parseInt(data.substring(0,2))>30 && Integer.parseInt(data.substring(5,5))==4){
+							System.out.println("La data inserita non è corretta, aprile ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(0,2))>30 && Integer.parseInt(data.substring(3,5))==6){
+							System.out.println("La data inserita non è corretta, giugno ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(0,2))>30 && Integer.parseInt(data.substring(3,5))==9){
+							System.out.println("La data inserita non è corretta, settembre ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(0,2))>30 && Integer.parseInt(data.substring(3,5))==11){
+							System.out.println("La data inserita non è corretta, novembre ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(0,2))>31){//nessun mese ha più di 30 giorni
+							System.out.println("Formato di data non valido, riprova!\n");
+							return null;
+						}
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data.substring(6,10)+"-"+data.substring(3, 5)+"-"+data.substring(0, 2));
+						return data=data.substring(6,10)+"-"+data.substring(3, 5)+"-"+data.substring(0, 2);
+					}
+						//formato MM-GG-AAAA
+						//faccio il parsing della data in formato local date dopo aver controllato la coerenza di giorni e mesi
+						//data.substring(0,2) è il giorno data.substring(3,5) è il mese data.substring(6,10) l'anno
+						if(Integer.parseInt(data.substring(3,5))>=12 && Integer.parseInt(data.substring(0,2))<=12) {
+						if(Integer.parseInt(data.substring(3,5))>28 && Integer.parseInt(data.substring(0,2))==2){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, febbraio ha 28 giorni!\n");
+							return null;
+						}
+						//se l'anno di nascita è bisestile febbraio ha 29 giorni
+						//controllo se l'anno è bisestile con il metolo isLeap(Long anno) di java.time, che restituisce un booleano
+						if(Year.isLeap(Long.parseLong(data.substring(6,10)))&& Integer.parseInt(data.substring(3,5))>29 && Integer.parseInt(data.substring(0,2))==2){
+							System.out.println("La data inserita non è corretta, febbraio ha 29 giorni in un anno bisestile!\n");
+							return null;
+						}
+						//settembre,novembre,aprile e giugno hanno 30 giorni
+						if(Integer.parseInt(data.substring(3,5))>30 && Integer.parseInt(data.substring(0,2))==4){
+							System.out.println("La data inserita non è corretta, aprile ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(3,5))>30 && Integer.parseInt(data.substring(0,2))==6){
+							System.out.println("La data inserita non è corretta, giugno ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(3,5))>30 && Integer.parseInt(data.substring(0,2))==9){
+							System.out.println("La data inserita non è corretta, settembre ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(3,5))>30 && Integer.parseInt(data.substring(0,2))==11){
+							System.out.println("La data inserita non è corretta, novembre ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(3,5))>31){//nessun mese ha più di 30 giorni
+							System.out.println("Formato di data non valido, riprova!\n");
+							return null;
+							
+						}
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data.substring(6,10)+"-"+data.substring(0, 2)+"-"+data.substring(3, 5));
+						return data=data.substring(6,10)+"-"+data.substring(0, 2)+"-"+data.substring(3, 5);
+					 }	
+					}
+						
+					else {
+						System.out.println("Formato di data non valido, riprova!\n");
+						return null;
+					}
+				}
+				//se il formato è AAAA-MM-GG (AAAA-GG-MM) i separatori sono in indice 4 e 7
+				if(indicisep.get(0)==4 && indicisep.get(1)==7) {//inizio parsing AAAA-GG-MM
+					//nel formato di data corretto il carattere usato come separatore dev'essere lo stesso
+					//controllo che i caratteri in posizioni 4 e 7 siano uguali
+					//in caso affermativo aggiorno il separatore con il carattere corrispondente
+					//altrimenti restituisco errore
+					if((data.substring(4,5)).equals(data.substring(7,8))) {
+						//formato AAAA-GG-MM
+						//faccio il parsing della data in formato AAAA-MM-GG dopo aver controllato la correttezza delle date
+						//data.substring(5,6) è il mese data.substring(8,9) è il giorno data.substring(0,4) è l'anno
+						if(Integer.parseInt(data.substring(8,10))>=12 && Integer.parseInt(data.substring(5,7))<=12) {
+						if(Integer.parseInt(data.substring(5,7))>28 && Integer.parseInt(data.substring(8,10))==2){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, febbraio ha 28 giorni!\n");
+							return null;
+						}
+						//se l'anno di nascita è bisestile febbraio ha 29 giorni
+						//controllo se l'anno è bisestile con il metolo isLeap(Long anno) di java.time, che restituisce un booleano
+						if(Year.isLeap(Long.parseLong(data.substring(0,4)))&& Integer.parseInt(data.substring(5,7))>29 && Integer.parseInt(data.substring(8,10))==2){
+							System.out.println("La data inserita non è corretta, febbraio ha 29 giorni in un anno bisestile!\n");
+							return null;
+						}
+						//settembre,novembre,aprile e giugno hanno 30 giorni
+						if(Integer.parseInt(data.substring(5,7))>30 && Integer.parseInt(data.substring(8,10))==4){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, aprile ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(5,7))>30 && Integer.parseInt(data.substring(8,10))==6){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, giugno ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(5,7))>30 && Integer.parseInt(data.substring(8,10))==9){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, settembre ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(5,7))>30 && Integer.parseInt(data.substring(8,10))==11){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, novembre ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(5,7))>31) {//nessun mese ha più di 31 giorni
+							System.out.println("La data inserita contiene caratteri non validi, riprova!");
+							return null;
+						}
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data=data.substring(0,4)+"-"+data.substring(5,7)+"-"+data.substring(8, 10));
+						return data=data.substring(0,4)+"-"+data.substring(5,7)+"-"+data.substring(8, 10);
+					} //fine parsing AAAA-MM-GG
+						//formato AAAA-GG-MM
+						//faccio il parsing della data in formato AAAA-MM-GG dopo aver controllato la correttezza delle date
+						//data.substring(5,6) è il mese data.substring(8,9) è il giorno data.substring(0,4) è l'anno
+						if(Integer.parseInt(data.substring(5,7))>=12 && Integer.parseInt(data.substring(8,10))<=12) {
+						if(Integer.parseInt(data.substring(5,7))>28 && Integer.parseInt(data.substring(8,10))==2){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, febbraio ha 28 giorni!\n");
+							return null;
+						}
+						//se l'anno di nascita è bisestile febbraio ha 29 giorni
+						//controllo se l'anno è bisestile con il metolo isLeap(Long anno) di java.time, che restituisce un booleano
+						if(Year.isLeap(Long.parseLong(data.substring(0,4)))&& Integer.parseInt(data.substring(5,7))>29 && Integer.parseInt(data.substring(8,10))==2){
+							System.out.println("La data inserita non è corretta, febbraio ha 29 giorni in un anno bisestile!\n");
+							return null;
+						}
+						//settembre,novembre,aprile e giugno hanno 30 giorni
+						if(Integer.parseInt(data.substring(5,7))>30 && Integer.parseInt(data.substring(8,10))==4){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, aprile ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(5,7))>30 && Integer.parseInt(data.substring(8,10))==6){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, giugno ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(5,7))>30 && Integer.parseInt(data.substring(8,10))==9){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, settembre ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(5,7))>30 && Integer.parseInt(data.substring(8,10))==11){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, novembre ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(5,7))>31) {//nessun mese ha più di 31 giorni
+							System.out.println("La data inserita contiene caratteri non validi, riprova!");
+							return null;
+						}
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data.substring(0,4)+"-"+data.substring(8, 10)+"-"+data.substring(5, 7));
+						return data=data.substring(0,4)+"-"+data.substring(8, 10)+"-"+data.substring(5, 7);
+					}	
+					}
+					else {
+						System.out.println("La data inserita contiene caratteri non validi, riprova!");
+						return null;
+					}
+					
+				}//fine parsing AAAA-GG-MM/AAAA-MM-GG
+				else return null;// controllo di sicurezza
+		     }//fine controllo per date di lunghezza 10 caratteri
+			if(lunghezzadata==9) {
+				
+			}
+            if(lunghezzadata==9) {
+				
+			}
+            if(lunghezzadata==8) {
+				
+			}
+			
+		}
+		return null;			
+	}//fine controllo date
+			
+			
+		
+		
+		
+		
+		
+			
+				
+					
+	
 	//registrare un nuovo utente
 	private static void Registrati() {
 		Scanner obj=new Scanner(System.in); //creo un oggetto della classe Scanner, che serve tra le altre cose a gestire gli input da tastiera
@@ -125,8 +372,13 @@ public class CineMaX {
 		System.out.println("Cognome: ");
 		String cognome=obj.nextLine();
 		System.out.println("Data di nascita (AAAA-MM-GG): ");
-		String data=obj.nextLine();
-		LocalDate dataLD=LocalDate.parse(data);//conversto la stringa in formato localdate
+		String data="";
+		while(true) {
+			data=obj.nextLine();
+			if(CineMaX.controlloData(data)==null) continue;
+			break;
+		}
+		//LocalDate dataLD=LocalDate.parse(data);//conversto la stringa in formato localdate
 		System.out.println("Città di residenza: ");
 		String ind=obj.nextLine();
 		System.out.println("Username: ");
@@ -191,8 +443,8 @@ public class CineMaX {
 		}
 		System.out.println("Username o password non valido");
 		return null;
-		
 	}
+
 //inizio metodo main
 	public static void main(String[] args) {
 		// All'avvio l'app mostra menù iniziale in cui è possibile fare 3 cose: loggarsi, registrarsi o proseguire come utente non registrato (guest).

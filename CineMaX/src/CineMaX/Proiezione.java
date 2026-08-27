@@ -19,7 +19,7 @@ public class Proiezione implements Comparable<Proiezione> {
     
     // Capienza massima del cinema monosala
     public static final int CAPIENZA_MASSIMA = 200; 
-    private static final String FILE_PROIEZIONI = "proiezioni.csv";
+    private static final String FILE_PROIEZIONI = "..\\data\\proiezioni.csv";
 
     // Costruttore
     public Proiezione(Film film, LocalDateTime dataOra, double prezzoBiglietto) {
