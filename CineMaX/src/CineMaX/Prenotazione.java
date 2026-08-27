@@ -163,7 +163,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 	// mostriamo le prenotazione future perche quelle sono le uniche modificabili
 	// questo metodo serve per trovare una prenotazione con nome e cognome
 	public static ArrayList<Prenotazione> TrovaPrenotazioniConNomeECognome(String nome, String cognome,
-			ArrayList<Prenotazione> listaPrenotazione) {
+			ArrayList<Prenotazione> listaPrenotazione, boolean tutte) {
 		ArrayList<Prenotazione> risultato = new ArrayList<Prenotazione>(); // creo un nuovo arrayList di tipo
 																			// prenotazione per aggiunguere la
 																			// prenotazione trovata
@@ -171,7 +171,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 			if (nome.equals(p.getNome()) && cognome.equals(p.getCognome()) // utilizo il if per torvare la prenotazione
 																			// in base ai dati che mi arrivano e quelli
 																			// che gia ho
-					&& p.Proiezione_Data.isAfter(LocalDateTime.now())) {
+					&&( tutte  == false && p.Proiezione_Data.isAfter(LocalDateTime.now())|| tutte == true)) {
 				risultato.add(p); // una volta trovati i dati aggiungo quelli ai risultati
 			}
 		}
@@ -204,7 +204,8 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 				while (riga != null) {// leggo il file riga per riga fino a quando la riga non
 																// diventa null (dopo l'ultima riga!)
-					colonne = riga.split(",");// divido le colonne col separatore decimale , essendo il file di tipo csv
+					colonne = CsvUtils.splitCSV(riga);
+					// divido le colonne col separatore decimale , essendo il file di tipo csv
 												// aggiungo le stringhe nelle relative LinkedList
 
 					Prenotazione PrenotazioneTemp = new Prenotazione(Integer.parseInt(colonne[0]), colonne[1],
@@ -235,8 +236,8 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 																		// parametro true attiva la modalità append, che
 																		// permette di aggiungere testo alla fine del
 																		// file senza cancellare quello che già esiste
-
-			String nuovaRiga = prenotazione.getIDPrenotazione() + "," + // Creo la stringa con i dati della
+			
+					String nuovaRiga = "\n" +  prenotazione.getIDPrenotazione() + "," + // Creo la stringa con i dati della
 																				// prenotazione separati da virgole
 																				// (formato CSV)
 					prenotazione.getIDUtente() + "," +
@@ -285,7 +286,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 				if (riga.trim().isEmpty()) // Controlla se la riga letta è vuota. Se lo è, il comando continue la salta
 											// senza aggiungerla, evitando problemi di elaborazione
 					continue;
-				String[] colonne = riga.split(","); // Divide la riga letta in un array di stringhe usando la virgola
+				String[] colonne = CsvUtils.splitCSV(riga);				// Divide la riga letta in un array di stringhe usando la virgola
 													// (,) come separatore. In questo modo se puo accedere ai singoli
 													// campi (ID, nome, data, ecc.) tramite il loro indice (es.
 													// colonne[0] per l'ID)
@@ -358,11 +359,11 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 											// subito alla riga successiva del file
 					continue;
 
-				String[] colonne = riga.split(",");
+				String[] colonne = CsvUtils.splitCSV(riga);
+
 
 				// Rimuovo gli spazi prima di convertire in numero (.trim())
 				if (Integer.parseInt(colonne[0].trim()) == idPrenotazione) {
-					System.out.println("Prenotazione con ID " + idPrenotazione + " eliminata.");
 					continue; // Se l'ID corrisponde, mostra un messaggio ed evita di aggiungere la riga alla
 								// lista, ignorandola
 				}
@@ -380,9 +381,11 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 		// Scrivo le righe aggiornate nel file
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(percorsoFile))) {
-			for (String riga : righe) {
-				writer.write(riga);
-				writer.newLine();
+			for (int i = 0; i < righe.size(); i++) {
+				writer.write(righe.get(i));
+				if (i < righe.size() - 1) { // vado a capo solo se NON è l'ultima riga
+					writer.newLine();
+				}
 			}
 		} catch (IOException e) {
 			System.out.println("Errore durante la scrittura del file: " + e.getMessage());
@@ -392,7 +395,6 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		System.out.println("Prenotazione eliminata con successo.");
 		return true;
 	}
-
 	// questo metodo serve per sapere se il formato della data e valido oppure no//
 	public static boolean FormatoDiDataCorretto(String sceltaData) {
 
@@ -407,6 +409,26 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 			return false; // se il formato non e valido oppure se la data non esiste
 		}
 
+	}
+
+
+	//questo metodo serve per controllare le virgolette del titolo//
+	public class CsvUtils {  
+
+		// Split che ignora le virgole dentro coppie di virgolette
+		public static String[] splitCSV(String riga) {
+			return riga.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"); //questi simbole servono per ignorare tutto quello che dentro le virgolette
+		}
+	
+		// Rimuove le virgolette esterne da un campo, solo se presenti
+		public static String rimuoviVirgolette(String campo) {
+			if (campo == null) return campo;
+			campo = campo.trim();
+			if (campo.length() >= 2 && campo.startsWith("\"") && campo.endsWith("\"")) {
+				return campo.substring(1, campo.length() - 1);
+			}
+			return campo;
+		}
 	}
 
 }
