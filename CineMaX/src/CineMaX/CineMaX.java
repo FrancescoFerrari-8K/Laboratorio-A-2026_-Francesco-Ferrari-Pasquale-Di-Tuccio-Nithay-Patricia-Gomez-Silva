@@ -15,6 +15,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -672,7 +673,7 @@ return null;
 	//registrare un nuovo utente
 	private static void Registrati() {
 		Scanner obj=new Scanner(System.in); //creo un oggetto della classe Scanner, che serve tra le altre cose a gestire gli input da tastiera
-		
+		LocalDate dataoggi=LocalDate.now(); //trovo la data attuale
 		System.out.println("Nome: ");
 		String nome=obj.nextLine();// il metodo nextLine() restituisce la stringa corrispondente all'ultimo input su tastiera da parte dell'utente
 		System.out.println("Cognome: ");
@@ -681,10 +682,43 @@ return null;
 		String data="";
 		while(true) {
 			data=obj.nextLine();
-			if(CineMaX.controlloData(data)==null) continue;
-			break;
-		}
-		//LocalDate dataLD=LocalDate.parse(data);//conversto la stringa in formato localdate
+			String datatmp= CineMaX.controlloData(data);
+			if(datatmp==null) continue;// se il controllo della data fallisce riprova
+			LocalDate dataLD=LocalDate.parse(datatmp);//conversto la stringa in formato localdate
+			Period età=Period.between(dataLD, dataoggi);// trovo anni mesi e giorni passati dalla data inserita ad oggi
+			//se hai più di 125 anni ripeti la registrazione
+			if(età.getYears()>=125) {
+				System.out.println("Attenzione, risulta che hai più di 125 anni, riprova!");
+				continue;
+			}
+			//se hai meno di 18 anni devi loggare con l'account di un maggiornenne per conferma
+			if(età.getYears()<18) {
+				System.out.println("Attenzione, risulta che hai meno di 18 anni anni\n");
+				System.out.println("per proseguire effettua il login con l'account\n\n");
+				System.out.println("di un utente maggiorenne\n");
+				Guest garante=CineMaX.login();
+				if(garante instanceof Proiezionista || garante instanceof Bigliettaio) {
+					//i dipendenti sono per forza maggiorenni
+					System.out.println("Verifica dell'età completate correttamente!");
+					break;
+				}
+				if(garante instanceof Cliente) {// se l'utente è cliente controllo l'età
+					String keyage=CineMaX.dataDinascita(((Cliente) garante).getIDUtente());// ottengo la data di nascita dell'utente di verifica
+					LocalDate keyageLD=LocalDate.parse(keyage);//converto l'età in formato localdate
+					età=Period.between(keyageLD, dataoggi);// trovo anni mesi e giorni passati dalla data di controllo ad oggi
+					//se hai più di 125 anni ripeti la registrazione
+					if(età.getYears()>=18) {// se l'utente è maggiorenne sono passati 18 anni
+						System.out.println("Verifica dell'età completate correttamente!");
+						break;
+					}
+					else {
+						System.out.println("Attenzione l'utente selezionato ha meno di 18 anni, riprova!");
+						continue;
+					    }
+					}
+				}
+				break;
+			}
 		System.out.println("Città di residenza: ");
 		String ind=obj.nextLine();
 		System.out.println("Username: ");
@@ -703,6 +737,7 @@ return null;
 		CineMaX.aggiungiUtente(ID,nome,cognome,username,pword,data,ind,"C");//scrivo il nuovo utente nel file utenti.csv
 		System.out.println("Registrazione completata! Il tuo ID utente è: "+ID+"\n");
 		System.out.println("grazie per averci dedicato due minuti!");
+
 	}
 	//login
 	//se nome utente e password sono presenti nel file utenti restituisce true, altrimenti false
