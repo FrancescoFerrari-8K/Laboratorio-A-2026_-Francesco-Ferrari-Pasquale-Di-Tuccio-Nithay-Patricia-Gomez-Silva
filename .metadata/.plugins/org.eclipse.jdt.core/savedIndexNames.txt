@@ -1,4 +1,0 @@
-INDEX VERSION 1.134+C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\.metadata\.plugins\org.eclipse.jdt.core
-524495999.index
-1865797976.index
-1985829688.index
