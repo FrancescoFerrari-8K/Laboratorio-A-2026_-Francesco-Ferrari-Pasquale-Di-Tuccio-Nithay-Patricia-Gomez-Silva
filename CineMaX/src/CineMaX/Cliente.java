@@ -162,9 +162,9 @@ public class Cliente extends Guest {
   }
 
   // mettere test true mostra l'interfaccia del menu cliente//
-  public void mostraMenuCliente(boolean test) throws FileNotFoundException, IOException {
+  public void mostraMenuCliente() throws FileNotFoundException, IOException {
 
-    if (test == true) {
+
       int sceltaMenucliente = 0;
       Scanner sc = new Scanner(System.in);
 
@@ -181,7 +181,8 @@ public class Cliente extends Guest {
         System.out.println("3- Logout");
         System.out.println("");
         System.out.print("Scelta: ");
-        sceltaMenucliente = this.leggiInt("numero non valido");
+        sceltaMenucliente = this.leggiInt("numero non valido"); // se sceltaMenuCliente e diverso da 1,2,3 allora appare
+                                                                // questo messagio
 
         switch (sceltaMenucliente) {
           case 1:
@@ -194,7 +195,7 @@ public class Cliente extends Guest {
                                                                                                  // gli fa scegliere una
                                                                                                  // specifica proiezione
             if (proiezioneSelezionata == null) { // in caso in cui la proiezione sia null, esce
-              System.out.println("");
+              System.out.println("Nessuna proiezione selezionata, tornando al menu iniziale");
               break;
             }
 
@@ -424,7 +425,7 @@ public class Cliente extends Guest {
 
       } while (sceltaMenucliente != 3);
 
-    }
+    
 
   }
 
@@ -473,7 +474,7 @@ public class Cliente extends Guest {
 
     boolean hapostidisponibili = proiezioneSelezionata.haPostiDisponibili(numeroDiPosti);
     if (hapostidisponibili == false) {
-      numeroDiPosti = -1;
+      numeroDiPosti = -1; //metto a -1 per controllarlo quando esco dal metodo
     }
 
     return numeroDiPosti;

@@ -810,7 +810,7 @@ return null;
 				loggeduser=CineMaX.login();
 				if (loggeduser instanceof Cliente) {//login come cliente
 					try {
-						((Cliente)loggeduser).mostraMenuCliente(true);
+						((Cliente)loggeduser).mostraMenuCliente();
 					} catch (IOException e) {
 						System.out.println("Errore critico, file proiezioni.csv non rilevato!");
 					}
