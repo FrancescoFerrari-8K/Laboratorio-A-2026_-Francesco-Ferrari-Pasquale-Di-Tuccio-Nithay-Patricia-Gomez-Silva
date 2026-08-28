@@ -424,6 +424,12 @@ public class Cliente extends Guest {
   // metodo privato che serve a chiedere quanti posti prenotare per modificare
   private void chiediQuantiPostiPrenotareEmodifica(Proiezione proiezioneSelezionata,
       Prenotazione prenotazioneSelezionata) {
+
+        int postiSceltoDalUtente;
+        System.out.println("scrivi il numero di posti che vuoi modificare");
+        postiSceltoDalUtente = leggiInt("numero di posti non disponibili");
+
+
     int numeroDiPosti = 0;
     if (proiezioneSelezionata == null) {
       ArrayList<Proiezione> palinsesto = Proiezione.caricaProiezioni();
@@ -434,12 +440,12 @@ public class Cliente extends Guest {
       numeroDiPosti = this.chiediNumeroDiPosti(proiezioneSelezionata);
     }
 
-    if (numeroDiPosti != -1) {
+    if (numeroDiPosti != -1 && postiSceltoDalUtente<=numeroDiPosti) {
 
       Prenotazione nuovaPrenotazione = new Prenotazione(prenotazioneSelezionata.getIDPrenotazione(),
           prenotazioneSelezionata.getIDUtente(), prenotazioneSelezionata.getNome(),
           prenotazioneSelezionata.getCognome(),
-          prenotazioneSelezionata.getProiezione_Data(), prenotazioneSelezionata.getProiezione_Titolo(), numeroDiPosti,
+          prenotazioneSelezionata.getProiezione_Data(), prenotazioneSelezionata.getProiezione_Titolo(), postiSceltoDalUtente,
           prenotazioneSelezionata.getPrezzoBiglietto());
       this.modificaPrenotazione(prenotazioneSelezionata.getIDPrenotazione(), nuovaPrenotazione);
 

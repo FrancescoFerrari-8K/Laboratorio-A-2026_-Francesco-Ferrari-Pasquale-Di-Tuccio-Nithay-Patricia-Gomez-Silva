@@ -306,8 +306,8 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 							+ nuovaPrenotazione.getProiezione_Data()
 									.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
 							+ "\"" + "," +
-							"\"" + nuovaPrenotazione.getProiezione_Titolo() + "\"" + "," +
-							nuovaPrenotazione.getNPosti() + "\"" + "," + nuovaPrenotazione.getPrezzoBiglietto();
+							 nuovaPrenotazione.getProiezione_Titolo() + "," +
+							nuovaPrenotazione.getNPosti() + "," + nuovaPrenotazione.getPrezzoBiglietto();
 					righe.add(nuovaRiga);
 				} else {
 					// Mantieni la riga originale
