@@ -529,7 +529,7 @@ return null;
 						
 					}
 					else {
-						System.out.println("La data inserita contiene caratteri non validi, riprova!");
+						System.out.println("La data inserita non è valida, riprova!");
 						return null;
 					}
 					
@@ -583,7 +583,7 @@ return null;
 						//data.substring(5,7) è il mese data.substring(8,9) è il giorno data.substring(0,4) è l'anno
 						if(Integer.parseInt(data.substring(8,9))<10 ) {
 							if(Integer.parseInt(data.substring(5,7))>12) {
-								System.out.println("La data inserita è in un formato non corretto!");
+								System.out.println("La data inserita non è valida, riprova!");
 								return null;
 							}
 						//se non ci sono errori restituisci la stringa corretta
@@ -660,10 +660,10 @@ return null;
 						else return null;
 				}
 					else {
-						System.out.println("Formato di data non valido, riprova!\n");
+						System.out.println("La data inserita non è valida, riprova!\n");
 						return null;}
 			}
-		System.out.println("Formato di data non valido, riprova!\n");
+		System.out.println("La data inserita non è valida, riprova!\n");
 		return null;
 		}
 	
@@ -675,13 +675,38 @@ return null;
 		String dataparsed;
 		Scanner obj=new Scanner(System.in); //creo un oggetto della classe Scanner, che serve tra le altre cose a gestire gli input da tastiera
 		LocalDate dataoggi=LocalDate.now(); //trovo la data attuale
-		System.out.println("Nome: ");
-		String nome=obj.nextLine();// il metodo nextLine() restituisce la stringa corrispondente all'ultimo input su tastiera da parte dell'utente
-		System.out.println("Cognome: ");
-		String cognome=obj.nextLine();
-		System.out.println("Data di nascita (AAAA-MM-GG): ");
-		String data="";
+		String nome;
+		while(true) {// il nome deve avere almeno 2 lettere
+			System.out.println("Nome: ");
+			nome=obj.nextLine();// il metodo nextLine() restituisce la stringa corrispondente all'ultimo input su tastiera da parte dell'utente
+			if(nome.matches(".*[0-9\\p{Punct}\\s].*")) {//se il nome contiene numeri o simboli speciali o spazi è un errore
+				System.out.println("Il nome non può contenere numeri, caratteri speciali o spazi, riprova!");
+				continue;
+			}
+			if(nome.length()<2) {
+				System.out.println("Il nome fornito deve avere almeno due caratteri, riprova!");
+				continue;
+			}
+			break;
+		}
+		String cognome;
 		while(true) {
+			System.out.println("Cognome: ");
+			cognome=obj.nextLine();
+			if(cognome.matches(".*[0-9\\p{Punct}\\s].*")) {//se il cognome contiene numeri o simboli speciali o spazi è un errore
+				System.out.println("Il cognome non può contenere numeri, caratteri speciali o spazi, riprova!");
+				continue;
+			}
+			if(cognome.length()<2) {
+				System.out.println("Il cognome fornito deve avere almeno due caratteri, riprova!");
+				continue;
+			}
+			break;
+		}
+		
+		String data;
+		while(true) {
+			System.out.println("Data di nascita (AAAA-MM-GG): ");
 			data=obj.nextLine();
 			dataparsed= CineMaX.controlloData(data);
 			if(dataparsed==null) continue;// se il controllo della data fallisce riprova
@@ -720,16 +745,36 @@ return null;
 				}
 				break;
 			}
-		System.out.println("Città di residenza: ");
-		String ind=obj.nextLine();
-		System.out.println("Username: ");
-		String username=obj.nextLine();
-		if(CineMaX.usernameInUse(username)==true) {
-			while(CineMaX.usernameInUse(username)!=false) {
-				System.out.println("Username già in uso, si prega di cambiarlo! \n");
-				System.out.println("Username: ");
-				username=obj.nextLine();
+		String ind;
+		while(true) {
+			System.out.println("Città di residenza: ");
+			ind=obj.nextLine();
+			if(ind.matches(".*[0-9\\p{Punct}\\s].*")) {//se il nome della città contiene numeri o simboli speciali o spazi è un errore
+				System.out.println("Il nome di una città non può contenere numeri, caratteri speciali o spazi, riprova!");
+				continue;
 			}
+			if(ind.length()<1) {// se non viene indicata almeno una lettera per la città restituisci errore
+				System.out.println("Il nome di una città ha almeno un carattere, riprova!");
+				continue;
+			}
+			break;
+		}
+		String username;
+		while(true) {//lo username deve avere almeno due caratteri
+			System.out.println("Username: ");
+			username=obj.nextLine();
+			if(username.length()<2) {
+				System.out.println("Lo username deve avere almeno due caratteri, riprova!");
+				continue;
+			}
+			if(CineMaX.usernameInUse(username)==true) {
+				while(CineMaX.usernameInUse(username)!=false) {
+					System.out.println("Username già in uso, si prega di cambiarlo! \n");
+					System.out.println("Username: ");
+					username=obj.nextLine();
+				}
+			}
+			break;
 		}
 		System.out.println("Password: ");
 		String pword=obj.nextLine();
@@ -793,6 +838,7 @@ return null;
 		// ecc ecc
 		boolean On=true; //questa variabile serve per effettuare l'interruzione dell'esecuzione dell'applicazione
 		Guest loggeduser;//questa variabile salva l'utente correntemente loggato
+		LocalDate dataoggi=LocalDate.now();//ottengo la data odierna per la verifica dell'età dei film
 		while(On==true) {
 			System.out.println("*****CineMaX*******");
 			// bisogna fare una grafichina carina!!
@@ -810,6 +856,11 @@ return null;
 			case "1":// login
 				loggeduser=CineMaX.login();
 				if (loggeduser instanceof Cliente) {//login come cliente
+					
+//					String datautente=CineMaX.dataDinascita(((Cliente) loggeduser).getIDUtente());
+//					LocalDate datautenteLD=LocalDate.parse(datautente);
+//					Period età=Period.between(datautenteLD, dataoggi);
+					
 					try {
 						((Cliente)loggeduser).mostraMenuCliente(true);
 					} catch (IOException e) {
@@ -841,6 +892,11 @@ return null;
 							case"0":
 								System.out.println("Grazie per aver usato la nostra app, a presto e buon lavoro!");
 								break;
+							default: 
+								System.out.println("Scelta non valida, riprova");
+								continue;
+								
+								
 							}	
 							break;
 						}
@@ -906,9 +962,14 @@ return null;
 								String titolo1=Kinput.nextLine();
 								((Proiezionista)loggeduser).rimuoviProiezioneDalPalinsesto(titolo1,proiezioni, prenotazioni);// rimuove la prenotazione per titolo
 								break;	
+							case "3":
+								
 							case"0":
 								System.out.println("Grazie per aver usato la nostra app, a presto e buon lavoro!");
 								break;
+							default:
+								System.out.println("Scelta non valida, riprova");
+								continue;
 								
 							}
 								
