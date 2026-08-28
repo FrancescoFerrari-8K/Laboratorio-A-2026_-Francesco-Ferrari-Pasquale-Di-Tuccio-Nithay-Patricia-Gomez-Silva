@@ -18,7 +18,7 @@ public class Proiezionista extends Guest {
         this.idProiezionista = idProiezionista;
     }
 
-    // Aggiunge un film, controlla sovrapposizioni orarie e ordina il palinsesto
+    // Aggiunge un film, controlla sovrapposizioni orarie, ordina il palinsesto e salva su file
     public boolean aggiungiProiezioneAlPalinsesto(Proiezione nuovaProiezione, ArrayList<Proiezione> palinsesto) {
         
         if (nuovaProiezione == null || palinsesto == null) {
@@ -41,15 +41,18 @@ public class Proiezionista extends Guest {
             }
         }
 
-        // 2. INSERIMENTO E ORDINAMENTO AUTOMATICO
+        // 2. INSERIMENTO E ORDINAMENTO AUTOMATICO IN RAM
         palinsesto.add(nuovaProiezione);
-        Collections.sort(palinsesto); // Utilizza il compareTo di Proiezione
-        System.out.println("Proiezione di \"" + nuovaProiezione.getFilm().getTitolo() + "\" inserita con successo.");
+        Collections.sort(palinsesto);
 
+        // 3. SALVATAGGIO SU FILE CSV VIA PROIEZIONE
+        Proiezione.salvaProiezioni(palinsesto);
+
+        System.out.println("Proiezione di \"" + nuovaProiezione.getFilm().getTitolo() + "\" inserita con successo.");
         return true;
     }
 
-    // Rimuove una proiezione dal palinsesto cercando per titolo (solo se priva di prenotazioni)
+    // Rimuove una proiezione dal palinsesto e aggiorna il file CSV
     public boolean rimuoviProiezioneDalPalinsesto(String titoloFilm, ArrayList<Proiezione> palinsesto, ArrayList<Prenotazione> listaPrenotazioni) {
 
         if (titoloFilm == null || palinsesto == null || listaPrenotazioni == null) {
@@ -71,7 +74,12 @@ public class Proiezionista extends Guest {
                     }
                 }
                 
+                // Rimuove la proiezione
                 palinsesto.remove(i);
+
+                // AGGIORNA IL FILE CSV VIA PROIEZIONE
+                Proiezione.salvaProiezioni(palinsesto);
+
                 System.out.println("Il film \"" + titoloFilm + "\" è stato rimosso dal palinsesto.");
                 return true;
             }
