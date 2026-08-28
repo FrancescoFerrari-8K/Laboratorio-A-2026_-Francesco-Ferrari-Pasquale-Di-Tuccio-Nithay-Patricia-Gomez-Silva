@@ -306,11 +306,10 @@ public class Cliente extends Guest {
                         break;
 
                       case 2:
-                        System.out.println("input" + prenotazioneSelezionata.getProiezione_Titolo());
                         LinkedList<Proiezione> llProiezioni = this
                             .cercaProiezPerCambioPrenotaz(prenotazioneSelezionata.getProiezione_Titolo());
 
-                        System.out.println("llProiezioni" + llProiezioni.size());
+                        System.out.println("lista delle proiezioni da selezionare: ");
                         Proiezione[] listaProiezioni = new Proiezione[llProiezioni.size()];
 
                         int i = 0;
@@ -364,15 +363,23 @@ public class Cliente extends Guest {
                   // TODO: in caso in cui non ci siano prenotazioni, lasciare un messagio
 
                   int indice = 1;
+
+                  if (prenotazioniClienti.size() == 0) {
+                    System.out
+                        .println("non ci sono prenotazioni disponibili di questa data in poi (tornando indietro)");
+                    break;
+                  }
                   for (Prenotazione elemento : prenotazioniClienti) {
                     System.out.println(indice + " - " + elemento.toString(false)); //// mostra i detagli di ogni
                                                                                    /// prenotazione del cliente
                     indice++;
+
                   }
                   System.out.println("");
-                  System.out.print("Inserisci il numero della prenotazione che vuoi cancellare oppure scrivi 0 per tornare indietro: : ");
+                  System.out.print(
+                      "Inserisci il numero della prenotazione che vuoi cancellare oppure scrivi 0 per tornare indietro: : ");
                   sceltaElimina = this.leggiInt("numero non valido");
-                  if(sceltaElimina== 0 ){
+                  if (sceltaElimina == 0) {
                     break;
                   }
                   boolean esiste = false;
@@ -425,27 +432,29 @@ public class Cliente extends Guest {
   private void chiediQuantiPostiPrenotareEmodifica(Proiezione proiezioneSelezionata,
       Prenotazione prenotazioneSelezionata) {
 
-        int postiSceltoDalUtente;
-        System.out.println("scrivi il numero di posti che vuoi modificare");
-        postiSceltoDalUtente = leggiInt("numero di posti non disponibili");
+    int postiSceltoDalUtente;
 
-
-    int numeroDiPosti = 0;
+    int numeroDiPostiDisponibili = 0;
     if (proiezioneSelezionata == null) {
       ArrayList<Proiezione> palinsesto = Proiezione.caricaProiezioni();
 
-      numeroDiPosti = Proiezione.getPostiLiberiPerFilmEData(prenotazioneSelezionata.getProiezione_Titolo(),
+      numeroDiPostiDisponibili = Proiezione.getPostiLiberiPerFilmEData(prenotazioneSelezionata.getProiezione_Titolo(),
           prenotazioneSelezionata.getProiezione_Data(), palinsesto);
+
     } else {
-      numeroDiPosti = this.chiediNumeroDiPosti(proiezioneSelezionata);
+      numeroDiPostiDisponibili = proiezioneSelezionata.calcolaPostiLiberi();
     }
 
-    if (numeroDiPosti != -1 && postiSceltoDalUtente<=numeroDiPosti) {
+    System.out.println("scrivi il numero di posti che vuoi modificare");
+    postiSceltoDalUtente = leggiInt("numero di posti non disponibili");
+
+    if (numeroDiPostiDisponibili != -1 && postiSceltoDalUtente <= numeroDiPostiDisponibili) {
 
       Prenotazione nuovaPrenotazione = new Prenotazione(prenotazioneSelezionata.getIDPrenotazione(),
           prenotazioneSelezionata.getIDUtente(), prenotazioneSelezionata.getNome(),
           prenotazioneSelezionata.getCognome(),
-          prenotazioneSelezionata.getProiezione_Data(), prenotazioneSelezionata.getProiezione_Titolo(), postiSceltoDalUtente,
+          prenotazioneSelezionata.getProiezione_Data(), prenotazioneSelezionata.getProiezione_Titolo(),
+          postiSceltoDalUtente,
           prenotazioneSelezionata.getPrezzoBiglietto());
       this.modificaPrenotazione(prenotazioneSelezionata.getIDPrenotazione(), nuovaPrenotazione);
 

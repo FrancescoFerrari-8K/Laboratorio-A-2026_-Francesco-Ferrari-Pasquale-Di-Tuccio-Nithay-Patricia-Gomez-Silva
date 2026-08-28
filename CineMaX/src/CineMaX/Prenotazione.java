@@ -140,7 +140,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 					+ Prezzo_Biglietto;
 		} else {
 			return "Prenotazione " + Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
-					+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti + "- Prezzo del Biglietto: "
+					+ Proiezione_Data.toString() + " - Numero di posti prenotati: " + NPosti + " - Prezzo del Biglietto: "
 					+ Prezzo_Biglietto;
 		}
 
@@ -336,8 +336,6 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 			System.out.println("Errore durante la scrittura del file: " + e.getMessage());
 			return false;
 		}
-
-		System.out.println("Prenotazione modificata con successo.");
 		return true;
 	}
 
@@ -392,7 +390,7 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 			return false;
 		}
 
-		System.out.println("Prenotazione eliminata con successo.");
+		System.out.println("Prenotazione eliminata con successo (tornando indietro)");
 		return true;
 	}
 	// questo metodo serve per sapere se il formato della data e valido oppure no//
