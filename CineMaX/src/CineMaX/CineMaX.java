@@ -672,6 +672,7 @@ return null;
 	
 	//registrare un nuovo utente
 	private static void Registrati() {
+		String dataparsed;
 		Scanner obj=new Scanner(System.in); //creo un oggetto della classe Scanner, che serve tra le altre cose a gestire gli input da tastiera
 		LocalDate dataoggi=LocalDate.now(); //trovo la data attuale
 		System.out.println("Nome: ");
@@ -682,9 +683,9 @@ return null;
 		String data="";
 		while(true) {
 			data=obj.nextLine();
-			String datatmp= CineMaX.controlloData(data);
-			if(datatmp==null) continue;// se il controllo della data fallisce riprova
-			LocalDate dataLD=LocalDate.parse(datatmp);//conversto la stringa in formato localdate
+			dataparsed= CineMaX.controlloData(data);
+			if(dataparsed==null) continue;// se il controllo della data fallisce riprova
+			LocalDate dataLD=LocalDate.parse(dataparsed);//conversto la stringa in formato localdate
 			Period età=Period.between(dataLD, dataoggi);// trovo anni mesi e giorni passati dalla data inserita ad oggi
 			//se hai più di 125 anni ripeti la registrazione
 			if(età.getYears()>=125) {
@@ -693,8 +694,8 @@ return null;
 			}
 			//se hai meno di 18 anni devi loggare con l'account di un maggiornenne per conferma
 			if(età.getYears()<18) {
-				System.out.println("Attenzione, risulta che hai meno di 18 anni anni\n");
-				System.out.println("per proseguire effettua il login con l'account\n\n");
+				System.out.println("Attenzione, risulta che hai meno di 18 anni anni");
+				System.out.println("per proseguire effettua il login con l'account");
 				System.out.println("di un utente maggiorenne\n");
 				Guest garante=CineMaX.login();
 				if(garante instanceof Proiezionista || garante instanceof Bigliettaio) {
@@ -734,7 +735,7 @@ return null;
 		String pword=obj.nextLine();
 		pword=CineMaX.sha256Hash(pword); //cripto la password
 		String ID=CineMaX.assegnaIDstr(nome,cognome,username);//calcolo l'ID utente
-		CineMaX.aggiungiUtente(ID,nome,cognome,username,pword,data,ind,"C");//scrivo il nuovo utente nel file utenti.csv
+		CineMaX.aggiungiUtente(ID,nome,cognome,username,pword,dataparsed,ind,"C");//scrivo il nuovo utente nel file utenti.csv
 		System.out.println("Registrazione completata! Il tuo ID utente è: "+ID+"\n");
 		System.out.println("grazie per averci dedicato due minuti!");
 
