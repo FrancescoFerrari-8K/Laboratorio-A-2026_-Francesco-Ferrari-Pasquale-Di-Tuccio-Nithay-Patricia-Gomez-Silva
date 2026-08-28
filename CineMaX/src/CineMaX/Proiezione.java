@@ -168,7 +168,7 @@ public class Proiezione implements Comparable<Proiezione> {
                     double prezzo = Double.parseDouble(dati[8]);
 
                     Film film = new Film(titolo, genere, regista, anno, durata, eta);
-                    Proiezione p = new Proiezione(film, dataeora, prezzo);
+                    Proiezione p = new Proiezione(film, dataeora, prezzo, numeroPosti);
                     palinsesto.add(p);
                 }
             }
