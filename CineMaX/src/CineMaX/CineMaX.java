@@ -339,27 +339,333 @@ return null;
 				}//fine parsing AAAA-GG-MM/AAAA-MM-GG
 				else return null;// controllo di sicurezza
 		     }//fine controllo per date di lunghezza 10 caratteri
-			if(lunghezzadata==9) {
+			if(lunghezzadata==9) {//inizio controllo date di lunghezza 9 caratteri
+				//trovo le posizioni dei separatori
+				for(int i=0; i<data.length();i++) {//inizio ricerca separatori 
+					if(!(Character.isDigit(data.charAt(i)))) {
+						indicisep.add(i);
+					}	
+				}//fine ricerca posizioni separatori 
+				//controllo caratteri
+				if(indicisep.size()==0 || indicisep.size()>2) {//se la data contiene solo numeri o più di due caratteri non numerici (i separatori) ritorna errore 
+					System.out.println("La data inserita contiene caratteri non validi, riprova!");
+					return null;
+					
+				}//fine controllo caratteri 
+				//salvo gli indici dei separatori in una variabile
+				int indice1=indicisep.get(0);
+				int indice2=indicisep.get(1);
 				
-			}
-            if(lunghezzadata==9) {
+				//se il formato è G-MM-AAAA (M-GG-AAAA) i separatori sono in indice 1 e 4
+				//nel formato di data corretto il carattere usato come separatore dev'essere lo stesso
+				//controllo che i caratteri in posizioni 1 e 4 siano uguali
+				if(indicisep.get(0)==1 && indicisep.get(1)==4) {
+					if((data.substring(1,2)).equals(data.substring(4,5))) {
+						//formato M-GG-AAAA
+						//faccio il parsing della data in formato local date dopo aver controllato la coerenza di giorni e mesi
+						//data.substring(0,2) è il giorno data.substring(3,5) è il mese data.substring(6,10) l'anno
+						if(Integer.parseInt(data.substring(2,4))>12) {
+						if(Integer.parseInt(data.substring(2,4))>28 && Integer.parseInt(data.substring(0,1))==2){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, febbraio ha 28 giorni!\n");
+							return null;
+						}
+						//se l'anno di nascita è bisestile febbraio ha 29 giorni
+						//controllo se l'anno è bisestile con il metolo isLeap(Long anno) di java.time, che restituisce un booleano
+						if(Year.isLeap(Long.parseLong(data.substring(5,9)))&& Integer.parseInt(data.substring(2,4))>29 && Integer.parseInt(data.substring(0,1))==2){
+							System.out.println("La data inserita non è corretta, febbraio ha 29 giorni in un anno bisestile!\n");
+							return null;
+						}
+						//settembre,novembre,aprile e giugno hanno 30 giorni
+						if(Integer.parseInt(data.substring(0,1))>30 && Integer.parseInt(data.substring(3,4))==4){
+							System.out.println("La data inserita non è corretta, aprile ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(2,4))>30 && Integer.parseInt(data.substring(0,1))==6){
+							System.out.println("La data inserita non è corretta, giugno ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(2,4))>30 && Integer.parseInt(data.substring(0,1))==9){
+							System.out.println("La data inserita non è corretta, settembre ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(2,4))>31){//nessun mese ha più di 30 giorni
+							System.out.println("Formato di data non valido, riprova!\n");
+							return null;
+						}
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data.substring(5,9)+"-"+"0"+data.substring(0, 1)+"-"+data.substring(2, 4));
+						return data=data.substring(5,9)+"-"+"0"+data.substring(0, 1)+"-"+data.substring(2, 4);
+					}
+						//formato G-MM-AAAA
+						//faccio il parsing della data in formato local date dopo aver controllato la coerenza di giorni e mesi
+						//data.substring(0,2) è il giorno data.substring(3,5) è il mese data.substring(6,10) l'anno
+						if(Integer.parseInt(data.substring(2,4))<=12) {
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data.substring(5,9)+"-"+data.substring(2, 4)+"-"+"0"+data.substring(0, 1));
+						return data=data.substring(5,9)+"-"+data.substring(2, 4)+"-"+"0"+data.substring(0, 1);
+					 }	
+					}
+						
+					else {
+						System.out.println("Formato di data non valido, riprova!\n");
+						return null;
+					}// fine parsin
+				}
 				
-			}
-            if(lunghezzadata==8) {
 				
-			}
+				//se il formato è GG-M-AAAA (MM-G-AAAA) i separatori sono in indice 2 e 4
+				//nel formato di data corretto il carattere usato come separatore dev'essere lo stesso
+				//controllo che i caratteri in posizioni 2 e 4 siano uguali
+				if(indicisep.get(0)==2 && indicisep.get(1)==4) {
+					if((data.substring(2,3)).equals(data.substring(4,5))) {
+						//formato GG-M-AAAA
+						//faccio il parsing della data in formato local date dopo aver controllato la coerenza di giorni e mesi
+						//data.substring(0,2) è il giorno data.substring(3,5) è il mese data.substring(6,10) l'anno
+						if(Integer.parseInt(data.substring(0,2))>=12 && Integer.parseInt(data.substring(3,4))<10) {
+						if(Integer.parseInt(data.substring(0,2))>28 && Integer.parseInt(data.substring(3,4))==2){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, febbraio ha 28 giorni!\n");
+							return null;
+						}
+						//se l'anno di nascita è bisestile febbraio ha 29 giorni
+						//controllo se l'anno è bisestile con il metolo isLeap(Long anno) di java.time, che restituisce un booleano
+						if(Year.isLeap(Long.parseLong(data.substring(5,9)))&& Integer.parseInt(data.substring(0,2))>29 && Integer.parseInt(data.substring(3,5))==2){
+							System.out.println("La data inserita non è corretta, febbraio ha 29 giorni in un anno bisestile!\n");
+							return null;
+						}
+						//settembre,novembre,aprile e giugno hanno 30 giorni
+						if(Integer.parseInt(data.substring(0,2))>30 && Integer.parseInt(data.substring(3,4))==4){
+							System.out.println("La data inserita non è corretta, aprile ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(0,2))>30 && Integer.parseInt(data.substring(3,4))==6){
+							System.out.println("La data inserita non è corretta, giugno ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(0,2))>30 && Integer.parseInt(data.substring(3,4))==9){
+							System.out.println("La data inserita non è corretta, settembre ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(0,2))>31){//nessun mese ha più di 30 giorni
+							System.out.println("Formato di data non valido, riprova!\n");
+							return null;
+						}
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data.substring(5,9)+"-"+"0"+data.substring(3, 4)+"-"+data.substring(0, 2));
+						return data=data.substring(5,9)+"-"+"0"+data.substring(3, 4)+"-"+data.substring(0, 2);
+					}
+						//formato MM-G-AAAA
+						//faccio il parsing della data in formato local date dopo aver controllato la coerenza di giorni e mesi
+						//data.substring(0,2) è il giorno data.substring(3,5) è il mese data.substring(6,10) l'anno
+						if(Integer.parseInt(data.substring(0,2))<=12) {
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data.substring(5,9)+"-"+data.substring(0, 2)+"-"+"0"+data.substring(3, 4));
+						return data=data.substring(5,9)+"-"+data.substring(0, 2)+"-"+"0"+data.substring(3, 4);
+					 }	
+					}
+						
+					else {
+						System.out.println("Formato di data non valido, riprova!\n");
+						return null;
+					}// fine parsin
+				}
+				
+				
+				//se il formato è AAAA-M-GG (AAAA-G-MM) i separatori sono in indice 4 e 6
+				if(indicisep.get(0)==4 && indicisep.get(1)==6) {//inizio parsing AAAA-M-GG
+					//nel formato di data corretto il carattere usato come separatore dev'essere lo stesso
+					//controllo che i caratteri in posizioni 4 e 7 siano uguali
+					if((data.substring(4,5)).equals(data.substring(6,7))) {
+						//formato AAAA-G-MM
+						//faccio il parsing della data in formato AAAA-G-MM dopo aver controllato la correttezza delle date
+						//data.substring(5,6) è il giorno data.substring(8,9) è il mese data.substring(0,4) è l'anno
+						if(Integer.parseInt(data.substring(5,6))<10 && Integer.parseInt(data.substring(7,9))<=12) {
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data.substring(0,4)+"-"+data.substring(7, 9)+"-"+"0"+data.substring(5,6));
+						return data=data.substring(0,4)+"-"+data.substring(7, 9)+"-"+"0"+data.substring(5,6);
+					} //fine parsing AAAA-M-G
+						
+						
+						
+						//formato AAAA-M-GG
+						//faccio il parsing della data in formato AAAA-MM-G dopo aver controllato la correttezza delle date
+						//data.substring(5,6) è il mese data.substring(8,9) è il giorno data.substring(0,4) è l'anno
+						if(Integer.parseInt(data.substring(7,9))>12 ) {
+							if(Integer.parseInt(data.substring(5,6))>12) {
+								System.out.println("La data inserita è in un formato non corretto!");
+								return null;
+							}
+							if(Integer.parseInt(data.substring(7,9))>28 && Integer.parseInt(data.substring(5,6))==2){// febbraio ha 28 giorni
+								System.out.println("La data inserita non è corretta, febbraio ha 28 giorni!\n");
+								return null;
+							}
+							//se l'anno di nascita è bisestile febbraio ha 29 giorni
+							//controllo se l'anno è bisestile con il metolo isLeap(Long anno) di java.time, che restituisce un booleano
+							if(Year.isLeap(Long.parseLong(data.substring(0,4)))&& Integer.parseInt(data.substring(7,9))>29 && Integer.parseInt(data.substring(5,6))==2){
+								System.out.println("La data inserita non è corretta, febbraio ha 29 giorni in un anno bisestile!\n");
+								return null;
+							}
+							//settembre,novembre,aprile e giugno hanno 30 giorni
+							if(Integer.parseInt(data.substring(7,9))>30 && Integer.parseInt(data.substring(5,6))==4){
+								System.out.println("La data inserita non è corretta, aprile ha 30 giorni!\n");
+								return null;
+							}
+							if(Integer.parseInt(data.substring(7,9))>30 && Integer.parseInt(data.substring(5,6))==6){
+								System.out.println("La data inserita non è corretta, giugno ha 30 giorni!\n");
+								return null;
+							}
+							if(Integer.parseInt(data.substring(7,9))>30 && Integer.parseInt(data.substring(5,6))==9){
+								System.out.println("La data inserita non è corretta, settembre ha 30 giorni!\n");
+								return null;
+							}
+							if(Integer.parseInt(data.substring(0,2))>31){//nessun mese ha più di 30 giorni
+								System.out.println("Formato di data non valido, riprova!\n");
+								return null;
+							}
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data.substring(0,4)+"-"+"0"+data.substring(5, 6)+"-"+data.substring(7,9));
+						return data=data.substring(0,4)+"-"+"0"+data.substring(5, 6)+"-"+data.substring(7,9);
+					}	//Fine parsing AAAA-M-GG
+						
+					}
+					else {
+						System.out.println("La data inserita contiene caratteri non validi, riprova!");
+						return null;
+					}
+					
+				}//fine parsing AAAA-G-MM/AAAA-M-GG
+				
+				
+				
+				
+				//se il formato è AAAA-M-GG (AAAA-GG-M) i separatori sono in indice 4 e 7
+				if(indicisep.get(0)==4 && indicisep.get(1)==7) {//inizio parsing AAAA-GG-MM
+					//nel formato di data corretto il carattere usato come separatore dev'essere lo stesso
+					//controllo che i caratteri in posizioni 4 e 7 siano uguali
+					if((data.substring(4,5)).equals(data.substring(7,8))) {
+						//formato AAAA-GG-M
+						//faccio il parsing della data in formato AAAA-GG-M dopo aver controllato la correttezza delle date
+						//data.substring(5,7) è il giorno data.substring(8,9) è il mese data.substring(0,4) è l'anno
+						if(Integer.parseInt(data.substring(5,7))>12 && Integer.parseInt(data.substring(8,9))<10) {
+						if(Integer.parseInt(data.substring(5,7))>28 && Integer.parseInt(data.substring(8,9))==2){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, febbraio ha 28 giorni!\n");
+							return null;
+						}
+						//se l'anno di nascita è bisestile febbraio ha 29 giorni
+						//controllo se l'anno è bisestile con il metolo isLeap(Long anno) di java.time, che restituisce un booleano
+						if(Year.isLeap(Long.parseLong(data.substring(0,4)))&& Integer.parseInt(data.substring(5,7))>29 && Integer.parseInt(data.substring(8,9))==2){
+							System.out.println("La data inserita non è corretta, febbraio ha 29 giorni in un anno bisestile!\n");
+							return null;
+						}
+						//settembre,novembre,aprile e giugno hanno 30 giorni
+						if(Integer.parseInt(data.substring(5,7))>30 && Integer.parseInt(data.substring(8,9))==4){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, aprile ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(5,7))>30 && Integer.parseInt(data.substring(8,9))==6){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, giugno ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(5,7))>30 && Integer.parseInt(data.substring(8,9))==9){// febbraio ha 28 giorni
+							System.out.println("La data inserita non è corretta, settembre ha 30 giorni!\n");
+							return null;
+						}
+						if(Integer.parseInt(data.substring(5,7))>31) {//nessun mese ha più di 31 giorni
+							System.out.println("La data inserita contiene caratteri non validi, riprova!");
+							return null;
+						}
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data.substring(0,4)+"-"+"0"+data.substring(8, 9)+"-"+data.substring(5,7));
+						return data=data.substring(0,4)+"-"+"0"+data.substring(8, 9)+"-"+data.substring(5,7);
+					} //fine parsing AAAA-GG-M
+						//formato AAAA-MM-G
+						//faccio il parsing della data in formato AAAA-MM-G dopo aver controllato la correttezza delle date
+						//data.substring(5,7) è il mese data.substring(8,9) è il giorno data.substring(0,4) è l'anno
+						if(Integer.parseInt(data.substring(8,9))<10 ) {
+							if(Integer.parseInt(data.substring(5,7))>12) {
+								System.out.println("La data inserita è in un formato non corretto!");
+								return null;
+							}
+						//se non ci sono errori restituisci la stringa corretta
+						System.out.println(data.substring(0,4)+"-"+data.substring(5, 7)+"-"+"0"+data.substring(8,9));
+						return data=data.substring(0,4)+"-"+data.substring(5, 7)+"-"+"0"+data.substring(8,9);
+					}	//Fine parsing AAAA-MM-G
+						//formato AAAA-M-GG
+						
+					}
+					else {
+						System.out.println("La data inserita contiene caratteri non validi, riprova!");
+						return null;
+					}
+					
+				}//fine parsing AAAA-G-MM/AAAA-M-GG
+				else return null;// controllo di sicurezza
+		     }//fine controllo per date di lunghezza 9 caratteri
 			
+			
+			if(lunghezzadata==8) {//inizio controllo date di lunghezza 8 caratteri
+				//trovo le posizioni dei separatori
+				for(int i=0; i<data.length();i++) {//inizio ricerca separatori 
+					if(!(Character.isDigit(data.charAt(i)))) {
+						indicisep.add(i);
+					}	
+				}//fine ricerca posizioni separatori 
+				//controllo caratteri
+				if(indicisep.size()==0 || indicisep.size()>2) {//se la data contiene solo numeri o più di due caratteri non numerici (i separatori) ritorna errore 
+					System.out.println("La data inserita contiene caratteri non validi, riprova!");
+					return null;
+					
+				}//fine controllo caratteri 
+				//salvo gli indici dei separatori in una variabile
+				int indice1=indicisep.get(0);
+				int indice2=indicisep.get(1);
+				
+				
+				
+				//se il formato è AAAA-M-G (AAAA-G-M) i separatori sono in indice 4 e 6
+				//nel formato di data corretto il carattere usato come separatore dev'essere lo stesso
+				//controllo che i caratteri in posizioni 2 e 5 siano uguali
+				if(indicisep.get(0)==4 && indicisep.get(1)==6) {
+					if((data.substring(4,5)).equals(data.substring(6,7))) {
+						//formato AAAA-M-G -- AAAA-MM-GG
+						//deve stare attento l'utente a non confondersi
+						//faccio il parsing della data in formato local date dopo aver controllato la coerenza di giorni e mesi
+						//data.substring(7) è il giorno data.substring(5,6) è il mese data.substring(0,4) l'anno
+						if(Integer.parseInt(data.substring(5,6))<10 && Integer.parseInt(data.substring(7))<10) {
+							//se non ci sono errori restituisci la stringa corretta
+							System.out.println(data.substring(0,4)+"-"+"0"+data.substring(5,6)+"-"+"0"+data.substring(7));
+							return data=data.substring(0,4)+"-"+"0"+data.substring(5,6)+"-"+"0"+data.substring(7);
+						}
+					}
+				}
+						
+						//formato M-G-AAAA -- G-M-AAAA
+						//i separatori sono in posizione 1 e 3
+					    //deve stare attento l'utente a non confondersi
+						//faccio il parsing della data in formato local date dopo aver controllato la coerenza di giorni e mesi
+						//data.substring(0,2) è il giorno data.substring(3,5) è il mese data.substring(6,10) l'anno
+						if(indicisep.get(0)==1 && indicisep.get(1)==3) {
+							if((data.substring(1,2)).equals(data.substring(3,4))) {
+								//formato M-G-AAAA -- G-M-AAAA
+								//deve stare attento l'utente a non confondersi
+								//faccio il parsing della data in formato local date dopo aver controllato la coerenza di giorni e mesi
+								//data.substring(7) è il giorno data.substring(5,6) è il mese data.substring(0,4) l'anno
+								if(Integer.parseInt(data.substring(0,1))<10 && Integer.parseInt(data.substring(2,3))<10) {
+									//se non ci sono errori restituisci la stringa corretta
+									System.out.println(data.substring(4,8)+"-"+"0"+data.substring(2,3)+"-"+"0"+data.substring(0,1));
+									return data=data.substring(4,8)+"-"+"0"+data.substring(2,3)+"-"+"0"+data.substring(0,1);
+								}
+					 }	
+					}
+						else return null;
+				}
+					else {
+						System.out.println("Formato di data non valido, riprova!\n");
+						return null;}
+			}
+		System.out.println("Formato di data non valido, riprova!\n");
+		return null;
 		}
-		return null;			
-	}//fine controllo date
-			
-			
-		
-		
-		
-		
-		
-			
+	
 				
 					
 	
@@ -554,8 +860,9 @@ return null;
 								catch(NumberFormatException e) {
 									System.out.println("Formato non valido, il valore inserito non rappresenta un numero decimale!");
 								}
+								int posti=200; //serve per creare la proiezione
 								Film f=new Film(titolo,genere,regista,anno,durata,età);//creo l'oggetto film per la proiezione
-								Proiezione pro=new Proiezione(f,parsedfromstring,prezzo);//creo la proiezione da aggiungere
+								Proiezione pro=new Proiezione(f,parsedfromstring,prezzo,posti);//creo la proiezione da aggiungere
 								((Proiezionista)loggeduser).aggiungiProiezioneAlPalinsesto(pro, proiezioni);//aggiungo la proiezione al palinsesto
 								break;
 							case"2":

@@ -1810,7 +1810,7 @@ public class Guest {
 		
 		//Variabili Temp per contenere i dati estratti da una riga/proiezione del file delle proiezioni.
 		String annoTemp, meseTemp, giornoTemp, oraTemp, minutoTemp, secondoTemp, titoloTemp, genereTemp, registaTemp;
-		int etàminTemp, durataTemp, annofilmTemp;
+		int etàminTemp, durataTemp, annofilmTemp, numPostiTemp;
 		Film filmTemp;
 		double prezzoTemp;
 		LocalDate dataTemp;
@@ -1820,6 +1820,7 @@ public class Guest {
 		
 		riga = scanner.next();
 		
+		//Data e orario hanno formato fissato quindi gli indici che indicano la posizione di quelle informazioni nella riga/proiezione letta dal file sono fissati.
 		//Questo blocco estrae la data dalla riga/proiezione letta dal file e la mette in dataTemp.
 		annoTemp = riga.substring(1, 5);
 		meseTemp = riga.substring(6, 8);
@@ -1836,16 +1837,21 @@ public class Guest {
 		dataOrarioTemp = dataTemp.atTime(orarioTemp);
 		
 		
-		//Inizio blocco che lavora con gli altri campi e le virgole.
 		
-		//Trovo l'indice di dove si trova la virgola sx del titolo e lo metto in indiceVirgolaSxTitolo.
+		//Inizio blocco che lavora con gli altri campi per cui non ci sono indici fissi ma è necessario lavorare con le virgole separatrici, dato che c'è il...
+		//problema che gli altri campi hanno formato/lunghezza variabile e quindi bisogna gestire in maniera appropriata.
+		
+		//Trovo l'indice di dove si trova la virgola sx del titolo (che non è fisso perchè num posti è variabile) e lo metto in indiceVirgolaSxTitolo.
 		int posCorrente, conta; 
 		for(posCorrente=0, conta=0; conta<2 && posCorrente<riga.length(); posCorrente++) {
 			if (riga.charAt(posCorrente) == ',')
 				conta++;
 		}
-		indiceVirgolaSxTitolo = posCorrente-1; //Per come lavora il ciclo for, dopo che è stato eseguito il for sopra posCorrente è pari all'indice del primo...
-		//...carattere dopo la virgola sx del titolo (cioè 1o carattere del titolo) e quindi per l'indice della virgola sx serve fare -1.
+		indiceVirgolaSxTitolo = posCorrente-1; //Per come lavora in generale il ciclo for, dopo che è stato eseguito il for qui sopra posCorrente è pari...
+		//all'indice del primo carattere dopo la virgola sx del titolo (cioè 1o carattere del titolo) e quindi per l'indice della virgola sx serve fare -1.
+		
+		//Estraggo num posti che si trova tra indice 22 (incluso) e indice virgola sx titolo-1
+		numPostiTemp = Integer.parseInt(riga.substring(22, indiceVirgolaSxTitolo));
 		
 		//Conto quante virgole ci sono nella riga/proiezione letta dal file; questo numero sarà in contaVirgole.
 		for(int i=0; i<riga.length(); i++) { 
@@ -1924,7 +1930,7 @@ public class Guest {
 		prezzoTemp = Double.parseDouble(riga.substring(virgolasx+1, riga.length() ) );
 		
 		//Crazione proiezione da restituire.
-		proiezTemp = new Proiezione(filmTemp, dataOrarioTemp, prezzoTemp);
+		proiezTemp = new Proiezione(filmTemp, dataOrarioTemp, prezzoTemp, numPostiTemp);
 
 		return proiezTemp;
 	}
