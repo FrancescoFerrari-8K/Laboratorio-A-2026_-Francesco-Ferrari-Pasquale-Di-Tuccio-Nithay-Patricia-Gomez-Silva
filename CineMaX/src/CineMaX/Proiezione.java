@@ -113,17 +113,18 @@ public class Proiezione implements Comparable<Proiezione> {
     // dettagli del Film)
     public static void salvaProiezioni(ArrayList<Proiezione> palinsesto) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PROIEZIONI))) {
-            bw.write("DataOra;Titolo;Genere;Regista;Anno;Durata;Eta;Prezzo");
+            bw.write("DataOra,numeroPosti,Titolo,Genere,Regista,Anno,Durata,Eta,Prezzo");
             bw.newLine();
 
             for (Proiezione p : palinsesto) {
-                String riga = p.getDataOra().toString() + ";" +
-                        p.getFilm().getTitolo() + ";" +
-                        p.getFilm().getGenere() + ";" +
-                        p.getFilm().getRegista() + ";" +
-                        p.getFilm().getAnno() + ";" +
-                        p.getFilm().getDurata() + ";" +
-                        p.getFilm().getEtà() + ";" +
+                String riga = p.getDataOra().toString() + "," +
+                        p.getNumeroPosti() + "," +
+                        p.getFilm().getTitolo() + "," +
+                        p.getFilm().getGenere() + "," +
+                        p.getFilm().getRegista() + "," +
+                        p.getFilm().getAnno() + "," +
+                        p.getFilm().getDurata() + "," +
+                        p.getFilm().getEtà() + "," +
                         p.getPrezzoBiglietto();
                 bw.write(riga);
                 bw.newLine();
