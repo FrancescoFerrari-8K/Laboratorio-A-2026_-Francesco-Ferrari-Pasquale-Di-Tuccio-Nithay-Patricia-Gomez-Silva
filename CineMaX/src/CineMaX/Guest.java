@@ -32,7 +32,7 @@ public class Guest {
 		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga del file.
 		
 		
-		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
+		int numvirgoleintestaz = 8;
 		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
 		
 		Proiezione[] risRicerca = new Proiezione[limiteRic]; //Vettore che rappresenta il risultato della ricerca cioè contiene le proiezioni che rispettano il...
@@ -199,7 +199,7 @@ public class Guest {
 		
 		DateTimeFormatter formatterDataITA = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Variabile per formato data italiano.
 		
-		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
+		int numvirgoleintestaz = 8;
 		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
 		
 		Proiezione[] risRicerca = new Proiezione[limiteRic]; //Vettore che rappresenta il risultato della ricerca cioè contiene le proiezioni che rispettano il...
@@ -1804,6 +1804,7 @@ public class Guest {
 		int differenzaVirgole = 0; //Contatore della differenza delle virgole tra numero di virgole della riga/proiezione che sto leggendo e numero standard di virgole.
 		boolean virgolaDxTrovata = false; //True quando trovo la virgola che delimita a destra il titolo della riga/proiezione che sto leggendo.
 		int indiceVirgolaDxTitolo = 0; //Indice della posizione della virgola che delimita a destra il tiolo della riga/proiezione che sto leggendo.
+		int indiceVirgolaSxTitolo = 0; ////Indice della posizione della virgola che delimita a destra il tiolo della riga/proiezione che sto leggendo.
 		
 		String riga; //Variabile per contenere una riga/proiezione estratta dal file delle proiezioni.
 		
@@ -1834,21 +1835,35 @@ public class Guest {
 		//Creazione data+orario della riga/proiezione e messo in dataOrarioTemp.
 		dataOrarioTemp = dataTemp.atTime(orarioTemp);
 		
-		//Inizio blocco che lavora con virgole e gli altri campi.
 		
-		for(int i=0; i<riga.length(); i++) { //Conto le virgole nella riga/proiezione letta dal file.
+		//Inizio blocco che lavora con gli altri campi e le virgole.
+		
+		//Trovo l'indice di dove si trova la virgola sx del titolo e lo metto in indiceVirgolaSxTitolo.
+		int posCorrente, conta; 
+		for(posCorrente=0, conta=0; conta<2 && posCorrente<riga.length(); posCorrente++) {
+			if (riga.charAt(posCorrente) == ',')
+				conta++;
+		}
+		indiceVirgolaSxTitolo = posCorrente-1; //Per come lavora il ciclo for, dopo che è stato eseguito il for sopra posCorrente è pari all'indice del primo...
+		//...carattere dopo la virgola sx del titolo (cioè 1o carattere del titolo) e quindi per l'indice della virgola sx serve fare -1.
+		
+		//Conto quante virgole ci sono nella riga/proiezione letta dal file; questo numero sarà in contaVirgole.
+		for(int i=0; i<riga.length(); i++) { 
 			if (riga.charAt(i)==',')
 					contaVirgole++;
 		}
 		
-		differenzaVirgole = contaVirgole-numvirgoleintestaz; //Se vale 0 non ci sono virgole nel titolo, altrimenti sì.
-		int virgoleDaPassare = differenzaVirgole; //Le virgole da incontrare nel titolo partono da differenzaVirgole (serve seconda var xk virgoleDPpassare...
-												 //...viene modificata)
+		//Trovo quante virgole ci sono nel titolo.
+		differenzaVirgole = contaVirgole-numvirgoleintestaz; //differenzaVirgole dice quante virgole ci sono nel titolo, se vale 0 non ci sono virgole nel titolo.
+		int virgoleDaPassare = differenzaVirgole; //Le virgole da incontrare/passare nel titolo partono da differenzaVirgole (serve seconda var xk virgoleDaPassare...
+												 //...viene modificata).
 		
-		for(int i=22; i<riga.length() && virgolaDxTrovata==false; i++) { //i è l'indice di dove guardo nella riga/proiezione, parte dal 1o carattere del titolo...
-																		//...quindi salta la prima virgola, quella tra data+orario e titolo.
-			if(riga.charAt(i)==',' && virgoleDaPassare==0) { //Se ho trovato una virgola e ho già incontrato virgole pari a quante ce ne sono nel titolo...
-				indiceVirgolaDxTitolo=i; //...vuol dire che ho trovato la virgola a dx del titolo, quindi ne salvo l'indice...
+		//Trovo l'indice della virgola dx del titolo e lo metto in indiceVirgolaDxTitolo.
+		for(int i=indiceVirgolaSxTitolo+1; i<riga.length() && virgolaDxTrovata==false; i++) { //i è l'indice di dove guardo nella riga/proiezione, parte dal 1o...
+		//carattere del titolo quindi salta la prima virgola, quella a sx del titolo che sta tra num posti e titolo. Il ciclo scorre la riga/proiez partendo da i.
+			if(riga.charAt(i)==',' && virgoleDaPassare==0) { //Se scorrendo la riga/proiez ho trovato una virgola e ho già incontrato virgole pari a quante ce ne...
+			//...sono nel titolo...
+				indiceVirgolaDxTitolo=i; //...vuol dire che ho trovato la virgola a dx del titolo, quindi ne salvo l'indice in indiceVirgolaDxTitolo...
 				virgolaDxTrovata = true;  //...e imposto per uscire dal ciclo.
 			}
 			else if (riga.charAt(i)==',' && virgoleDaPassare!=0) //Se ho trovato una virgola e non ho incontrato virgole pari a quante ce ne sono nel titolo...
@@ -1856,39 +1871,47 @@ public class Guest {
 		}
 		
 		//Estraggo il titolo dalla riga/proiezione letta dal file e lo metto in titoloTemp.
-		titoloTemp = riga.substring(22, indiceVirgolaDxTitolo); //NB la substring prende come indice dx il 2o parametro-1 quindi è giusto mettere indiceVirgolaDxTitolo
+		titoloTemp = riga.substring(indiceVirgolaSxTitolo+1, indiceVirgolaDxTitolo); //NB la substring prende come indice dx il 2o parametro-1 quindi è giusto...
+		//...mettere indiceVirgolaDxTitolo.
 		
-		int virgolasx=indiceVirgolaDxTitolo, virgoladx=indiceVirgolaDxTitolo+1;
-		//Questi due saranno due indici (che traslano con il while che si vedrà usato + volte) per delimitare la virgola sx e dx dei campi dopo il titolo.
-		//Siccome adesso il campo successivo è genere che è quello subito dopo il titolo l'indice sx parte sulla virgoladx del titolo e quello dx sul carattere...
-		//...immediatamente dopo, cioè il 1o carattere del genere.
 		
-		while(riga.charAt(virgoladx) != ',' && virgoladx < riga.length()) //Estrazione genere messo in genereTemp.
+		int virgolasx=indiceVirgolaDxTitolo, virgoladx=indiceVirgolaDxTitolo+1; //Questi due saranno due indici (che traslano con il while che si vedrà usato...
+		//...+ volte) per delimitare la virgola sx e dx dei campi dopo il titolo. Siccome adesso il campo successivo è genere che è quello subito dopo il...
+		//...titolo l'indice sx parte sulla virgoladx del titolo e l'indice dx sul carattere immediatamente dopo, cioè il 1o carattere del genere.
+		
+		//Estrazione genere messo in genereTemp.
+		while(riga.charAt(virgoladx) != ',' && virgoladx < riga.length())
 			virgoladx++;
 		genereTemp = riga.substring(virgolasx+1, virgoladx);
 		virgolasx = virgoladx; //virgolasx si sposta dalla virgola a sx del genere alla virgola a dx del genere che è anche la virgola a sx del prossimo...
 								//...campo cioè regista.
 		virgoladx++; //virgoladx si sposta avanti di 1 per stare sul 1o carattere del prossimo campo cioè regista.
 		
-		while(riga.charAt(virgoladx) != ',' && virgoladx < riga.length()) //Estrazione regista messo in registaTemp.
+		//L'estrazione dei campi successivi segue lo schema dell'estrazione genere.
+		
+		//Estrazione regista messo in registaTemp.
+		while(riga.charAt(virgoladx) != ',' && virgoladx < riga.length())
 			virgoladx++;
 		registaTemp = riga.substring(virgolasx+1, virgoladx);
 		virgolasx = virgoladx;
 		virgoladx++;
 		
-		while(riga.charAt(virgoladx) != ',' && virgoladx < riga.length())  //Estrazione anno film messo in annofilmTemp.
+		//Estrazione anno film messo in annofilmTemp.
+		while(riga.charAt(virgoladx) != ',' && virgoladx < riga.length())
 			virgoladx++;
 		annofilmTemp = Integer.parseInt(riga.substring(virgolasx+1, virgoladx));
 		virgolasx = virgoladx;
 		virgoladx++;
 		
-		while(riga.charAt(virgoladx) != ',' && virgoladx < riga.length())  //Estrazione durata film messa in durataTemp.
+		//Estrazione durata film messa in durataTemp.
+		while(riga.charAt(virgoladx) != ',' && virgoladx < riga.length())
 			virgoladx++;
 		durataTemp = Integer.parseInt(riga.substring(virgolasx+1, virgoladx));
 		virgolasx = virgoladx;
 		virgoladx++;
 		
-		while(riga.charAt(virgoladx) != ',' && virgoladx < riga.length())  //Estrazione età minima film messa in etàminTemp.
+		//Estrazione età minima film messa in etàminTemp.
+		while(riga.charAt(virgoladx) != ',' && virgoladx < riga.length())
 			virgoladx++;
 		etàminTemp = Integer.parseInt(riga.substring(virgolasx+1, virgoladx));
 		virgolasx = virgoladx;
@@ -1897,13 +1920,12 @@ public class Guest {
 		//Creazione film filmTemp con i vari campi presenti nelle variabili "Temp".
 		filmTemp = new Film(titoloTemp, genereTemp, registaTemp, annofilmTemp, durataTemp, etàminTemp);
 		
-		
 		//Estrazione prezzo proiezione messo in prezzoTemp.
 		prezzoTemp = Double.parseDouble(riga.substring(virgolasx+1, riga.length() ) );
 		
+		//Crazione proiezione da restituire.
 		proiezTemp = new Proiezione(filmTemp, dataOrarioTemp, prezzoTemp);
 
-		
 		return proiezTemp;
 	}
 //Fine metodo estraiProiezione().
@@ -1926,7 +1948,7 @@ public class Guest {
 		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga...
 		//...del file.
 		
-		int numvirgoleintestaz = 7; // TODO DA SISTEMARE IN MODO CHE SIA GIUSTO SE AGGIUNGIAMO NUM POSTI AL FILE PROIEZIONI
+		int numvirgoleintestaz = 8;
 		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
 		
 		LinkedList<Proiezione> risRicerca = new LinkedList<Proiezione>(); //Linkedlist che rappresenta il risultato della ricerca cioè contiene le proiezioni...
