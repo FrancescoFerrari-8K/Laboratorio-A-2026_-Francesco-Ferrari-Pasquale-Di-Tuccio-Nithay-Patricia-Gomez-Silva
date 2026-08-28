@@ -1,3 +1,12 @@
+/**
+* Questo package contiene le classi necessarie al funzionamento dell'applicazione CineMaX.
+* L'applicazione gestisce un cinema monosala da 200 posti.
+* L'applicazione permette di gestire il palinsesto e le prenotazioni (proiezionisti e bgliettai)
+* oppure effettuare o modificare prenotazioni (clienti). L'utente non registrato (guest)
+* può solamente visualizzare le proiezioni disponibili.
+* L'applicazione consente inoltre di registrare nuovi utenti.
+* @author Francesco Ferrari
+ */
 package CineMaX;
 
 import java.io.BufferedReader;
@@ -21,12 +30,46 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/**
+ *Questa classe contiene il metodo main che esegue l'applicazione e i metodi necessari
+ *è il punto di ingresso del flusso di esecuzione del programma.
+ */
 public class CineMaX {
-	//i campisono il percorso del file utenti che mi serve per aggiungere gli e il suo percorso assoluto 
+	
+	/**
+	 * Questo campo è un oggetto di tipo File che riferisce il file Utenti.csv usato per salvare gli utenti 
+	 */
 	private static final File file=new File("..\\data\\Utenti.csv");
+	/**
+	 * Questo campo è un oggetto di tipo String che riferisce il percorso assoluto di Utenti.csv
+	 */
 	private static final String percorsofile=file.getAbsolutePath();//per farlo funzionare a prescindere dalla macchina
 	//Metodi
-	//aggiungo un utente al file
+	
+	/**
+	 * Questo metodo statico permette di aggiungere un utente al file Utenti.csv. 
+	 * Viene usato solamente all'interno del metodo Registrati().
+	 * Il metodo aggiunge un utente scrivendo le informazione specificate dai parametri 
+	 * nella linea successiva del file Utenti.csv, in colonne separate da ,
+	 * 
+	 * colonna 0 ID
+	 * colonna 1 nome
+	 * colonna 2 cognome
+	 * colonna 3 username
+	 * colonna 4 password
+	 * colonna 5 data di nascita
+	 * colonna 6 città di residenza
+	 * colonna 7 tipo di account
+	 * 
+	 * @param ID codice identificativo utente, assegnato dal metodo statico assegnaIDstr()
+	 * @param nome il nome dell'utente, se assegnato manualmente deve avere almeno due lettere 
+	 * @param cognome il cognome dell'utente, se assegnato manualmente deve avere almeno due lettere 
+	 * @param username il nome utente che comparirà nel messaggio di benvenuto che segue il login
+	 * @param password la password decisa dall'utente, non ci sono limiti al numero di caratteri che può avere
+	 * @param datanascita la data di nascita dell'utente in formato LocalDate compatibile AAAA-MM-GG
+	 * @param residenza la città di residenza dell'utente
+	 * @param tipo una lettera che identifica il tipo di utente (C cliente, P proiezionista, B bigliettaio)
+	 */
 	private static void aggiungiUtente(String ID, String nome, String cognome, String username, String password, String datanascita, String residenza, String tipo  ) {
 		try {
 			FileWriter filewrt=new FileWriter(percorsofile, true); //true serve per non cancellare il contenuto attuale del file in seguito all'aggiunta di informazione
@@ -39,7 +82,16 @@ public class CineMaX {
 			System.out.println("Errore critico, file utenti.csv non valido!");
 		}
 	}
-	//il nome utente è già in uso?
+	/**
+	 * Questo metodo statico permette di controllare se uno username è gia presente nel file Utenti.csv
+	 * viene usato solamente all'interno del metodo Registrati().
+	 * Il metodo legge il file Utenti.csv riga per riga, separando le colonne utilizzando , come separatore.
+	 * La quarta colonna del file contiene gli username, la stringa in ingresso viene confrontata
+	 * con ogni dato presente in questa colonna del file per capire se lo username desiderato è già in uso.
+	 * 
+	 * @param username lo username di cui si desidera verificare la presenza all'interno del file Utenti.csv
+	 * @return true se lo username è già in uso, false altrimenti
+	 */
 	private static boolean usernameInUse(String username) {
 				try {
 			FileReader filerd = new FileReader(percorsofile);
@@ -63,7 +115,20 @@ public class CineMaX {
 		}	
 		return false;
 	}
-	//trova la data di nascita di un utente per la registrazione di un minorenne
+	/**
+	 * Questo metodo statico permette di cercare la data associata a un ID utente;
+	 * viene usato solamente all'interno del metodo Registrati() se la data di nascita inserita 
+	 * fa risultare il nuovo utente come minorenne.
+	 * Il metodo legge il file Utenti.csv riga per riga, separando le colonne utilizzando , come separatore.
+	 * La prima colonna del file contiene gli ID utente, la stringa in ingresso viene confrontata
+	 * con ogni dato presente in questa colonna del file, se c'è una corrispondenza (l'ID utente è univoco)
+	 * il metodo ritorna il valore contenuto nella sesta colonna della riga associata all'ID fornito
+	 * ossia la data di nascita dell'utente. 
+	 * 
+	 * @param ID l'ID dell'utente di cui si desidera conoscere la data di nascita
+	 * @return  la data di nascita dell'utente come String
+	 * 
+	 */
 	private static String dataDinascita(String ID) {
 		try {
 	FileReader filerd = new FileReader(percorsofile);
@@ -87,7 +152,18 @@ public class CineMaX {
 }	
 return null;
 }
-	//Hash con sha256 per le pword
+	/**
+	 * Questo metodo esegue la cifratura delle password con l'algoritmo SHA 256
+	 * è usato solamente nel metodo Registrati() per consentire il salvataggio
+	 * delle password sul file Utenti.csv in modalità sicura, in quanto non è possibile
+	 * risalire dal digest salvato alla password effettiva scelta dall'utente.
+	 * Questo metodo è usato anche per codificare la password inserita dall'utente
+	 * in fase di login per effettuare il confronto con quelle salvate nel file Utenti.csv
+	 * 
+	 * @param testo la parola di cui si vuole ottenere la chiave
+	 * @return  la chiave corrispondente alla parola inserita come String, null se qualcosa va storto
+	 */
+	
 	private static String sha256Hash(String testo) {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");//crea un istanza dell'algoritmo sha256 utilizzato per criptare (dichiara l'algoritmo che vuoi utilizzare)
@@ -106,10 +182,19 @@ return null;
 		} catch (NoSuchAlgorithmException e) {
 			System.out.println("Errore critico, non è possibile istansiare l'algoritmo SHA256!");
 		} 
-		return "";
+		return null;
 	}
-	//assegnare un ID a un utente
-	//l'ID è assegnato utilizzando le prime 2 lettere nome,ultime2 cognome,prime 2 nome utente e numero di riga.
+	/**
+	 * Questo metodo assegna un'ID univoco a un utente utilizzando
+	 * le prime due lettere del nome, le prime due del cognome
+	 *  le prime due dello username e il numero della riga del file utenti.csv
+	 *  in cui l'utente sarà salvato. Questo metodo è usato solamente dal metodo
+	 *  Registrati() per 
+	 * @param nome
+	 * @param cognome
+	 * @param username
+	 * @return L'ID associato all'utente come String
+	 */
 	private static String assegnaIDstr(String nome, String cognome, String username) {
 		Path percorso=Paths.get(percorsofile);
 		String ID="";
@@ -125,10 +210,18 @@ return null;
 		return ID;
 		
 	}
-	//controllare la sintassi della data di nascita inserita in fase di registrazione
-	//e la sistema per salvarla nel file utenti sempre nello stesso formato indipendentemente
-	//dai separatori inseriti dall'utente, dall'aver scambiato il mese con il giorno o dall'aver scritto 1
-	//al posto di 01 per gennaio o il primo giorno del mese.
+	/**Questo metodo controlla la sintassi della data passata come parametro attuale
+	 * e ne esegue il parsing in formato LocalDate compatibile (AAAA-MM-GG).
+	 * Il metodo riconosce i formati di data validi e rigetta le date composte da soli numeri oppure
+	 * in cui compaiono più di due caratteri speciali (separatori) o caratteri speciali in posizioni
+	 * riservate a numeri interi a seconda del formato.
+	 * Viene usato solo nel metodo Registrati() all'interno di un ciclo while(true)
+	 * per avere le date di nascita in un formato comodo per effettuare il controllo dell'età dell'utente
+	 * pertanto il metodo è stato concepito ad hoc per lavorare in sinergia col ciclo
+	 * 
+	 * @param data la data che si desidera controllare
+	 * @return null se la data è in un formato non valido, la data parsata AAAA-MM-GG altrimenti
+	 */
 	
 	private static String controlloData(String data) {//inizio controllo correttezza data inserita
         //il formato della data è definito dalla posizione dei separatori 
@@ -670,7 +763,12 @@ return null;
 				
 					
 	
-	//registrare un nuovo utente
+	/**
+	 * Questo metodo registra un nuovo utente nel file Utenti.csv
+	 * esegue il controllo dell'età e richiede il login di un utente
+	 * maggiorenne per completare la registrazione di un minorenne
+	 * inoltre cripta le password salvate e assegna l'ID agli utenti
+	 */
 	private static void Registrati() {
 		String dataparsed;
 		Scanner obj=new Scanner(System.in); //creo un oggetto della classe Scanner, che serve tra le altre cose a gestire gli input da tastiera
@@ -785,8 +883,14 @@ return null;
 		System.out.println("grazie per averci dedicato due minuti!");
 
 	}
-	//login
-	//se nome utente e password sono presenti nel file utenti restituisce true, altrimenti false
+	/**
+	 * Questo metodo consente il login da parte degli utenti registrati.
+	 * Quando viene eseguito, il metodo richiede di inserire username e 
+	 * password, se questi sono presenti sul file Utenti.csv (letto riga per riga)
+	 * il codice genera un oggetto che è istanza delle classi Bigliettaio, Proiezionista
+	 * o Cliente a seconda del tipo dell account che sta effettuando il login
+	 * @return un oggetto Guest che istanzia le classi Bigliettaio, Proiezionista o Cliente
+	 */
 	private static Guest login() {
 		Cliente client;
 		Proiezionista pro;
@@ -832,16 +936,17 @@ return null;
 		return null;
 	}
 
-//inizio metodo main
+/**
+ * Questo è il metodo main
+ * @param args
+ */
 	public static void main(String[] args) {
 		// All'avvio l'app mostra menù iniziale in cui è possibile fare 3 cose: loggarsi, registrarsi o proseguire come utente non registrato (guest).
 		// ecc ecc
 		boolean On=true; //questa variabile serve per effettuare l'interruzione dell'esecuzione dell'applicazione
 		Guest loggeduser;//questa variabile salva l'utente correntemente loggato
-		LocalDate dataoggi=LocalDate.now();//ottengo la data odierna per la verifica dell'età dei film
 		while(On==true) {
 			System.out.println("*****CineMaX*******");
-			// bisogna fare una grafichina carina!!
 			//cosa vuoi fare? loggarti, registrarti o proseguire come guest?
 			//rimango nel ciclo grande fino a quando non chiudo l'app
 			Scanner Kinput=new Scanner(System.in);//refresh dello scanner ad ogni iterazione per pulire la storia delle operazioni
