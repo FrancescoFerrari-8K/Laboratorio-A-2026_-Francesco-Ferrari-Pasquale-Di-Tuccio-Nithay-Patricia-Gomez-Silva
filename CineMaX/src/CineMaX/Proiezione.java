@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,16 +15,18 @@ public class Proiezione implements Comparable<Proiezione> {
     private Film film;
     private LocalDateTime dataOra;
     private double prezzoBiglietto;
+    private int numeroPosti;
 
     // Capienza massima del cinema monosala
     public static final int CAPIENZA_MASSIMA = 200;
     private static final String FILE_PROIEZIONI = "..\\data\\proiezioni.csv";
 
     // Costruttore
-    public Proiezione(Film film, LocalDateTime dataOra, double prezzoBiglietto) {
+    public Proiezione(Film film, LocalDateTime dataOra, double prezzoBiglietto, int numeroPosti) {
         this.film = film;
         this.dataOra = dataOra;
         this.prezzoBiglietto = prezzoBiglietto;
+        this.numeroPosti= numeroPosti;
     }
 
     // Calcola quanti posti sono stati prenotati nel CSV per questa specifica
@@ -111,17 +112,18 @@ public class Proiezione implements Comparable<Proiezione> {
     // dettagli del Film)
     public static void salvaProiezioni(ArrayList<Proiezione> palinsesto) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PROIEZIONI))) {
-            bw.write("DataOra;Titolo;Genere;Regista;Anno;Durata;Eta;Prezzo");
+            bw.write("DataOra,numeroPosti,Titolo,Genere,Regista,Anno,Durata,Eta,Prezzo");
             bw.newLine();
 
             for (Proiezione p : palinsesto) {
-                String riga = p.getDataOra().toString() + ";" +
-                        p.getFilm().getTitolo() + ";" +
-                        p.getFilm().getGenere() + ";" +
-                        p.getFilm().getRegista() + ";" +
-                        p.getFilm().getAnno() + ";" +
-                        p.getFilm().getDurata() + ";" +
-                        p.getFilm().getEtà() + ";" +
+                String riga = p.getDataOra().toString() + "," +
+                        p.getNumeroPosti() + "," +
+                        p.getFilm().getTitolo() + "," +
+                        p.getFilm().getGenere() + "," +
+                        p.getFilm().getRegista() + "," +
+                        p.getFilm().getAnno() + "," +
+                        p.getFilm().getDurata() + "," +
+                        p.getFilm().getEtà() + "," +
                         p.getPrezzoBiglietto();
                 bw.write(riga);
                 bw.newLine();
@@ -166,7 +168,7 @@ public class Proiezione implements Comparable<Proiezione> {
                     double prezzo = Double.parseDouble(dati[8]);
 
                     Film film = new Film(titolo, genere, regista, anno, durata, eta);
-                    Proiezione p = new Proiezione(film, dataeora, prezzo);
+                    Proiezione p = new Proiezione(film, dataeora, prezzo, numeroPosti);
                     palinsesto.add(p);
                 }
             }
@@ -211,5 +213,12 @@ public class Proiezione implements Comparable<Proiezione> {
 
     public void setPrezzoBiglietto(double prezzoBiglietto) {
         this.prezzoBiglietto = prezzoBiglietto;
+    }
+    public int getNumeroPosti() {
+        return numeroPosti;
+    }
+
+    public void setNumeroPosti(int numeroPosti) {
+        this.numeroPosti = numeroPosti;
     }
 }
