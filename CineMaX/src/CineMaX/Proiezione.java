@@ -13,12 +13,12 @@ import java.util.ArrayList;
 // Classe che rappresenta una singola proiezione del cinema (monosala da 200 posti)
 public class Proiezione implements Comparable<Proiezione> {
 
-    private Film film;    
-    private LocalDateTime dataOra;            
-    private double prezzoBiglietto; 
-    
+    private Film film;
+    private LocalDateTime dataOra;
+    private double prezzoBiglietto;
+
     // Capienza massima del cinema monosala
-    public static final int CAPIENZA_MASSIMA = 200; 
+    public static final int CAPIENZA_MASSIMA = 200;
     private static final String FILE_PROIEZIONI = "..\\data\\proiezioni.csv";
 
     // Costruttore
@@ -28,14 +28,15 @@ public class Proiezione implements Comparable<Proiezione> {
         this.prezzoBiglietto = prezzoBiglietto;
     }
 
-    // Calcola quanti posti sono stati prenotati nel CSV per questa specifica proiezione
+    // Calcola quanti posti sono stati prenotati nel CSV per questa specifica
+    // proiezione
     public int calcolaPostiOccupati() {
         ArrayList<Prenotazione> tutteLePrenotazioni = Prenotazione.caricaPrenotazioni();
         int postiOccupati = 0;
-        
+
         for (Prenotazione pr : tutteLePrenotazioni) {
             if (pr.getProiezione_Titolo().equalsIgnoreCase(this.film.getTitolo()) &&
-                pr.getProiezione_Data().equals(this.dataOra)) {
+                    pr.getProiezione_Data().equals(this.dataOra)) {
                 postiOccupati += pr.getNPosti();
             }
         }
@@ -65,7 +66,7 @@ public class Proiezione implements Comparable<Proiezione> {
     // Stampa a schermo i dettagli della proiezione
     public void visualizzaProiezione() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        
+
         System.out.println("--- DETTAGLIO PROIEZIONE ---");
         System.out.println("Film: " + film.getTitolo() + " (" + film.getGenere() + ", " + film.getDurata() + " min)");
         System.out.println("Data e Ora: " + dataOra.format(formatter));
@@ -77,7 +78,7 @@ public class Proiezione implements Comparable<Proiezione> {
     // Stampa a schermo i dettagli completi della proiezione
     public void visualizzaProiezioneDettagliata() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        
+
         System.out.println("--- DETTAGLIO PROIEZIONE ---");
         film.visualizzaFilm(); // Stampa completa del film
         System.out.println("Data e Ora: " + dataOra.format(formatter));
@@ -85,27 +86,29 @@ public class Proiezione implements Comparable<Proiezione> {
         System.out.println("Posti Liberi: " + calcolaPostiLiberi() + " / " + CAPIENZA_MASSIMA);
         System.out.println("----------------------------");
     }
-    
+
     // METODO PER CERCARE I POSTI LIBERI TRAMITE TITOLO DEL FILM E DATA (LocalDate)
-    public static int getPostiLiberiPerFilmEData(String titoloFilm, LocalDateTime dataCercata, ArrayList<Proiezione> palinsesto) {
+    public static int getPostiLiberiPerFilmEData(String titoloFilm, LocalDateTime dataCercata,
+            ArrayList<Proiezione> palinsesto) {
         if (titoloFilm == null || dataCercata == null || palinsesto == null) {
             return -1;
         }
 
         for (Proiezione p : palinsesto) {
             // Confronta il titolo e controlla se il giorno coincide (.toLocalDate())
-            if (p.getFilm().getTitolo().equalsIgnoreCase(titoloFilm) && 
-                p.getDataOra().equals(dataCercata)) {
-                
+            if (p.getFilm().getTitolo().equalsIgnoreCase(titoloFilm) &&
+                    p.getDataOra().equals(dataCercata)) {
+
                 return p.calcolaPostiLiberi();
             }
         }
 
-        System.out.println("Nessuna proiezione trovata per il film \"" + titoloFilm + "\" in data: " + dataCercata);
-        return -1; 
+        System.out.println("Nessuna proiezione trovata per il film " + titoloFilm + " in data: " + dataCercata);
+        return -1;
     }
 
-    // SALVA IL PALINSESTO SU FILE CSV (Sincronizzato a 8 colonne per rispecchiare i dettagli del Film)
+    // SALVA IL PALINSESTO SU FILE CSV (Sincronizzato a 8 colonne per rispecchiare i
+    // dettagli del Film)
     public static void salvaProiezioni(ArrayList<Proiezione> palinsesto) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PROIEZIONI))) {
             bw.write("DataOra;Titolo;Genere;Regista;Anno;Durata;Eta;Prezzo");
@@ -113,13 +116,13 @@ public class Proiezione implements Comparable<Proiezione> {
 
             for (Proiezione p : palinsesto) {
                 String riga = p.getDataOra().toString() + ";" +
-                             p.getFilm().getTitolo() + ";" +
-                             p.getFilm().getGenere() + ";" +
-                             p.getFilm().getRegista() + ";" +
-                             p.getFilm().getAnno() + ";" +
-                             p.getFilm().getDurata() + ";" +
-                             p.getFilm().getEtà() + ";" +
-                             p.getPrezzoBiglietto();
+                        p.getFilm().getTitolo() + ";" +
+                        p.getFilm().getGenere() + ";" +
+                        p.getFilm().getRegista() + ";" +
+                        p.getFilm().getAnno() + ";" +
+                        p.getFilm().getDurata() + ";" +
+                        p.getFilm().getEtà() + ";" +
+                        p.getPrezzoBiglietto();
                 bw.write(riga);
                 bw.newLine();
             }
@@ -131,7 +134,7 @@ public class Proiezione implements Comparable<Proiezione> {
     // CARICA IL PALINSESTO DA FILE CSV ALL'AVVIO
     public static ArrayList<Proiezione> caricaProiezioni() {
         ArrayList<Proiezione> palinsesto = new ArrayList<>();
-        
+
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PROIEZIONI))) {
             String riga;
             boolean primaRiga = true;
@@ -141,24 +144,29 @@ public class Proiezione implements Comparable<Proiezione> {
                     primaRiga = false;
                     continue;
                 }
-                
-                if (riga.trim().isEmpty()) continue;
 
-                String[] dati = riga.split(";");
+                if (riga.trim().isEmpty())
+                    continue;
+
+                String[] dati = Proiezione.splitCSV(riga);
                 // Verifica che ci siano esattamente le 8 colonne salvate
-                if (dati.length == 8) {
-                    LocalDateTime dataeora = LocalDateTime.parse(dati[0]);
-                    String titolo = dati[1];
-                    String genere = dati[2];
-                    String regista = dati[3];
-                    int anno = Integer.parseInt(dati[4]);
-                    int durata = Integer.parseInt(dati[5]);
-                    int eta = Integer.parseInt(dati[6]);
-                    double prezzo = Double.parseDouble(dati[7]);
+                if (dati.length == 9) {
+
+                    String testoData = dati[0].replace("\"", "").trim(); // pulizia solo in memoria, il file resta
+                                                                         // intatto
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    LocalDateTime dataeora = LocalDateTime.parse(testoData, formatter);
+                    int numeroPosti = Integer.parseInt(dati[1]);
+                    String titolo = dati[2];
+                    String genere = dati[3];
+                    String regista = dati[4];
+                    int anno = Integer.parseInt(dati[5]);
+                    int durata = Integer.parseInt(dati[6]);
+                    int eta = Integer.parseInt(dati[7]);
+                    double prezzo = Double.parseDouble(dati[8]);
 
                     Film film = new Film(titolo, genere, regista, anno, durata, eta);
                     Proiezione p = new Proiezione(film, dataeora, prezzo);
-                    
                     palinsesto.add(p);
                 }
             }
@@ -169,6 +177,11 @@ public class Proiezione implements Comparable<Proiezione> {
         return palinsesto;
     }
 
+    public static String[] splitCSV(String riga) {
+        return riga.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"); // questi simbole servono per ignorare tutto quello che
+                                                                // dentro le virgolette
+    }
+
     // Ordina le proiezioni cronologicamente
     @Override
     public int compareTo(Proiezione altra) {
@@ -176,12 +189,27 @@ public class Proiezione implements Comparable<Proiezione> {
     }
 
     // Metodi Getter e Setter
-    public Film getFilm() { return film; }
-    public void setFilm(Film film) { this.film = film; }
+    public Film getFilm() {
+        return film;
+    }
 
-    public LocalDateTime getDataOra() { return dataOra; }
-    public void setDataOra(LocalDateTime dataOra) { this.dataOra = dataOra; }
+    public void setFilm(Film film) {
+        this.film = film;
+    }
 
-    public double getPrezzoBiglietto() { return prezzoBiglietto; }
-    public void setPrezzoBiglietto(double prezzoBiglietto) { this.prezzoBiglietto = prezzoBiglietto; }
+    public LocalDateTime getDataOra() {
+        return dataOra;
+    }
+
+    public void setDataOra(LocalDateTime dataOra) {
+        this.dataOra = dataOra;
+    }
+
+    public double getPrezzoBiglietto() {
+        return prezzoBiglietto;
+    }
+
+    public void setPrezzoBiglietto(double prezzoBiglietto) {
+        this.prezzoBiglietto = prezzoBiglietto;
+    }
 }
