@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  13 MAY 2026 20:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  29 AUG 2026 14:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1413,12 +1413,15 @@ Capitolo 1.
 
 ]
 Capitolo 2.
+[9] [10
 
-Package frontespizio Warning: Remember to compile "Manuale tecnico"-frn with
-(frontespizio)                pdflatex "Manuale tecnico"-frn
-(frontespizio)                and then rerun pdflatex.
+]
+Capitolo 3.
+[11] [12
 
-[9]
+]
+Capitolo 4.
+[13]
 (C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale
 -Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale tecnico\build\Manuale tecnic
 o.aux)
@@ -1426,15 +1429,22 @@ o.aux)
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
-Package rerunfilecheck Info: File `"Manuale tecnico".out' has not changed.
-(rerunfilecheck)             Checksum: 663E8FDD63994165533477DB99AB4C24;238.
+
+
+Package rerunfilecheck Warning: File `"Manuale tecnico".out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `"Manuale tecnico".out':
+(rerunfilecheck)             Before: 663E8FDD63994165533477DB99AB4C24;238
+(rerunfilecheck)             After:  80362980106C431AEC03833C9A10D32D;1566.
  ) 
 Here is how much of TeX's memory you used:
- 31386 strings out of 467691
- 596908 string characters out of 5414987
- 1042998 words of memory out of 5000000
- 59874 multiletter control sequences out of 15000+600000
- 641542 words of font info for 51 fonts, out of 8000000 for 9000
+ 31401 strings out of 467691
+ 597074 string characters out of 5414987
+ 1043998 words of memory out of 5000000
+ 59876 multiletter control sequences out of 15000+600000
+ 645989 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  133i,10n,133p,683b,1066s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
@@ -1447,9 +1457,9 @@ X/fonts/type1/urw/times/utmr8a.pfb><C:/Users/franc/AppData/Local/Programs/MiKTe
 X/fonts/type1/urw/times/utmr8a.pfb>
 Output written on "C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesc
 o-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale tecnico\bu
-ild\Manuale tecnico.pdf" (9 pages, 93765 bytes).
+ild\Manuale tecnico.pdf" (13 pages, 102228 bytes).
 PDF statistics:
- 107 PDF objects out of 1000 (max. 8388607)
- 14 named destinations out of 1000 (max. 500000)
+ 134 PDF objects out of 1000 (max. 8388607)
+ 26 named destinations out of 1000 (max. 500000)
  22 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,2 +1,15 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
+\contentsline {chapter}{\numberline {1}Requisiti e installazione}{4}{chapter.0.1}%
+\contentsline {chapter}{\numberline {2}Tipi di utente}{5}{chapter.0.2}%
+\contentsline {section}{\numberline {2.1}Utente di tipo guest}{5}{section.0.2.1}%
+\contentsline {section}{\numberline {2.2}Utente di tipo cliente}{5}{section.0.2.2}%
+\contentsline {section}{\numberline {2.3}Utente di tipo proiezionista}{5}{section.0.2.3}%
+\contentsline {section}{\numberline {2.4}Utente di tipo bigliettaio}{5}{section.0.2.4}%
+\contentsline {chapter}{\numberline {3}Menù principale}{7}{chapter.0.3}%
+\contentsline {chapter}{\numberline {4}Registrazione}{9}{chapter.0.4}%
+\contentsline {chapter}{\numberline {5}Login}{10}{chapter.0.5}%
+\contentsline {section}{\numberline {5.1}Guest}{11}{section.0.5.1}%
+\contentsline {section}{\numberline {5.2}Cliente}{11}{section.0.5.2}%
+\contentsline {section}{\numberline {5.3}Proiezionista}{11}{section.0.5.3}%
+\contentsline {section}{\numberline {5.4}Bigliettaio}{11}{section.0.5.4}%

@@ -35,7 +35,6 @@ import java.util.Scanner;
  *è il punto di ingresso del flusso di esecuzione del programma.
  */
 public class CineMaX {
-	
 	/**
 	 * Questo campo è un oggetto di tipo File che riferisce il file Utenti.csv usato per salvare gli utenti 
 	 */
@@ -206,9 +205,7 @@ return null;
 			System.out.println("Errore critico, file utenti.csv non valido!");
 			e.printStackTrace();
 		}
-		
 		return ID;
-		
 	}
 	/**Questo metodo controlla la sintassi della data passata come parametro attuale
 	 * e ne esegue il parsing in formato LocalDate compatibile (AAAA-MM-GG).
@@ -222,7 +219,6 @@ return null;
 	 * @param data la data che si desidera controllare
 	 * @return null se la data è in un formato non valido, la data parsata AAAA-MM-GG altrimenti
 	 */
-	
 	private static String controlloData(String data) {//inizio controllo correttezza data inserita
         //il formato della data è definito dalla posizione dei separatori 
 		LinkedList<Integer> indicisep=new LinkedList<>(); //inizializzo una LinkedList di interi in cui salvare gli indici dei separatori
@@ -874,8 +870,17 @@ return null;
 			}
 			break;
 		}
-		System.out.println("Password: ");
-		String pword=obj.nextLine();
+		String pword;
+		while(true) {
+			System.out.println("Password: ");
+			pword=obj.nextLine();
+			if(username.length()<2) {
+				System.out.println("La password deve avere almeno un carattere, riprova!");
+				continue;
+			}
+			break;
+		}
+		
 		pword=CineMaX.sha256Hash(pword); //cripto la password
 		String ID=CineMaX.assegnaIDstr(nome,cognome,username);//calcolo l'ID utente
 		CineMaX.aggiungiUtente(ID,nome,cognome,username,pword,dataparsed,ind,"C");//scrivo il nuovo utente nel file utenti.csv
@@ -1065,7 +1070,7 @@ return null;
 							case"2":
 								System.out.println("Digitare il titolo della proiezione da eliminare");
 								String titolo1=Kinput.nextLine();
-								((Proiezionista)loggeduser).rimuoviProiezioneDalPalinsesto(titolo1,proiezioni, prenotazioni);// rimuove la prenotazione per titolo
+								((Proiezionista)loggeduser).rimuoviProiezioneDalPalinsesto(titolo1,proiezioni, prenotazioni,parsedfromstring);// rimuove la prenotazione per titolo
 								break;	
 							case "3":
 								
