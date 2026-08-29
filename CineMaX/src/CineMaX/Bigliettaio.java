@@ -852,11 +852,11 @@ public class Bigliettaio extends Guest {
 	}
 	annoTemp = riga.substring(virgolaSx+2, virgolaSx+6);
 	meseTemp = riga.substring(virgolaSx+7, virgolaSx+9);
-	giornoTemp = riga.substring(virgolaSx+11, virgolaSx+13);
+	giornoTemp = riga.substring(virgolaSx+10, virgolaSx+12);
 	dataTemp = LocalDate.of(Integer.parseInt(annoTemp), Integer.parseInt(meseTemp), Integer.parseInt(giornoTemp));
-	oraTemp = riga.substring(virgolaSx+14, virgolaSx+16);
-	minutoTemp = riga.substring(virgolaSx+17, virgolaSx+19);
-	secondoTemp = riga.substring(virgolaSx+20, virgolaSx+22);
+	oraTemp = riga.substring(virgolaSx+13, virgolaSx+15);
+	minutoTemp = riga.substring(virgolaSx+16, virgolaSx+18);
+	secondoTemp = riga.substring(virgolaSx+19, virgolaSx+21);
 	orarioTemp = LocalTime.of(Integer.parseInt(oraTemp), Integer.parseInt(minutoTemp), Integer.parseInt(secondoTemp));
 	
 	//Crezione data+orario in dataOrario

@@ -113,7 +113,7 @@ public class Guest {
 					return risRicerca;
 					
 				case "1": //Caso visualiz dettagliata di una delle proiez cercate richiesta.
-					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli (1 - " + numRisRicerca + "):");
+					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli:");
 					do {
 						
 						do {
@@ -129,8 +129,7 @@ public class Guest {
 						} while (inputStringintOk == false);
 						
 						if (sceltaNumProiezVisualiz <= 0 || sceltaNumProiezVisualiz > numRisRicerca)
-							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni "
-									+ "cercate (1 - " + numRisRicerca + "):");
+							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate:");
 						else {
 							risRicerca[sceltaNumProiezVisualiz-1].visualizzaProiezioneDettagliata(); //C'è il -1 perchè all'utente le proiez sono visualiz...
 							//...numerate da 1 (e quindi anche la sua scelta), mentre nel vettore sono numerate da 0.
@@ -1664,7 +1663,7 @@ public class Guest {
 						} //Fine blocco if fatto se la proiezione è corretta.
 						
 					} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
-						
+					System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");	
 					break;
 				
 				case "0": //Caso ricerca annullata.
@@ -1696,7 +1695,7 @@ public class Guest {
 					return risRicerca;
 					
 				case "1": //Caso visualiz dettagliata di una delle proiez cercate richiesta.
-					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli (1 - " + numRisRicerca + "):");
+					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli:");
 					do {
 						
 						do {
@@ -1712,13 +1711,14 @@ public class Guest {
 						} while (inputStringintOk == false);
 						
 						if (sceltaNumProiezVisualiz <= 0 || sceltaNumProiezVisualiz > numRisRicerca)
-							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni"
-									+ " cercate (1 - " + numRisRicerca + "):");
+							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni:");
 						else {
 							risRicerca[sceltaNumProiezVisualiz-1].visualizzaProiezioneDettagliata(); //C'è il -1 perchè all'utente le proiez sono visualiz...
 							//...numerate da 1 (e quindi anche la sua scelta), mentre nel vettore sono numerate da 0.
 							return risRicerca;
 						}
+						
+						
 					} while (true);
 					
 				default:
@@ -1762,7 +1762,7 @@ public class Guest {
 				return null;
 				
 			case "1":
-				System.out.println("Inserire il numero della proiezione che si desidera selezionare (1 - " + risRicerca.length + "):");
+				System.out.println("Inserire il numero della proiezione che si desidera selezionare:");
 				do {
 					do {
 						inputStringintOk=true;
@@ -1777,8 +1777,9 @@ public class Guest {
 					} while (inputStringintOk == false);
 					
 					if (sceltaProiezione <= 0 || sceltaProiezione > risRicerca.length) {
-						System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate (1 - "
-							+ risRicerca.length + "):");
+						System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate:");
+					} else if (risRicerca[sceltaProiezione-1] == null) {
+						System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate:");
 					} else {
 							return risRicerca[sceltaProiezione-1];
 					}
