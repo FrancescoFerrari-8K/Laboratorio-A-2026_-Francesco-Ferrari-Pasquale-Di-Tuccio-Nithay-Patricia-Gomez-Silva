@@ -992,14 +992,14 @@ return null;
 								} catch (FileNotFoundException e) {
 									System.out.println("Errore critico, file prenotazioni.csv non trovato!");
 								}
-								break;
+								continue;
 							case"2":
 								try {
 									((Bigliettaio)loggeduser).cercaPrenotazione();
 								} catch (FileNotFoundException e) {
 									System.out.println("Errore critico, file prenotazioni.csv non trovato!");
 								}
-								break;
+								continue;
 							case"0":
 								System.out.println("Grazie per aver usato la nostra app, a presto e buon lavoro!");
 								break;
@@ -1067,7 +1067,7 @@ return null;
 								Film f=new Film(titolo,genere,regista,anno,durata,età);//creo l'oggetto film per la proiezione
 								Proiezione pro=new Proiezione(f,parsedfromstring,prezzo,posti);//creo la proiezione da aggiungere
 								((Proiezionista)loggeduser).aggiungiProiezioneAlPalinsesto(pro, proiezioni);//aggiungo la proiezione al palinsesto
-								break;
+								continue;
 							case"2":
 								System.out.println("Digitare il titolo della proiezione da eliminare");
 								String titolo1=Kinput.nextLine();
@@ -1081,7 +1081,7 @@ LocalDateTime dataOraParsed = LocalDateTime.parse(dataStringa.trim(), formatter)
 // 3. Chiama il metodo RISPETTANDO L'ORDINE DEI PARAMETRI:
 // (1° titolo, 2° dataOra, 3° proiezioni, 4° prenotazioni)
 ((Proiezionista) loggeduser).rimuoviProiezioneDalPalinsesto(titolo1, dataOraParsed, proiezioni, prenotazioni);//rimuove la proiezione per titolo e ora 
-								break;	
+								continue;	
 								case "3":
     System.out.println("--- MODIFICA ORARIO PROIEZIONE ---");
     
@@ -1105,7 +1105,7 @@ LocalDateTime dataOraParsed = LocalDateTime.parse(dataStringa.trim(), formatter)
     } catch (Exception e) {
         System.out.println("ERRORE: Formato data non valido! Assicurati di usare il formato yyyy-MM-dd HH:mm:ss");
     }
-    break;
+    continue;
 							case"0":
 								System.out.println("Grazie per aver usato la nostra app, a presto e buon lavoro!");
 								break;
@@ -1136,6 +1136,7 @@ LocalDateTime dataOraParsed = LocalDateTime.parse(dataStringa.trim(), formatter)
 					case "1":
 						try {
 							loggeduser.cercaProiezione();
+							continue;
 						} catch (FileNotFoundException e) {
 							System.out.println("Errore critico, file proiezioni.csv non trovato!");
 						}
@@ -1149,10 +1150,11 @@ LocalDateTime dataOraParsed = LocalDateTime.parse(dataStringa.trim(), formatter)
 					default:
 						try {
 							loggeduser.cercaProiezionePerTitolo(toDo);
+							continue;
 						} catch (FileNotFoundException e) {
 							System.out.println("Errore critico, file proiezioni.csv non trovato!");
+							break;
 						}
-						continue;
 					}
 					break;
 				}
@@ -1178,6 +1180,7 @@ LocalDateTime dataOraParsed = LocalDateTime.parse(dataStringa.trim(), formatter)
 					case "1":
 						try {
 							loggeduser.cercaProiezione();
+							continue;
 						} catch (FileNotFoundException e) {
 							System.out.println("Errore critico, file proiezioni.csv non trovato!");
 						}
@@ -1188,6 +1191,15 @@ LocalDateTime dataOraParsed = LocalDateTime.parse(dataStringa.trim(), formatter)
 					case "0":
 						System.out.println("Grazie per aver usato la nostra app, a presto!");
 						break;
+					default:
+						try {
+							loggeduser.cercaProiezione();
+							continue;
+						}
+						catch(FileNotFoundException e){
+							System.out.println("Errore critico, file proiezioni.csv non trovato!");
+							break;
+						}
 						
 					}
 					break;
