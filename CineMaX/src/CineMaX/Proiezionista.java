@@ -6,30 +6,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Classe che rappresenta il Proiezionista.
- * Estende Guest e serve per gestire il palinsesto del cinema
- * (aggiungere, rimuovere e modificare le proiezioni).
+ * Classe che rappresenta la figura del Proiezionista.
+ * Estende Guest e consente la gestione del palinsesto cinematografico,
+ * inclusi inserimento, rimozione e modifica delle proiezioni.
  * 
  * @author Pasquale Di Tuccio
  */
 public class Proiezionista extends Guest {
 
-    // Nome del proiezionista
     private String nome;
-
-    // ID del proiezionista
     private String idProiezionista;
 
     /**
-     * Costruttore vuoto.
+     * Costruttore vuoto della classe Proiezionista.
      */
     public Proiezionista() {}
 
     /**
-     * Costruttore con parametri per creare il proiezionista.
+     * Costruttore con parametri per la classe Proiezionista.
      * 
      * @param nome Il nome del proiezionista.
-     * @param idProiezionista L'ID del proiezionista.
+     * @param idProiezionista L'identificatore univoco del proiezionista.
      */
     public Proiezionista(String nome, String idProiezionista) {
         this.nome = nome;
@@ -37,13 +34,13 @@ public class Proiezionista extends Guest {
     }
 
     /**
-     * Aggiunge una proiezione alla lista del palinsesto.
-     * Controlla che l'anno del film non sia nel futuro, che la data della proiezione
-     * non sia nel passato e che l'orario non si sovrapponga a un'altra proiezione.
-     *
-     * @param nuovaProiezione La nuova proiezione da inserire.
-     * @param palinsesto La lista di tutte le proiezioni.
-     * @return true se viene aggiunta con successo, false se c'e' un errore.
+     * Aggiunge una nuova proiezione al palinsesto.
+     * Verifica che l'anno del film sia valido, che la data sia futura
+     * e che l'orario non sovrapponga altre proiezioni esistenti.
+     * 
+     * @param nuovaProiezione La proiezione da aggiungere.
+     * @param palinsesto La lista attuale delle proiezioni.
+     * @return true se l'inserimento ha successo, false altrimenti.
      */
     public boolean aggiungiProiezioneAlPalinsesto(Proiezione nuovaProiezione, ArrayList<Proiezione> palinsesto) {
         
@@ -92,14 +89,14 @@ public class Proiezionista extends Guest {
     }
 
     /**
-     * Rimuove una proiezione dal palinsesto usando titolo e data/ora.
-     * Controlla prima che non ci siano prenotazioni gia' fatte dai clienti per quel film.
-     *
-     * @param titoloFilm Il titolo del film da cancellare.
-     * @param dataOraProiezione La data e l'ora della proiezione da cancellare.
-     * @param palinsesto La lista delle proiezioni.
-     * @param listaPrenotazioni La lista delle prenotazioni attive.
-     * @return true se la rimuove, false se non la trova o se ci sono prenotazioni.
+     * Rimuove una proiezione dal palinsesto in base a titolo e data/ora.
+     * Controlla preventivamente che non vi siano prenotazioni attive.
+     * 
+     * @param titoloFilm Titolo del film da rimuovere.
+     * @param dataOraProiezione Data e ora della proiezione da cancellare.
+     * @param palinsesto Lista delle proiezioni in memoria.
+     * @param listaPrenotazioni Lista delle prenotazioni attive nel sistema.
+     * @return true se la proiezione viene rimossa, false altrimenti.
      */
     public boolean rimuoviProiezioneDalPalinsesto(String titoloFilm, LocalDateTime dataOraProiezione, ArrayList<Proiezione> palinsesto, ArrayList<Prenotazione> listaPrenotazioni) {
 
@@ -137,13 +134,13 @@ public class Proiezionista extends Guest {
     }
 
     /**
-     * Modifica l'orario di una proiezione esistente.
-     * Controlla che il nuovo orario sia futuro e che la sala sia libera.
-     *
-     * @param titoloFilm Il titolo del film da spostare.
-     * @param dataOraAttuale La data e l'ora attuali del film.
-     * @param nuovaDataOra La nuova data e l'ora che si vuole impostare.
-     * @param palinsesto La lista delle proiezioni.
+     * Modifica la data e l'orario di una proiezione esistente.
+     * Verifica che la nuova data sia futura e non generi sovrapposizioni.
+     * 
+     * @param titoloFilm Titolo del film da spostare.
+     * @param dataOraAttuale Data e ora attuali della proiezione.
+     * @param nuovaDataOra Nuova data e ora da impostare.
+     * @param palinsesto Lista delle proiezioni in memoria.
      * @return true se la modifica va a buon fine, false altrimenti.
      */
     public boolean modificaDataOraProiezione(String titoloFilm, LocalDateTime dataOraAttuale, LocalDateTime nuovaDataOra, ArrayList<Proiezione> palinsesto) {
@@ -220,7 +217,7 @@ public class Proiezionista extends Guest {
 
     /**
      * Restituisce l'ID del proiezionista.
-     * @return L'ID.
+     * @return L'ID univoco.
      */
     public String getIdProiezionista() { 
         return idProiezionista; 
