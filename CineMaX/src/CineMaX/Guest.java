@@ -5,20 +5,31 @@ import java.util.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-//Questa classe implementa i metodi che gestiscono le richieste degli utenti non registrati.
 
+/**
+ * Questa classe implementa i metodi che gestiscono le richieste degli utenti non registrati.
+ * @author Luca Gabriel Chindris
+ */
 public class Guest {
 	//--------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// Campi (non presenti xk non necessari).
+	// Campi (non presenti perchè non necessari).
 	//--------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// Costruttori (non presenti xk non necessari).
+	// Costruttori (non presenti perchè non necessari).
 	//--------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Metodi
 	
 //Inizio metodo cercaProiezionePerTitolo().
+	/**
+	 * Questo metodo permette la ricerca per titolo di proiezioni dal file proiezioni.csv ed eventualmente
+	 * la visualizzazione dettagliata di una di quelle trovate.
+	 * Il metodo effettua stampe a video e se serve restituisce il vettore di oggetti Proiezione corrispondenti alle proiezioni trovate con la ricerca,
+	 * null nel caso in cui la ricerca avesse 0 risultati.
+	 * @param titoloCercato Il titolo (anche parziale) usato per cercare una proiezione.
+	 * @return Array di oggetti Proiezione contenente gli oggetti Proiezione corrispondenti alle proiezioni trovate con la ricerca per titolo,
+	 * null nel caso in cui la ricerca avesse 0 risultati.
+	 * @throws FileNotFoundException Eccezione legata all'uso del file proiezioni.csv.
+	 */
 	public Proiezione[] cercaProiezionePerTitolo(String titoloCercato) throws FileNotFoundException {
-//Questo metodo permette la ricerca di proiezioni per titolo (e visualizzazione dettagliata di una di quelle trovate). Il metodo stampa a video tutto quanto ma...
-//se serve restituisce il vettore contenente le proiezioni trovate con la ricerca, null nel caso in cui la ricerca avesse 0 risultati.
 			
 		int limiteRic = 10000; //Limite numero risultati della ricerca.
 		int numRisRicerca = 0; //Contatore numero risultati.
@@ -113,7 +124,7 @@ public class Guest {
 					return risRicerca;
 					
 				case "1": //Caso visualiz dettagliata di una delle proiez cercate richiesta.
-					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli (1 - " + numRisRicerca + "):");
+					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli:");
 					do {
 						
 						do {
@@ -129,8 +140,7 @@ public class Guest {
 						} while (inputStringintOk == false);
 						
 						if (sceltaNumProiezVisualiz <= 0 || sceltaNumProiezVisualiz > numRisRicerca)
-							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni "
-									+ "cercate (1 - " + numRisRicerca + "):");
+							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate:");
 						else {
 							risRicerca[sceltaNumProiezVisualiz-1].visualizzaProiezioneDettagliata(); //C'è il -1 perchè all'utente le proiez sono visualiz...
 							//...numerate da 1 (e quindi anche la sua scelta), mentre nel vettore sono numerate da 0.
@@ -152,10 +162,18 @@ public class Guest {
 	}
 //Fine metodo cercaProiezionePerTitolo().
 	
+	
 //Inizio metodo cercaProiezione().
+	/**
+	 * Questo metodo permette la ricerca secondo diversi criteri di proiezioni dal file proiezioni.csv ed eventualmente
+	 * la visualizzazione dettagliata di una di quelle trovate.
+	 * Il metodo effettua stampe a video e se serve restituisce il vettore di oggetti Proiezione corrispondenti alle proiezioni trovate con la ricerca,
+	 * null nel caso in cui la ricerca avesse 0 risultati.
+	 * @return Array contenente gli oggetti Proiezione corrispondenti alle proiezioni trovate con la ricerca,
+	 * null nel caso in cui la ricerca avesse 0 risultati.
+	 * @throws FileNotFoundException Eccezione legata all'uso del file proiezioni.csv.
+	 */
 	public Proiezione[] cercaProiezione() throws FileNotFoundException {
-//Questo metodo permette la ricerca di proiezioni (e visualizzazione dettagliata di una di quelle trovate). Il metodo stampa a video tutto quanto ma se serve...
-//...restituisce il vettore contenente le proiezioni trovate con la ricerca, null nel caso in cui la ricerca avesse 0 risultati.
 		
 		int limiteRic = 10000; //Limite numero risultati della ricerca.
 		int numRisRicerca = 0; //Contatore numero risultati.
@@ -1664,7 +1682,7 @@ public class Guest {
 						} //Fine blocco if fatto se la proiezione è corretta.
 						
 					} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
-						
+					System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");	
 					break;
 				
 				case "0": //Caso ricerca annullata.
@@ -1696,7 +1714,7 @@ public class Guest {
 					return risRicerca;
 					
 				case "1": //Caso visualiz dettagliata di una delle proiez cercate richiesta.
-					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli (1 - " + numRisRicerca + "):");
+					System.out.println("Inserire il numero della proiezione di cui si desidera visualizzare i dettagli:");
 					do {
 						
 						do {
@@ -1712,13 +1730,14 @@ public class Guest {
 						} while (inputStringintOk == false);
 						
 						if (sceltaNumProiezVisualiz <= 0 || sceltaNumProiezVisualiz > numRisRicerca)
-							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni"
-									+ " cercate (1 - " + numRisRicerca + "):");
+							System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni:");
 						else {
 							risRicerca[sceltaNumProiezVisualiz-1].visualizzaProiezioneDettagliata(); //C'è il -1 perchè all'utente le proiez sono visualiz...
 							//...numerate da 1 (e quindi anche la sua scelta), mentre nel vettore sono numerate da 0.
 							return risRicerca;
 						}
+						
+						
 					} while (true);
 					
 				default:
@@ -1734,7 +1753,13 @@ public class Guest {
 		
 	}
 //Fine metodo cercaProiezione().
-
+	
+//Inizio metodo selezionaProiezDaRicerca().
+	/**
+	 * Metodo di supporto ad altre classi che permette all'utente di selezionare una specifica proiezione tra le proiezioni trovate con una ricerca.
+	 * @param risRicerca Il vettore di oggetti Proiezione risultato di una ricerca (quindi restituito dal metodo cercaProiezione di Guest).
+	 * @return L'oggetto Proiezione corrispondente alla proiezione selezionata dall'utente.
+	 */
 	public static Proiezione selezionaProiezDaRicerca(Proiezione[] risRicerca) {
 		
 		Scanner sc = new Scanner(System.in);
@@ -1762,7 +1787,7 @@ public class Guest {
 				return null;
 				
 			case "1":
-				System.out.println("Inserire il numero della proiezione che si desidera selezionare (1 - " + risRicerca.length + "):");
+				System.out.println("Inserire il numero della proiezione che si desidera selezionare:");
 				do {
 					do {
 						inputStringintOk=true;
@@ -1777,8 +1802,9 @@ public class Guest {
 					} while (inputStringintOk == false);
 					
 					if (sceltaProiezione <= 0 || sceltaProiezione > risRicerca.length) {
-						System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate (1 - "
-							+ risRicerca.length + "):");
+						System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate:");
+					} else if (risRicerca[sceltaProiezione-1] == null) {
+						System.out.println("Il numero inserito non è valido. Inserire un numero valido di una delle proiezioni cercate:");
 					} else {
 							return risRicerca[sceltaProiezione-1];
 					}
@@ -1789,14 +1815,23 @@ public class Guest {
 		} while (true);
 		
 	}
-		
-//Inizio metodo estraiProiezione().
+//Fine metodo selezionaProiezDaRicerca().
+	
+//Inizio metodo estraiProiezione().	
+	/**
+	 * Metodo di supporto ai metodi che richiedono di estrarre le proiezioni contenute nel file proiezioni.csv.
+	 * Estrae e restituisce una proiezione dal file delle proiezioni proiezioni.csv, file letto con scanner fornito in input.
+	 * Il metodo assume che lo scanner dato in input è già predisposto per leggere una riga del file valida (e quindi se si è 
+	 * all'inizio si è già saltata la riga dell'intestazione, se si è alla fine del file non si chiama questo metodo, etc...).
+	 * Il secondo parametro è il numero di virgole dell'intestazione che serve perchè se la riga letta dal file ha più virgole di 
+	 * quel numero (non può averne di meno perchè almeno tante virgole quante ce ne sono nell'intestazione le deve avere) allora il titolo
+	 * contiene delle virgole e quindi il codice agisce di conseguenza).
+	 * @param scanner Scanner dato in input per leggere il file proiezioni.csv, predisposto per leggere una riga del file valida.
+	 * @param numvirgoleintestaz Numero di virgole dell'intestazione del file proiezioni.csv.
+	 * @return Oggetto Proiezione corrispondente a una proiezione letta/estratta dal file proiezioni.csv.
+	 */
 	private Proiezione estraiProiezione(Scanner scanner, int numvirgoleintestaz) {
-//Metodo che estrae e restituisce una proiezione dal file delle proiezioni, file letto con scanner fornito in input.
-//Il metodo assume che lo scanner dato in input è già predisposto per leggere una riga del file valida (e quindi se si è all'inizio si è già saltata la riga...
-//...dell'intestazione, se si è alla fine del file non si chiama qsto metodo, etc...).
-//Il secondo parametro è il numero di virgole dell'intestazione che serve perchè se la riga letta dal file ha più virgole di quel numero (non può averne di meno...
-//...xk almeno tante virgole quante ce ne sono nell'intestazione le deve avere) allora il titolo contiene delle virgole e quindi il codice agisce di conseguenza).
+//
 
 		
 		int contaVirgole = 0; //Contatore delle virgole della riga che sto leggendo in questo momento, utile per capire se ci sono virgole in più rispetto...
@@ -1936,19 +1971,16 @@ public class Guest {
 	}
 //Fine metodo estraiProiezione().
 	
-//Inizio metodo dettagliProiezione().
-	/* 
-	public void dettagliProiezione() { // Questo metodo permette la visualizzazione dei dettagli di una delle proiezioni cercate.
-		// TODO Da decidere se effettivamente metodo a sè o se solo parte del codice di cercaProiezione() come è per ora
-		return null;
-	}
-	*/
-//Fine metodo dettagliProiezione().
-
 //Inizio metodo cercaProiezPerCambioPrenotaz().
+	/**
+	 * Metodo di supporto ad altre classi che permette permette la ricerca di proiezioni per effettuare cambio data prenotazione.
+	 * Il metodo restituisce la linkedlist di oggetti Proiezione che corrispondono alle proiezioni trovate che sono valide per cambio,
+	 * ossia con stesso titolo film della prenotazione da modificare (fornito in input) e data successiva alla data odierna.
+	 * @param titoloPrenotaz Titolo del film della prenotazione che si desidera modificare.
+	 * @return LinkedList di oggetti Proiezione che corrispondono alle proiezioni trovate candidate a essere scelte per modificare una prenotazione.
+	 * @throws FileNotFoundException Eccezione legata all'uso del file proiezioni.csv.
+	 */
 	public LinkedList<Proiezione> cercaProiezPerCambioPrenotaz(String titoloPrenotaz) throws FileNotFoundException {
-//Metodo che permette la ricerca di proiezioni per effettuare cambio data prenotazione. Il metodo restituisce la linkedlist contenente le proiezioni trovate...
-//che hanno stesso titolo film della prenotazione da modificare e data successiva alla data odierna.
 		
 		Scanner scFile = new Scanner(new File("../data/proiezioni.csv")); //scFile è lettore file proiezioni.
 		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga...
@@ -1974,4 +2006,5 @@ public class Guest {
 	}
 //Fine metodo cercaProiezionePerTitolo().
 		
+	
 } // Fine classe Guest.

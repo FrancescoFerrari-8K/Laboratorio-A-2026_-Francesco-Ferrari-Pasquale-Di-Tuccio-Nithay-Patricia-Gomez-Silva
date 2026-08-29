@@ -5,20 +5,29 @@ import java.util.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-//Questa classe implementa i metodi che gestiscono le richieste degli utenti loggati come Bigliettaio.
-
+/**
+ * Questa classe implementa i metodi che gestiscono le richieste degli utenti loggati come Bigliettaio.
+ * @author Luca Gabriel Chindris
+ */
 public class Bigliettaio extends Guest {
 		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// Campi (non presenti xk non necessari).
+		// Campi (non presenti perchè non necessari).
 		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// Costruttori (non presenti xk non necessari).
+		// Costruttori (non presenti perchè non necessari).
 		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
 		// Metodi
 	
 //Inizio metodo cercaPrenotazione().
+	/**
+	 * Questo metodo permette la ricerca di prenotazioni secondo diversi criteri dal file Prenotazioni.csv ed eventualmente
+	 * la visualizzazione dettagliata di una di quelle trovate.
+	 * Il metodo effettua stampe a video e se serve restituisce il vettore di oggetti Prenotazione corrispondenti alle prenotazioni trovate con la ricerca,
+	 * null nel caso in cui la ricerca avesse 0 risultati.
+	 * @return Array di oggetti Prenotazione contenente gli oggetti Prenotazione corrispondenti alle prenotazioni trovate con la ricerca,
+	 * null nel caso in cui la ricerca avesse 0 risultati.
+	 * @throws FileNotFoundException Eccezione legata all'uso del file Prenotazioni.csv.
+	 */
 	public Prenotazione[] cercaPrenotazione() throws FileNotFoundException {
-//Questo metodo permette la ricerca di prenotazioni (e visualizzazione dettagliata di una di quelle trovate). Il metodo stampa a video tutto quanto ma se serve...
-//...restituisce il vettore contenente le prenotazioni trovate con la ricerca, null nel caso in cui la ricerca avesse 0 risultati.
 		
 		int limiteRic = 10000; //Limite numero risultati della ricerca.
 		int numRisRicerca = 0; //Contatore numero risultati.
@@ -713,6 +722,10 @@ public class Bigliettaio extends Guest {
 	
 
 //Inizio metodo visualizzaPrenotazioniOdierne().
+	/**
+	 * Questo metodo permette di visualizzare le prenotazioni odierne accedendo al file Prenotazioni.csv.
+	 * @throws FileNotFoundException Eccezione legata all'uso del file Prenotazioni.csv.
+	 */
 	public void visualizzaPrenotazioniOdierne() throws FileNotFoundException {
 //Questo metodo permette la visualizzazione delle prenotazioni odierne.
 		
@@ -751,29 +764,20 @@ public class Bigliettaio extends Guest {
 	}
 //Fine metodo visualizzaPrenotazioniOdierne().
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//Inizio metodo estraiPrenotazione().
-	private Prenotazione estraiPrenotazione(Scanner scanner, int numvirgoleintestaz) {
-//Metodo che estrae e restituisce una prenotazione dal file delle prenotazioni, file letto con scanner fornito in input.
-//Il metodo assume che lo scanner dato in input è già predisposto per leggere una riga del file valida (e quindi se si è all'inizio si è già saltata la riga...
-//...dell'intestazione, se si è alla fine del file non si chiama qsto metodo, etc...).
-//Il secondo parametro è il numero di virgole dell'intestazione che serve perchè se la riga letta dal file ha più virgole di quel numero (non può averne di meno...
-//...xk almeno tante virgole quante ce ne sono nell'intestazione le deve avere) allora il titolo contiene delle virgole e quindi il codice agisce di conseguenza).
 
+//Inizio metodo estraiPrenotazione().
+	/**
+	 * Metodo di supporto ai metodi che richiedono di estrarre le prenotazioni contenute nel file Prenotazioni.csv.
+	 * Il metodo assume che lo scanner dato in input è già predisposto per leggere una riga del file valida (e quindi se si è
+	 * all'inizio si è già saltata la riga dell'intestazione, se si è alla fine del file non si chiama questo metodo, etc...).
+	 * Il secondo parametro è il numero di virgole dell'intestazione che serve perchè se la riga letta dal file ha più virgole di 
+	 * quel numero (non può averne di meno perchè almeno tante virgole quante ce ne sono nell'intestazione le deve avere) allora il titolo
+	 * contiene delle virgole e quindi il codice agisce di conseguenza).
+	 * @param scanner Scanner dato in input per leggere il file Prenotazioni.csv, predisposto per leggere una riga del file valida.
+	 * @param numvirgoleintestaz Numero di virgole dell'intestazione del file Prenotazioni.csv.
+	 * @return Oggetto Prenotazione corrispondente a una prenotazione letta/estratta dal file Prenotazioni.csv.
+	 */
+	private Prenotazione estraiPrenotazione(Scanner scanner, int numvirgoleintestaz) {
 	
 	int contaVirgole = 0; //Contatore delle virgole della riga che sto leggendo in questo momento, utile per capire se ci sono virgole in più rispetto...
 	//...all'intestazione xk anche il titolo ha delle virgole al suo interno.
@@ -852,11 +856,11 @@ public class Bigliettaio extends Guest {
 	}
 	annoTemp = riga.substring(virgolaSx+2, virgolaSx+6);
 	meseTemp = riga.substring(virgolaSx+7, virgolaSx+9);
-	giornoTemp = riga.substring(virgolaSx+11, virgolaSx+13);
+	giornoTemp = riga.substring(virgolaSx+10, virgolaSx+12);
 	dataTemp = LocalDate.of(Integer.parseInt(annoTemp), Integer.parseInt(meseTemp), Integer.parseInt(giornoTemp));
-	oraTemp = riga.substring(virgolaSx+14, virgolaSx+16);
-	minutoTemp = riga.substring(virgolaSx+17, virgolaSx+19);
-	secondoTemp = riga.substring(virgolaSx+20, virgolaSx+22);
+	oraTemp = riga.substring(virgolaSx+13, virgolaSx+15);
+	minutoTemp = riga.substring(virgolaSx+16, virgolaSx+18);
+	secondoTemp = riga.substring(virgolaSx+19, virgolaSx+21);
 	orarioTemp = LocalTime.of(Integer.parseInt(oraTemp), Integer.parseInt(minutoTemp), Integer.parseInt(secondoTemp));
 	
 	//Crezione data+orario in dataOrario
@@ -915,13 +919,5 @@ public class Bigliettaio extends Guest {
 	}
 //Fine metodo estraiPrenotazione().
 
-//Inizio metodo dettagliPrenotazione().
-	/* 
-	public void dettagliPrenotazione() { // Questo metodo permette la visualizzazione dei dettagli di una delle prenotazioni cercate.
-		// TODO Da decidere se effettivamente metodo a sè o se solo parte del codice di cercaPrenotazione() come è per ora
-		return null;
-	}
-	*/
-//Fine metodo dettagliPrenotazione().
-		
+	
 } // Fine classe Bigliettaio
