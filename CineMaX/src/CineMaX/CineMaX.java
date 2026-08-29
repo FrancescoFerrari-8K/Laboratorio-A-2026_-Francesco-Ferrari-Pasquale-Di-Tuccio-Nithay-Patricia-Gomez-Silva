@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -1070,10 +1071,41 @@ return null;
 							case"2":
 								System.out.println("Digitare il titolo della proiezione da eliminare");
 								String titolo1=Kinput.nextLine();
-								((Proiezionista)loggeduser).rimuoviProiezioneDalPalinsesto(titolo1,proiezioni, prenotazioni,parsedfromstring);// rimuove la prenotazione per titolo
+								System.out.println("Inserisci la data e ora (es: 2026-05-20 18:30:00):");
+                                String dataStringa = Kinput.nextLine();
+
+// si converte la stringa
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+LocalDateTime dataOraParsed = LocalDateTime.parse(dataStringa.trim(), formatter);
+
+// 3. Chiama il metodo RISPETTANDO L'ORDINE DEI PARAMETRI:
+// (1° titolo, 2° dataOra, 3° proiezioni, 4° prenotazioni)
+((Proiezionista) loggeduser).rimuoviProiezioneDalPalinsesto(titolo1, dataOraParsed, proiezioni, prenotazioni);//rimuove la proiezione per titolo e ora 
 								break;	
-							case "3":
-								
+								case "3":
+    System.out.println("--- MODIFICA ORARIO PROIEZIONE ---");
+    
+    System.out.println("Digitare il titolo della proiezione da modificare:");
+    String titoloMod = Kinput.nextLine();
+
+    // Rinominiamo la variabile in formatterMod per evitare la duplicazione
+    DateTimeFormatter formatterMod = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    try {
+        System.out.println("Digitare la DATA e ORA ATTUALE della proiezione (es. 2026-05-20 18:30:00):");
+        String testoDataVecchia = Kinput.nextLine();
+        LocalDateTime dataOraAttuale = LocalDateTime.parse(testoDataVecchia.trim(), formatterMod);
+
+        System.out.println("Digitare la NUOVA DATA e ORA desiderata (es. 2026-05-20 21:00:00):");
+        String testoDataNuova = Kinput.nextLine();
+        LocalDateTime nuovaDataOra = LocalDateTime.parse(testoDataNuova.trim(), formatterMod);
+
+        ((Proiezionista) loggeduser).modificaDataOraProiezione(titoloMod, dataOraAttuale, nuovaDataOra, proiezioni);
+
+    } catch (Exception e) {
+        System.out.println("ERRORE: Formato data non valido! Assicurati di usare il formato yyyy-MM-dd HH:mm:ss");
+    }
+    break;
 							case"0":
 								System.out.println("Grazie per aver usato la nostra app, a presto e buon lavoro!");
 								break;
