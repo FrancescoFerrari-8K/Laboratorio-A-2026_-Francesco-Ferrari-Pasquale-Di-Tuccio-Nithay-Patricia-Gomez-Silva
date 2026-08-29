@@ -1,6 +1,7 @@
 package CineMaX;
 
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -18,7 +19,7 @@ public class Proiezionista extends Guest {
         this.idProiezionista = idProiezionista;
     }
 
-    // Aggiunge un film, controlla sovrapposizioni orarie, ordina il palinsesto e salva su file
+    // 1. AGGIUNGE UNA PROIEZIONE
     public boolean aggiungiProiezioneAlPalinsesto(Proiezione nuovaProiezione, ArrayList<Proiezione> palinsesto) {
         
         if (nuovaProiezione == null || palinsesto == null) {
@@ -26,7 +27,21 @@ public class Proiezionista extends Guest {
             return false;
         }
 
-        // 1. CONTROLLO SOVRAPPOSIZIONI DI ORARIO
+        // CONTROLLO 1: L'anno di pubblicazione del film non può essere nel futuro
+        int annoCorrente = Year.now().getValue();
+        if (nuovaProiezione.getFilm().getAnno() > annoCorrente) {
+            System.out.println("ERRORE: Impossibile aggiungere un film con anno di pubblicazione nel futuro (" 
+                               + nuovaProiezione.getFilm().getAnno() + ")!");
+            return false;
+        }
+
+        // CONTROLLO 2: La data e ora della proiezione deve essere nel futuro
+        if (nuovaProiezione.getDataOra().isBefore(LocalDateTime.now())) {
+            System.out.println("ERRORE: Impossibile inserire una proiezione nel passato! Data inserita: " + nuovaProiezione.getDataOra());
+            return false;
+        }
+
+        // CONTROLLO 3: Sovrapposizione di orario con altre proiezioni (in base alla durata del film)
         for (Proiezione p : palinsesto) {
             LocalDateTime inizioEsistente = p.getDataOra();
             LocalDateTime fineEsistente = inizioEsistente.plusMinutes(p.getFilm().getDurata());
@@ -34,28 +49,27 @@ public class Proiezionista extends Guest {
             LocalDateTime inizioNuova = nuovaProiezione.getDataOra();
             LocalDateTime fineNuova = inizioNuova.plusMinutes(nuovaProiezione.getFilm().getDurata());
             
-            // Verifica sovrapposizione temporale
+            // Verifica se gli intervalli orari si sovrappongono
             if (inizioNuova.isBefore(fineEsistente) && fineNuova.isAfter(inizioEsistente)) {
                 System.out.println("ERRORE: Il cinema è già occupato in quell'orario dal film: " + p.getFilm().getTitolo());
                 return false; 
             }
         }
 
-        // 2. INSERIMENTO E ORDINAMENTO AUTOMATICO IN RAM
+        // Se tutti i controlli passano: inserimento, ordinamento e salvataggio su CSV
         palinsesto.add(nuovaProiezione);
         Collections.sort(palinsesto);
 
-        // 3. SALVATAGGIO SU FILE CSV VIA PROIEZIONE
         Proiezione.salvaProiezioni(palinsesto);
 
         System.out.println("Proiezione di \"" + nuovaProiezione.getFilm().getTitolo() + "\" inserita con successo.");
         return true;
     }
 
-    // Rimuove una proiezione dal palinsesto e aggiorna il file CSV
-    public boolean rimuoviProiezioneDalPalinsesto(String titoloFilm, ArrayList<Proiezione> palinsesto, ArrayList<Prenotazione> listaPrenotazioni) {
+    // 2. RIMUOVE UNA SPECIFICA PROIEZIONE (Titolo + Data/Ora)
+    public boolean rimuoviProiezioneDalPalinsesto(String titoloFilm, LocalDateTime dataOraProiezione, ArrayList<Proiezione> palinsesto, ArrayList<Prenotazione> listaPrenotazioni) {
 
-        if (titoloFilm == null || palinsesto == null || listaPrenotazioni == null) {
+        if (titoloFilm == null || dataOraProiezione == null || palinsesto == null || listaPrenotazioni == null) {
             System.out.println("ERRORE: Parametri non validi per la rimozione.");
             return false;
         }
@@ -63,35 +77,101 @@ public class Proiezionista extends Guest {
         for (int i = 0; i < palinsesto.size(); i++) {
             Proiezione p = palinsesto.get(i);
             
-            if (p.getFilm().getTitolo().equalsIgnoreCase(titoloFilm)) {
+            // Controllo doppio: Titolo del Film + Data/Ora esatta
+            if (p.getFilm().getTitolo().equalsIgnoreCase(titoloFilm) && p.getDataOra().equals(dataOraProiezione)) {
                 
-                // Controlla se esistono prenotazioni per questa proiezione
+                // Controlla se esistono prenotazioni per questa specifica proiezione
                 for (Prenotazione pr : listaPrenotazioni) {
                     if (pr.getProiezione_Titolo().equalsIgnoreCase(p.getFilm().getTitolo()) &&
                         pr.getProiezione_Data().equals(p.getDataOra())) {
-                        System.out.println("ERRORE: Impossibile rimuovere \"" + titoloFilm + "\". Ci sono prenotazioni attive!");
+                        System.out.println("ERRORE: Impossibile rimuovere la proiezione di \"" + titoloFilm + "\" del " + dataOraProiezione + ". Ci sono prenotazioni attive!");
                         return false; 
                     }
                 }
                 
-                // Rimuove la proiezione
+                // Rimuove la proiezione trovata e aggiorna il CSV
                 palinsesto.remove(i);
-
-                // AGGIORNA IL FILE CSV VIA PROIEZIONE
                 Proiezione.salvaProiezioni(palinsesto);
 
-                System.out.println("Il film \"" + titoloFilm + "\" è stato rimosso dal palinsesto.");
+                System.out.println("La proiezione di \"" + titoloFilm + "\" del " + dataOraProiezione + " è stata rimossa con successo.");
                 return true;
             }
         }
-        System.out.println("Nessun film trovato in palinsesto con il nome: " + titoloFilm);
+
+        System.out.println("Nessuna proiezione trovata per il film \"" + titoloFilm + "\" nella data/ora: " + dataOraProiezione);
         return false;
     }
 
-    // Metodi Getter e Setter
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    // 3. MODIFICA DATA E ORA DI UNA PROIEZIONE
+    public boolean modificaDataOraProiezione(String titoloFilm, LocalDateTime dataOraAttuale, LocalDateTime nuovaDataOra, ArrayList<Proiezione> palinsesto) {
 
-    public String getIdProiezionista() { return idProiezionista; }
-    public void setIdProiezionista(String idProiezionista) { this.idProiezionista = idProiezionista; }
+        if (titoloFilm == null || dataOraAttuale == null || nuovaDataOra == null || palinsesto == null) {
+            System.out.println("ERRORE: Parametri non validi per la modifica.");
+            return false;
+        }
+
+        // CONTROLLO: La nuova data/ora non può essere nel passato
+        if (nuovaDataOra.isBefore(LocalDateTime.now())) {
+            System.out.println("ERRORE: Impossibile spostare una proiezione nel passato! Nuova data inserita: " + nuovaDataOra);
+            return false;
+        }
+
+        // Cerca la proiezione da modificare
+        Proiezione proiezioneDaModificare = null;
+        for (Proiezione p : palinsesto) {
+            if (p.getFilm().getTitolo().equalsIgnoreCase(titoloFilm) && p.getDataOra().equals(dataOraAttuale)) {
+                proiezioneDaModificare = p;
+                break;
+            }
+        }
+
+        if (proiezioneDaModificare == null) {
+            System.out.println("ERRORE: Nessuna proiezione trovata per il film \"" + titoloFilm + "\" in data: " + dataOraAttuale);
+            return false;
+        }
+
+        // Controllo sovrapposizioni con il nuovo orario
+        int durataNuova = proiezioneDaModificare.getFilm().getDurata();
+        LocalDateTime fineNuova = nuovaDataOra.plusMinutes(durataNuova);
+
+        for (Proiezione p : palinsesto) {
+            if (p == proiezioneDaModificare) {
+                continue;
+            }
+
+            LocalDateTime inizioEsistente = p.getDataOra();
+            LocalDateTime fineEsistente = inizioEsistente.plusMinutes(p.getFilm().getDurata());
+
+            if (nuovaDataOra.isBefore(fineEsistente) && fineNuova.isAfter(inizioEsistente)) {
+                System.out.println("ERRORE: Impossibile spostare la proiezione. Il cinema è già occupato dal film: " + p.getFilm().getTitolo());
+                return false;
+            }
+        }
+
+        // Applica la modifica, ri-ordina e salva
+        proiezioneDaModificare.setDataOra(nuovaDataOra);
+        Collections.sort(palinsesto);
+
+        Proiezione.salvaProiezioni(palinsesto);
+
+        System.out.println("Data e ora della proiezione di \"" + titoloFilm + "\" aggiornate con successo a: " + nuovaDataOra);
+        return true;
+    }
+
+    // Metodi Getter e Setter
+    public String getNome() { 
+        return nome; 
+    }
+    
+    public void setNome(String nome) { 
+        this.nome = nome; 
+    }
+
+    public String getIdProiezionista() { 
+        return idProiezionista; 
+    }
+    
+    public void setIdProiezionista(String idProiezionista) { 
+        this.idProiezionista = idProiezionista; 
+    }
 }
