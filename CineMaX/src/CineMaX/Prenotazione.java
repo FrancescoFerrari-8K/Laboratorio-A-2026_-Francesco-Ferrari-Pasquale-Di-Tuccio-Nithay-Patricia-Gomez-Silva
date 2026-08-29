@@ -14,8 +14,10 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
-
-public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
+/**
+ * Questa classe crea oggetti di tipo prenotazione
+ */
+public class Prenotazione {  
 
 	// Campi
 	public static final String percorsoFile = "..\\data\\Prenotazioni.csv";
@@ -132,6 +134,9 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		return this.toString(false);
 	}
 
+	/*/
+	 * questo toString stampa le prenotazioni fatte dal cliente (uno mostra l'id della prenotazione, invece l'altro no)
+	 */
 	public String toString(boolean mostraID) {
 		if (mostraID == true) {
 			return "ID " + IDPrenotazione + " - " + Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo
@@ -140,13 +145,16 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 					+ Prezzo_Biglietto;
 		} else {
 			return "Prenotazione " + Nome + " " + Cognome + " - Proiezione: " + Proiezione_Titolo + " - Data: "
-					+ Proiezione_Data.toString() + " - NPostiPrenotati: " + NPosti + "- Prezzo del Biglietto: "
+					+ Proiezione_Data.toString() + " - Numero di posti prenotati: " + NPosti + " - Prezzo del Biglietto: "
 					+ Prezzo_Biglietto;
 		}
 
 	}
 
-	// questo metodo serve per generare un nuovo ID:
+	/*/
+	 * questo metodo serve per generare un nuovo ID per ogni utente. questo id è di ordine crescente 
+	 * per fare piu semplice la scelta del cliente 
+	 */
 	public static int generaNuovoID() {
 		// - carico tutte le prenotazione
 		ArrayList<Prenotazione> listaPrenotazioni = caricaPrenotazioni();
@@ -160,8 +168,11 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		// aggiungo 1
 	}
 
-	// mostriamo le prenotazione future perche quelle sono le uniche modificabili
-	// questo metodo serve per trovare una prenotazione con nome e cognome
+	/*/
+	 *  mostriamo le prenotazione future perche quelle sono le uniche modificabili.
+	 questo metodo serve per trovare una prenotazione con nome e cognome
+	 */
+	
 	public static ArrayList<Prenotazione> TrovaPrenotazioniConNomeECognome(String nome, String cognome,
 			ArrayList<Prenotazione> listaPrenotazione, boolean tutte) {
 		ArrayList<Prenotazione> risultato = new ArrayList<Prenotazione>(); // creo un nuovo arrayList di tipo
@@ -177,13 +188,16 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		}
 		return risultato;
 	}
-
-	// questo metodo estrae dal file di prenotazione tutte le prenotazione e me li
-	// ristituisce//
+	/*/
+	 *  questo metodo estrae dal file di prenotazione tutte le prenotazione e me li
+	 ristituisce
+	 */
 	public static ArrayList<Prenotazione> caricaPrenotazioni() {
 
-		// trova il percorso assoluto del file proiezioni.csv per rendere il metodo
-		// indipendente dalla macchina su cui è eseguito
+		/*/
+		 *  trova il percorso assoluto del file proiezioni.csv per rendere il metodo
+		 indipendente dalla macchina su cui è eseguito
+		 */
 		String percorso = new File(percorsoFile).getAbsolutePath(); // il doppio punto è per andare nella directory
 																	// padre
 
@@ -230,7 +244,9 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 		return listaPrenotazioni;
 	}
 
-	// questo metodo serve per aggiungere le prenotazioni al CSV//
+	/*/
+	 *  questo metodo serve per aggiungere le prenotazioni al CSV
+	 */
 	public static boolean aggiungiPrenotazioneAlCSV(Prenotazione prenotazione) {
 		try (FileWriter writer = new FileWriter(percorsoFile, true)) { // Apre il file indicato in percorsoFile. Il
 																		// parametro true attiva la modalità append, che
@@ -263,8 +279,9 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 			return false;
 		}
 	}
-
-	// questo metodo modifica la prenotazione//
+	/*/
+	 *  questo metodo modifica le prenotazione nel csv
+	 */
 	public static boolean modificaPrenotazioneNelCSV(int idPrenotazione, Prenotazione nuovaPrenotazione) {
 		List<String> righe = new ArrayList<>(); // se Crea una lista vuota che conterrà tutte le righe del file (sia
 												// l'intestazione che i dati)
@@ -306,8 +323,8 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 							+ nuovaPrenotazione.getProiezione_Data()
 									.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
 							+ "\"" + "," +
-							"\"" + nuovaPrenotazione.getProiezione_Titolo() + "\"" + "," +
-							nuovaPrenotazione.getNPosti() + "\"" + "," + nuovaPrenotazione.getPrezzoBiglietto();
+							 nuovaPrenotazione.getProiezione_Titolo() + "," +
+							nuovaPrenotazione.getNPosti() + "," + nuovaPrenotazione.getPrezzoBiglietto();
 					righe.add(nuovaRiga);
 				} else {
 					// Mantieni la riga originale
@@ -336,12 +353,11 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 			System.out.println("Errore durante la scrittura del file: " + e.getMessage());
 			return false;
 		}
-
-		System.out.println("Prenotazione modificata con successo.");
 		return true;
 	}
-
-	// questo metodo serve per eliminare una prenotazione dal csv//
+/*/
+ * 	 questo metodo serve per eliminare una prenotazione dal csv
+ */
 	public static boolean eliminaPrenotazioneDalCSV(int idPrenotazione) {
 		List<String> righe = new ArrayList<>();
 
@@ -392,10 +408,12 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 			return false;
 		}
 
-		System.out.println("Prenotazione eliminata con successo.");
+		System.out.println("Prenotazione eliminata con successo (tornando indietro)");
 		return true;
 	}
-	// questo metodo serve per sapere se il formato della data e valido oppure no//
+	/*/
+	 * 	questo metodo serve per sapere se il formato della data e valido oppure no
+	 */
 	public static boolean FormatoDiDataCorretto(String sceltaData) {
 
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/uuuu")
@@ -411,8 +429,9 @@ public class Prenotazione { // Questa classe crea oggetti di tipo prenotazione
 
 	}
 
-
-	//questo metodo serve per controllare le virgolette del titolo//
+/*/
+ * 	questo metodo serve per controllare le virgolette del titolo
+ */
 	public class CsvUtils {  
 
 		// Split che ignora le virgole dentro coppie di virgolette

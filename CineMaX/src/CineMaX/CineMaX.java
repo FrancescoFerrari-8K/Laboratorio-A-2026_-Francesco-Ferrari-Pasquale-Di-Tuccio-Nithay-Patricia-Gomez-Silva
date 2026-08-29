@@ -972,7 +972,7 @@ return null;
 //					Period età=Period.between(datautenteLD, dataoggi);
 					
 					try {
-						((Cliente)loggeduser).mostraMenuCliente(true);
+						((Cliente)loggeduser).mostraMenuCliente();
 					} catch (IOException e) {
 						System.out.println("Errore critico, file proiezioni.csv non rilevato!");
 					}
