@@ -186,7 +186,7 @@ public class Cliente extends Guest {
         System.out.println("-Scegli un numero (1,2,3) per continuare-");
         System.out.println("");
         System.out.println("1- Cerca proiezione e prenota");
-        System.out.println("2- Visualizzare le mie prenotazione");
+        System.out.println("2- Gestire le mie prenotazione");
         System.out.println("3- Logout");
         System.out.println("");
         System.out.print("Scelta: ");
