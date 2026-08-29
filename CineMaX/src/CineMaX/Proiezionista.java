@@ -10,7 +10,7 @@ import java.util.Collections;
  * Estende Guest e serve per gestire il palinsesto del cinema
  * (aggiungere, rimuovere e modificare le proiezioni).
  * 
- * @author Francesco Ferrari, Pasquale Di Tuccio, Nithay Patricia Gomez Silva
+ * @author Pasquale Di Tuccio
  */
 public class Proiezionista extends Guest {
 
