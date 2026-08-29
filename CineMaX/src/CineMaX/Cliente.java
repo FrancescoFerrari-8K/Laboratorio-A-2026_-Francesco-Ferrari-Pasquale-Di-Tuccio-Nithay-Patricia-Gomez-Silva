@@ -60,16 +60,22 @@ public class Cliente extends Guest {
     this.IDutente = IDutente;
   }
   // metodi//
-
-  // cerca proiezione (implementato da guest)//
-  // visulazza proiezione (implementato da guest)//
+/*/
+ *  cerca proiezione e un metodo implementato da guest.
+  visualizza proiezione (implementato da guest)
+ */
   public static Cliente getClienteDaFile(int IdCliente) {
-    // metodo che messo in input l'ID del cliente posso restituire un objetto del
-    // tipo cliente
+	  /*/
+	   * metodo che messo in input l'ID del cliente posso restituire un objetto del
+   tipo cliente
+	   */
     return null;
   }
 
-  // questo metodo serve per visualizzare le propie prenotazioni//
+  /*/
+   *  questo metodo serve per visualizzare le propie prenotazioni, siano quelle vechie che quelle nuove. ogni prenotazione ti mostra sia il nome, cognome,
+   *  
+   */
   public void visualizzaLeMiePrenotazioni() {
     // legge il file prenotazione
     // strae le prenotazioni a nome di questo cliente
@@ -81,11 +87,11 @@ public class Cliente extends Guest {
                                                                                  // prenotazioni trovate per quel
                                                                                  // determinato cliente
     System.out.println("");
-    System.out.println("Ricerca per:" + this.getNome() + " " + this.getCognome());
+    System.out.println("Ricerca per: " + this.getNome() + " " + this.getCognome());
     prenotazioniCliente = Prenotazione.TrovaPrenotazioniConNomeECognome(this.getNome(), this.getCognome(),
         l, true); // se salva la prenotazione trovata con nome e cognome da quel cliente
     System.out.println("");
-    System.out.println("PrenotazioniTrovate:" + prenotazioniCliente.size());
+    System.out.println("Prenotazioni Trovate: " + prenotazioniCliente.size());
     System.out.println("");
     for (Prenotazione elemento : prenotazioniCliente) {
       System.out.println(elemento.toString(false));// Scorre la lista delle prenotazioni trovate e stampa i
@@ -95,8 +101,10 @@ public class Cliente extends Guest {
     System.out.println("");
 
   }
-
-  // questo metodo serve per creare le prenotazione//
+/*/
+ *   questo metodo serve per creare le prenotazione dal cliente mostrando tutta la informazione compreso il prezzo totale 
+ *   delle prenotazioni dal utente 
+ */
   public boolean creaPrenotazione(Proiezione proiezioneSelezionata, int posti) {
     Scanner sc = new Scanner(System.in);
 
@@ -130,8 +138,9 @@ public class Cliente extends Guest {
     }
 
   }
-
-  // questo metodo serve per modificare le prenotazioni del CSV//
+/*/
+ * questo metodo serve per modificare le prenotazioni dal CSV 
+ */
   public boolean modificaPrenotazione(int idPrenotazione, Prenotazione nuovaPrenotazione) {
     boolean prenotazioneModificata = Prenotazione.modificaPrenotazioneNelCSV(idPrenotazione, nuovaPrenotazione);
     // se verifica se la prenotazione e quella che se vuo modificare con il boolean
@@ -169,7 +178,7 @@ public class Cliente extends Guest {
       Scanner sc = new Scanner(System.in);
 
       do {
-        // interfaccia di menuCliente//
+
         System.out.println("---MENU CLIENTE---");
         System.out.println("");
         System.out.println("Benvenuto/a: " + this.getNome() + " " + this.getCognome());
@@ -216,7 +225,9 @@ public class Cliente extends Guest {
           case 2:
             int sceltaPrenotazioni;
             do {
-              // interfaccia di prenotazione//
+            	/*/
+            	 *  interfaccia di prenotazione
+            	 */
               System.out.println("---LE MIE PRENOTAZIONI---");
               System.out.println("");
               System.out.println("-Scegli un numero per continuare-");
@@ -428,8 +439,9 @@ public class Cliente extends Guest {
     
 
   }
-
-  // metodo privato che serve a chiedere quanti posti prenotare per modificare
+/*/
+ *  metodo privato che serve a chiedere quanti posti prenotare per modificare
+ */
   private void chiediQuantiPostiPrenotareEmodifica(Proiezione proiezioneSelezionata,
       Prenotazione prenotazioneSelezionata) {
 
@@ -464,7 +476,9 @@ public class Cliente extends Guest {
     }
 
   }
-
+/*/
+ * metodo che serve a chiedere quanti numeri di posti sono disponibili 
+ */
   private int chiediNumeroDiPosti(Proiezione proiezioneSelezionata) {
 
     Scanner sc = new Scanner(System.in);
