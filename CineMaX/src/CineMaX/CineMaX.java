@@ -905,7 +905,10 @@ return null;
 		System.out.println("Username: ");
 		String username=input.nextLine();
 		System.out.println("Password: ");
-		String pword=CineMaX.sha256Hash(input.nextLine()); //Cripta la password inserita per cofrontarla con quella nel file;
+		String pword=input.nextLine();
+		//char[] criptpword=System.console().readPassword(input.nextLine());//nasconde la password a console (non funziona su IDE)
+		//String pword=String.valueOf(criptpword);
+		pword=CineMaX.sha256Hash(pword); //Cripta la password inserita per cofrontarla con quella nel file;
 		try {
 			FileReader filerd = new FileReader(percorsofile);
 			BufferedReader buff= new BufferedReader(filerd);

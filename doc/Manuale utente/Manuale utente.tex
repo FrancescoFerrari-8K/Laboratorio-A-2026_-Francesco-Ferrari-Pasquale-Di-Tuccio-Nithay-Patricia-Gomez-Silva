@@ -211,13 +211,91 @@ Se si decide di proseguire come cliente comapre il menù mostrato in figura, in 
 \includegraphics[scale=1]{IMGS/menuutente}
 \caption{Menù cliente}
 \end{figure}
+
 \subsection{Cercare una proiezione ed effettuare una prenotazione}
-Se si preme il tasto 1 è possibile cercare proiezioni e prenotare posti in sala. La ricerca dei film la stessa che si può effettuare come utente guest, quindi per i dettagli si rimanda alla sezione \ref{subsec:ricercaguest}
-\section{Proiezionista}
+Se si preme il tasto 1 è possibile cercare proiezioni e prenotare posti in sala. La ricerca dei film è la stessa che si può effettuare come utente guest, quindi per i dettagli si rimanda alla sezione \ref{subsec:ricercaguest}.
+Dopo aver effettuato la ricerca, alla richiesta"Si desidera visualizzare i dettagli di una delle proiezioni cercate?" è necessario premere 0 per proseguire con la prenotazione;  in seguito l'applicazione chiederà se si vuole selezionare una delle prenotazioni trovate, si deve premere 1 se si desidera prenotare per una delle proiezioni mostrate oppure 0 per tornare al menù cliente.
+In caso si voglia proseguire con la prenotazione sarà necessario digitare il numero della proiezione per cui si desidera prenotare e indicare il numero di posti da riservare; il programma calcola e mostra il prezzo totale della prenotazione e chiede se si vuole proseguire alla finalizzazione: l'utente dovrà digitare s in caso affermativo, altrimenti n per tornare al menù cliente.
+Se la prenotazione va a buon fine verrà mostrato un messaggio di esito positivo, altrimenti ne mostrerà uno di errore e si verrà reindirizzati al menù cliente.
+
 \begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.6]{IMGS/prenotazione}
+\caption{Esempio di prenotazione, il numero della proiezione è indicato in alto a sinistra rispetto a ogni proiezione mostrata}
+\end{figure}
+
+\subsection{Interagire con le prenotazioni effettuate}
+Per Interagire con le prenotazioni effettuate l'utente deve digitare 2 nel menù cliente: comparirà il menù di gestione delle prenotazioni per mezzo del quale è possibile visualizzare, modificare o eliminare le prenotazioni dell'utente.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=1]{IMGS/menuprenotazioni}
+\caption{Menù di gestione delle prenotazioni}
+\end{figure}
+
+Se digita 1 l'utente può visualizzare ogni prenotazione che ha effettuato presso il cinema, per ritornare al menù proiezioni è necessario premere 0.\\
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=1]{IMGS/tuttelemieprenotazioni}
+\caption{Quando si visualizzano le prentazioni, si vedono anche quelle passate}
+\end{figure}
+
+Per modificare una prenotazione è invece necessario digitare 2 nel menù di gestione; è possibile modificare il numero di posti riservati oppure la data della prenotazione per quella proiezione, in questo caso l'utente viene reindirizzato all'interfaccia di prenotazione per un'altra proiezione con lo stesso titolo di quella precedentemente prenotata.\\
+
+\begin{figure}
+\includegraphics[scale=0.6]{IMGS/modificaposti}
+\caption{Esempio di modifica del numero di posti}
+\end{figure}
+
+Infine, se desidera eliminare una proiezione, l'utente deve premere 3 nel menù di gestione delle prenotazioni; l'applicazione mostrerà l'elenco numerato delle prenotazioni effettuate e chiederà di inserire il numero di quella da eliminare, dopo averlo inserito all'utente verrà chiesto di digitare s se vuole procedere oppure n per ritornare al menù di gestione delle prenotazioni.
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{IMGS/eliminaprenotazione}
+\caption{Esempio di eliminazione di una prenotazione}
+\end{figure}
+
+\subsection{Logout}
+Se si preme il tasto 0 si ritorna al menu iniziale dell'app.
+
+\section{Proiezionista}
+Dopo aver effettuato con successo il login con un account di tipo proiezionista (con username nel formato **PRO[numero]), viene visualizzato il menù di gestione. Attraverso questo menù l'operatore può gestire l'intero palinsesto del cinema mediante le seguenti opzioni:
+
+\begin{figure}[!htbp]
+\centering
 \includegraphics[scale=0.5]{IMGS/menuproiezionista}
 \caption{Menù proiezionista}
 \end{figure}
+
+\subsection{Inserire una proiezione nel palinsesto}
+Premendo il tasto 1, l'applicazione avvia la procedura guidata per l'inserimento di un nuovo spettacolo. Viene richiesto all'utente di inserire i dettagli del film (titolo, genere, regista, anno di pubblicazione, durata ed età minima) insieme alla data, all'ora e al prezzo del biglietto. 
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/inserimentoproiezione}
+\caption{Esempio di aggiunta di una proiezione al palinsesto}
+\end{figure}
+
+\subsection{Cancellare una proiezione dal palinsesto}
+Premendo il tasto 2, l'operatore può cancellare un evento esistente fornendo il titolo del film e la data e ora esatta della proiezione da rimuovere.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/cancellaproiezione}
+\caption{Esempio di rimozione di una proiezione dal palinsesto}
+\end{figure}
+
+\subsection{Modificare data o orario di una prenotazione}
+Premendo il tasto 3, è possibile spostare l'orario o data di uno spettacolo già in programma. L'utente deve specificare il titolo del film, la data/ora attuale e la nuova data/ora desiderata.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/modificaproiezione}
+\caption{Esempio di modifica di una proiezione}
+\end{figure}
+
+\subsection{Logout}
+Se si preme il tasto 0 si ritorna al menu iniziale dell'app.
 
 \section{Bigliettaio}
 \begin{figure}[!htbp]
@@ -225,9 +303,8 @@ Se si preme il tasto 1 è possibile cercare proiezioni e prenotare posti in sala
 \caption{Menù bigliettaio}
 \end{figure}
 
-
-
-
+\subsection{Logout}
+Se si preme il tasto 0 si ritorna al menu iniziale dell'app.
 
 
 \end{document}
