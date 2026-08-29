@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  29 AUG 2026 15:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  29 AUG 2026 17:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1331,7 +1331,7 @@ out)
 Package translations Info: no dictionary file `translations-basic-dictionary-it
 alian.trsl' found. on input line 7.
 \c@lstlisting=\count431
-<IMGS/copertina.jpg, id=55, 201.75375pt x 135.50626pt>
+<IMGS/copertina.jpg, id=71, 201.75375pt x 135.50626pt>
 File: IMGS/copertina.jpg Graphic file (type jpg)
 <use IMGS/copertina.jpg>
 Package pdftex.def Info: IMGS/copertina.jpg  used on input line 10.
@@ -1479,7 +1479,7 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 
 ] [6]
 Capitolo 3.
-<IMGS/menuavvio.png, id=99, 673.01437pt x 210.7875pt>
+<IMGS/menuavvio.png, id=119, 673.01437pt x 210.7875pt>
 File: IMGS/menuavvio.png Graphic file (type png)
 <use IMGS/menuavvio.png>
 Package pdftex.def Info: IMGS/menuavvio.png  used on input line 76.
@@ -1496,7 +1496,7 @@ File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 11.39996pt on input line 77.
-<IMGS/ricercadamenuprincipale.png, id=101, 1032.85875pt x 551.05875pt>
+<IMGS/ricercadamenuprincipale.png, id=121, 1032.85875pt x 551.05875pt>
 File: IMGS/ricercadamenuprincipale.png Graphic file (type png)
 <use IMGS/ricercadamenuprincipale.png>
 Package pdftex.def Info: IMGS/ricercadamenuprincipale.png  used on input line 9
@@ -1511,7 +1511,7 @@ Overfull \hbox (267.75209pt too wide) in paragraph at lines 95--96
 
  <./IMGS/menuavvio.png>] [8 <./IMGS/ricercadamenuprincipale.png>]
 Capitolo 4.
-<IMGS/registrazioneok.png, id=116, 371.13657pt x 241.65282pt>
+<IMGS/registrazioneok.png, id=136, 371.13657pt x 241.65282pt>
 File: IMGS/registrazioneok.png Graphic file (type png)
 <use IMGS/registrazioneok.png>
 Package pdftex.def Info: IMGS/registrazioneok.png  used on input line 118.
@@ -1520,17 +1520,17 @@ Package pdftex.def Info: IMGS/registrazioneok.png  used on input line 118.
 
  <./IMGS/registrazioneok.png>]
 Capitolo 5.
-<IMGS/loginriuscito.png, id=125, 636.12656pt x 290.58563pt>
+<IMGS/loginriuscito.png, id=145, 636.12656pt x 290.58563pt>
 File: IMGS/loginriuscito.png Graphic file (type png)
 <use IMGS/loginriuscito.png>
 Package pdftex.def Info: IMGS/loginriuscito.png  used on input line 127.
 (pdftex.def)             Requested size: 318.0625pt x 145.29245pt.
-<IMGS/loginfallito.png, id=126, 642.90187pt x 287.57437pt>
+<IMGS/loginfallito.png, id=146, 642.90187pt x 287.57437pt>
 File: IMGS/loginfallito.png Graphic file (type png)
 <use IMGS/loginfallito.png>
 Package pdftex.def Info: IMGS/loginfallito.png  used on input line 132.
 (pdftex.def)             Requested size: 321.45015pt x 143.78683pt.
-<IMGS/menuguest.png, id=127, 542.77782pt x 184.43906pt>
+<IMGS/menuguest.png, id=147, 542.77782pt x 184.43906pt>
 File: IMGS/menuguest.png Graphic file (type png)
 <use IMGS/menuguest.png>
 Package pdftex.def Info: IMGS/menuguest.png  used on input line 139.
@@ -1541,23 +1541,35 @@ Underfull \vbox (badness 1490) has occurred while \output is active []
  [10
 
  <./IMGS/loginriuscito.png> <./IMGS/loginfallito.png>]
-<IMGS/menuutente.png, id=136, 233.37187pt x 102.3825pt>
+<IMGS/menuricercaproiezione.png, id=156, 495.35063pt x 182.93344pt>
+File: IMGS/menuricercaproiezione.png Graphic file (type png)
+<use IMGS/menuricercaproiezione.png>
+Package pdftex.def Info: IMGS/menuricercaproiezione.png  used on input line 148
+.
+(pdftex.def)             Requested size: 247.67471pt x 91.46649pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--184
+
+ []
+
+[11 <./IMGS/menuguest.png> <./IMGS/menuricercaproiezione.png>]
+<IMGS/menuutente.png, id=166, 233.37187pt x 102.3825pt>
 File: IMGS/menuutente.png Graphic file (type png)
 <use IMGS/menuutente.png>
-Package pdftex.def Info: IMGS/menuutente.png  used on input line 147.
+Package pdftex.def Info: IMGS/menuutente.png  used on input line 211.
 (pdftex.def)             Requested size: 233.37129pt x 102.38225pt.
-<IMGS/menuproiezionista.png, id=137, 447.92343pt x 189.70876pt>
+ [12 <./IMGS/menuutente.png>]
+<IMGS/menuproiezionista.png, id=174, 447.92343pt x 189.70876pt>
 File: IMGS/menuproiezionista.png Graphic file (type png)
 <use IMGS/menuproiezionista.png>
-Package pdftex.def Info: IMGS/menuproiezionista.png  used on input line 153.
+Package pdftex.def Info: IMGS/menuproiezionista.png  used on input line 218.
 (pdftex.def)             Requested size: 223.96117pt x 94.85414pt.
-<IMGS/menubigliettaio.png, id=138, 417.81094pt x 158.84344pt>
+<IMGS/menubigliettaio.png, id=175, 417.81094pt x 158.84344pt>
 File: IMGS/menubigliettaio.png Graphic file (type png)
 <use IMGS/menubigliettaio.png>
-Package pdftex.def Info: IMGS/menubigliettaio.png  used on input line 159.
+Package pdftex.def Info: IMGS/menubigliettaio.png  used on input line 224.
 (pdftex.def)             Requested size: 208.90495pt x 79.42152pt.
- [11 <./IMGS/menuguest.png> <./IMGS/menuutente.png> <./IMGS/menuproiezionista.p
-ng>] [12 <./IMGS/menubigliettaio.png>]
+ [13 <./IMGS/menuproiezionista.png> <./IMGS/menubigliettaio.png>]
 (C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale
 -Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale utente\build\Manuale utente.
 aux)
@@ -1566,16 +1578,16 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
 Package rerunfilecheck Info: File `"Manuale utente".out' has not changed.
-(rerunfilecheck)             Checksum: F2D0671E27276A0CCB8C31599CD5B3D1;1767.
+(rerunfilecheck)             Checksum: F97137D9163778EA7324F09AE6A7C684;2543.
  ) 
 Here is how much of TeX's memory you used:
- 31652 strings out of 467691
- 601465 string characters out of 5414987
- 1047362 words of memory out of 5000000
- 60066 multiletter control sequences out of 15000+600000
- 669673 words of font info for 110 fonts, out of 8000000 for 9000
+ 31678 strings out of 467691
+ 602102 string characters out of 5414987
+ 1049362 words of memory out of 5000000
+ 60085 multiletter control sequences out of 15000+600000
+ 674120 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 133i,8n,133p,678b,1063s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 133i,8n,133p,849b,1098s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmr10.pfb><C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helveti
 c/uhvr8a.pfb><C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/urw/pala
@@ -1585,9 +1597,9 @@ imes/utmr8a.pfb><C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/urw/t
 imes/utmr8a.pfb>
 Output written on "C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesc
 o-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale utente\bui
-ld\Manuale utente.pdf" (12 pages, 192647 bytes).
+ld\Manuale utente.pdf" (13 pages, 271434 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
- 37 named destinations out of 1000 (max. 500000)
- 155 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 225 PDF objects out of 1000 (max. 8388607)
+ 43 named destinations out of 1000 (max. 500000)
+ 192 words of extra memory for PDF output out of 10000 (max. 10000000)
 

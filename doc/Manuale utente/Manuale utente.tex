@@ -96,7 +96,7 @@ in alternativa è possibile digitare qualsiasi cosa, che verrà interpretata com
 \caption{Esempio di ricerca di un film da menù di avvio, il titolo è stato inserito volutamente incompleto e con maiuscole e minuscole}
 \end{figure}
 
-\chapter{Registrazione}
+\chapter{Registrazione}\label{chap:reg}
 L'applicazione consente la registrazione da terminale di un nuovo account esclusivamente di tipo cliente, per cominciare il processo è necessario premere il tasto 2 nel menù principale.
 L'applicazione chiederà di inserire le seguenti informazioni in quest'ordine:
 \begin{center}
@@ -134,20 +134,85 @@ Per effettuare il login di un account il programma richiede username e password,
 \end{figure}
 
 \section{Guest}
-Se si decide di proseguire come guest comapre il menù mostrato in figura, in cui è possibile selezionare l'azione da compiere premendo un tasto numerico, qualsiasi altro tasto premuto sarà interpretato come titolo anche parziale di un film e sarà effettuata la ricerca delle proiezioni aventi quel titolo come nel menù principale.
+Se si decide di proseguire come guest compare il menù mostrato in figura, in cui è possibile selezionare l'azione da compiere premendo un tasto numerico, qualsiasi altro tasto premuto sarà interpretato come titolo anche parziale di un film e sarà effettuata la ricerca delle proiezioni aventi quel titolo come nel menù principale.
 \begin{figure}[!htbp]
 \includegraphics[scale=0.5]{IMGS/menuguest}
 \caption{Menù utente guest}
 \end{figure}
 
+\subsection{Ricerca di una proiezione}\label{subsec:ricercaguest}
+Quando si accede alla funzionalità di ricerca di una proiezione verrà visualizzato il menù mostrato in figura
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/menuricercaproiezione}
+\caption{Menù ricerca proiezione}
+\end{figure}
+
+Nel menù è possibile scegliere il criterio secondo cui effettuare la ricerca di una proiezione, oppure annullare la ricerca. I criteri disponibili sono:
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] Ricerca per titolo di film
+\item[•] Ricerca per genere di film 
+\item[•] Ricerca per data della proiezione 
+\item[•] Ricerca per prezzo del biglietto della proiezione 
+\item[•] Ricerca per una combinazione (a scelta) dei precedenti criteri di ricerca
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+In base al criterio scelto l’applicazione chiederà le informazioni necessarie.
+Nella ricerca per titolo verrà richiesto di inserire il titolo del film (anche parziale).
+Nella ricerca per genere verrà richiesto di inserire il genere del film (anche parziale).
+Nella ricerca per data verrà richiesto se si desidera cercare
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] Proiezioni prima di una certa data
+\item[•] Proiezioni dopo una certa data
+\item[•] Proiezioni comprese tra due date 
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+e a seconda dell’opzione scelta verrà richiesto di inserire la data o le date da usare come criterio di ricerca.\\
+\\
+Nella ricerca per prezzo del biglietto verrà richiesto se si desidera cercare
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] Proiezioni con prezzo minore di un certo valore
+\item[•] Proiezioni con prezzo maggiore di un certo valore
+\item[•] Proiezione con prezzo compreso tra due valori
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+e a seconda dell’opzione scelta verrà richiesto di inserire il prezzo o i prezzi da usare come criterio di ricerca.\\
+Nella ricerca per combinazione di criteri l’applicazione chiederà di indicare quali dei criteri precedentemente menzionati si desidera utilizzare per la ricerca. A seconda di quali criteri vengono selezionati richiederà di inserire, per ogni criterio scelto, le informazioni necessarie per quel criterio in maniera simile a come avviene nel caso in cui si effettuasse una ricerca secondo solo quel criterio (ad esempio, nel caso in cui si selezionassero come criteri di ricerca il genere e il prezzo l’applicazione chiederà per il genere di inserire un genere (anche parziale) e per il prezzo di scegliere se cercare proiezioni con prezzo minore di un certo valore, maggiore valore o compreso tra due valori e a seconda dell’opzione scelta di inserire il prezzo/i prezzi da usare come criterio).\\
+Nel caso in cui la ricerca non avesse risultati allora l’applicazione comunicherà tale informazione.\\
+Nel caso in cui la ricerca avesse risultati allora le proiezioni che rispettano il criterio utilizzato verranno visualizzate, numerate a partire da 1; l’applicazione richiederà se si desidera visualizzare una delle proiezioni cercate in dettaglio e, in caso affermativo, richiederà di inserire il numero della proiezione che si desidera visualizzare in dettaglio.
+
+\subsection{Registrazione}
+Si vedano le funzionalità del capitolo \ref{chap:reg}.
+
+\subsection{Logout}
+Se si preme il tasto 0 si ritorna al menu iniziale dell'app.
+
 \section{Cliente}
 Se si decide di proseguire come cliente comapre il menù mostrato in figura, in cui è possibile selezionare l'azione da compiere premendo un tasto numerico, qualsiasi altro tasto premuto genera un messaggio di selezione invalida.
+
 \begin{figure}[!htbp]
 \centering
 \includegraphics[scale=1]{IMGS/menuutente}
 \caption{Menù cliente}
 \end{figure}
-
+\subsection{Cercare una proiezione ed effettuare una prenotazione}
+Se si preme il tasto 1 è possibile cercare proiezioni e prenotare posti in sala. La ricerca dei film la stessa che si può effettuare come utente guest, quindi per i dettagli si rimanda alla sezione \ref{subsec:ricercaguest}
 \section{Proiezionista}
 \begin{figure}[!htbp]
 \includegraphics[scale=0.5]{IMGS/menuproiezionista}
