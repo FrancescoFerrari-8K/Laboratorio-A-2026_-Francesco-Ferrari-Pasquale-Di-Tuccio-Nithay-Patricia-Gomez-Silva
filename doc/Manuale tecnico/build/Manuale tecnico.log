@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  30 AUG 2026 19:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  31 AUG 2026 00:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1632,11 +1632,11 @@ Capitolo 1.
 
 ]
 Capitolo 2.
-<IMGS/alberoclassi.png, id=125, 800.9925pt x 277.035pt>
+<IMGS/alberoclassi.png, id=125, 782.17218pt x 261.97874pt>
 File: IMGS/alberoclassi.png Graphic file (type png)
 <use IMGS/alberoclassi.png>
 Package pdftex.def Info: IMGS/alberoclassi.png  used on input line 56.
-(pdftex.def)             Requested size: 400.49527pt x 138.51715pt.
+(pdftex.def)             Requested size: 391.08513pt x 130.98904pt.
 LaTeX Font Info:    Trying to load font information for T1+phv on input line 57
 .
 (C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1phv.fd
@@ -1675,15 +1675,52 @@ Overfull \hbox (140.5363pt too wide) in paragraph at lines 94--95
  []
 
 [6 <./IMGS/classefilm.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+<IMGS/Proiezione.png, id=155, 703.12688pt x 389.20406pt>
+File: IMGS/Proiezione.png Graphic file (type png)
+<use IMGS/Proiezione.png>
+Package pdftex.def Info: IMGS/Proiezione.png  used on input line 119.
+(pdftex.def)             Requested size: 421.87938pt x 233.52423pt.
+ [7 <./IMGS/stampacampifilm.png>]
+<IMGS/menuavvio.png, id=170, 673.01437pt x 210.7875pt>
+File: IMGS/menuavvio.png Graphic file (type png)
+<use IMGS/menuavvio.png>
+Package pdftex.def Info: IMGS/menuavvio.png  used on input line 164.
+(pdftex.def)             Requested size: 336.50636pt x 105.3935pt.
+ [8 <./IMGS/Proiezione.png>]
+<IMGS/metodomain.png, id=179, 957.5775pt x 258.9675pt>
+File: IMGS/metodomain.png Graphic file (type png)
+<use IMGS/metodomain.png>
+Package pdftex.def Info: IMGS/metodomain.png  used on input line 171.
+(pdftex.def)             Requested size: 478.78758pt x 129.48341pt.
 
- [7 <./IMGS/stampacampifilm.png>] [8]
+Overfull \hbox (23.54347pt too wide) in paragraph at lines 171--172
+ [][] 
+ []
+
+<IMGS/menuguest.png, id=181, 542.77782pt x 184.43906pt>
+File: IMGS/menuguest.png Graphic file (type png)
+<use IMGS/menuguest.png>
+Package pdftex.def Info: IMGS/menuguest.png  used on input line 185.
+(pdftex.def)             Requested size: 271.38824pt x 92.2193pt.
+<IMGS/default.png, id=182, 747.54282pt x 638.385pt>
+File: IMGS/default.png Graphic file (type png)
+<use IMGS/default.png>
+Package pdftex.def Info: IMGS/default.png  used on input line 191.
+(pdftex.def)             Requested size: 373.7705pt x 319.19171pt.
+[9 <./IMGS/menuavvio.png> <./IMGS/metodomain.png>] [10 <./IMGS/menuguest.png> <
+./IMGS/default.png>]
+<IMGS/logout.png, id=200, 757.32938pt x 98.61844pt>
+File: IMGS/logout.png Graphic file (type png)
+<use IMGS/logout.png>
+Package pdftex.def Info: IMGS/logout.png  used on input line 200.
+(pdftex.def)             Requested size: 378.66376pt x 49.30908pt.
+ [11 <./IMGS/logout.png>]
 Capitolo 3.
-[9
+[12
 
 ]
 Capitolo 4.
-[10
+[13
 
 ]
 (C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale
@@ -1701,13 +1738,13 @@ Package rerunfilecheck Info: File `"Manuale tecnico".out' has not changed.
 (rerunfilecheck)             Checksum: 3C7F524445828856EAB1BFF57023A847;2811.
  ) 
 Here is how much of TeX's memory you used:
- 32224 strings out of 467691
- 610831 string characters out of 5414987
- 1061751 words of memory out of 5000000
- 60599 multiletter control sequences out of 15000+600000
+ 32303 strings out of 467691
+ 612563 string characters out of 5414987
+ 1064749 words of memory out of 5000000
+ 60668 multiletter control sequences out of 15000+600000
  670566 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 133i,10n,133p,704b,1066s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 133i,10n,133p,979b,1082s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx12.pfb><C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx9.pfb><C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/pu
@@ -1719,9 +1756,9 @@ KTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/franc/AppData/Local/Programs/Mi
 KTeX/fonts/type1/urw/times/utmr8a.pfb>
 Output written on "C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesc
 o-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale tecnico\bu
-ild\Manuale tecnico.pdf" (10 pages, 272762 bytes).
+ild\Manuale tecnico.pdf" (13 pages, 422789 bytes).
 PDF statistics:
- 225 PDF objects out of 1000 (max. 8388607)
- 50 named destinations out of 1000 (max. 500000)
- 141 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 263 PDF objects out of 1000 (max. 8388607)
+ 60 named destinations out of 1000 (max. 500000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
 

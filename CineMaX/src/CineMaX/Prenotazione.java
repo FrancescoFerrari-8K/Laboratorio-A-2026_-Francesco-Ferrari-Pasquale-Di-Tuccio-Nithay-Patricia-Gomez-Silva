@@ -134,7 +134,7 @@ public class Prenotazione {
 		return this.toString(false);
 	}
 
-	/*/
+	/**
 	 * questo toString stampa le prenotazioni fatte dal cliente (uno mostra l'id della prenotazione, invece l'altro no)
 	 */
 	public String toString(boolean mostraID) {
@@ -151,7 +151,7 @@ public class Prenotazione {
 
 	}
 
-	/*/
+	/**
 	 * questo metodo serve per generare un nuovo ID per ogni utente. questo id è di ordine crescente 
 	 * per fare piu semplice la scelta del cliente 
 	 */
@@ -168,7 +168,7 @@ public class Prenotazione {
 		// aggiungo 1
 	}
 
-	/*/
+	/**
 	 *  mostriamo le prenotazione future perche quelle sono le uniche modificabili.
 	 questo metodo serve per trovare una prenotazione con nome e cognome
 	 */
@@ -188,13 +188,13 @@ public class Prenotazione {
 		}
 		return risultato;
 	}
-	/*/
+	/**
 	 *  questo metodo estrae dal file di prenotazione tutte le prenotazione e me li
 	 ristituisce
 	 */
 	public static ArrayList<Prenotazione> caricaPrenotazioni() {
 
-		/*/
+		/**
 		 *  trova il percorso assoluto del file proiezioni.csv per rendere il metodo
 		 indipendente dalla macchina su cui è eseguito
 		 */
@@ -244,7 +244,7 @@ public class Prenotazione {
 		return listaPrenotazioni;
 	}
 
-	/*/
+	/**
 	 *  questo metodo serve per aggiungere le prenotazioni al CSV
 	 */
 	public static boolean aggiungiPrenotazioneAlCSV(Prenotazione prenotazione) {
@@ -279,7 +279,7 @@ public class Prenotazione {
 			return false;
 		}
 	}
-	/*/
+	/**
 	 *  questo metodo modifica le prenotazione nel csv
 	 */
 	public static boolean modificaPrenotazioneNelCSV(int idPrenotazione, Prenotazione nuovaPrenotazione) {
@@ -355,7 +355,7 @@ public class Prenotazione {
 		}
 		return true;
 	}
-/*/
+/**
  * 	 questo metodo serve per eliminare una prenotazione dal csv
  */
 	public static boolean eliminaPrenotazioneDalCSV(int idPrenotazione) {
@@ -411,7 +411,7 @@ public class Prenotazione {
 		System.out.println("Prenotazione eliminata con successo (tornando indietro)");
 		return true;
 	}
-	/*/
+	/**
 	 * 	questo metodo serve per sapere se il formato della data e valido oppure no
 	 */
 	public static boolean FormatoDiDataCorretto(String sceltaData) {
@@ -429,7 +429,7 @@ public class Prenotazione {
 
 	}
 
-/*/
+/**
  * 	questo metodo serve per controllare le virgolette del titolo
  */
 	public class CsvUtils {  

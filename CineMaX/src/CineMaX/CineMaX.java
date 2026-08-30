@@ -950,14 +950,12 @@ return null;
  * @param args
  */
 	public static void main(String[] args) {
-		// All'avvio l'app mostra menù iniziale in cui è possibile fare 3 cose: loggarsi, registrarsi o proseguire come utente non registrato (guest).
-		// ecc ecc
 		boolean On=true; //questa variabile serve per effettuare l'interruzione dell'esecuzione dell'applicazione
 		Guest loggeduser;//questa variabile salva l'utente correntemente loggato
 		while(On==true) {
 			System.out.println("*****CineMaX*******");
 			//cosa vuoi fare? loggarti, registrarti o proseguire come guest?
-			//rimango nel ciclo grande fino a quando non chiudo l'app
+			//rimango nel ciclo di esecuzione principale fino a quando non chiudo l'app
 			Scanner Kinput=new Scanner(System.in);//refresh dello scanner ad ogni iterazione per pulire la storia delle operazioni
 			System.out.println("Cosa vuoi fare oggi?\n ");
 			System.out.println("Digita il titolo anche parziale di un film per proseguire come guest ed effettuare la ricerca\n");
@@ -1186,13 +1184,14 @@ LocalDateTime dataOraParsed = LocalDateTime.parse(dataStringa.trim(), formatter)
 							continue;
 						} catch (FileNotFoundException e) {
 							System.out.println("Errore critico, file proiezioni.csv non trovato!");
+							break;
 						}
-						break;
+						
 					case "2":
 						CineMaX.Registrati();
 						break;
 					case "0":
-						System.out.println("Grazie per aver usato la nostra app, a presto!");
+						System.out.println("Arrivederci! Grazie per aver usato la nostra app!");
 						break;
 					default:
 						try {

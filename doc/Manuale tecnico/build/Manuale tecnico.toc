@@ -10,27 +10,28 @@
 \contentsline {subsection}{\numberline {2.2.1}Le classi}{5}{subsection.0.2.2.1}%
 \contentsline {subsubsection}{La classe Film}{6}{section*.4}%
 \contentsline {subsubsection}{La classe Proiezione}{7}{section*.7}%
-\contentsline {subsubsection}{La classe Prenotazione}{7}{section*.8}%
-\contentsline {subsubsection}{La classe Guest}{7}{section*.9}%
-\contentsline {subsubsection}{La classe Cliente}{7}{section*.10}%
-\contentsline {subsubsection}{La classe Proiezionista}{7}{section*.11}%
-\contentsline {subsubsection}{La classe Bigliettaio}{7}{section*.12}%
-\contentsline {subsubsection}{La classe CineMaX}{7}{section*.13}%
+\contentsline {subsubsection}{La classe Prenotazione}{7}{section*.9}%
+\contentsline {subsubsection}{La classe Guest}{8}{section*.10}%
+\contentsline {subsubsection}{La classe Cliente}{8}{section*.11}%
+\contentsline {subsubsection}{La classe Proiezionista}{8}{section*.12}%
+\contentsline {subsubsection}{La classe Bigliettaio}{8}{section*.13}%
+\contentsline {subsubsection}{La classe CineMaX}{8}{section*.14}%
 \contentsline {subsection}{\numberline {2.2.2}Il ciclo di esecuzione principale}{8}{subsection.0.2.2.2}%
-\contentsline {subsubsection}{Registrarsi}{8}{section*.14}%
-\contentsline {subsubsection}{Effettuare il login}{8}{section*.15}%
-\contentsline {subsubsection}{Login come Guest e ricerca di un film}{8}{section*.16}%
-\contentsline {subsection}{\numberline {2.2.3}Funzionalità dell'utente di tipo cliente}{8}{subsection.0.2.2.3}%
-\contentsline {subsubsection}{Ricerca di una proiezione}{8}{section*.17}%
-\contentsline {subsubsection}{Effettuare una prenotazione}{8}{section*.18}%
-\contentsline {subsubsection}{Cancellare una prenotazione}{8}{section*.19}%
-\contentsline {subsection}{\numberline {2.2.4}Funzionalità dell'utente di tipo proiezionista}{8}{subsection.0.2.2.4}%
-\contentsline {subsubsection}{Ricerca di una proiezione}{8}{section*.20}%
-\contentsline {subsubsection}{Effettuare una prenotazione}{8}{section*.21}%
-\contentsline {subsubsection}{Cancellare una prenotazione}{8}{section*.22}%
-\contentsline {subsection}{\numberline {2.2.5}Funzionalità dell'utente di tipo bigliettaio}{8}{subsection.0.2.2.5}%
-\contentsline {subsubsection}{Visualizzare tutte le prenotazioni in data odierna}{8}{section*.23}%
-\contentsline {subsubsection}{Visualizzare le prenotazioni effettuate da un cliente}{8}{section*.24}%
-\contentsline {section}{\numberline {2.3}Data set di test}{8}{section.0.2.3}%
-\contentsline {chapter}{\numberline {3}Limiti della soluzione proposta}{9}{chapter.0.3}%
-\contentsline {chapter}{\numberline {4}Bibliografia}{10}{chapter.0.4}%
+\contentsline {subsubsection}{Registrarsi}{9}{section*.17}%
+\contentsline {subsubsection}{Effettuare il login}{9}{section*.18}%
+\contentsline {subsubsection}{Login come Guest e ricerca di un film}{9}{section*.19}%
+\contentsline {subsubsection}{Logout}{11}{section*.22}%
+\contentsline {subsection}{\numberline {2.2.3}Funzionalità dell'utente di tipo cliente}{11}{subsection.0.2.2.3}%
+\contentsline {subsubsection}{Ricerca di una proiezione}{11}{section*.24}%
+\contentsline {subsubsection}{Effettuare una prenotazione}{11}{section*.25}%
+\contentsline {subsubsection}{Cancellare una prenotazione}{11}{section*.26}%
+\contentsline {subsection}{\numberline {2.2.4}Funzionalità dell'utente di tipo proiezionista}{11}{subsection.0.2.2.4}%
+\contentsline {subsubsection}{Ricerca di una proiezione}{11}{section*.27}%
+\contentsline {subsubsection}{Effettuare una prenotazione}{11}{section*.28}%
+\contentsline {subsubsection}{Cancellare una prenotazione}{11}{section*.29}%
+\contentsline {subsection}{\numberline {2.2.5}Funzionalità dell'utente di tipo bigliettaio}{11}{subsection.0.2.2.5}%
+\contentsline {subsubsection}{Visualizzare tutte le prenotazioni in data odierna}{11}{section*.30}%
+\contentsline {subsubsection}{Visualizzare le prenotazioni effettuate da un cliente}{11}{section*.31}%
+\contentsline {section}{\numberline {2.3}Data set di test}{11}{section.0.2.3}%
+\contentsline {chapter}{\numberline {3}Limiti della soluzione proposta}{12}{chapter.0.3}%
+\contentsline {chapter}{\numberline {4}Bibliografia}{13}{chapter.0.4}%
