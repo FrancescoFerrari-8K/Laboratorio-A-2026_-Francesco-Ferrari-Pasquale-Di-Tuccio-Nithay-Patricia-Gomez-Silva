@@ -23,4 +23,6 @@
 \contentsline {subsection}{\numberline {5.3.3}Modificare data o orario di una prenotazione}{15}{subsection.0.5.3.3}%
 \contentsline {subsection}{\numberline {5.3.4}Logout}{17}{subsection.0.5.3.4}%
 \contentsline {section}{\numberline {5.4}Bigliettaio}{18}{section.0.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Logout}{18}{subsection.0.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.1}Visualizzare le prenotazioni in data odierna}{18}{subsection.0.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Effettuare la ricerca di una prenotazione}{18}{subsection.0.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Logout}{19}{subsection.0.5.4.3}%

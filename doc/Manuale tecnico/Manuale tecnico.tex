@@ -1,6 +1,9 @@
-\documentclass[a4paper,titlepage,12pt]{book}
+\documentclass[a4paper,titlepage,openany,12pt]{book}
 \usepackage{BackGround}
+\usepackage{varwidth}
 \usepackage{frontespizio}
+\usepackage{qtree}
+
 
 \makeindex
 
@@ -13,10 +16,11 @@
 \Annoaccademico{2025--2026}
 \Titolo{CineMax}
 \Sottotitolo{Progetto di laboratorio A}
+\Sottotitolo{manuale tecnico}
 \Candidato[721086]{Francesco Ferrari}
 \Candidato[768081]{Nithay Patricia Gomez Silva}
 \Candidato[766922]{Pasquale Di Tuccio}
-\Candidato[XXXXXX]{Luca Gabriel Chindris }
+\Candidato[765700]{Luca Gabriel Chindris }
 
 \end{frontespizio}
 
@@ -27,18 +31,121 @@
 \tableofcontents
 
 \chapter{Installazione}
+In questo capitolo sono presentati i requisiti necessari all'installazione dell'applicazione e la modalità di installazione sui PC. \textbf{ATTENZIONE:} si segnala che questo programma è pensato per funzionare su sistemi Microsoft Windows, pertanto l'esecuzione su sistemi diversi non è garantita.
 
 \section{Requisiti di sistema}
 
 \section{Setup ambiente}
 
-\section{Installazione programma}
+\section{Installazione programma} 
 
 \chapter{Esecuzione ed uso}
+In questo capitolo sono esposti i principali metodi che garantiscono il funzionamento dell'applicazione.
+Viene anche discusso come è stato creato l'eseguibile e le modalità di setup e installazione dell'applicazione.
 
 \section{Setup e lancio del programma}
 
-\section{Uso delle funzionalità}
+\section{Classi e funzionalità}
+In questa sezione sono descritte le parti fondamentali dell'applicazione, che ne garantiscono il funzionamento corretto;
+Viene discussa la struttura e l'ereditatietà delle classi.
+
+\subsection{Le classi}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/alberoclassi}
+\caption{Albero dell'ereditarietà del progetto}
+\end{figure}
+
+In questa applicazione JAVA (package CineMaX) la classe Oblect è estesa direttamente dalle classi Film, Prenotazione, Proiezione (che implementa l'interfaccia Comparable),CineMaX e Guest. Le prime tre servono per creare oggetti di nome corrispondente: gli ogetti di tipo Film servono per costruire oggetti di tipo Proiezione, che rappresentano i film che è possibile inserire o modificare nel palinsesto, mentre il tipo Prenotazione rappresenta le prenotazioni effettuate da un cliente.
+Infine CineMaX è la classe che contiene il metodo main e i metodi necessari alla registrazione e al login di un account utente (si veda la sezione \ref{subsubsec:CineMaX}).\\
+La classe Guest ha tre sottoclassi dirette: Cliente, Proiezionista e Bigliettaio; Guest fornisce i metodi per effettuare la ricerca di una proiezione nel palinsesto (si veda la sezione \ref{subsubsec:Guest}), Cliente consente di effettuare,modificare o eliminare prenotazioni oltre alla ricerca di proiezioni (si veda la sezione \ref{subsubsec:Cliente}), Proiezionista consente di interagire col palinsesto inserendo, rimuovendo o modificando una proiezione (si veda la sezione \ref{subsubsec:Proiezionista}) e infine Bigliettaio consente di visualizzare e ricercare prenotazioni effettuate dai clienti (si veda la sezione \ref{subsubsec:Bigliettaio}).
+
+
+
+
+
+\subsubsection{La classe Film}
+La classe Film serve unicamente per creare e operare su oggetti utilizzati nella costruzione di oggetti di tipo Proiezione, gli oggetti di tipo Film modellano il film da inserire nel palinsesto delle proiezioni e contengono le informazioni generali di un film, che sono:
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] Titolo (Sring)
+\item[•] Genere (Sring)
+\item[•] Regista (Sring)
+\item[•] Anno di pubblicazione (int)
+\item[•] Durata (int)
+\item[•] Età (int)
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.6]{IMGS/classefilm}
+\caption{I campi e il costruttore della classe film}
+\end{figure}
+
+La classe contiene inoltre un costruttore, i metodi get e set per i campi e un metodo per stampare i campi mostrato in figura
+ \ref{fig:stampacampi}.
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.6]{IMGS/stampacampifilm}\label{fig:stampacampi}
+\caption{Metodo che stampa le caratteristiche di un film}\label{fig:stampacampi}
+\end{figure}
+
+\subsubsection{La classe Proiezione}
+
+
+\subsubsection{La classe Prenotazione}
+
+\subsubsection{La classe Guest}\label{subsubsec:Guest}
+
+\subsubsection{La classe Cliente}\label{subsubsec:Cliente}
+
+\subsubsection{La classe Proiezionista}\label{subsubsec:Proiezionista}
+
+\subsubsection{La classe Bigliettaio}\label{subsubsec:Bigliettaio}
+
+\subsubsection{La classe CineMaX}\label{subsubsec:CineMaX}
+La classe CineMaX è la classe in cui si trova il metodo Main (che contiene il ciclo di esecuzione principale) e tutti i metodi necessari al login e alla registrazione di un account utente; tutti i metodi di questa classe a parte Main hanno visibilità private in quanto l'unica classe in cui devono essere utilizzati è questa (vengono usati all'interno del Main). Per una spiegazione più dettagliata si consulti la sezione\ref{sez:cicloprincipale} in cui si illustrano le funzionalità del ciclo di esecuzione principale dell'applicazione.
+
+
+\subsection{Il ciclo di esecuzione principale}
+
+\label{sez:cicloprincipale}
+
+\subsubsection{Registrarsi}
+
+\subsubsection{Effettuare il login}
+
+\subsubsection{Login come Guest e ricerca di un film}
+
+
+\subsection{Funzionalità dell'utente di tipo cliente}
+
+\subsubsection{Ricerca di una proiezione}
+
+\subsubsection{Effettuare una prenotazione}
+
+\subsubsection{Cancellare una prenotazione}
+
+\subsection{Funzionalità dell'utente di tipo proiezionista}
+
+\subsubsection{Ricerca di una proiezione}
+
+\subsubsection{Effettuare una prenotazione}
+
+\subsubsection{Cancellare una prenotazione}
+
+\subsection{Funzionalità dell'utente di tipo bigliettaio}
+
+\subsubsection{Visualizzare tutte le prenotazioni in data odierna}
+
+\subsubsection{Visualizzare le prenotazioni effettuate da un cliente}
+
+
 
 \section{Data set di test}
 

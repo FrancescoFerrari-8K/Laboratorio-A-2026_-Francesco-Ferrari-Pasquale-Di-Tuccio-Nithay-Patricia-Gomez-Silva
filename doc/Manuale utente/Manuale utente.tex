@@ -115,6 +115,7 @@ nome e cognome devono essere composti da almeno due lettere e non devono contene
 L'applicazione esegue un controllo dell'età e non permette la registrazione di persone con età maggiore o uguale a 125 anni, inoltre se un minorenne sta provando a registrarsi il programma richiede il login con un account di un maggiorenne per poter proseguire il processo.
 Se l'utente sbaglia a inserire un campo o se lo username scelto è già in uso compare un messaggio di errore e si viene invitati a riprovare l'inserimento fino a quando non si inserisce un valore valido; se la registrazione va a buon fine viene mostrato un messaggio che contiene l'ID univoco assegnato al nuovo utente.
 \begin{figure}[!htbp]
+\centering
 \includegraphics[scale=0.6]{IMGS/registrazioneok}
 \caption{Esempio di registrazione andato a buon fine}
 \end{figure}
@@ -201,7 +202,7 @@ Nel caso in cui la ricerca avesse risultati allora le proiezioni che rispettano 
 Si vedano le funzionalità del capitolo \ref{chap:reg}.
 
 \subsection{Logout}
-Se si preme il tasto 0 si ritorna al menu iniziale dell'app.
+Se si preme il tasto 0 si ritorna al menu iniziale dell'applicazione.
 
 \section{Cliente}
 Se si decide di proseguire come cliente comapre il menù mostrato in figura, in cui è possibile selezionare l'azione da compiere premendo un tasto numerico, qualsiasi altro tasto premuto genera un messaggio di selezione invalida.
@@ -256,7 +257,7 @@ Infine, se desidera eliminare una proiezione, l'utente deve premere 3 nel menù 
 \end{figure}
 
 \subsection{Logout}
-Se si preme il tasto 0 si ritorna al menu iniziale dell'app.
+Se si preme il tasto 0 si ritorna al menu iniziale dell'applicazione.
 
 \section{Proiezionista}
 Dopo aver effettuato con successo il login con un account di tipo proiezionista (con username nel formato **PRO[numero]), viene visualizzato il menù di gestione. Attraverso questo menù l'operatore può gestire l'intero palinsesto del cinema mediante le seguenti opzioni:
@@ -298,13 +299,80 @@ Premendo il tasto 3, è possibile spostare l'orario o data di uno spettacolo gi�
 Se si preme il tasto 0 si ritorna al menu iniziale dell'app.
 
 \section{Bigliettaio}
+Nel caso in cui nel menù iniziale si scelga di effettuare il log in e si acceda con credenziali da bigliettaio verrà visualizzato il seguente menù:
+
 \begin{figure}[!htbp]
+\centering
 \includegraphics[scale=0.5]{IMGS/menubigliettaio}
 \caption{Menù bigliettaio}
 \end{figure}
 
+In questo menù vengono offerte le seguenti opzioni di scelta:
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] visualizzare le prenotazioni nella data odierna 
+\item[•] effettuare la ricerca di una prenotazione 
+\item[•] effettuare il logout 
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+\subsection{Visualizzare le prenotazioni in data odierna}
+Verrà effettuata la ricerca delle prenotazioni odierne e, se presenti, verranno visualizzate. 
+
+\subsection{Effettuare la ricerca di una prenotazione}
+Quando si accede alla funzionalità di ricerca di una prenotazione verrà visualizzato il seguente menù:
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/BIGmenuprenotazioni}
+\caption{Menù di ricerca prenotazioni}
+\end{figure}
+
+Nel menù è possibile scegliere il criterio secondo cui effettuare la ricerca di una prenotazione, oppure annullare la ricerca. I criteri disponibili sono: 
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] Ricerca per codice prenotazione 
+\item[•] Ricerca per nome e cognome del cliente  
+\item[•] Ricerca per titolo film
+\item[•] Ricerca per data 
+\item[•] Annullare la ricerca 
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+In base al criterio scelto l’applicazione chiederà le informazioni necessarie. \\
+
+Nella ricerca per codice prenotazione verrà richiesto di inserire il codice della prenotazione. \\
+
+Nella ricerca per nome e cognome del cliente verrà richiesto di inserire il nome e il cognome del cliente. \\
+
+Nella ricerca per titolo verrà richiesto di inserire il titolo del film (anche parziale). \\
+
+Nella ricerca per data verrà richiesto se si desidera cercare
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] prenotazioni prima di una certa data  
+\item[•] prenotazioni dopo una certa data  
+\item[•] prenotazioni comprese tra due date 
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+e a seconda dell’opzione scelta verrà richiesto di inserire la data o le date da usare come criterio di ricerca. \\
+
+Nel caso in cui la ricerca non avesse risultati allora l’applicazione comunicherà tale informazione. \\
+
+Nel caso in cui la ricerca avesse risultati allora le prenotazioni che rispettano il criterio utilizzato verranno visualizzate, numerate a partire da 1; l’applicazione richiederà se si desidera visualizzare una delle prenotazioni cercate in dettaglio e, in caso affermativo, richiederà di inserire il numero della prenotazione che si desidera visualizzare in dettaglio 
+
 \subsection{Logout}
-Se si preme il tasto 0 si ritorna al menu iniziale dell'app.
+Se si preme il tasto 0 si ritorna al menu iniziale dell'applicazione.
 
 
 \end{document}

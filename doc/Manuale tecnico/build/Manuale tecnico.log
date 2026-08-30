@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  29 AUG 2026 14:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  30 AUG 2026 19:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1219,7 +1219,15 @@ Package: listings 2025/11/14 1.11b (Carsten Heinz)
     but found:
         2025/11/14 1.11b (Carsten Heinz)
     so I'm assuming it got fixed.
+) (C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/varwidth\varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box127
+\sift@deathcycles=\count424
+\@vwid@loff=\dimen350
+\@vwid@roff=\dimen351
 )
+==> First Aid for varwidth.sty applied!
+
 (C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/frontespizio\frontespiz
 io.sty
 Package: frontespizio 2011/09/21 1.4a (Enrico Gregorio)
@@ -1243,39 +1251,173 @@ Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
 \openout5 = `"Manuale tecnico-frn.tex"'.
 
 )
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/qtree\qtree.sty
+Package: 2008/12/12 v.3.1bQtree: tree-drawing for linguistics
+Package: qtree 2008/12/12 v.3.1bQtree: tree-drawing for linguistics
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/pict2e\pict2e.sty
+Package: pict2e 2020/09/30 v0.4b Improved picture commands (HjG,RN,JT)
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/pict2e\pict2e.cfg
+File: pict2e.cfg 2016/02/05 v0.1u pict2e configuration for teTeX/TeXLive
+)
+Package pict2e Info: Driver file: pdftex.def on input line 112.
+Package pict2e Info: Driver file for pict2e: p2e-pdftex.def on input line 114.
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/pict2e\p2e-pdftex.def
+File: p2e-pdftex.def 2016/02/05 v0.1u Driver-dependant file (RN,HjG,JT)
+)
+\pIIe@GRAPH=\toks49
+\@arclen=\dimen352
+\@arcrad=\dimen353
+\pIIe@tempdima=\dimen354
+\pIIe@tempdimb=\dimen355
+\pIIe@tempdimc=\dimen356
+\pIIe@tempdimd=\dimen357
+\pIIe@tempdime=\dimen358
+\pIIe@tempdimf=\dimen359
+)
+\c@treecount=\count425
+\c@branchcount=\count426
+\parentbox=\box128
+\treebox=\box129
+\treeboxone=\box130
+\treeboxtwo=\box131
+\treeboxthree=\box132
+\treeboxfour=\box133
+\treeboxfive=\box134
+\treeboxsix=\box135
+\treeboxseven=\box136
+\treeboxeight=\box137
+\treeboxnine=\box138
+\treeboxten=\box139
+\treeboxeleven=\box140
+\treeboxtwelve=\box141
+\treeboxthirteen=\box142
+\treeboxfourteen=\box143
+\treeboxfifteen=\box144
+\treeboxsixteen=\box145
+\treeboxseventeen=\box146
+\treeboxeighteen=\box147
+\treeboxnineteen=\box148
+\treeboxtwenty=\box149
+\treeoffsetone=\skip83
+\treeoffsettwo=\skip84
+\treeoffsetthree=\skip85
+\treeoffsetfour=\skip86
+\treeoffsetfive=\skip87
+\treeoffsetsix=\skip88
+\treeoffsetseven=\skip89
+\treeoffseteight=\skip90
+\treeoffsetnine=\skip91
+\treeoffsetten=\skip92
+\treeoffseteleven=\skip93
+\treeoffsettwelve=\skip94
+\treeoffsetthirteen=\skip95
+\treeoffsetfourteen=\skip96
+\treeoffsetfifteen=\skip97
+\treeoffsetsixteen=\skip98
+\treeoffsetseventeen=\skip99
+\treeoffseteighteen=\skip100
+\treeoffsetnineteen=\skip101
+\treeoffsettwenty=\skip102
+\treeshiftone=\skip103
+\treeshifttwo=\skip104
+\treeshiftthree=\skip105
+\treeshiftfour=\skip106
+\treeshiftfive=\skip107
+\treeshiftsix=\skip108
+\treeshiftseven=\skip109
+\treeshifteight=\skip110
+\treeshiftnine=\skip111
+\treeshiftten=\skip112
+\treeshifteleven=\skip113
+\treeshifttwelve=\skip114
+\treeshiftthirteen=\skip115
+\treeshiftfourteen=\skip116
+\treeshiftfifteen=\skip117
+\treeshiftsixteen=\skip118
+\treeshiftseventeen=\skip119
+\treeshifteighteen=\skip120
+\treeshiftnineteen=\skip121
+\treeshifttwenty=\skip122
+\treewidthone=\skip123
+\treewidthtwo=\skip124
+\treewidththree=\skip125
+\treewidthfour=\skip126
+\treewidthfive=\skip127
+\treewidthsix=\skip128
+\treewidthseven=\skip129
+\treewidtheight=\skip130
+\treewidthnine=\skip131
+\treewidthten=\skip132
+\treewidtheleven=\skip133
+\treewidthtwelve=\skip134
+\treewidththirteen=\skip135
+\treewidthfourteen=\skip136
+\treewidthfifteen=\skip137
+\treewidthsixteen=\skip138
+\treewidthseventeen=\skip139
+\treewidtheighteen=\skip140
+\treewidthnineteen=\skip141
+\treewidthtwenty=\skip142
+\daughteroffsetone=\skip143
+\daughteroffsettwo=\skip144
+\daughteroffsetthree=\skip145
+\daughteroffsetfour=\skip146
+\branchwidthone=\skip147
+\branchwidthtwo=\skip148
+\branchwidththree=\skip149
+\branchwidthfour=\skip150
+\parentoffset=\skip151
+\treeoffset=\skip152
+\daughteroffset=\skip153
+\branchwidth=\skip154
+\parentwidth=\skip155
+\treewidth=\skip156
+\qta=\toks50
+\qtb=\toks51
+\nbranches=\count427
+\qroofx=\count428
+\qroofy=\count429
+\@qrscratchbox=\box150
+)
 \@indexfile=\write6
 \openout6 = `"Manuale tecnico.idx"'.
 
 
 Writing index file "Manuale tecnico".idx
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 7.
-
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 10
+.
 (C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale
 -Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale tecnico\build\Manuale tecnic
-o.aux)
+o.aux
+
+LaTeX Warning: Label `fig:stampacampi' multiply defined.
+
+)
 \openout1 = `"Manuale tecnico.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
 
 *geometry* detected driver: dvips
 *geometry* verbose mode - [ preamble ] result:
@@ -1310,8 +1452,8 @@ LaTeX Font Info:    ... okay on input line 7.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \it@ocap on input line 7.
-LaTeX Info: Redefining \it@ccap on input line 7.
+LaTeX Info: Redefining \it@ocap on input line 10.
+LaTeX Info: Redefining \it@ccap on input line 10.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
@@ -1322,19 +1464,19 @@ Package caption Info: End \AtBeginDocument code.
 (C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count424
-\scratchdimen=\dimen350
-\scratchbox=\box127
-\nofMPsegments=\count425
-\nofMParguments=\count426
-\everyMPshowfont=\toks49
-\MPscratchCnt=\count427
-\MPscratchDim=\dimen351
-\MPnumerator=\count428
-\makeMPintoPDFobject=\count429
-\everyMPtoPDFconversion=\toks50
+\scratchcounter=\count430
+\scratchdimen=\dimen360
+\scratchbox=\box151
+\nofMPsegments=\count431
+\nofMParguments=\count432
+\everyMPshowfont=\toks52
+\MPscratchCnt=\count433
+\MPscratchDim=\dimen361
+\MPnumerator=\count434
+\makeMPintoPDFobject=\count435
+\everyMPtoPDFconversion=\toks53
 )
-Package hyperref Info: Link coloring OFF on input line 7.
+Package hyperref Info: Link coloring OFF on input line 10.
 
 (C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale
 -Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale tecnico\build\Manuale tecnic
@@ -1346,12 +1488,12 @@ o.out)
 \openout7 = `"Manuale tecnico.out"'.
 
 Package translations Info: no dictionary file `translations-basic-dictionary-it
-alian.trsl' found. on input line 7.
-\c@lstlisting=\count430
-<Manuale tecnico-frn.pdf, id=11, 597.50829pt x 845.0471pt>
+alian.trsl' found. on input line 10.
+\c@lstlisting=\count436
+<Manuale tecnico-frn.pdf, id=63, 597.50829pt x 845.0471pt>
 File: Manuale tecnico-frn.pdf Graphic file (type pdf)
 <use Manuale tecnico-frn.pdf>
-Package pdftex.def Info: Manuale tecnico-frn.pdf  used on input line 8.
+Package pdftex.def Info: Manuale tecnico-frn.pdf  used on input line 11.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
  [1
 Non-PDF special ignored!
@@ -1395,33 +1537,155 @@ e-Di-Tuccio-Nithay-Patricia-Gomez-Silva/doc/Manuale tecnico/build/Manuale tecni
 co-frn.pdf{C:/Users/franc/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}>]
 [2
 
-] [3{C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}]
- [4
-
-]
+{C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}]
 (C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale
 -Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale tecnico\build\Manuale tecnic
-o.toc)
+o.toc
+LaTeX Font Info:    Trying to load font information for OT1+ptmcm on input line
+ 4.
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptmcm.fd
+File: ot1ptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ptmcm.
+)
+LaTeX Font Info:    Trying to load font information for OML+ptmcm on input line
+ 4.
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlptmcm.fd
+File: omlptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ptmcm.
+)
+LaTeX Font Info:    Trying to load font information for OMS+pzccm on input line
+ 4.
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omspzccm.fd
+File: omspzccm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/pzccm.
+)
+LaTeX Font Info:    Trying to load font information for OMX+psycm on input line
+ 4.
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omxpsycm.fd
+File: omxpsycm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/psycm.
+)
+LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 
+4.
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1zplm.fd
+File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
+)
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 12.50409pt on input line 4.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 4.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 4.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 12.50409pt on input line 4.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 4.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 4.
+LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 4
+.
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ppl.fd
+File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
+)
+LaTeX Font Info:    Trying to load font information for OML+zplm on input line 
+4.
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlzplm.fd
+File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 
+4.
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omszplm.fd
+File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
+)
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 4.
+
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/wasysym\uwasy.fd
+File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
+)
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 4
+.
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
+)
 \tf@toc=\write8
 \openout8 = `"Manuale tecnico.toc"'.
 
- [5] [6
+
+[3
 
 ]
 Capitolo 1.
-[7] [8
+[4
 
 ]
 Capitolo 2.
-[9] [10
+<IMGS/alberoclassi.png, id=125, 800.9925pt x 277.035pt>
+File: IMGS/alberoclassi.png Graphic file (type png)
+<use IMGS/alberoclassi.png>
+Package pdftex.def Info: IMGS/alberoclassi.png  used on input line 56.
+(pdftex.def)             Requested size: 400.49527pt x 138.51715pt.
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 57
+.
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1phv.fd
+File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
+)
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 11.39996pt on input line 57.
 
-]
+[5
+
+ <./IMGS/alberoclassi.png>]
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 7
+4.
+
+(C:\Users\franc\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+<IMGS/classefilm.png, id=140, 1003.49907pt x 639.13782pt>
+File: IMGS/classefilm.png Graphic file (type png)
+<use IMGS/classefilm.png>
+Package pdftex.def Info: IMGS/classefilm.png  used on input line 86.
+(pdftex.def)             Requested size: 602.10408pt x 383.48566pt.
+
+Overfull \hbox (146.85997pt too wide) in paragraph at lines 86--87
+ [][] 
+ []
+
+<IMGS/stampacampifilm.png, id=142, 992.95969pt x 177.66376pt>
+File: IMGS/stampacampifilm.png Graphic file (type png)
+<use IMGS/stampacampifilm.png>
+Package pdftex.def Info: IMGS/stampacampifilm.png  used on input line 94.
+(pdftex.def)             Requested size: 595.78041pt x 106.59906pt.
+
+Overfull \hbox (140.5363pt too wide) in paragraph at lines 94--95
+ [][][][] 
+ []
+
+[6 <./IMGS/classefilm.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7 <./IMGS/stampacampifilm.png>] [8]
 Capitolo 3.
-[11] [12
+[9
 
 ]
 Capitolo 4.
-[13]
+[10
+
+]
 (C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale
 -Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale tecnico\build\Manuale tecnic
 o.aux)
@@ -1431,35 +1695,33 @@ L3 programming layer <2026-03-20>
  ***********
 
 
-Package rerunfilecheck Warning: File `"Manuale tecnico".out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
+LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: Checksums for `"Manuale tecnico".out':
-(rerunfilecheck)             Before: 663E8FDD63994165533477DB99AB4C24;238
-(rerunfilecheck)             After:  80362980106C431AEC03833C9A10D32D;1566.
+Package rerunfilecheck Info: File `"Manuale tecnico".out' has not changed.
+(rerunfilecheck)             Checksum: 3C7F524445828856EAB1BFF57023A847;2811.
  ) 
 Here is how much of TeX's memory you used:
- 31401 strings out of 467691
- 597074 string characters out of 5414987
- 1043998 words of memory out of 5000000
- 59876 multiletter control sequences out of 15000+600000
- 645989 words of font info for 54 fonts, out of 8000000 for 9000
+ 32224 strings out of 467691
+ 610831 string characters out of 5414987
+ 1061751 words of memory out of 5000000
+ 60599 multiletter control sequences out of 15000+600000
+ 670566 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 133i,10n,133p,683b,1066s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 133i,10n,133p,704b,1066s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx12.pfb><C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx9.pfb><C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/pu
 blic/amsfonts/cm/cmr10.pfb><C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/
 type1/public/amsfonts/cm/cmr12.pfb><C:/Users/franc/AppData/Local/Programs/MiKTe
-X/fonts/type1/urw/times/utmb8a.pfb><C:/Users/franc/AppData/Local/Programs/MiKTe
-X/fonts/type1/urw/times/utmr8a.pfb><C:/Users/franc/AppData/Local/Programs/MiKTe
-X/fonts/type1/urw/times/utmr8a.pfb>
+X/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/franc/AppData/Local/Programs/Mi
+KTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/franc/AppData/Local/Programs/Mi
+KTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/franc/AppData/Local/Programs/Mi
+KTeX/fonts/type1/urw/times/utmr8a.pfb>
 Output written on "C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesc
 o-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale tecnico\bu
-ild\Manuale tecnico.pdf" (13 pages, 102228 bytes).
+ild\Manuale tecnico.pdf" (10 pages, 272762 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
- 22 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 225 PDF objects out of 1000 (max. 8388607)
+ 50 named destinations out of 1000 (max. 500000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
 
