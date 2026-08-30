@@ -31,7 +31,7 @@ public class Guest {
 	 */
 	public Proiezione[] cercaProiezionePerTitolo(String titoloCercato) throws FileNotFoundException {
 			
-		int limiteRic = 10000; //Limite numero risultati della ricerca.
+		int limiteRic = 100; //Limite numero risultati della ricerca.
 		int numRisRicerca = 0; //Contatore numero risultati.
 		boolean proiezOk; //Variabile boolean per dire se la proiezione che si sta considerando attualmente rispetta criterio ricerca.
 		
@@ -89,8 +89,9 @@ public class Guest {
 				if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 				//...risultati della ricerca...
 					System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-							+ "ricerca\n");
+							+ "ricerca");
 					System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
+					return risRicerca;
 				} 
 				else { //Altrimenti se la proiezione è corretta e non ho raggiunto numero massimo di risultati...
 					risRicerca[numRisRicerca] = proiez; //...salvo proiezione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -175,8 +176,8 @@ public class Guest {
 	 */
 	public Proiezione[] cercaProiezione() throws FileNotFoundException {
 		
-		int limiteRic = 10000; //Limite numero risultati della ricerca.
-		int numRisRicerca = 0; //Contatore numero risultati.
+		int limiteRic = 100; //Limite numero risultati della ricerca.
+		int numRisRicerca; //Contatore numero risultati.
 		String scelta = "1"; //Variabile per opzioni scelta, impostata default a "1" cioè ricerca per titolo.
 		boolean sceltaOk; //Variabile che indica se scelta inserita è valida o no (serve per ciclo do while in cui è contenuta tutta la ricerca, inizializ nel ciclo).
 		boolean proiezOk; //Variabile boolean per dire se la proiezione che si sta considerando attualmente rispetta criterio ricerca; dichiarata qui perchè...
@@ -209,18 +210,20 @@ public class Guest {
 		} while (inputStringintOk == false);
 		//codice che riguarda variabileint
 		*/
+		
+		//Variabili per leggere double con utilizzo identico a variabili per lettura int (si veda sopra).
 		String inputStringdouble;
 		boolean inputStringdoubleOk;
 		
-		Scanner scFile = new Scanner(new File("../data/proiezioni.csv")); //scFile è lettore file proiezioni.
-		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga del file.
-		
 		DateTimeFormatter formatterDataITA = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Variabile per formato data italiano.
 		
-		int numvirgoleintestaz = 8;
-		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
 		
-		Proiezione[] risRicerca = new Proiezione[limiteRic]; //Vettore che rappresenta il risultato della ricerca cioè contiene le proiezioni che rispettano il...
+		Scanner scFile = new Scanner(new File("../data/proiezioni.csv")); //scFile è lettore file proiezioni.
+		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga del file.
+		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
+		int numvirgoleintestaz = 8; //Numero virgole intestazione file proiezioni proiezioni.csv.
+		
+		Proiezione[] risRicerca; //Vettore che rappresenta il risultato della ricerca cioè contiene le proiezioni che rispettano il...
 		//...criterio scelto.
 		
 		
@@ -229,6 +232,13 @@ public class Guest {
 		Scanner sc = new Scanner(System.in);
 
 		do { //Inizio ciclo do while in cui è contenuto lo switch che effettua tutta la ricerca. Il while è while(sceltaOk == true). 
+			numRisRicerca = 0; ////Reset contatore numero risultati.
+			scFile = new Scanner(new File("../data/proiezioni.csv")); //Reset lettore file proiezioni.
+			scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga del file.
+			scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
+			
+			risRicerca = new Proiezione[limiteRic]; //Reset vettore che rappresenta il risultato della ricerca cioè contiene le proiezioni che rispettano il...
+			//...criterio scelto.
 			
 			System.out.println("Selezionare un criterio per la ricerca:");
 			System.out.println("1=per titolo");
@@ -295,9 +305,10 @@ public class Guest {
 							if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 							//...risultati della ricerca...
 								System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-										+ "ricerca\n");
+										+ "ricerca");
 								System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 								sceltaOk = false;
+								break;
 							} 
 							else { //Altrimenti se la proiezione è corretta e non ho raggiunto numero massimo di risultati...
 								risRicerca[numRisRicerca] = proiez; //...salvo proiezione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -310,7 +321,8 @@ public class Guest {
 						} //Fine blocco if fatto se la proiezione è corretta.
 						
 					} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
-					System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+					if (sceltaOk == true)
+						System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 					break;
 					
 				case "2": //Caso ricerca per genere.
@@ -359,9 +371,10 @@ public class Guest {
 							if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 							//...risultati della ricerca...
 								System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-										+ "ricerca\n");
+										+ "ricerca");
 								System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 								sceltaOk = false;
+								break;
 							} 
 							else { //Altrimenti se la proiezione è corretta e non ho raggiunto numero massimo di risultati...
 								risRicerca[numRisRicerca] = proiez; //...salvo proiezione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -374,8 +387,8 @@ public class Guest {
 						} //Fine blocco if fatto se la proiezione è corretta.
 						
 					} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
-					System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
-
+					if (sceltaOk == true)
+						System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 					break;
 					
 				case "3": //Caso ricerca per data.
@@ -479,9 +492,10 @@ public class Guest {
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-												+ "ricerca\n");
+												+ "ricerca");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 										sceltaOk = false;
+										break;
 									} 
 									else { //Altrimenti se la proiezione è corretta e non ho raggiunto numero massimo di risultati...
 										risRicerca[numRisRicerca] = proiez; //...salvo proiezione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -494,8 +508,8 @@ public class Guest {
 								} //Fine blocco if fatto se la proiezione è corretta.
 								
 							} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
-							System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
-							
+							if (sceltaOk == true)
+								System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 							break;
 							
 						case "2": //Caso ricerca dopo una certa data.
@@ -576,9 +590,10 @@ public class Guest {
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-												+ "ricerca\n");
+												+ "ricerca");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 										sceltaOk = false;
+										break;
 									} 
 									else { //Altrimenti se la proiezione è corretta e non ho raggiunto numero massimo di risultati...
 										risRicerca[numRisRicerca] = proiez; //...salvo proiezione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -591,7 +606,8 @@ public class Guest {
 								} //Fine blocco if fatto se la proiezione è corretta.
 								
 							} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
-							System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+							if (sceltaOk == true)
+								System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 							break;
 						
 						case "3": //Caso ricerca tra due date.
@@ -737,9 +753,10 @@ public class Guest {
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-												+ "ricerca\n");
+												+ "ricerca");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 										sceltaOk = false;
+										break;
 									} 
 									else { //Altrimenti se la proiezione è corretta e non ho raggiunto numero massimo di risultati...
 										risRicerca[numRisRicerca] = proiez; //...salvo proiezione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -752,7 +769,8 @@ public class Guest {
 								} //Fine blocco if fatto se la proiezione è corretta.
 								
 							} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
-							System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+							if (sceltaOk == true)
+								System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 							break;
 							
 						default:
@@ -822,9 +840,10 @@ public class Guest {
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-												+ "ricerca\n");
+												+ "ricerca");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 										sceltaOk = false;
+										break;
 									} 
 									else { //Altrimenti se la proiezione è corretta e non ho raggiunto numero massimo di risultati...
 										risRicerca[numRisRicerca] = proiez; //...salvo proiezione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -837,7 +856,8 @@ public class Guest {
 								} //Fine blocco if fatto se la proiezione è corretta.
 								
 							} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
-							System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+							if (sceltaOk == true)
+								System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 							break;
 							
 						case "2": //Caso ricerca prezzo maggiore di un certo valore.
@@ -881,9 +901,10 @@ public class Guest {
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-												+ "ricerca\n");
+												+ "ricerca");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 										sceltaOk = false;
+										break;
 									} 
 									else { //Altrimenti se la proiezione è corretta e non ho raggiunto numero massimo di risultati...
 										risRicerca[numRisRicerca] = proiez; //...salvo proiezione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -896,7 +917,8 @@ public class Guest {
 								} //Fine blocco if fatto se la proiezione è corretta.
 								
 							} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
-							System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+							if (sceltaOk == true)
+								System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 							break;
 						
 						case "3": //Caso ricerca prezzo compreso tra due valori.
@@ -967,9 +989,10 @@ public class Guest {
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-												+ "ricerca\n");
+												+ "ricerca");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 										sceltaOk = false;
+										break;
 									} 
 									else { //Altrimenti se la proiezione è corretta e non ho raggiunto numero massimo di risultati...
 										risRicerca[numRisRicerca] = proiez; //...salvo proiezione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -982,7 +1005,8 @@ public class Guest {
 								} //Fine blocco if fatto se la proiezione è corretta.
 								
 							} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
-							System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+							if (sceltaOk == true)
+								System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 							break;
 							
 						default:
@@ -1667,9 +1691,10 @@ public class Guest {
 							if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 							//...risultati della ricerca...
 								System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-										+ "ricerca\n");
+										+ "ricerca");
 								System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 								sceltaOk = false;
+								break;
 							} 
 							else { //Altrimenti se la proiezione è corretta e non ho raggiunto numero massimo di risultati...
 								risRicerca[numRisRicerca] = proiez; //...salvo proiezione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -1682,7 +1707,8 @@ public class Guest {
 						} //Fine blocco if fatto se la proiezione è corretta.
 						
 					} //Fine while che legge il file delle proiezioni e controlla le proiezioni.
-					System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");	
+					if (sceltaOk == true)
+						System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");	
 					break;
 				
 				case "0": //Caso ricerca annullata.
