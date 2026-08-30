@@ -29,8 +29,8 @@ public class Bigliettaio extends Guest {
 	 */
 	public Prenotazione[] cercaPrenotazione() throws FileNotFoundException {
 		
-		int limiteRic = 10000; //Limite numero risultati della ricerca.
-		int numRisRicerca = 0; //Contatore numero risultati.
+		int limiteRic = 6000; //Limite numero risultati della ricerca.
+		int numRisRicerca; //Contatore numero risultati.
 		String scelta = "2"; //Variabile per opzioni scelta, impostata default a "2" cioè ricerca per nome e cognome del cliente.
 		boolean sceltaOk; //Variabile che indica se scelta inserita è valida o no (serve per ciclo do while in cui è contenuta tutta la ricerca, inizializ nel ciclo).
 		boolean prenotazOk; //Variabile boolean per dire se la prenotazione che si sta considerando attualmente rispetta criterio ricerca; dichiarata qui perchè...
@@ -63,15 +63,16 @@ public class Bigliettaio extends Guest {
 		//codice che riguarda variabileint
 		*/
 		
-		Scanner scFile = new Scanner(new File("../data/prenotazioni.csv")); //scFile è lettore file prenotazioni.
-		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next legge una riga del file.
-		
 		DateTimeFormatter formatterDataITA = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Variabile per formato data italiano.
 		
-		int numvirgoleintestaz = 7;
-		scFile.next(); //Salto la prima riga del file prenotazioni che è l'intestazione.
 		
-		Prenotazione[] risRicerca = new Prenotazione[limiteRic]; //Vettore che rappresenta il risultato della ricerca cioè contiene le prenotazioni che rispettano il...
+		
+		Scanner scFile = new Scanner(new File("../data/Prenotazioni.csv")); //scFile è lettore file prenotazioni.
+		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next legge una riga del file.
+		scFile.next(); //Salto la prima riga del file prenotazioni che è l'intestazione.
+		int numvirgoleintestaz = 7; //Numero virgole intestazione file prenotazioni Prenotazioni.csv.
+		
+		Prenotazione[] risRicerca; //Vettore che rappresenta il risultato della ricerca cioè contiene le prenotazioni che rispettano il...
 		//...criterio scelto.
 		
 		
@@ -80,6 +81,12 @@ public class Bigliettaio extends Guest {
 		Scanner sc = new Scanner(System.in);
 		
 		do { //Inizio ciclo do while in cui è contenuto lo switch che effettua tutta la ricerca. Il while è while(sceltaOk == true). 
+			numRisRicerca = 0; ////Reset contatore numero risultati.
+			scFile = new Scanner(new File("../data/prenotazioni.csv")); //Reset lettore file prenotazioni.
+			scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga del file.
+			scFile.next(); //Salto la prima riga del file prenotazioni che è l'intestazione.
+			risRicerca = new Prenotazione[limiteRic]; //Reset vettore che rappresenta il risultato della ricerca cioè contiene le prenotazioni che rispettano il...
+			//...criterio scelto.
 			
 			System.out.println("Selezionare un criterio per la ricerca:");
 			System.out.println("1=per codice prenotazione");
@@ -137,9 +144,10 @@ public class Bigliettaio extends Guest {
 							if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 							//...risultati della ricerca...
 								System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-										+ "ricerca\n");
+										+ "ricerca");
 								System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 								sceltaOk = false;
+								break;
 							} 
 							else { //Altrimenti se la prenotazione è corretta e non ho raggiunto numero massimo di risultati...
 								risRicerca[numRisRicerca] = prenotaz; //...salvo prenotazione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -152,7 +160,8 @@ public class Bigliettaio extends Guest {
 						} //Fine blocco if fatto se la prenotazione è corretta.
 						
 					} //Fine while che legge il file delle prenotazioni e controlla le prenotazioni.
-					System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+					if (sceltaOk == true)
+						System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 					break;
 				
 				case "2": //Caso ricerca per nome e cognome del cliente.
@@ -187,9 +196,10 @@ public class Bigliettaio extends Guest {
 							if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 							//...risultati della ricerca...
 								System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-										+ "ricerca\n");
+										+ "ricerca");
 								System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 								sceltaOk = false;
+								break;
 							} 
 							else { //Altrimenti se la prenotazione è corretta e non ho raggiunto numero massimo di risultati...
 								risRicerca[numRisRicerca] = prenotaz; //...salvo prenotazione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -202,7 +212,8 @@ public class Bigliettaio extends Guest {
 						} //Fine blocco if fatto se la prenotazione è corretta.
 						
 					} //Fine while che legge il file delle prenotazioni e controlla le prenotazioni.
-					System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+					if (sceltaOk == true)
+						System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 					break;
 					
 				case "3": //Caso ricerca per titolo.
@@ -251,9 +262,10 @@ public class Bigliettaio extends Guest {
 							if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 							//...risultati della ricerca...
 								System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-										+ "ricerca\n");
+										+ "ricerca");
 								System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 								sceltaOk = false;
+								break;
 							} 
 							else { //Altrimenti se la prenotazione è corretta e non ho raggiunto numero massimo di risultati...
 								risRicerca[numRisRicerca] = prenotaz; //...salvo prenotazione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -266,7 +278,8 @@ public class Bigliettaio extends Guest {
 						} //Fine blocco if fatto se la prenotazione è corretta.
 						
 					} //Fine while che legge il file delle prenotazioni e controlla le prenotazione.
-					System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+					if (sceltaOk == true)
+						System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 					break;	
 					
 				case "4": //Caso ricerca per data.
@@ -369,9 +382,10 @@ public class Bigliettaio extends Guest {
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-												+ "ricerca\n");
+												+ "ricerca");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 										sceltaOk = false;
+										break;
 									} 
 									else { //Altrimenti se la prenotazione è corretta e non ho raggiunto numero massimo di risultati...
 										risRicerca[numRisRicerca] = prenotaz; //...salvo prenotazione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -384,8 +398,8 @@ public class Bigliettaio extends Guest {
 								} //Fine blocco if fatto se la prenotazione è corretta.
 								
 							} //Fine while che legge il file delle prenotazioni e controlla le prenotazione.
-							System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
-							
+							if (sceltaOk == true)
+								System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 							break;
 							
 						case "2": //Caso ricerca dopo una certa data.
@@ -465,9 +479,10 @@ public class Bigliettaio extends Guest {
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 									//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-												+ "ricerca\n");
+												+ "ricerca");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 										sceltaOk = false;
+										break;
 									} 
 									else { //Altrimenti se la prenotazione è corretta e non ho raggiunto numero massimo di risultati...
 										risRicerca[numRisRicerca] = prenotaz; //...salvo prenotazione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -480,7 +495,8 @@ public class Bigliettaio extends Guest {
 								} //Fine blocco if fatto se la prenotazione è corretta.
 								
 							} //Fine while che legge il file delle prenotazioni e controlla le prenotazioni.
-							System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+							if (sceltaOk == true)
+								System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 							break;
 						
 						case "3": //Caso ricerca tra due date.
@@ -626,9 +642,10 @@ public class Bigliettaio extends Guest {
 									if (numRisRicerca >= limiteRic) {  //...controllo se ho raggiunto (o, per qualche strano motivo, superato) numero massimo di...
 										//...risultati della ricerca...
 										System.out.println("Numero massimo di risultati per la ricerca (" + limiteRic + ") raggiunto, non è possibile continuare la "
-												+ "ricerca\n");
+												+ "ricerca");
 										System.out.println("Per effettuare una ricerca completa inserire criteri più restrittivi");
 										sceltaOk = false;
+										break;
 									} 
 									else { //Altrimenti se la prenotazione è corretta e non ho raggiunto numero massimo di risultati...
 										risRicerca[numRisRicerca] = prenotaz; //...salvo prenotazione correntemente letta da file in vettore dei risultati della ricerca,...
@@ -641,7 +658,8 @@ public class Bigliettaio extends Guest {
 								} //Fine blocco if fatto se la prenotazione è corretta.
 								
 							} //Fine while che legge il file delle prenotazioni e controlla le prenotazioni.
-							System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
+							if (sceltaOk == true)
+								System.out.println("La ricerca ha dato " + numRisRicerca + " risultati");
 							break;
 							
 						default:
@@ -733,11 +751,10 @@ public class Bigliettaio extends Guest {
 		
 		double costoTot=0;
 		
-		Scanner scFile = new Scanner(new File("../data/prenotazioni.csv")); //scFile è lettore file prenotazioni.
+		Scanner scFile = new Scanner(new File("../data/Prenotazioni.csv")); //scFile è lettore file prenotazioni.
 		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next legge una riga del file.
-		
-		int numvirgoleintestaz = 7;
 		scFile.next(); //Salto la prima riga del file prenotazioni che è l'intestazione.
+		int numvirgoleintestaz = 7; //Numero virgole intestazione file prenotazioni Prenotazioni.csv.
 		
 		LocalDate dataOdierna = LocalDateTime.now().toLocalDate();
 		
