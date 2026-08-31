@@ -23,27 +23,30 @@
 \Candidato[765700]{Luca Gabriel Chindris }
 
 \end{frontespizio}
-
-
-\chapter*{introduzione}
-
-
 \tableofcontents
 
 \chapter{Installazione}
-In questo capitolo sono presentati i requisiti necessari all'installazione dell'applicazione e la modalità di installazione sui PC. \textbf{ATTENZIONE:} si segnala che questo programma è pensato per funzionare su sistemi Microsoft Windows, pertanto l'esecuzione su sistemi diversi non è garantita.
+In questo capitolo sono presentati i requisiti necessari all'installazione dell'applicazione e la modalità di installazione sui PC. 
 
 \section{Requisiti di sistema}
+Per eseguire il programma è necessario un computer con sistema Microsoft Windows che abbia installata la Java Virtual Machine.
 
 \section{Setup ambiente}
-
+Le cartelle bin (contiene l'eseguibile), src(contiene il codice sorgente) e data(contiene i file csv che simulano i database utenti, palinsesto e prenotazioni) devono sempre trovarsi all'interno della stessa cartella, altrimenti l'eseguibile non sarà eseguito.
 \section{Installazione programma} 
-
+Per installare il programma è suficiente scaricare il repository da GitHub ed eventualmente copiare le cartelle data,src e bin nella cartella di lavoro.
 \chapter{Esecuzione ed uso}
 In questo capitolo sono esposti i principali metodi che garantiscono il funzionamento dell'applicazione.
 Viene anche discusso come è stato creato l'eseguibile e le modalità di setup e installazione dell'applicazione.
 
 \section{Setup e lancio del programma}
+Per lanciare il programma è necessario aprire la shell nella bartella bin e digitare il comando java -jar CineMaX.jar
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/lancio}
+\caption{Avvioo del codice}
+\end{figure}
 
 \section{Classi e funzionalità}
 In questa sezione sono descritte le parti fondamentali dell'applicazione, che ne garantiscono il funzionamento corretto;
@@ -140,8 +143,26 @@ Questa classe contiene i metodi get e set per i suoi campi.
 
 
 \subsubsection{La classe Guest}\label{subsubsec:Guest}
+La classe guest è una classe senza campi ne costruttori che contiene i metodi per effettuare la ricerca di una proiezione. I metodi di questa classe sono utilizzati nell'interfaccia guest nel metodo main (sezione \ref{subsubsec:Guestlog} e dalla classe Cliente, come discusso in sezione \ref{sec:Cliente}.
 
 \subsubsection{La classe Cliente}\label{subsubsec:Cliente}
+La classe Cliente estende direttamente la classe Guest ed eredita da essa i metodi di ricerca ed esplorazione delle proiezioni. Modella l'utente registrato come cliente del cinema. 
+
+I suoi campi privati sono:
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] \textbf{private String Nome} 
+\item[•] \textbf{private String Cognome}
+\item[•] \textbf{private String IDutente}
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+che modellano rispettivamente il nome dell'utente e l'ID univoco assegnato al cliente quando si registra dal metodo statico Registrati() della classe CineMaX .
+La classe incapsula la logica relativa all'inserimento, alla rimozione e alle modifiche delle prenotazioni.
+
 
 \subsubsection{La classe Proiezionista}\label{subsubsec:Proiezionista}
 
@@ -407,24 +428,60 @@ Quando si effettua il logout dall' applicazione, corrispondente all'input 0 da p
 \caption{Logout}
 \end{figure}
 
-\subsection{Funzionalità dell'utente di tipo cliente}
+\subsection{Funzionalità dell'utente di tipo cliente}\label{sec:Cliente}
 Il menu del cliente è fatto da stampe System.out.println che mostra al cliente ogni opzione da scegliere
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[scale=1]{IMGS/menucliente}
+\includegraphics[scale=0.5]{IMGS/menucliente}
 \caption{Menù cliente}
 \end{figure}
 
 
 
-\subsubsection{Ricerca di una proiezione}
+\subsubsection{Ricerca di una proiezione ed effettuare una prenotazione}
+Selezionando l'opzione 1, il sistema invoca il metodo cercaProiezione() della classe Guest, che restituisce l'elenco delle proiezioni disponibili sotto forma di array. L'utente seleziona quindi la proiezione desiderata tramite Guest.selezionaProiezDaRicerca(risultatoRicerca); se la selezione non produce alcun risultato (valore null), l'operazione viene interrotta e il cliente torna al menu iniziale.
+In caso di selezione valida, il metodo chiediNumeroDiPosti(proiezioneSelezionata) chiede all'utente quanti posti desidera prenotare. 
+Se il numero richiesto non è disponibile, la prenotazione viene annullata e l'utente torna al menu iniziale; altrimenti la prenotazione viene creata tramite creaPrenotazione(proiezioneSelezionata, numeroPostiRichiesti).
+Il metodo creaPrenotazione(Proiezione proiezioneSelezionata, int posti) della classe Cliente verifica innanzitutto la disponibilità dei posti richiesti tramite proiezioneSelezionata.haPostiDisponibili(posti). In caso affermativo, calcola e mostra il prezzo totale dei biglietti e chiede conferma all'utente (S/N). Se la risposta inizia con il carattere 'S', viene istanziato un nuovo oggetto Prenotazione con i dati del cliente e della proiezione, e lo si salva su file tramite Prenotazione.aggiungiPrenotazioneAlCSV(prenotazione); in caso contrario, o se i posti non sono disponibili, la prenotazione viene annullata.
 
-\subsubsection{Effettuare una prenotazione}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/creaprenota}
+\caption{Il metodo creaPrenotazione(Proiezione proiezioneSelezionata, int posti) }
+\end{figure}
+
+Il metodo statico aggiungiPrenotazioneAlCSV(Prenotazione prenotazione) apre il file in modalità append tramite un FileWriter, in modo da non sovrascrivere le righe già presenti, e compone una nuova riga concatenando i campi della prenotazione separati da virgola, secondo il formato del file CSV. La data della proiezione viene formattata tramite DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"). La riga viene quindi scritta su file; eventuali errori di lettura o scrittura vengono intercettati con un blocco catch (IOException e), che ne stampa i dettagli e restituisce false.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/creaprenota}
+\caption{aggiungiPrenotazioneAlCSV(Prenotazione prenotazione) }
+\end{figure}
+
+\subsubsection{Modificare una prenotazione}
+Selezionando l'opzione 2 dal menu principale, il sistema entra in un sotto-menu dedicato alla gestione delle prenotazioni del cliente, anch'esso realizzato con un ciclo do-while e uno switch a quattro rami mostrato in figura \ref{fig:switchmod}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/switchmod}
+\caption{Lo switch case del menù di modifica prenotazioni}\label{fig:switchmod}
+\end{figure}
+
+Il ramo case 1 richiama il metodo visualizzaLeMiePrenotazioni(), che elenca a video le prenotazioni del cliente. Il sotto-menu resta attivo finché l'utente non inserisce 0 per tornare indietro.\\
+Il ramo case 2 mostra il dettaglio della prenotazione selezionata e propone due possibilità di modifica: il numero di posti oppure la data della proiezione. La scelta viene letta anch'essa tramite leggiInt. Se l'utente sceglie di modificare il numero di posti (case 1), viene invocato il metodo chiediQuantiPostiPrenotareEmodifica(proiezioneSelezionata, prenotazioneSelezionata), che gestisce l'aggiornamento del numero di posti richiesti per la proiezione.
+Se invece l'utente sceglie di modificare la data (case 2), il sistema recupera con cercaProiezPerCambioPrenotaz(prenotazioneSelezionata.getProiezione\_ Titolo()) tutte le proiezioni disponibili per lo stesso film, le presenta in un elenco numerato tramite Guest.selezionaProiezDaRicerca(listaProiezioni) e infine richiama nuovamente chiediQuantiPostiPrenotareEmodifica(...) per completare l'aggiornamento della prenotazione.
 
 \subsubsection{Cancellare una prenotazione}
+Il ramo case 3 carica l'intero archivio delle prenotazioni tramite Prenotazione.caricaPrenotazioni() e ne filtra il contenuto con Prenotazione.TrovaPrenotazioniConNomeECognome(nome, cognome, prenotazioniC, tutte), isolando le sole prenotazioni intestate al cliente collegato. Se non viene trovata alcuna prenotazione futura, l'operazione viene interrotta e l'utente torna al menu precedente; in caso contrario, il sistema propone l'elenco delle prenotazioni tra cui scegliere quella da eliminare.
 
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/cancellapren}
+\caption{Lo switch case del menù di cancellazione di una prenotazione}
+\end{figure}
 
+Il metodo statico eliminaPrenotazioneDalCSV(int idPrenotazione) legge il file riga per riga tramite BufferedReader, conservando l'intestazione e tutte le righe non vuote in una lista temporanea. Per ciascuna riga, l'identificativo viene confrontato con idPrenotazione: in caso di corrispondenza la riga viene esclusa (tramite continue), mentre tutte le altre righe vengono mantenute e successivamente riscritte sul file, ottenendo così l'eliminazione della prenotazione richiesta.
 
 \subsection{Funzionalità dell'utente di tipo proiezionista}
 Nel caso in cui nel menù iniziale l’utente scelga di effettuare il log in accedendo con credenziali da proiezionista verrà visualizzato il menù mostrato in figura\ref{fig:menuproiezionista}
@@ -486,13 +543,6 @@ Il metodo scansiona la lista delle prenotazioni attive per verificare se esiston
 \includegraphics[scale=0.5]{IMGS/cancellaproiezione}
 \caption{Il metodo rimuoviProiezioneDalPalinsesto(String, LocalDateTime, ArrayList<Proiezione>, ArrayList<Prenotazione>)}\label{fig:cancellaproiezionista}
 \end{figure}
-
-
-
-
-
-
-
 
 \subsection{Funzionalità dell'utente di tipo bigliettaio}
 Nel caso in cui nel menù iniziale l’utente scelga di effettuare il log in e acceda con credenziali da bigliettaio verrà visualizzato il menù mostrato in figura\ref{menubigliettaio}

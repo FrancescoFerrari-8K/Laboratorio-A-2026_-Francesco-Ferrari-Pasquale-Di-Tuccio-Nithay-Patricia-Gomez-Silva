@@ -30,8 +30,47 @@ In questo documento sono descritte le varie operazioni che possono essere esegui
 \tableofcontents
 
 \chapter{Requisiti e installazione}
-%finchè non c'è l'eseguibile non si può scrivere
+Per installare il programma è necessario scaricare da GitHub il repository Laboratorio-A-2026\_ -Francesco-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva. \textbf{ATTENZIONE: }questa applicazione è pensata per funzionare su PC con sistema operativo Microsoft Windows, non è garantita l'esecuzione su macchine con sistema operativo diverso da quello indicato.
+all'interno della cartella omonima al repository si trovano quattro sottocartelle:
 
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] \textbf{bin} contiene l'eseguibile
+\item[•] \textbf{src} contiene il codice sorgente
+\item[•] \textbf{data} contiene i file necessari all'esecuzione
+\item[•] \textbf{doc} contiene i manuali e la Javadoc
+\end{itemize}
+\end{varwidth}
+\end{center} 
+per la corretta esecuzione del codice le cartelle bin,data e src devono sempre trovarsi all'interno della stessa cartella. La cartella del repository contiene inoltre due file:
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] \textbf{Autori.txt} gli autori del progetto
+\item[•] \textbf{Readme.txt} istruzioni per l'avvio del programma 
+\end{itemize}
+\end{varwidth}
+\end{center} 
+
+\begin{figure}[!htbp]
+\includegraphics[scale=0.7]{IMGS/cartellaradice}
+\caption{La cartella del software}
+\end{figure}
+
+Questo programma necessita che il computer che lo esegue abbia installata la Java Virtual Machine, in caso contrario è possibile fare il download e l'installazione visitando il link che si trova nel file Readme.txt.\\
+Per eseguire il programma è necessario aprire la shell nella cartella bin come mostrato in figura \ref{fig:shell}; dopo aver aperto la shell è necessario digitre il comando java -jar CineMaX.jar per eseguire l'applicazione come mostrato in figura \ref{fig:avvio}
+
+\begin{figure}[!htbp]
+\includegraphics[scale=0.5]{IMGS/shell}
+\caption{Aprire la shell in una cartella}\label{fig:shell}
+\end{figure}
+
+\begin{figure}[!htbp]
+\includegraphics[scale=0.5]{IMGS/lancio}
+\caption{Avvio del software}\label{fig:avvio}
+\end{figure}
 \chapter{Tipi di utente}
 L'applicazione permette l'utilizzo da parte di di quattro tipi di utente diversi, a seconda del tipo di utente che effettua l'accesso cambiano le operazioni che possono essere eseguite.
 Lo username dei clienti è deciso in fase di registrazione, mentre quello dei dipendenti è assegnato dal gestore del cinema secondo  un formato predefinito. \'E possibile registrare i clienti dal terminale, mentre i dipendenti (proiezionisti e biglietttai) devono essere aggiunti a mano dal gestore del cinema.
