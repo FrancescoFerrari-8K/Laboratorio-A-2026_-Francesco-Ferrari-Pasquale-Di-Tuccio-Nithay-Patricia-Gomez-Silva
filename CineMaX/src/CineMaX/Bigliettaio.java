@@ -65,8 +65,6 @@ public class Bigliettaio extends Guest {
 		
 		DateTimeFormatter formatterDataITA = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Variabile per formato data italiano.
 		
-		
-		
 		Scanner scFile = new Scanner(new File("../data/Prenotazioni.csv")); //scFile è lettore file prenotazioni.
 		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next legge una riga del file.
 		scFile.next(); //Salto la prima riga del file prenotazioni che è l'intestazione.
@@ -74,7 +72,6 @@ public class Bigliettaio extends Guest {
 		
 		Prenotazione[] risRicerca; //Vettore che rappresenta il risultato della ricerca cioè contiene le prenotazioni che rispettano il...
 		//...criterio scelto.
-		
 		
 		System.out.println("Ricerca di una prenotazione");
 		
@@ -718,7 +715,6 @@ public class Bigliettaio extends Guest {
 						} else {
 							System.out.println(risRicerca[sceltaNumPrenotazVisualiz-1].toString(true)); //C'è il -1 perchè all'utente le prenotaz sono visualiz...
 							//...numerate da 1 (e quindi anche la sua scelta), mentre nel vettore sono numerate da 0.
-							System.out.println("Prezzo biglietto:" + risRicerca[sceltaNumPrenotazVisualiz-1].getPrezzoBiglietto() );
 							costoTot = risRicerca[sceltaNumPrenotazVisualiz-1].getPrezzoBiglietto() * risRicerca[sceltaNumPrenotazVisualiz-1].getNPosti(); 
 							System.out.println("Costo totale:" + costoTot);
 							return risRicerca;
@@ -769,7 +765,6 @@ public class Bigliettaio extends Guest {
 				numRisRicerca++;
 				System.out.println(numRisRicerca);
 				System.out.println(prenotaz.toString(true));
-				System.out.println("Prezzo biglietto:" + prenotaz.getPrezzoBiglietto() );
 				costoTot = prenotaz.getPrezzoBiglietto() * prenotaz.getNPosti(); 
 				System.out.println("Costo totale:" + costoTot);
 			}

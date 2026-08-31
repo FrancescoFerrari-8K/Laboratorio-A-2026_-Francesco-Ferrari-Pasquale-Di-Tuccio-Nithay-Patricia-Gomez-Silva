@@ -41,19 +41,16 @@ public class Guest {
 		
 		Scanner scFile = new Scanner(new File("../data/proiezioni.csv")); //scFile è lettore file proiezioni.
 		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga del file.
-		
-		
-		int numvirgoleintestaz = 8;
 		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
+		int numvirgoleintestaz = 8;
 		
 		Proiezione[] risRicerca = new Proiezione[limiteRic]; //Vettore che rappresenta il risultato della ricerca cioè contiene le proiezioni che rispettano il...
 		//...criterio scelto.
 		
-		
-		System.out.println("Ricerca proiezione con titolo film :" + titoloCercato);
-		
 		String titoloTempLowercase, titoloRicLowercase; //Variabili che conterranno i titoli cercato e estratto dalla proiez corrente messi a minuscolo.
 		String titoloParz; //Uso spiegato in confronto titoli.
+		
+		System.out.println("Ricerca proiezione con titolo film :" + titoloCercato);
 		
 		while(scFile.hasNext()) { //Ciclo per leggere una proiezione dal file delle proiezioni e verificare se rispetta requisiti.
 			
@@ -217,7 +214,6 @@ public class Guest {
 		
 		DateTimeFormatter formatterDataITA = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Variabile per formato data italiano.
 		
-		
 		Scanner scFile = new Scanner(new File("../data/proiezioni.csv")); //scFile è lettore file proiezioni.
 		scFile.useDelimiter("\n"); //Il separatore per distinguere una "cosa" letta dal file dalla successiva è l'a-capo, quindi ogni .next() legge una riga del file.
 		scFile.next(); //Salto la prima riga del file proiezioni che è l'intestazione.
@@ -225,7 +221,6 @@ public class Guest {
 		
 		Proiezione[] risRicerca; //Vettore che rappresenta il risultato della ricerca cioè contiene le proiezioni che rispettano il...
 		//...criterio scelto.
-		
 		
 		System.out.println("Ricerca di una proiezione");
 		
@@ -1763,7 +1758,6 @@ public class Guest {
 							return risRicerca;
 						}
 						
-						
 					} while (true);
 					
 				default:
@@ -1857,9 +1851,7 @@ public class Guest {
 	 * @return Oggetto Proiezione corrispondente a una proiezione letta/estratta dal file proiezioni.csv.
 	 */
 	private Proiezione estraiProiezione(Scanner scanner, int numvirgoleintestaz) {
-//
 
-		
 		int contaVirgole = 0; //Contatore delle virgole della riga che sto leggendo in questo momento, utile per capire se ci sono virgole in più rispetto...
 		//...all'intestazione xk anche il titolo ha delle virgole al suo interno.
 		int differenzaVirgole = 0; //Contatore della differenza delle virgole tra numero di virgole della riga/proiezione che sto leggendo e numero standard di virgole.
@@ -2017,7 +2009,6 @@ public class Guest {
 		
 		LinkedList<Proiezione> risRicerca = new LinkedList<Proiezione>(); //Linkedlist che rappresenta il risultato della ricerca cioè contiene le proiezioni...
 		//...che rispettano il criterio scelto.
-		
 		
 		while(scFile.hasNext()) { //Ciclo per leggere una proiezione dal file delle proiezioni e verificare se rispetta requisiti.
 			
