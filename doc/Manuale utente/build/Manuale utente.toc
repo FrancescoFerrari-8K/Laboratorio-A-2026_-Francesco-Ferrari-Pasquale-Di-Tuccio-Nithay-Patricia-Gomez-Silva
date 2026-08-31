@@ -8,21 +8,21 @@
 \contentsline {section}{\numberline {2.4}Utente di tipo bigliettaio}{5}{section.0.2.4}%
 \contentsline {chapter}{\numberline {3}Menù principale}{7}{chapter.0.3}%
 \contentsline {chapter}{\numberline {4}Registrazione}{9}{chapter.0.4}%
-\contentsline {chapter}{\numberline {5}Login}{10}{chapter.0.5}%
-\contentsline {section}{\numberline {5.1}Guest}{11}{section.0.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Ricerca di una proiezione}{11}{subsection.0.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Registrazione}{12}{subsection.0.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Logout}{12}{subsection.0.5.1.3}%
-\contentsline {section}{\numberline {5.2}Cliente}{12}{section.0.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Cercare una proiezione ed effettuare una prenotazione}{13}{subsection.0.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Interagire con le prenotazioni effettuate}{13}{subsection.0.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Logout}{15}{subsection.0.5.2.3}%
-\contentsline {section}{\numberline {5.3}Proiezionista}{15}{section.0.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Inserire una proiezione nel palinsesto}{15}{subsection.0.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Cancellare una proiezione dal palinsesto}{15}{subsection.0.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Modificare data o orario di una prenotazione}{15}{subsection.0.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}Logout}{17}{subsection.0.5.3.4}%
-\contentsline {section}{\numberline {5.4}Bigliettaio}{18}{section.0.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Visualizzare le prenotazioni in data odierna}{18}{subsection.0.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Effettuare la ricerca di una prenotazione}{18}{subsection.0.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Logout}{19}{subsection.0.5.4.3}%
+\contentsline {chapter}{\numberline {5}Login}{11}{chapter.0.5}%
+\contentsline {section}{\numberline {5.1}Guest}{12}{section.0.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Ricerca di una proiezione}{12}{subsection.0.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Registrazione}{13}{subsection.0.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Logout}{13}{subsection.0.5.1.3}%
+\contentsline {section}{\numberline {5.2}Cliente}{13}{section.0.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Cercare una proiezione ed effettuare una prenotazione}{14}{subsection.0.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Interagire con le prenotazioni effettuate}{14}{subsection.0.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Logout}{16}{subsection.0.5.2.3}%
+\contentsline {section}{\numberline {5.3}Proiezionista}{16}{section.0.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Inserire una proiezione nel palinsesto}{16}{subsection.0.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Cancellare una proiezione dal palinsesto}{16}{subsection.0.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Modificare data o orario di una prenotazione}{16}{subsection.0.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Logout}{18}{subsection.0.5.3.4}%
+\contentsline {section}{\numberline {5.4}Bigliettaio}{19}{section.0.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Visualizzare le prenotazioni in data odierna}{19}{subsection.0.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Effettuare la ricerca di una prenotazione}{19}{subsection.0.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Logout}{20}{subsection.0.5.4.3}%

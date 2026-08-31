@@ -62,9 +62,6 @@ Infine CineMaX è la classe che contiene il metodo main e i metodi necessari all
 La classe Guest ha tre sottoclassi dirette: Cliente, Proiezionista e Bigliettaio; Guest fornisce i metodi per effettuare la ricerca di una proiezione nel palinsesto (si veda la sezione \ref{subsubsec:Guest}), Cliente consente di effettuare,modificare o eliminare prenotazioni oltre alla ricerca di proiezioni (si veda la sezione \ref{subsubsec:Cliente}), Proiezionista consente di interagire col palinsesto inserendo, rimuovendo o modificando una proiezione (si veda la sezione \ref{subsubsec:Proiezionista}) e infine Bigliettaio consente di visualizzare e ricercare prenotazioni effettuate dai clienti (si veda la sezione \ref{subsubsec:Bigliettaio}).
 
 
-
-
-
 \subsubsection{La classe Film}
 La classe Film estende direttamente Object e serve unicamente per creare e operare su oggetti utilizzati nella costruzione di oggetti di tipo Proiezione, gli oggetti di tipo Film modellano il film da inserire nel palinsesto delle proiezioni e contengono le informazioni generali di un film, che sono:
 
@@ -141,11 +138,36 @@ La classe Prenotazione estende direttamente Object costruisce oggetti di tipo pr
 che modellano rispettivamente l'ID univoco assegnato all'utente in fase di registrazione (si veda la sezione \ref{subsubsez:Registrarsi}), il nome e il cognome dell'utente, la data e l'orario della proiezione in formato AAAA-MM-GG HH:MM:SS, l'ID della prenotazione, che viene assegnata come intero in ordine crescente dal metodo public static int generaNuovoID(), il numero di posti prenotati e il prezzo del biglietto.
 Questa classe contiene i metodi get e set per i suoi campi.
 
+
 \subsubsection{La classe Guest}\label{subsubsec:Guest}
 
 \subsubsection{La classe Cliente}\label{subsubsec:Cliente}
 
 \subsubsection{La classe Proiezionista}\label{subsubsec:Proiezionista}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.6]{IMGS/proiezionista}
+\caption{I campi e il costruttore della classe Proiezionista}
+\end{figure}
+
+La classe Proiezionista estende direttamente la classe Guest ed eredita da essa i metodi di ricerca ed esplorazione delle proiezioni. Rappresenta l'operatore del cinema incaricato della gestione tecnica del palinsesto. 
+
+I suoi campi privati sono:
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] \textbf{private String Nome} 
+\item[•] \textbf{private String idProiezionista}
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+che modellano rispettivamente il nome dell'utente e l'ID univoco assegnato al proiezionista nel formato **PRO[numero].
+La classe incapsula la logica relativa alle modifiche del palinsesto.
+
+
 
 \subsubsection{La classe Bigliettaio}\label{subsubsec:Bigliettaio}
 
@@ -173,12 +195,71 @@ Come si può vedere in figura \ref{fig:metodomain} il menù principale è costru
 \end{figure}
 
 \subsubsection{Registrarsi}\label{subsubsez:Registrarsi}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.4]{IMGS/registrati}
+\caption{Inizio del metodo Registrati}\label{fig:registrazione}
+\end{figure}
 
-\subsubsection{Effettuare il login}
+La registrazione di un nuovo utente, corrispondente alla scelta 2 nel menù principale, corrisponde alla scrittura delle informazioni dell'utente (nome, cognome..) nelle colonne del file Utenti.csv e viene effettuata invocando il metodo private static void registarti() della classe CineMaX. Come si può vedere nell'immagine \ref{registrazione}, questo metodo usa lo scanner(System.in) obj per salvare l'input da tastiera dell'utente; il codice chiede all'utente di inserire le sue informazioni una alla volta, ogni inserimento è all'interno di un ciclo while(true) così che  non è possibile passare all'informazione successiva fino a quando la precedente non viene inserita correttamente. Questo è necessario soprattutto per evitare che l'utente inserisca stringhe vuote nel file Utenti.csv, che potrebbero pregiudicarne la lettura causando il crash dell'applicazione.
 
-\subsubsection{Login come Guest e ricerca di un film}
-Se si digita un qualsiasi carattere che non corrisponde alle scelte possibili nel menù principale, si entra nel caso di default dello switch/case principale, che interpreta la stringa data in input dall'utente come il titolo (intero o parziale) di una proiezione ed effettua una ricerca nel palinsesto per mostrare tutte le proiezioni con quel nome disponibili. Per farlo l'utente deve essere loggato come guest quindi per prima cosa si procede a creare un nuovo oggetto di tipo guest e salvarlo nella variabile loggeduser, che sarà usata per invocare il metodo public void cercaProiezione() della classe Guest, che implementa l'interfaccia di ricerca di una proiezione. Dopo aver effettuato la ricerca si rimarrà quindi loggati come guest, quindi sarà possibileeffettuare una nuova ricerca, registrarsi con il metodo statico CineMax.Registrati()(si veda la sezione \ref{subsubsez:Registrarsi}) o tornare al menù principale. 
-Questa modalità è uguale al caso 3 dello switch/case principale, che corrisponde all'accesso come guest per cui è solamente possibile registrarsi o effettuare la ricerca di una proiezione nel palinsesto.
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.4]{IMGS/controlloetà}
+\caption{Controllo dell'età}\label{fig:controlloetà}
+\end{figure}
+
+CineMaX esegue un controllo dell'età e non consente la registrazione a utenti che hanno più di 125 anni di età per evitare l'inserimento di date inverosimili, come ad esempio 1693-07-16, o la registrazione di minorenni senza il consenso di un maggiorenne;
+la correttezza del formato della data inserita viene controllata con il metodo statico CineMaX.controllodata(String data), quest'ultimo è un parser che converte qualsiasi data inserita dall'utente nel formato corretto (AAAA-MM-GG) e la restituisce come String se
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] la data inserita non è formata da soli numeri
+\item[•] la data inserita ha un numero di caratteri conforme a una data (8<caratteri<10)
+\item[•] la data inserita non contiene più di due caratteri non numerici (i separatori)
+\item[•] i separatori non sono due simboli diversi tra loro
+\item[•] i caratteri non numerici presenti sono nelle posizioni corrette per un separatore
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+Sebbene il formato di data corretto sia suggerito all'utente, questo parsing si rende necessario in quanto per il controllo dell' età si usa il metodo statico Period.between(LocalDate, LocalDate) della classe Period, che restituisce la differenza in anni-mesi-giorni di due date in formato LocalDate, che in questo caso sono la data di nascita parsata inserita nella variabile dataLD e la data odierna estratta dal sistema all'invocazione del metodo tramite il metodo statico LocaLDate.now() e salvata nella variabile LocalDate dataoggi.
+Qualora la differenza tra le date risulti maggiore o uguale a 125 anni viene richiesto all'utente di riprovare fino all'inserimento di una data valida, mentre se l'utente risulta minorenne al momento della registrazione viene richiesto il login (si veda la sezione \ref{subsubsez:login}) di un utente maggiorenne: se l'utente è di tipo proiezionista o bigliettaio il controllo è riuscito poichè i dipindenti sono necessariamente maggiorenni, mentre se l'utente è di tipo cliente il programma calcola la differenza delle età come differenza tra date e consente di proseguire se e solo se questa è maggiore o uguale a 18 anni.
+Il metodo controlla inoltre che lo username non sia già in uso con il metodo statico CineMaX.usernameinuse(String username), che accede al file Utenti.csv, controlla se lo username digitato è già presente e restituisce true se la risposta è affermativa, false altrimenti.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/usernameinuse}
+\caption{Controllo username già in uso}
+\end{figure}
+
+Il metodo non permette il salvataggio in chiaro delle password nel file criptandole con l'algoritmo SHA 256 prima della scrittura.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/cripter}
+\caption{Criptaggio password con SHA 256}
+\end{figure}
+
+Alla fine del processo, il metodo assegna lo username all'utente con il metodo CineMaX.assegnaIDstr(String nome, String cognome, String username), che forma uno username utilizzando le prime due lettere dei suoi input e il numero della riga in cui verrà salvato nel file contato dopo le prime cinque righe riservate ai dipendenti.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/assegnaid}
+\caption{Assegnazione ID utente}
+\end{figure}
+
+\subsubsection{Effettuare il login}\label{subsubsez:login}
+Il login di un'utente (scelta 1 nel menù principale) è gestito dal metodo CineMaX.login(), questo metodo chiede l'inserimento di username e password, cripta la password inserita con SHA 256 per confrontarla con la password relativa allo username salvata sul file Utenti.csv e se sia lo username e la password coincidono genera un oggetto della classe Guest che istanzia la classe corrispondente al tipo di utente che si sta loggando (Cliente, Bigliettaio o Proiezionista). Il login nella categoria corretta è gestito nel caso 1 dello switch/case principale da una serie di if(loggeduser instanceof classe); la classe Guest non è mai istanziata direttamente dal metodo di login, l'oggeto di tipo Guest viene creato se e solo se si desidera procedere come Guest così da non chiedere mai se un utente è istanza di Guest, che genererebbe ambiguità perchè vero per ogni tipo di utente.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.4]{IMGS/login}
+\caption{Metodo usato per il login}
+\end{figure}
+
+\subsubsection{Login come Guest e ricerca di una proiezione}\label{subsubsec:Guestlog}
 
 \begin{figure}[!htbp]
 \centering
@@ -192,6 +273,131 @@ Questa modalità è uguale al caso 3 dello switch/case principale, che corrispon
 \caption{Caso default e interfaccia guest}
 \end{figure}
 
+Se si digita un qualsiasi carattere che non corrisponde alle scelte possibili nel menù principale, si entra nel caso di default dello switch/case principale, che interpreta la stringa data in input dall'utente come il titolo (intero o parziale) di una proiezione ed effettua una ricerca nel palinsesto per mostrare tutte le proiezioni con quel nome disponibili. Per farlo l'utente deve essere loggato come guest quindi per prima cosa si procede a creare un nuovo oggetto di tipo guest e salvarlo nella variabile loggeduser, che sarà usata per invocare il metodo public void cercaProiezione() della classe Guest, che implementa l'interfaccia di ricerca di una proiezione. Dopo aver effettuato la ricerca si rimarrà quindi loggati come guest, quindi sarà possibile effettuare una nuova ricerca, registrarsi con il metodo statico CineMax.Registrati()(si veda la sezione \ref{subsubsez:Registrarsi}) o tornare al menù principale. 
+Questa modalità è uguale al caso 3 dello switch/case principale, che corrisponde all'accesso come guest per cui è solamente possibile registrarsi o effettuare la ricerca di una proiezione nel palinsesto.\\
+Quando l’utente accede alla funzionalità di ricerca di una proiezione il programma chiama il metodo cercaProiezione() della classe Guest.
+\textbf{NB Per motivi sia di necessità, sia di leggibilità il codice, il metodo si estende su troppe righe per permettere l’utilizzo di screenshot del codice all’interno del manuale. Pertanto, per questa parte si consiglia di leggere il manuale guardando contemporaneamente anche il codice del programma.}\\
+Il metodo effettua la ricerca di una proiezione, secondo criteri decisi dall’utente, accedendo al file proiezioni.csv per leggere le informazioni sulle proiezioni.
+Il metodo non ha parametri e come valore di ritorno restituisce un array di oggetti di tipo Proiezione che conterrà gli oggetti Proiezione che rappresentano le proiezioni che sono risultato della ricerca, oppure null nel caso in cui la ricerca non abbia risultati (perché nessuna proiezione rispetta i requisiti dell’utente oppure perché la ricerca è stata annullata).
+Il metodo inizia con le dichiarazioni di alcune variabili necessarie allo svolgimento del metodo.
+Dopodichè è presente il ciclo do-while do-while(sceltaOk==false) in cui è contenuta la ricerca; la variabile boolean sceltaOk viene inizializzata a true all’inizio di ogni iterazione e viene messa a false all’interno del ciclo in quei casi in cui sia necessario ripetere il ciclo (e quindi cioè ritornare al menù della ricerca).
+Infine, è presente l’if-else if(numRisRicerca>0)-else all’interno del quale: nel caso in cui la ricerca abbia dato almeno un risultato, il programma permette all’utente di selezionare una delle proiezioni trovate con la ricerca per visualizzarne i dettagli e ritorna il vettore contenente le proiezioni risultato della ricerca, altrimenti il programma comunica all’utente la mancanza di risultati ed effettua return null.
+Il corpo del ciclo do-while(sceltaOk==false) è costituito da:
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] inizializzazione (o re-inizializzazione con intento di reset, nelle esecuzioni del ciclo successive alla prima) di variabili necessarie per la ricerca
+\item[•] stampa a schermo del menù della ricerca e prelievo input della scelta dell’utente
+\item[•] switch switch(scelta) che gestisce la ricerca
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+Il ciclo si rende necessario per rincominciare da capo per due possibili motivi: nel caso l’utente inserisca un’opzione non valida nel menù della ricerca oppure nel caso l’utente svolga una ricerca che arriva ad un numero di risultati superiore al limite consentito (nel qual caso segnala all’utente la problematica, richiede all’utente di inserire dei criteri più restrittivi in una nuova ricerca, interrompe la ricerca attuale e procede a tornare al menù della ricerca).
+Il menù della ricerca che viene stampato all’utente è mostrato in figura \ref{fig:menuricerca}.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/menuricercaproiezione}
+\caption{il menù di ricerca di una proiezione}\label{fig:menuricerca}
+\end{figure}
+
+Dopo l’inserimento dell’input da parte dell’utente il programma entra nello switch(scelta) che effettua la ricerca; la variabile scelta conterrà la scelta inserita dall’utente.
+Nel caso in cui l’utente inserisca un input non valido si andrà al case default: il programma segnala l’errore all’utente, esegue break per uscire dallo switch e torna all’inizio del ciclo do-while per tornare al menù della ricerca.
+Nel caso in cui l’utente inserisca un input valido ci sono due possibilità: ha inserito l’opzione per annullare la ricerca oppure ha selezionato uno dei criteri disponibili per la ricerca. Nel primo caso si entra nel case dedicato in cui il programma non farà altro che ritornare null, terminando il metodo. Nel secondo caso si entra nel case che si occupa della ricerca secondo il criterio scelto dall’utente.
+Nei vari case si può osservare un modo di procedere ricorrente: prima l’applicazione ottiene dall’utente le informazioni necessarie per effettuare la ricerca (nella maniera appropriata al criterio scelto), dopodiché viene effettuato il ciclo while while(scFile.hasNext()) in cui il programma effettua la ricerca secondo il criterio scelto dall’utente, usando le informazioni inserite dall’utente (while(scFile.hasNext()) va interpretato come “while(il file proiezioni.csv ha ancora qualcosa da leggere)” e quindi cioè “while(ci sono proiezioni da controllare)”).
+In particolare, nel ciclo while(scFile.hasNext()) il programma:
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] ottiene una proiezione dal file proiezioni.csv tramite il metodo estraiProiezione() della classe Guest; il metodo estraiProiezione() restituisce un oggetto di tipo Proiezione che rappresenta la proiezione letta/estratta dal file proiezioni.csv
+\item[•] verifica se la proiezione letta/estratta rispetta i requisiti dell’utente della scelta dell’utente
+\item[•] nel caso in cui la proiezione rispetti i requisiti verifica se si è raggiunto il limite massimo di risultati della ricerca. In caso affermativo il programma segnala all’utente il raggiungimento del limite e quindi l’impossibilità di proseguire la ricerca, richiede di inserire dei criteri più restrittivi in una nuova ricerca e interrompe la ricerca corrente (in particolare sceltaOk viene messa a false, viene eseguita una break per uscire dal ciclo while portando il programma ad effettuare la break del case in cui si trovava; pertanto il programma esce dallo switch e quindi arriva al while(sceltaOk==false) che farà sì che si torni al menù della ricerca). In caso contrario il programma salva la proiezione controllata in un vettore e visualizza la proiezione all’utente, numerandola e mostrandone le informazioni con il metodo visualizzaProiezione() della classe Proiezione
+\item[•] al termine della ricerca informa l’utente del numero di risultati della ricerca
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+Pertanto, l’unica differenza tra i case risiede in quali informazioni vengono richieste all’utente.
+Nella ricerca per titolo viene richiesto di inserire il titolo del film (anche parziale).
+Nella ricerca per genere viene richiesto di inserire il genere del film (anche parziale).
+Nella ricerca per data prima viene richiesto di selezionare, tramite un menù, una delle seguenti possibilità
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] proiezioni prima di una certa data
+\item[•] proiezioni dopo una certa data
+\item[•] proiezioni comprese tra due date
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+e dopo a seconda dell’opzione scelta viene richiesto di inserire la data o le date da usare come criterio di ricerca.
+Nella ricerca per prezzo del biglietto prima viene richiesto di selezionare, tramite un menù, una delle seguenti possibilità
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] proiezioni con prezzo minore di un certo valore
+\item[•] proiezioni con prezzo maggiore di un certo valore
+\item[•] proiezione con prezzo compreso tra due valori
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+e dopo a seconda dell’opzione scelta viene richiesto di inserire il prezzo o i prezzi da usare come criterio di ricerca.
+Nel case relativo alla ricerca per combinazione di criteri l’applicazione chiede all’utente di indicare quali dei criteri precedentemente menzionati si desidera utilizzare per la ricerca; nel caso in cui l’utente non selezioni almeno un criterio il programma segnalerà tale cosa e procederà a ripetere la selezione di un criterio.
+Scelto almeno un criterio da parte dell’utente, a seconda di quali criteri vengono selezionati l’applicazione richiede di inserire, per ogni criterio scelto, le informazioni necessarie per quel criterio in maniera simile a come avviene nel caso in cui si effettuasse una ricerca secondo solo quel criterio (ad esempio, nel caso in cui si selezionassero come criteri di ricerca il genere e il prezzo l’applicazione chiede per il genere di inserire un genere (anche parziale) e per il prezzo di scegliere se cercare proiezioni con prezzo minore di un certo valore, maggiore valore o compreso tra due valori e a seconda dell’opzione scelta di inserire il prezzo/i prezzi da usare come criterio).
+Nel case relativo alla ricerca per combinazione di criteri, all’interno del while(scFile.hasNext()) verranno controllati solo i criteri selezionati dall’utente e, nel caso di più criteri selezionati, non appena il programma verifica che uno dei criteri non è rispettato allora non verranno controllati gli altri criteri inutilmente.
+Conclusa la ricerca il programma esce dal while(scFile.hasNext()).
+Il programma procede con l’if-else if(numRisRicerca>0)-else il quale verifica se la ricerca ha avuto almeno un risultato o meno.
+Nel caso in cui la ricerca avesse risultati allora l’applicazione chiederà all’utente se desidera visualizzare in dettaglio una delle proiezioni trovate tramite la ricerca e, in caso affermativo, richiederà di inserire il numero della proiezione che desidera visualizzare in dettaglio. Inserito il numero di una delle proiezioni il programma permette all’utente di visualizzare nel dettaglio la proiezione scelta tramite il metodo visualizzaProiezioneDettagliata() della classe Proiezione e effettua la return in cui restituisce il vettore contenente le proiezioni risultato della ricerca.
+Nel caso in cui la ricerca non avesse risultati allora l’applicazione comunica all’utente che non è possibile visualizzare in dettaglio alcuna proiezione ed effettuerà return null.\\
+Nel caso in cui l’utente desiderasse effettuare la ricerca di una proiezione per titolo film è sufficiente che inserisca il titolo (anche parziale) come scelta nel menù iniziale e il programma chiama il metodo cercaProiezionePerTitolo() della classe Guest, dandogli come parametro il titolo inserito dall’utente. Il metodo effettua la ricerca di una proiezione che abbia titolo compatibile con il titolo deciso dall’utente, accedendo al file proiezioni.csv per leggere le informazioni sulle proiezioni.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/proiezionetitolo}
+\caption{Metodo per la ricerca di una proiezione per titolo}
+\end{figure}
+
+Il metodo cercaProiezionePerTitolo() ha come parametro una stringa ossia il titolo da cercare e come valore di ritorno restituisce un array di oggetti di tipo Proiezione il quale conterrà gli oggetti Proiezione che rappresentano le proiezioni che sono risultato della ricerca, ossia il cui titolo corrisponde al parametro del metodo, oppure null nel caso in cui la ricerca non abbia risultati (perché nessuna proiezione rispetta i requisiti dell’utente).
+Il metodo inizia con le dichiarazioni di alcune variabili necessarie allo svolgimento del metodo.
+Dopodichè è presente il ciclo while while(scFile.hasNext()) in cui è contenuta la ricerca (while(scFile.hasNext()) va interpretato come “while(il file proiezioni.csv ha ancora qualcosa da leggere)” e quindi cioè “while(ci sono proiezioni da controllare)”).
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/whilesc}
+\caption{Ciclo (while(scFile.hasNext()) }
+\end{figure}
+
+In particolare, nel ciclo while(scFile.hasNext()) il programma:
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] ottiene una proiezione dal file proiezioni.csv tramite il metodo estraiProiezione() della classe Guest; il metodo estraiProiezione() restituisce un oggetto di tipo Proiezione che rappresenta la proiezione letta/estratta dal file proiezioni.csv
+\item[•] verifica se la proiezione letta/estratta ha un titolo film compatibile con il titolo cercato
+\item[•] nel caso in cui la proiezione rispetti i requisiti verifica se si è raggiunto il limite massimo di risultati della ricerca. In caso affermativo il programma segnala all’utente il raggiungimento del limite e quindi l’impossibilità di proseguire la ricerca, richiede di inserire dei criteri più restrittivi in una nuova ricerca e interrompe la ricerca corrente tramite la return con cui restituisce il vettore delle proiezioni trovate fino a quel momento. In caso contrario il programma salva la proiezione controllata in un vettore e visualizza la proiezione all’utente, numerandola e mostrandone le informazioni con il metodo visualizzaProiezione() della classe Proiezione.
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+Al termine della ricerca il programma informa l’utente del numero di risultati della ricerca.
+Il programma procede con l’if-else if(numRisRicerca>0)-else.
+L’if-else if(numRisRicerca>0)-else verifica se la ricerca ha avuto almeno un risultato o meno.
+Nel caso in cui la ricerca avesse risultati allora l’applicazione chiederà all’utente se desidera visualizzare in dettaglio una delle proiezioni trovate tramite la ricerca e, in caso affermativo, richiederà di inserire il numero della proiezione che desidera visualizzare in dettaglio. Inserito il numero di una delle proiezioni il programma permette all’utente di visualizzare nel dettaglio la proiezione scelta tramite il metodo visualizzaProiezioneDettagliata() della classe Proiezione ed effettua la return in cui restituisce il vettore contenente le proiezioni risultato della ricerca.
+Nel caso in cui la ricerca non avesse risultati allora l’applicazione comunica all’utente che non è possibile visualizzare in dettaglio alcuna proiezione ed effettuerà return null.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/ifelsefinal}
+\caption{If-else if(numRisRicerca>0)-else }
+\end{figure}
+
+
 \subsubsection{Logout}
 Quando si effettua il logout dall' applicazione, corrispondente all'input 0 da parte dell' utente nel menù principale, viene inizializzata la variabile boolean On a false ed eseguito un comando continue, in questo modo il codice salta alla successiva esecuzione del ciclo while (On=true)la cui condizione non sarà verificata e dunque il ciclo si arresterà, terminando l'applicazione; quando il ciclo di esecuzione principale termina viene mostrato a schermo un messaggio di arrivederci.
 
@@ -202,27 +408,133 @@ Quando si effettua il logout dall' applicazione, corrispondente all'input 0 da p
 \end{figure}
 
 \subsection{Funzionalità dell'utente di tipo cliente}
+Il menu del cliente è fatto da stampe System.out.println che mostra al cliente ogni opzione da scegliere
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=1]{IMGS/menucliente}
+\caption{Menù cliente}
+\end{figure}
+
+
 
 \subsubsection{Ricerca di una proiezione}
 
 \subsubsection{Effettuare una prenotazione}
 
 \subsubsection{Cancellare una prenotazione}
+
+
 
 \subsection{Funzionalità dell'utente di tipo proiezionista}
+Nel caso in cui nel menù iniziale l’utente scelga di effettuare il log in accedendo con credenziali da proiezionista verrà visualizzato il menù mostrato in figura\ref{fig:menuproiezionista}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/menuproiezionista}
+\caption{Menù bigliettaio}\label{fig:menuproiezionista}
+\end{figure}
 
 \subsubsection{Ricerca di una proiezione}
+L'inserimnto di una proiezione nel palinsesto avviene tramite il metodo aggiungiProiezioneAlPalinsesto(Proiezione, ArrayList<Proiezione>) della classe proiezionista mostrato in figura\ref{fig:ricercaproiezionista}, che riceve in ingresso il nuovo oggetto Proiezione e l'ArrayList<Proiezione> che rappresenta il palinsesto.\\
+Il metodo
 
-\subsubsection{Effettuare una prenotazione}
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] calcola l'intervallo orario dello spettacolo compreso tra inizioNuova (dataOra) e fineNuova (dataOra + durata film).
+\item[•] esegue un ciclo di verifica su tutte le proiezioni esistenti per rilevare intersezioni temporali tramite la condizione: inizioNuova.isBefore(fineEsistente) \&\& fineNuova.isAfter(inizioEsistente).
+\end{itemize}
+\end{varwidth}
+\end{center}
+In assenza di conflitti, l'elemento viene aggiunto all'’ArrayList, riordinato tramite Collections.sort() e salvato su file CSV tramite Proiezione.salvaProiezioni().
 
-\subsubsection{Cancellare una prenotazione}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/ricercaproiezione}
+\caption{Il metodo aggiungiProiezioneAlPalinsesto(Proiezione, ArrayList<Proiezione>) }\label{fig:ricercaproiezionista}
+\end{figure}
+
+\subsubsection{Modificare una proiezione}
+La modifica della data e/o dell'orario di una proiezione si esegue con il Il metodo modificaDataOraProiezione(String, LocalDateTime, LocalDateTime ArrayList<Proiezione>) della classe proiezionista mostrato in figura\ref{fig:modificaproiezionista}, che riceve in ingresso il titolo del film passato come String, la data e l'ora correnti e nuove in formato LocalDateTime e l'ArrayList<Proiezione> che rappresenta il palinsesto.\\
+Il metodo individua l'oggetto target all'interno del palinsesto e valuta la validità della nuova data/ora proposta:
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] ottiene una prenotazione dal file Prenotazioni.csv tramite il metodo estraiPrenotazione() della classe Bigliettaio; il metodo estraiPrenotazione() restituisce un oggetto di tipo Prenotazione che rappresenta la prenotazione letta/estratta dal file Prenotazioni.csv
+\item[•] verifica che la nuova data sia successiva a LocalDateTime.now()
+\item[•] riesegue il controllo di sovrapposizione oraria ignorando nel ciclo il confronto del film con se stesso (if (p == proiezioneDaModificare) continue;)
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+Se le verifiche hanno esito positivo, il campo dataOra viene aggiornato tramite setter, la lista viene riordinata cronologicamente e salvata su file.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/modificaproiezione}
+\caption{Il metodo modificaDataOraProiezione(String, LocalDateTime, LocalDateTime ArrayList<Proiezione>) }\label{fig:modificaproiezionista}
+\end{figure}
+
+\subsubsection{Cancellare una proiezione}
+La rimozione di una proiezione nel palinsesto avviene invocando il metodo rimuoviProiezioneDalPalinsesto(String, LocalDateTime, ArrayList<Proiezione>, ArrayList<Prenotazione>) della classe proiezionista mostrato in figura\ref{fig:cancellaproiezionista}, che riceve in ingresso il titolo del film passato come String, la data e l'ora in formato LocalDateTime, l'ArrayList<Proiezione> che rappresenta il palinsesto e l'l'ArrayList<Prenotazione> che rappresenta l'elenco di tutte le prenotazioni.\\
+Il metodo scansiona la lista delle prenotazioni attive per verificare se esistono record corrispondenti allo stesso titolo e alla stessa data/ora: se la ricerca dà esito positivo (trovata almeno una prenotazione), il metodo interrompe l'esecuzione restituendo false, in caso contrario l'oggetto viene rimosso dal palinsesto e la modifica viene persistita su file.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.5]{IMGS/cancellaproiezione}
+\caption{Il metodo rimuoviProiezioneDalPalinsesto(String, LocalDateTime, ArrayList<Proiezione>, ArrayList<Prenotazione>)}\label{fig:cancellaproiezionista}
+\end{figure}
+
+
+
+
+
+
+
 
 \subsection{Funzionalità dell'utente di tipo bigliettaio}
+Nel caso in cui nel menù iniziale l’utente scelga di effettuare il log in e acceda con credenziali da bigliettaio verrà visualizzato il menù mostrato in figura\ref{menubigliettaio}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=1]{IMGS/menubigliettaio}
+\caption{Menù bigliettaio}\label{fig:menubigliettaio}
+\end{figure}
 
 \subsubsection{Visualizzare tutte le prenotazioni in data odierna}
+Quando l’utente accede alla funzionalità di visualizzazione prenotazioni odierne il programma chiama il metodo visualizzaPrenotazioniOdierne() della classe Bigliettaio.
+Il metodo effettua la ricerca delle prenotazioni odierne, accedendo al file Prenotazioni.csv per leggere le informazioni sulle prenotazioni, e, se presenti, queste verranno visualizzate.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=1]{IMGS/visprenotazioni}
+\caption{Metodo visualizzaPrenotazioniOdierne() }
+\end{figure}
+
+Il metodo non ha parametri e non ha valore di ritorno.
+Il metodo inizia con le dichiarazioni di alcune variabili necessarie allo svolgimento del metodo.
+Dopodichè è presente il ciclo while while(scFile.hasNext()) in cui è contenuta la ricerca e la stampa delle prenotazioni odierne (while(scFile.hasNext()) va interpretato come “while(il file Prenotazioni.csv ha ancora qualcosa da leggere)” e quindi cioè “while(ci sono prenotazioni da controllare)”).
+In particolare, nel ciclo while(scFile.hasNext()) il programma:
+
+\begin{center}
+\begin{varwidth}{\textwidth}
+\begin{itemize}
+\item[•] ottiene una prenotazione dal file Prenotazioni.csv tramite il metodo estraiPrenotazione() della classe Bigliettaio; il metodo estraiPrenotazione() restituisce un oggetto di tipo Prenotazione che rappresenta la prenotazione letta/estratta dal file Prenotazioni.csv
+\item[•] verifica se la prenotazione letta/estratta è odierna
+\item[•] in caso affermativo visualizza la prenotazione all’utente, numerandola e mostrandone le informazioni con il metodo toString() della classe Prenotazione e mostrando il costo totale (ottenuto a partire dai campi prezzo biglietto e numero posti dell’oggetto Prenotazione)
+\end{itemize}
+\end{varwidth}
+\end{center}
+
+Al termine della ricerca il programma informa l’utente del numero di risultati della ricerca.
 
 \subsubsection{Visualizzare le prenotazioni effettuate da un cliente}
-
+Quando l’utente accede alla funzionalità di ricerca di una prenotazione il programma chiama il metodo cercaPrenotazione() della classe Bigliettaio.\\
+Il metodo effettua la ricerca di una prenotazione, secondo criteri decisi dall’utente, accedendo al file Prenotazioni.csv per leggere le informazioni sulle prenotazioni.
+Il metodo non ha parametri e come valore di ritorno restituisce un array di oggetti di tipo Prenotazione che conterrà gli oggetti Prenotazione che rappresentano le prenotazioni che sono risultato della ricerca, oppure null nel caso in cui la ricerca non abbia risultati (perché nessuna prenotazione rispetta i requisiti dell’utente oppure perché la ricerca è stata annullata).\\
+Il funzionamento di questo metodo è sostanzialmente analogo a quello di cercaProiezione() discusso nella sezione \ref{subsubsec:Guestlog}.
 
 
 \section{Data set di test}

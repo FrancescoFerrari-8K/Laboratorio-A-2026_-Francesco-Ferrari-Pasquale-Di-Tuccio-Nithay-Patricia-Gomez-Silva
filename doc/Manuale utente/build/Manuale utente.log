@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  30 AUG 2026 17:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  31 AUG 2026 09:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1519,164 +1519,170 @@ Package pdftex.def Info: IMGS/registrazioneok.png  used on input line 119.
 [9
 
  <./IMGS/registrazioneok.png>]
+<IMGS/credenziali.png, id=191, 319.1925pt x 158.84344pt>
+File: IMGS/credenziali.png Graphic file (type png)
+<use IMGS/credenziali.png>
+Package pdftex.def Info: IMGS/credenziali.png  used on input line 127.
+(pdftex.def)             Requested size: 319.19171pt x 158.84305pt.
+ [10 <./IMGS/credenziali.png>]
 Capitolo 5.
-<IMGS/loginriuscito.png, id=190, 636.12656pt x 290.58563pt>
+<IMGS/loginriuscito.png, id=198, 636.12656pt x 290.58563pt>
 File: IMGS/loginriuscito.png Graphic file (type png)
 <use IMGS/loginriuscito.png>
-Package pdftex.def Info: IMGS/loginriuscito.png  used on input line 128.
+Package pdftex.def Info: IMGS/loginriuscito.png  used on input line 136.
 (pdftex.def)             Requested size: 318.0625pt x 145.29245pt.
-<IMGS/loginfallito.png, id=191, 642.90187pt x 287.57437pt>
+<IMGS/loginfallito.png, id=199, 642.90187pt x 287.57437pt>
 File: IMGS/loginfallito.png Graphic file (type png)
 <use IMGS/loginfallito.png>
-Package pdftex.def Info: IMGS/loginfallito.png  used on input line 133.
+Package pdftex.def Info: IMGS/loginfallito.png  used on input line 141.
 (pdftex.def)             Requested size: 321.45015pt x 143.78683pt.
-<IMGS/menuguest.png, id=192, 542.77782pt x 184.43906pt>
+<IMGS/menuguest.png, id=200, 542.77782pt x 184.43906pt>
 File: IMGS/menuguest.png Graphic file (type png)
 <use IMGS/menuguest.png>
-Package pdftex.def Info: IMGS/menuguest.png  used on input line 140.
+Package pdftex.def Info: IMGS/menuguest.png  used on input line 148.
 (pdftex.def)             Requested size: 271.38824pt x 92.2193pt.
 
 Underfull \vbox (badness 1490) has occurred while \output is active []
 
- [10
+ [11
 
  <./IMGS/loginriuscito.png> <./IMGS/loginfallito.png>]
-<IMGS/menuricercaproiezione.png, id=201, 495.35063pt x 182.93344pt>
+<IMGS/menuricercaproiezione.png, id=209, 495.35063pt x 182.93344pt>
 File: IMGS/menuricercaproiezione.png Graphic file (type png)
 <use IMGS/menuricercaproiezione.png>
-Package pdftex.def Info: IMGS/menuricercaproiezione.png  used on input line 149
+Package pdftex.def Info: IMGS/menuricercaproiezione.png  used on input line 157
 .
 (pdftex.def)             Requested size: 247.67471pt x 91.46649pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 182--185
+Underfull \hbox (badness 10000) in paragraph at lines 190--193
 
  []
 
-[11 <./IMGS/menuguest.png> <./IMGS/menuricercaproiezione.png>]
-<IMGS/menuutente.png, id=211, 233.37187pt x 102.3825pt>
+[12 <./IMGS/menuguest.png> <./IMGS/menuricercaproiezione.png>]
+<IMGS/menuutente.png, id=219, 233.37187pt x 102.3825pt>
 File: IMGS/menuutente.png Graphic file (type png)
 <use IMGS/menuutente.png>
-Package pdftex.def Info: IMGS/menuutente.png  used on input line 212.
+Package pdftex.def Info: IMGS/menuutente.png  used on input line 220.
 (pdftex.def)             Requested size: 233.37129pt x 102.38225pt.
- [12 <./IMGS/menuutente.png>]
-<IMGS/prenotazione.png, id=219, 485.56406pt x 372.64218pt>
+ [13 <./IMGS/menuutente.png>]
+<IMGS/prenotazione.png, id=228, 485.56406pt x 372.64218pt>
 File: IMGS/prenotazione.png Graphic file (type png)
 <use IMGS/prenotazione.png>
-Package pdftex.def Info: IMGS/prenotazione.png  used on input line 224.
+Package pdftex.def Info: IMGS/prenotazione.png  used on input line 232.
 (pdftex.def)             Requested size: 291.34068pt x 223.58702pt.
-<IMGS/menuprenotazioni.png, id=220, 255.20343pt x 142.28156pt>
+<IMGS/menuprenotazioni.png, id=229, 255.20343pt x 142.28156pt>
 File: IMGS/menuprenotazioni.png Graphic file (type png)
 <use IMGS/menuprenotazioni.png>
-Package pdftex.def Info: IMGS/menuprenotazioni.png  used on input line 233.
+Package pdftex.def Info: IMGS/menuprenotazioni.png  used on input line 241.
 (pdftex.def)             Requested size: 255.2028pt x 142.2812pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 237--238
-
- []
-
-<IMGS/tuttelemieprenotazioni.png, id=221, 789.70032pt x 145.29282pt>
-File: IMGS/tuttelemieprenotazioni.png Graphic file (type png)
-<use IMGS/tuttelemieprenotazioni.png>
-Package pdftex.def Info: IMGS/tuttelemieprenotazioni.png  used on input line 24
-1.
-(pdftex.def)             Requested size: 789.6984pt x 145.29245pt.
-
-Overfull \hbox (334.45428pt too wide) in paragraph at lines 241--242
- [][] 
- []
-
 
 Underfull \hbox (badness 10000) in paragraph at lines 245--246
 
  []
 
-<IMGS/modificaposti.png, id=222, 1278.27562pt x 316.18124pt>
-File: IMGS/modificaposti.png Graphic file (type png)
-<use IMGS/modificaposti.png>
-Package pdftex.def Info: IMGS/modificaposti.png  used on input line 248.
-(pdftex.def)             Requested size: 766.9713pt x 189.7102pt.
+<IMGS/tuttelemieprenotazioni.png, id=230, 789.70032pt x 145.29282pt>
+File: IMGS/tuttelemieprenotazioni.png Graphic file (type png)
+<use IMGS/tuttelemieprenotazioni.png>
+Package pdftex.def Info: IMGS/tuttelemieprenotazioni.png  used on input line 24
+9.
+(pdftex.def)             Requested size: 789.6984pt x 145.29245pt.
 
-Overfull \hbox (311.72719pt too wide) in paragraph at lines 248--249
-[][] 
- []
-
-<IMGS/eliminaprenotazione.png, id=223, 796.47563pt x 104.64093pt>
-File: IMGS/eliminaprenotazione.png Graphic file (type png)
-<use IMGS/eliminaprenotazione.png>
-Package pdftex.def Info: IMGS/eliminaprenotazione.png  used on input line 255.
-(pdftex.def)             Requested size: 637.18138pt x 83.71283pt.
-
-Overfull \hbox (181.93727pt too wide) in paragraph at lines 255--256
+Overfull \hbox (334.45428pt too wide) in paragraph at lines 249--250
  [][] 
  []
 
-[13 <./IMGS/prenotazione.png>] [14 <./IMGS/menuprenotazioni.png> <./IMGS/tuttel
+
+Underfull \hbox (badness 10000) in paragraph at lines 253--254
+
+ []
+
+<IMGS/modificaposti.png, id=231, 1278.27562pt x 316.18124pt>
+File: IMGS/modificaposti.png Graphic file (type png)
+<use IMGS/modificaposti.png>
+Package pdftex.def Info: IMGS/modificaposti.png  used on input line 256.
+(pdftex.def)             Requested size: 766.9713pt x 189.7102pt.
+
+Overfull \hbox (311.72719pt too wide) in paragraph at lines 256--257
+[][] 
+ []
+
+<IMGS/eliminaprenotazione.png, id=232, 796.47563pt x 104.64093pt>
+File: IMGS/eliminaprenotazione.png Graphic file (type png)
+<use IMGS/eliminaprenotazione.png>
+Package pdftex.def Info: IMGS/eliminaprenotazione.png  used on input line 263.
+(pdftex.def)             Requested size: 637.18138pt x 83.71283pt.
+
+Overfull \hbox (181.93727pt too wide) in paragraph at lines 263--264
+ [][] 
+ []
+
+[14 <./IMGS/prenotazione.png>] [15 <./IMGS/menuprenotazioni.png> <./IMGS/tuttel
 emieprenotazioni.png> <./IMGS/modificaposti.png>]
-<IMGS/menuproiezionista.png, id=241, 447.92343pt x 189.70876pt>
+<IMGS/menuproiezionista.png, id=249, 447.92343pt x 189.70876pt>
 File: IMGS/menuproiezionista.png Graphic file (type png)
 <use IMGS/menuproiezionista.png>
-Package pdftex.def Info: IMGS/menuproiezionista.png  used on input line 267.
+Package pdftex.def Info: IMGS/menuproiezionista.png  used on input line 275.
 (pdftex.def)             Requested size: 223.96117pt x 94.85414pt.
-<IMGS/inserimentoproiezione.png, id=242, 347.04657pt x 419.31656pt>
+<IMGS/inserimentoproiezione.png, id=250, 347.04657pt x 419.31656pt>
 File: IMGS/inserimentoproiezione.png Graphic file (type png)
 <use IMGS/inserimentoproiezione.png>
-Package pdftex.def Info: IMGS/inserimentoproiezione.png  used on input line 276
+Package pdftex.def Info: IMGS/inserimentoproiezione.png  used on input line 284
 .
 (pdftex.def)             Requested size: 173.52286pt x 209.65776pt.
-<IMGS/cancellaproiezione.png, id=243, 499.11469pt x 94.10156pt>
+<IMGS/cancellaproiezione.png, id=251, 499.11469pt x 94.10156pt>
 File: IMGS/cancellaproiezione.png Graphic file (type png)
 <use IMGS/cancellaproiezione.png>
-Package pdftex.def Info: IMGS/cancellaproiezione.png  used on input line 285.
+Package pdftex.def Info: IMGS/cancellaproiezione.png  used on input line 293.
 (pdftex.def)             Requested size: 249.55672pt x 47.05066pt.
-<IMGS/modificaproiezione.png, id=244, 509.65407pt x 142.28156pt>
+<IMGS/modificaproiezione.png, id=252, 509.65407pt x 142.28156pt>
 File: IMGS/modificaproiezione.png Graphic file (type png)
 <use IMGS/modificaproiezione.png>
-Package pdftex.def Info: IMGS/modificaproiezione.png  used on input line 294.
+Package pdftex.def Info: IMGS/modificaproiezione.png  used on input line 302.
 (pdftex.def)             Requested size: 254.8264pt x 71.1406pt.
- [15 <./IMGS/eliminaprenotazione.png> <./IMGS/menuproiezionista.png>] [16 <./IM
+ [16 <./IMGS/eliminaprenotazione.png> <./IMGS/menuproiezionista.png>] [17 <./IM
 GS/inserimentoproiezione.png> <./IMGS/cancellaproiezione.png> <./IMGS/modificap
-roiezione.png>] [17]
-<IMGS/menubigliettaio.png, id=267, 417.81094pt x 158.84344pt>
+roiezione.png>] [18]
+<IMGS/menubigliettaio.png, id=275, 417.81094pt x 158.84344pt>
 File: IMGS/menubigliettaio.png Graphic file (type png)
 <use IMGS/menubigliettaio.png>
-Package pdftex.def Info: IMGS/menubigliettaio.png  used on input line 306.
+Package pdftex.def Info: IMGS/menubigliettaio.png  used on input line 314.
 (pdftex.def)             Requested size: 208.90495pt x 79.42152pt.
-<IMGS/BIGmenuprenotazioni.png, id=268, 352.31625pt x 148.30406pt>
+<IMGS/BIGmenuprenotazioni.png, id=276, 352.31625pt x 148.30406pt>
 File: IMGS/BIGmenuprenotazioni.png Graphic file (type png)
 <use IMGS/BIGmenuprenotazioni.png>
-Package pdftex.def Info: IMGS/BIGmenuprenotazioni.png  used on input line 330.
+Package pdftex.def Info: IMGS/BIGmenuprenotazioni.png  used on input line 338.
 (pdftex.def)             Requested size: 176.15768pt x 74.15184pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 348--349
+Underfull \hbox (badness 10000) in paragraph at lines 356--357
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 350--351
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 352--353
+Underfull \hbox (badness 10000) in paragraph at lines 360--361
 
  []
 
-[18 <./IMGS/menubigliettaio.png> <./IMGS/BIGmenuprenotazioni.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 354--355
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 368--369
+[19 <./IMGS/menubigliettaio.png> <./IMGS/BIGmenuprenotazioni.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 362--363
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 376--377
 
  []
 
-[19]
+
+Underfull \hbox (badness 10000) in paragraph at lines 378--379
+
+ []
+
+[20]
 (C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesco-Ferrari-Pasquale
 -Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale utente\build\Manuale utente.
 aux)
@@ -1688,10 +1694,10 @@ Package rerunfilecheck Info: File `"Manuale utente".out' has not changed.
 (rerunfilecheck)             Checksum: 44B46AAA00D0E088372A3FF17C042C50;4551.
  ) 
 Here is how much of TeX's memory you used:
- 31810 strings out of 467691
- 605844 string characters out of 5414987
+ 31824 strings out of 467691
+ 606169 string characters out of 5414987
  1051362 words of memory out of 5000000
- 60193 multiletter control sequences out of 15000+600000
+ 60205 multiletter control sequences out of 15000+600000
  674120 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  133i,8n,133p,849b,1098s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1704,9 +1710,9 @@ imes/utmr8a.pfb><C:/Users/franc/AppData/Local/Programs/MiKTeX/fonts/type1/urw/t
 imes/utmr8a.pfb>
 Output written on "C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesc
 o-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale utente\bui
-ld\Manuale utente.pdf" (19 pages, 411682 bytes).
+ld\Manuale utente.pdf" (20 pages, 418179 bytes).
 PDF statistics:
- 326 PDF objects out of 1000 (max. 8388607)
- 67 named destinations out of 1000 (max. 500000)
- 309 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 334 PDF objects out of 1000 (max. 8388607)
+ 69 named destinations out of 1000 (max. 500000)
+ 314 words of extra memory for PDF output out of 10000 (max. 10000000)
 
