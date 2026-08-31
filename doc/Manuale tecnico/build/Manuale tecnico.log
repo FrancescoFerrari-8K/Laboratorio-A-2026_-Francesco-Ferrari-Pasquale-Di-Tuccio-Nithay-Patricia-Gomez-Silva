@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  31 AUG 2026 19:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.13)  31 AUG 2026 20:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1889,12 +1889,7 @@ File: IMGS/cancellaproiezione.png Graphic file (type png)
 <use IMGS/cancellaproiezione.png>
 Package pdftex.def Info: IMGS/cancellaproiezione.png  used on input line 543.
 (pdftex.def)             Requested size: 356.45584pt x 175.02847pt.
-
-
-LaTeX Warning: Reference `menubigliettaio' on page 24 undefined on input line 5
-48.
-
-<IMGS/menubigliettaio.png, id=328, 417.81094pt x 158.84344pt>
+<IMGS/menubigliettaio.png, id=329, 417.81094pt x 158.84344pt>
 File: IMGS/menubigliettaio.png Graphic file (type png)
 <use IMGS/menubigliettaio.png>
 Package pdftex.def Info: IMGS/menubigliettaio.png  used on input line 552.
@@ -1904,7 +1899,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [24 <./IMGS/ricercaproiezione.png>] [25 <./IMGS/modificaproiezione.png> <./IMG
 S/cancellaproiezione.png>]
-<IMGS/visprenotazioni.png, id=343, 636.87938pt x 341.02406pt>
+<IMGS/visprenotazioni.png, id=344, 636.87938pt x 341.02406pt>
 File: IMGS/visprenotazioni.png Graphic file (type png)
 <use IMGS/visprenotazioni.png>
 Package pdftex.def Info: IMGS/visprenotazioni.png  used on input line 562.
@@ -1941,10 +1936,10 @@ Package rerunfilecheck Info: File `"Manuale tecnico".out' has not changed.
 (rerunfilecheck)             Checksum: 3C7F524445828856EAB1BFF57023A847;2811.
  ) 
 Here is how much of TeX's memory you used:
- 32598 strings out of 467691
- 619938 string characters out of 5414987
+ 32597 strings out of 467691
+ 619921 string characters out of 5414987
  1070751 words of memory out of 5000000
- 60924 multiletter control sequences out of 15000+600000
+ 60923 multiletter control sequences out of 15000+600000
  670566 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  133i,10n,133p,980b,1112s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1959,9 +1954,9 @@ KTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/franc/AppData/Local/Programs/Mi
 KTeX/fonts/type1/urw/times/utmr8a.pfb>
 Output written on "C:\Users\franc\Documents\GitHub\Laboratorio-A-2026_-Francesc
 o-Ferrari-Pasquale-Di-Tuccio-Nithay-Patricia-Gomez-Silva\doc\Manuale tecnico\bu
-ild\Manuale tecnico.pdf" (30 pages, 2290577 bytes).
+ild\Manuale tecnico.pdf" (30 pages, 2290634 bytes).
 PDF statistics:
- 417 PDF objects out of 1000 (max. 8388607)
+ 418 PDF objects out of 1000 (max. 8388607)
  99 named destinations out of 1000 (max. 500000)
  281 words of extra memory for PDF output out of 10000 (max. 10000000)
 
